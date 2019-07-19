@@ -538,7 +538,7 @@
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                        <input id='txt_estado' name='txt_estado' type="text" class="form-control" placeholder="Estado" readonly="" disabled="" />
+                        <input id='txt_estado' name='txt_estado' type="text" class="form-control" placeholder="Estado" />
                      </div>
                   </div>
                </div>
@@ -547,7 +547,7 @@
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                        <input id='txt_municipio' name='txt_municipio' type="text" class="form-control" placeholder="Municipio/Alcaldía" readonly="" disabled="" />
+                        <input id='txt_municipio' name='txt_municipio' type="text" class="form-control" placeholder="Municipio/Alcaldía"  />
                      </div>
                   </div>
                </div>

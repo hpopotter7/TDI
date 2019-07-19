@@ -3511,9 +3511,10 @@ function validarInput() {
           //console.log(data.colonias);
           $('#txt_estado').val(data.estado.toUpperCase());
           $('#txt_municipio').val(data.municipio.toUpperCase());
+          /*
           $('#txt_estado').css('background-color','#d6d5d5');
-          $('#txt_municipio').css('background-color','#d6d5d5');
-          //data.quotesArray.forEach(function(index, value){
+          $('#txt_municipio').css('background-color','#d6d5d5');*/
+            //data.quotesArray.forEach(function(index, value){
             //var array=data.colonias;
             data.colonias.sort();
             var opciones=" <option value='vacio'>Selecciona...</option>";
