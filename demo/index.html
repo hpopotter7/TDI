@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<meta charset="UTF-8">
+<title>Demo - Solicitud de pedidos</title>
+
+
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/jquery.fancybox.css">
+<link rel="stylesheet" href="css/jquery-ui2.css">
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/bootstrap.min2.css">
+<link rel="stylesheet" href="css/estilos.css" >
+
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/assets/jquery.fittext.js"></script>
+<script src="js/assets/jquery.lettering.js"></script>
+<script src="js/jquery-ui1.12.js"></script>
+<script src="js/jquery.fancybox.js"></script>
+<script src="js/noty/packaged/jquery.noty.packaged.js"></script>
+<script src="js/jquery.formatCurrency.js"></script>
+<script src="js/jquery_numeric.js"></script>
+<script src="js/metodos_pedidos.js"></script>
+
+
+ <script>
+  $(document).on("ready",inicio);  
+</script>
+<body>
+        <div class="container">
+           
+           <div class="row" >
+          <div class="row col-md-offset-4 col-md-4" id='div_log'>
+            <div class="form-login">
+              <center>
+              <img src="img/logo.webp" alt="">
+            </center>
+            <h4>Inicio de sesión</h4>
+            <br><p>
+              <div class="row clearfix">
+              
+              </div>
+            <div class="form-group col-md-12">
+              <label for="name" class="cols-sm-2 control-label">Username</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  <input id='txt_username' name='txt_username' type="text" class="form-control" placeholder="Usuario" required="" />
+                  <input type="hidden" id='txt_usuario'/>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <label for="" class="cols-sm-2 control-label">Contraseña</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  <input id='txt_pass' name='txt_pass' type="password" class="form-control" placeholder="Contraseña" required="" />
+                </div>
+              </div>
+            </div>
+            <div class="wrapper">
+            <span class="group-btn">     
+                <a href="#" id='btn_login'  class="btn btn-default btn-md">login <i class="fa fa-sign-in"></i></a>
+            </span>
+            
+            <div id='respon'class='row'>
+              
+            </div>
+            </div>
+          </div>
+        </div>
+        
+    <div id='seccion' class="row col-md-12">
+      <div class="col-md-9"><center><h1>Demo de solicitud de pedidos</h1></center></div>
+      <div class="col-md-3" style="text-align: right;"><label id='label_nombre'></label></div>
+      
+          <div class="row ">
+            <div class="col-md-4">
+              <fieldset>
+                <legend>Equipo</legend>
+                  <select class='form-control' id="lineas"></select>
+              </fieldset>
+              </div>
+              <div class="col-md-5">
+              <fieldset>
+                <legend>Producto</legend>
+                <!--
+                  <select class='form-control' name="" id="nombres" style='color: black'></select>
+                -->
+                <input type="text" id='txt_nombre' class='form-control' name="" value="" placeholder="Producto">
+               </fieldset>
+              </div>
+              <div class="col-md-1">
+              <fieldset>
+                <legend>Cantidad</legend>
+                  <input type="number" id='txt_cantidad' class="form-control" placeholder="Cantidad" />
+               </fieldset>
+              </div>
+               <div class="col-md-1">
+              <fieldset>
+                <legend>Precio</legend>
+                  <input type="text" id='txt_precio' class="form-control" placeholder="Precio"  />
+               </fieldset>
+              </div>
+              <div class="col-md-1">
+                 <fieldset>
+                    <button class="btn btn-info btn-lg" id='btn_enviar' type="button"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>
+               </fieldset>
+              </div>
+               <div class="col-md-2">
+                   <h6 id='mensaje' style='text-align: center;'></h6>
+              </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+          <table id='tabla_pedido' class="table table-condensed blueTable" >
+            <thead>
+              <tr>
+                <th>Linea</th>
+                <th>Código</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+              </tr>
+            </thead>
+            <tbody id='cuerpo'>
+            </tbody>
+            <tfoot id='foot'>
+            </tfoot>
+          </table>
+          
+
+          <button type="button"id='btn_solicitar'class="btn btn-warning btn-lg pull-right"><i class="fa fa-send" aria-hidden="true"></i> Solicitar pedido</button>
+          
+        </div>
+        
+        </div>
+  	<div  class="row">
+          <h2 id='mensaje2'></h2>
+        </div>
+   
+</body>
+</html>
