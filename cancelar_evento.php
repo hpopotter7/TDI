@@ -1,6 +1,7 @@
 <?php 
 	$id_evento=$_POST['id_evento'];
 	$ordenes=0;
+	$ID="";
 	include("conexion.php");
 	
 	if (mysqli_connect_error()) {
@@ -8,7 +9,24 @@
 	    exit();
 	}
 	//$comentarios = $mysqli->real_escape_string($comentarios);
+
+	$arr=explode("]",$id_evento);
+    $id_evento=str_replace("[", "", $arr[0]);
+
 	$result = $mysqli->query("SET NAMES 'utf8'");
+
+$sql="SELECT id_evento from eventos where Numero_evento='".$id_evento."'";		
+		if ($result = $mysqli->query($sql)) {
+		    while ($row = $result->fetch_row()) {
+		        $ID=$row[0];
+		    }
+		    $result->close();
+		}
+		else{
+			echo $sql.mysqli_error($mysqli);
+		}
+
+
 		$sql="SELECT * from odc where evento='".$id_evento."'";		
 		if ($result = $mysqli->query($sql)) {
 		    while ($row = $result->fetch_row()) {
@@ -25,10 +43,10 @@
 		    exit();
 		}
 		else{
-			$sql="UPDATE eventos SET Estatus='CANCELADO' where id_evento='".$id_evento."'";
+			$sql="UPDATE eventos SET Estatus='CANCELADO' where id_evento='".$ID."'";
 			$result = $mysqli->query("SET NAMES 'utf8'");
 			if ($mysqli->query($sql)) {		    
-			    echo "cancelado";
+			    echo "cancelado".$sql;
 			}
 			else{
 				echo $sql.mysqli_error($mysqli);

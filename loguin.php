@@ -3,6 +3,7 @@
 $user=$_POST['user'];
 $pass=$_POST['pass'];
 $usuario="No existe";
+$res="";
 //$mysqli = new mysqli("localhost", "tierra_ideas", "adminadmin", "tierra_ideas");
 include("conexion.php");
 //$mysqli = new mysqli("localhost", "tierrad9_admin", "Quick2215!", "tierrad9_admin");

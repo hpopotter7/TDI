@@ -1066,8 +1066,9 @@ var parametros = {
                   ver_eventos();
                 }
                 else{
-                  
-                 generate('error', "ocurrio un error, consulte la consola para más detalles."); 
+                  console.log(response);
+                 generate('error', "Ocurrio un error, vea la consola para mas detalles"); 
+
                 }
               }
             });
@@ -1700,6 +1701,12 @@ var parametros = {
               data: datos,
               success:  function (response) {
                 //$('#c_transfer').html(response);
+                 $('#c_mis_eventos').editableSelect('destroy');
+                         $('#c_eventos_creados').editableSelect('destroy');                
+                         $('#c_numero_evento').editableSelect('destroy');
+                         $('#c_mis_eventos').editableSelect('destroy');
+                         $('#c_eventos_modificar').editableSelect('destroy');
+                         
                 $('#c_eventos_creados').html(response); // todos pueden ver
                 $('#c_mis_eventos').html(response);
                 $('#c_numero_evento').html(response); // no todos pueden pedir
@@ -3511,11 +3518,7 @@ function validarInput() {
           //console.log(data.colonias);
           $('#txt_estado').val(data.estado.toUpperCase());
           $('#txt_municipio').val(data.municipio.toUpperCase());
-          /*
-          $('#txt_estado').css('background-color','#d6d5d5');
-          $('#txt_municipio').css('background-color','#d6d5d5');*/
-            //data.quotesArray.forEach(function(index, value){
-            //var array=data.colonias;
+          
             data.colonias.sort();
             var opciones=" <option value='vacio'>Selecciona...</option>";
             Object.keys(data.colonias).forEach(function (index, value){
@@ -3527,12 +3530,15 @@ function validarInput() {
               var colo=colo.replace("Ó", "O");
               var colo=colo.replace("Ú", "U");
               opciones=opciones+'<option value="'+colo+'">' + colo + '</option>';
+
             });
+            opciones=opciones+'<option value="0">Ingresa una colonia</option>';
             
             $('#c_colonia').html(opciones);
             if(colonia!=""){
               $('#c_colonia').val(colonia);
             }
+           
         }
       // Send request
       request.send();
@@ -3846,6 +3852,12 @@ function validarInput() {
                         generate('success',"El evento ha sido cancelado correctamente!");
 //                      enviar_notificacion_solicitud(nombre_evento, titulo);
                         metodo_limpiar_evento();
+                        
+                  
+
+
+
+
                         ver_eventos();
                       }
                       else if(response.includes("Existen pagos")){
@@ -4637,6 +4649,41 @@ $('#btn_borrar_sdp').click(function(){
         $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
         $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
     });
+
+   $('#c_colonia').change(function(){
+    noty({
+                    text        : "Ingresa una colonia <p><input class='form-control' id='txt_colonia_manual' type='text'>",
+                    width       : '650px',
+                    type        : 'warning',
+                    dismissQueue: false,
+                    closeWith   : ['button'],
+                    theme       : 'metroui',
+                    timeout     : false,
+                    layout      : 'topCenter',
+                     callbacks: {
+                      afterShow: function() { },
+                    },
+                     buttons: [
+                      {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
+                        var colonia=$noty.$bar.find('input#txt_colonia_manual').val();
+                        if(colonia==""){
+                          generate("warning", "Debe ingresar una colonia");
+                        }
+                        else{
+                          $("#c_colonia").append(new Option(colonia, colonia));
+                          $("#c_colonia option[value='"+colonia+"']").prop('selected', true);
+                          $noty.close();
+
+                        }
+                        }
+                      },
+                      {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
+                         $noty.close();
+                        }
+                      }
+                     ]
+                  });
+   });
 
 /*
 $( "#txt_evento_auto" ).autocomplete({
