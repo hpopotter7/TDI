@@ -2047,9 +2047,17 @@ var parametros = {
                $('#fieldset_documentos').show();
                $('.files_clientes').show();
               ver_archivos(arr[1]);
+              
+              $('#btn_bloquear').removeAttr("disabled");
+              $('#btn_bloquear').removeClass("disabled");
             }
             else{
-               $('#fieldset_documentos').hide();
+               $('#fieldset_documentos').show();
+               $('.files_clientes').show();
+              ver_archivos(arr[1]);
+              $('#btn_bloquear').attr("disabled", true);
+              $('#btn_bloquear').addClass("disabled");
+              
             }
             
           }
@@ -2092,7 +2100,8 @@ var parametros = {
                 $('#txt_cuenta_bancaria').val(response.cuenta);
                 $('#txt_clabe').val(response.clabe);
                 $('#c_bancos').val(response.banco);
-                if($('#input_oculto').val()=="ALAN SANDOVAL" || $('#input_oculto').val()=="SANDRA PEÑA"){
+                if($('#input_oculto').val()=="ALAN SANDOVAL" || $('#input_oculto').val()=="SANDRA PEÑA" ||
+                   $('#input_oculto').val()=="SANAYN MARTINEZ"){
                 $('#btn_bloquear').show();
                 }
                  
@@ -3054,17 +3063,17 @@ var parametros = {
                  //el correo ya se envia si es nuevo desde update_cliente.php
                  check_pendientes_click();
                   if(titulo.includes("clien")){
-                    generate('success', "El cliente ha sido agregado<br><i>Se ha notificado al solicitante</i>"); 
+                    generate('success', "El cliente ha sido agregado<br>"); 
                   }
                   else{
-                    generate('success', "El proveedor ha sido agregado<br><i>Se ha notificado al solicitante</i>"); 
+                    generate('success', "El proveedor ha sido agregado<br>"); 
                   }
                   descargar_zip(cliente);
                   
                 }
                 else{
                   console.log(response);
-                 generate('error', "ocurrio un error, consulte la consola para más detalles."); 
+                 generate('error', "Error: "+response); 
                  $('#div_siguiente').show();
                 }
               }
@@ -4235,7 +4244,7 @@ function validarInput() {
                },
               success:  function (response) {
                 //console.log(response);
-                if(response.includes("registro correcto")){
+                if(response.includes("registro correcto") || response.includes("ya existe")){
                   //generate('success', "La solicitud se ha registrado!!");
                   $('#enviar_solicitud_cliente').html('<i class="i_espacio fa fa-envelope-o" aria-hidden="true"></i>Enviar Solicitud'); 
                   //limpiar_cliente();
@@ -4253,8 +4262,9 @@ function validarInput() {
                    $('#div_siguiente').hide();
                    //$('#enviar_solicitud_cliente').fadeIn("swing")
                 }
+
                 else{
-                  generate("error", "Ocurrio un error.");
+                  generate("error", "Ocurrio un error: "+response);
                   console.log(response);
                 }
                 /*
