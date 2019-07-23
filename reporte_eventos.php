@@ -23,7 +23,7 @@ $res='<thead>
             <th>Presupuesto</th>
         </tr>
     </thead><tbody>';
-$sql = "SELECT Numero_evento, Nombre_evento, Cliente, DATE_FORMAT(Inicio_evento, '%d/%m/%Y'), DATE_FORMAT(Fin_evento, '%d/%m/%Y'), Destino, Sede, Ejecutivo, Disenio, Produccion, Facturacion  FROM eventos";
+$sql = "SELECT Numero_evento, Nombre_evento, Cliente, DATE_FORMAT(Inicio_evento, '%d/%m/%Y'), DATE_FORMAT(Fin_evento, '%d/%m/%Y'), Destino, Sede, Ejecutivo, Disenio, Produccion, Facturacion  FROM eventos where Estatus='ABIERTO'";
 $result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
      while ($row = $result->fetch_row()) {

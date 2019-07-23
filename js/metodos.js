@@ -1,6 +1,7 @@
 function inicio(){
 
   var ids_odc="";// cadena para transeferir eventos
+  var BANCOS="";
 
   var file1=false;
   var file2=false;
@@ -76,6 +77,9 @@ var idioma_espaniol = {
 
 
   $('.bubble').tooltipster();
+  
+
+
 
   $('#label_fernanda').hide();
   $('#sec_datos_factura').hide();
@@ -176,7 +180,7 @@ var idioma_espaniol = {
    $( "#f_solicitud").datepicker({ dateFormat: 'yy-mm-dd' });
    $( "#f_pago").datepicker({ dateFormat: 'yy-mm-dd' });
    $( "#odc_fecha").datepicker({dateFormat: 'yy-mm-dd'});
-
+   $( ".fecha").datepicker({ dateFormat: 'dd-mm-yyyy' });
   var cliente="";
 
  /* function ocultar(nombre){
@@ -1267,6 +1271,7 @@ var parametros = {
               type:  'post',
               success:  function (response) {
                 $('#c_bancos').html(response);
+                BANCOS=response;
               }
             });
         }
@@ -4685,6 +4690,92 @@ $('#btn_borrar_sdp').click(function(){
                   });
    });
 
+/*
+$("#resultado_solicitudes").delegate(".btn_monto", "mouseenter", function() {
+  $('#uno').tooltipster('open');
+});
+*/
+
+ $('#resultado_solicitudes').delegate('.bubble3','mouseenter', function(e) {
+  
+  //$(e).tooltipster('show');
+        $(e.target).tooltipster({
+            contentAsHTML: 'true',
+        });
+    });
+
+
+$('#resultado_solicitudes').delegate('.btn_devolucion','click', function(e) {
+  var id=$(this).attr('id');
+  BANCOS=BANCOS.replace('<option value="vacio">Selecciona un banco...</option>', '');
+  var inputs="<div class='row'><div class='col-md-3'>Motivo devolución:</div><div class='col-md-9'><textarea class='form-control' id='motivo' cols='3' rows='4' placeholder='Ingresa un motivo'></textarea> </div></div><p><div class='row'><div class='col-md-3'>Monto a devolver:</div> <div class='col-md-9'><input class='form-control' id='txt_monto' type='number' placeholder='Ingresa solo importe numérico '> </div></div><p><div class='row'><div class='col-md-3'>Fecha de devolución:</div><div class='col-md-9'><input id='fecha_devolucion' type='date' class='form-control fecha'></div></div><p><div class='row'><div class='col-md-3'>Banco:</div><div class='col-md-9'><select class='form-control' id='banco'><option value='EFECTIVO'>EFECTIVO</option><option value='-' disabled>--------</option>"+BANCOS+"</select></div></div>";
+  noty({
+                    text        : inputs,
+                    width       : '650px',
+                    type        : 'warning',
+                    dismissQueue: false,
+                    closeWith   : ['button'],
+                    theme       : 'metroui',
+                    timeout     : false,
+                    layout      : 'topCenter',
+                     callbacks: {
+                      afterShow: function() { },
+                    },
+                     buttons: [
+                      {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
+                        var motivo=$noty.$bar.find('textarea#motivo').val();
+                        var monto=$noty.$bar.find('input#txt_monto').val();
+                        var fecha=$noty.$bar.find('input#fecha_devolucion').val();
+                        var banco=$noty.$bar.find('select#banco').val();
+                        
+                        if(motivo=="" || monto=="" || fecha==""){
+                          generate("warning", "Todos los datos son requeridos");
+                        }
+                        else{
+                          
+                           devolucion_solicitud(id, monto, motivo, fecha, banco, $noty);
+                          
+                        }
+                        }
+                      },
+                      {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
+                         $noty.close();
+                        }
+                      }
+                     ]
+                  });
+    });
+
+
+function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
+    var parametros = {
+            "id_odc": id_odc,
+            "monto": monto,
+            "motivo": motivo,
+            "fecha": fecha,      
+            "banco": banco,      
+          };
+        $.ajax({
+          data: parametros,
+          url:   'devolucion_solicitud.php',
+          type:  'post',
+          success:  function (response) {
+            if(response.includes("devolucion exitosa")){
+              generate("success", "La devolucion se ha realizado correctamente!!");
+              var evento=$('#c_mis_eventos').val();
+              ver_solicitudes_por_evento(evento);
+              noty.close();
+            }
+            else{
+              generate("error", "Error: "+response);
+            }
+          }
+        });
+    
+  }
+ 
+
+  
 /*
 $( "#txt_evento_auto" ).autocomplete({
       source: availableTags

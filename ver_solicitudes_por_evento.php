@@ -104,13 +104,15 @@ if ($result = $mysqli->query($sql3)) {
 }
 
 
-$sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.Cancelada='no' order by o.Concepto asc";
+$sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra, o.Monto_devolucion, DATE_FORMAT(o.Fecha_devolucion, '%d-%m-%Y'), o.Motivo_devolucion, o.Banco_devolucion FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.Cancelada='no' order by o.Concepto asc";
+/*
 $a="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.Cancelada='no' order by o.Concepto asc";
+*/
 
 if ($result = $mysqli->query($sql)) {
         
-     $resultado='<table class="table table-inverse"><thead><tr><th>#</th><th>Elaborado</th>
-     <th>Solicita</th><th>Proveedor</th><th>Concepto</th><th>Total</th><th>Factura</th><th>Descargar</th><th>Cheque</th><th>Pagado</th><th>Comp</th><th>Tipo</th></tr></thead>';
+     $resultado='<table class="table table-inverse" style="width:99%"><thead><tr><th>#</th><th>Elaborado</th>
+     <th>Solicita</th><th>Proveedor</th><th>Concepto</th><th>Total</th><th>Factura</th><th>Descargar</th><th>Cheque</th><th>Pagado</th><th>Comp</th><th>Tipo</th><th>Devolucion</th></tr></thead>';
   	$suma=0;
     $disabled="";
     $tit="";
@@ -119,29 +121,53 @@ if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
       $contador++;
       $usuario_registra=$row[12];
+      $devolucion=$row[13];
+      $fecha_dev=$row[14];
+      $motivo=$row[15];
+      $banco=$row[16];
       $monto_factura=$row[10]; //10 facturacion
       $suma=$suma+$row[2];
+
+      $columna_total="";
+      //class="label label-danger"
+
       $identificador="SD".substr($row[9], 0, 1);
       if($identificador=="SDO"){
         $identificador="SDP";
       }
+
       switch ($identificador) {
         case 'SDP':
           $tit="Solicitud de pago";
           $TITULO="PAGO";
+          $devolucion="NA";
+          $columna_total="<td><h4><span class='label label-primary'>".moneda($row[2])."</span></h4></td>";
           break;
         case 'SDV':
           $tit="Solicitud de viáticos";
           $TITULO="VIÁTICOS";
+          $devolucion="NA";
+          $columna_total="<td><h4><span class='label label-primary'>".moneda($row[2])."</span></h4></td>";
           break;
         case 'SDR':
           $tit="Solicitud de reembolso";
           $TITULO="REEMBOLSO";
+          if($devolucion==""){
+            $devolucion="<button type='button' id='".$row[3]."' name='id' class='btn btn-info btn_devolucion'><i class='fa fa-retweet'></i></button>";
+            $columna_total="<td><h4><span class='label label-primary'>".moneda($row[2])."</span></h4></td>";
+          }
+          else{
+            $devolucion="<span class='bubble' id='uno' title='Ya tiene una devolucion'><button type='button' id='".$row[3]."' name='id' class='btn btn-info disabled' disabled><i class='fa fa-retweet'></i></button></span>";
+             $columna_total=$row[2]-$row[13];
+             $dev=$row[13];
+         $columna_total="<td><h4><span class='bubble3' title='<div>Se hizo una devolución por ".moneda($dev)."</div>El dia ".$fecha_dev."<p>En: ".$banco."</div><div>Por motivo: ".$motivo."</div>'><span class='label label-danger'>".moneda($columna_total)."</span></span></td>";
+          }
           break;
-        
       }
+      
+      
       if($valida=="CXP"){
-        $resultado=$resultado."<tbody><tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$row[0]."</td><td>".$row[1]."</td><td>".moneda($row[2])."</td><td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank'><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
+        $resultado=$resultado."<tbody><tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$row[0]."</td><td>".$row[1]."</td>".$columna_total."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank'><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
         if($identificador=="SDV" || $identificador=="SDR"){
           $resultado=$resultado."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_cheque'>".$row[11]."</label></td>";
         }
@@ -161,11 +187,13 @@ if ($result = $mysqli->query($sql)) {
           else{
             $resultado=$resultado."<td><center><input type='checkbox' class='check_comp fa fa-2x' value='".$row[3]."' checked></center></td>";
           }
-          $resultado=$resultado."<td title='".$tit."'>".$identificador."</td></tr></tbody>";
+          $resultado=$resultado."<td title='".$tit."'>".$identificador."</td>";
+          $resultado=$resultado."<td><center>".$devolucion."</center></td>";
+           $resultado=$resultado."</tr></tbody>";
       }
       else{
         if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
-          $resultado=$resultado."<tbody><tr><td><input type='checkbox' value='".$row[3]."' class='check_transfer'></td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$row[0]."</td><td>".$row[1]."</td><td>".moneda($row[2])."</td><td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank' ><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
+          $resultado=$resultado."<tbody><tr><td><input type='checkbox' value='".$row[3]."' class='check_transfer'></td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$row[0]."</td><td>".$row[1]."</td>".$columna_total."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank' ><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
         }
         else{
           $resultado=$resultado."<tbody><tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$row[0]."</td><td>".$row[1]."</td><td>".moneda($row[2])."</td><td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank' ><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
@@ -190,7 +218,10 @@ if ($result = $mysqli->query($sql)) {
           else{
             $resultado=$resultado."<td><center><input type='checkbox' class='check_comp fa fa-2x' value='".$row[3]."' checked disabled style='cursor: not-allowed'></center></td>";
           }
-          $resultado=$resultado."<td>".$identificador."</td></tr></tbody>";
+          $resultado=$resultado."<td>".$identificador."</td>";
+          $resultado=$resultado."<td><center>".$devolucion."</center></td>";
+           $resultado=$resultado."</tr></tbody>";
+          
       }
       				
 		
