@@ -146,8 +146,20 @@ if ($result = $mysqli->query($sql)) {
         case 'SDV':
           $tit="Solicitud de viáticos";
           $TITULO="VIÁTICOS";
+          /*
           $devolucion="NA";
           $columna_total="<td><h4><span class='label label-primary'>".moneda($row[2])."</span></h4></td>";
+          */
+          if($devolucion==""){
+            $devolucion="<button type='button' id='".$row[3]."' name='id' class='btn btn-info btn_devolucion'><i class='fa fa-retweet'></i></button>";
+            $columna_total="<td><h4><span class='label label-primary'>".moneda($row[2])."</span></h4></td>";
+          }
+          else{
+            $devolucion="<span class='bubble' id='uno' title='Ya tiene una devolucion'><button type='button' id='".$row[3]."' name='id' class='btn btn-info disabled' disabled><i class='fa fa-retweet'></i></button></span>";
+             $columna_total=$row[2]-$row[13];
+             $dev=$row[13];
+         $columna_total="<td><h4><span class='bubble3' title='<div>Se hizo una devolución por ".moneda($dev)."</div>El dia ".$fecha_dev."<p>En: ".$banco."</div><div>Por motivo: ".$motivo."</div>'><span class='label label-danger'>".moneda($columna_total)."</span></span></td>";
+          }
           break;
         case 'SDR':
           $tit="Solicitud de reembolso";

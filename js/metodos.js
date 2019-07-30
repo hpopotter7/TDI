@@ -3,11 +3,11 @@ function inicio(){
   var ids_odc="";// cadena para transeferir eventos
   var BANCOS="";
 
-  var file1=false;
-  var file2=false;
-  var file3=false;
-  var file4=false;
-  var file5=false;
+  var csf=false;
+  var ine=false;
+  var edo=false;
+  var comp=false;
+  var acta=false;
 
    $('.dropdown-submenu a.test').on("click", function(e){
     $(this).next('ul').toggle();
@@ -140,7 +140,7 @@ var idioma_espaniol = {
    $('.buttonText:eq(4)').html('DOMICILIO');
 
    //$('#s').hide();
-   $('#enviar_solicitud_cliente').hide();
+   //$('#enviar_solicitud_cliente').hide();
    $('.lis').show();
    $("#div_sodexo").hide();
    $('#c_eventos_creados2').hide();
@@ -1232,7 +1232,7 @@ var parametros = {
         $('#menu_solicitud_reembolso').click(function(e){
           e.preventDefault();
           $("#combo_metodo_pago option[value='PPD']").removeAttr('disabled');
-           //$("#div_sodexo").hide();
+           $("#div_sodexo").show();
           $("#div_cortina").animate({top: '0px'}, 1100); 
           ver_eventos();
           //ver_proveedores_usuarios("todos");
@@ -1317,13 +1317,13 @@ var parametros = {
               $('#check_pendientes').show();
            }
            else{
-              $('#check_pendientes').hide();
+              //$('#check_pendientes').hide();
            }
            $("#div_cortina").animate({top: '0px'}, 1100); 
            limpiar_cliente();
            ver_bancos();
-           $('#fieldset_documentos').hide();
-           $('#enviar_solicitud_cliente').hide();
+           //$('#fieldset_documentos').hide();
+           //$('#enviar_solicitud_cliente').hide();
            $('#seccion_datos').fadeIn();
            $('#l_cli').html("Proveedores registrados");
            $('#l_razon').html("Razón social del proveedor");
@@ -1361,7 +1361,7 @@ var parametros = {
            $('#files3').show();
            $('#files4').show();
            $('#files5').show();
-           $('#div_siguiente').show();
+           //$('#div_siguiente').show();
            
         });
 
@@ -1391,7 +1391,7 @@ var parametros = {
            $('#div_modificar_evento').fadeOut();
            $('#div_cerrar_evento').fadeOut();
            //ocultar files
-           $('#fieldset_documentos').hide();
+           //$('#fieldset_documentos').hide();
            //$('#files1').show();
            $('#div_solicitud_factura').fadeOut();
            $('#div_reporte_eventos').fadeOut();
@@ -1514,6 +1514,7 @@ var parametros = {
         });
 
         function check_pendientes_click(){
+          limpiar_cliente();
            var tipo="";
           if($('#titulo_alta').html().includes("cliente")){
             tipo="clientes";
@@ -1522,57 +1523,36 @@ var parametros = {
             tipo="proveedores"
           }
           if($('#check_solicitud_pendientes').is(':checked')){
-            $('#load2').show();
             ver_solicitudes_clientes("true", tipo);  
-            $('#load2').hide();  
           }
           else{
-            $('#load2').show();
             ver_solicitudes_clientes("false", tipo);    
-            $('#load2').hide();
           }       
         }
 
-/*
-        $('#check_pendientes_proveedores').click(function(e){
-          if($(this).is(':checked')){
-            $('#load_prov').show();
-            ver_solicitudes_proveedores("false");    
-            $('#load_prov').hide();
-          }
-          else{
-            $('#load_prov').show();
-            ver_solicitudes_proveedores("true");    
-            $('#load_prov').hide();
-          }
-        });
-*/
-
-        ////metodo para enviar archivos mediante ajax
       
 
         $("#enviar_solicitud_cliente").click(function(e){
-          var nombre_cliente=$('#txt_nombre_cliente').val();
-          var nombre_rfc=$('#txt_rfc').val();
-          var nombre_contacto=$('#txt_nombre_contacto').val();
-          var email_contacto=$('#txt_correo_contacto').val();
-          var usuario_solicita=$('#input_oculto').val();
-          var tipo=$('#combo_tipo_persona').val();
-          var tit=$('#titulo_alta').html();
+          //envio_mail_solicitud(); // envio de correo de solicitud cliente/proveedor
+          validar_form_clientes_proveedores()
           
-          if(tit.includes("cliente")){
-            tit="cliente";
-          }
-          else{
-            tit="proveedor";
-          }
-          //enviar_mail_solo_texto(nombre_cliente, nombre_rfc, nombre_contacto, email_contacto, usuario_solicita, tipo);
-          
-          envio_mail_solicitud(usuario_solicita, nombre_cliente, tit);
         });
 
        
-        function envio_mail_solicitud(usuario, proveedor, tipo){
+        function envio_mail_solicitud(){
+          var proveedor=$('#txt_nombre_cliente').val();
+          var nombre_rfc=$('#txt_rfc').val();
+          var nombre_contacto=$('#txt_nombre_contacto').val();
+          var email_contacto=$('#txt_correo_contacto').val();
+          var usuario=$('#input_oculto').val();
+          //var tipo=$('#combo_tipo_persona').val();
+          var tipo=$('#titulo_alta').html();
+          if(tipo.includes("cliente")){
+            tipo="cliente";
+          }
+          else{
+            tipo="proveedor";
+          }
            var datos={
               "proveedor": proveedor,
               "usuario": usuario,
@@ -1688,11 +1668,22 @@ var parametros = {
           $('#c_bancos').val('vacio');
           $('#txt_sucursal').val('');
           $('#c_CFDI_CLIENTE option[value="vacio"]').prop('selected', true);
-          $('#fieldset_documentos').hide();
-           $('#enviar_solicitud_cliente').hide();
+          //$('#fieldset_documentos').hide();
+           //$('#enviar_solicitud_cliente').hide();
            $('#seccion_datos').fadeIn();
-           $('#btn_validar_clientes').fadeIn();
+           //$('#btn_validar_clientes').fadeIn();
            $('#btn_bloquear').hide();
+           desactivar_btn_file($('#span_file_csf'), $('#file_csf'));
+          desactivar_btn_file($('#span_file_ine'), $('#file_ine'));
+          desactivar_btn_file($('#span_file_edo'), $('#file_edo'));
+          desactivar_btn_file($('#span_file_comp'), $('#file_comp'));
+          desactivar_btn_file($('#span_file_acta'), $('#file_acta'));
+          csf=false;
+          ine=false;
+          edo=false;
+          comp=false;
+          acta=false;
+          ver_archivos('ca');
         }
         
         function ver_eventos(){
@@ -2043,17 +2034,14 @@ var parametros = {
             else{
               ver_datos_clientes(id, "ver_datos_proveedores.php");
             }
+
+
             if ($('#check_solicitud_pendientes').is(':checked')) {
-               $('#fieldset_documentos').show();
-               $('.files_clientes').show();
               ver_archivos(arr[1]);
-              
               $('#btn_bloquear').removeAttr("disabled");
               $('#btn_bloquear').removeClass("disabled");
             }
             else{
-               $('#fieldset_documentos').show();
-               $('.files_clientes').show();
               ver_archivos(arr[1]);
               $('#btn_bloquear').attr("disabled", true);
               $('#btn_bloquear').addClass("disabled");
@@ -2093,6 +2081,7 @@ var parametros = {
                 $('#area_descripcion').val(response.descripcion);
                 $('#txt_sucursal').val(response.sucursal);
                 $('#combo_tipo_persona').val(response.tipo_persona);
+                change_tipo_persona(response.tipo_persona);
                 $('#txt_estado').val(response.estado);
                 $('#txt_nombre_contacto').val(response.nombre_contacto);
                 $('#txt_correo_contacto').val(response.email_contacto);
@@ -3052,15 +3041,12 @@ var parametros = {
               success:  function (response) {
                 
                 if(response.includes("cliente actualizado")){
-                  $('#div_siguiente').show();
+                  ////$('#div_siguiente').show();
                   if(response.includes("DESCARGAR")){
                     var cliente=$('#txt_nombre_cliente').val();
-                    
                   }
                   $('#guardar_cliente').html("<i class='i_espacio fa fa-save' aria-hidden='true'></i>Guardar Cliente");
-                  limpiar_cliente();
-                  //ENVIAR_CORREO_AL SOLICITANTE CON EL # DE CLIENTE Y NOMBRE COMERCIAL
-                 //el correo ya se envia si es nuevo desde update_cliente.php
+                  limpiar_cliente();                 
                  check_pendientes_click();
                   if(titulo.includes("clien")){
                     generate('success', "El cliente ha sido agregado<br>"); 
@@ -3074,7 +3060,7 @@ var parametros = {
                 else{
                   console.log(response);
                  generate('error', "Error: "+response); 
-                 $('#div_siguiente').show();
+                 //$('#div_siguiente').show();
                 }
               }
             });
@@ -3488,7 +3474,7 @@ function validarInput() {
            $('#div_modificar_evento').fadeOut();
            $('#div_cerrar_evento').fadeOut();
            //ocultar files
-           $('#fieldset_documentos').hide();
+           //$('#fieldset_documentos').hide();
            $('#div_solicitud_factura').fadeOut();
           $('#div_reporte_eventos').fadeIn();
           $('#div_reporte_clientes').fadeOut();
@@ -3641,27 +3627,88 @@ function validarInput() {
               });
 
     $('#combo_tipo_persona').change(function(){
-      var titulo=$('#titulo_alta').html();
       var tipo=$(this).val();
-      if(!titulo.includes("clien")){
+      change_tipo_persona(tipo);
+    });
+
+    function change_tipo_persona(tipo){
+      var titulo=$('#titulo_alta').html();
+
+      if(!titulo.includes("clien")){  // proveedor
         if(tipo=="FISICA"){
-          $('#files3').hide();
+          //INE, CSF, EDO CTA, COMPROBANTE
+          activar_btn_file($('#span_file_csf'), $('#file_csf'));
+          activar_btn_file($('#span_file_ine'), $('#file_ine'));
+          activar_btn_file($('#span_file_edo'), $('#file_edo'));
+          activar_btn_file($('#span_file_comp'), $('#file_comp'));
+          acta=true;
+          
+        }
+        else if(tipo=="MORAL"){ // MORAL
+          //INE, CSF, EDO CTA, COMPROBANTE, ACTA
+          activar_btn_file($('#span_file_csf'), $('#file_csf'));
+          activar_btn_file($('#span_file_ine'), $('#file_ine'));
+          activar_btn_file($('#span_file_edo'), $('#file_edo'));
+          activar_btn_file($('#span_file_comp'), $('#file_comp'));
+          activar_btn_file($('#span_file_acta'), $('#file_acta'));
         }
         else{
-          $('#files3').show();
+          desactivar_btn_file($('#span_file_csf'), $('#file_csf'));
+          desactivar_btn_file($('#span_file_ine'), $('#file_ine'));
+          desactivar_btn_file($('#span_file_edo'), $('#file_edo'));
+          desactivar_btn_file($('#span_file_comp'), $('#file_comp'));
+          desactivar_btn_file($('#span_file_acta'), $('#file_acta'));
+          csf=false;
+          ine=false;
+          edo=false;
+          comp=false;
+          acta=false;
+        }
+      }
+      else{ //CLIENTES
+        if(tipo!="vacio"){ 
+          desactivar_btn_file($('#span_file_csf'), $('#file_csf'));
+          desactivar_btn_file($('#span_file_ine'), $('#file_ine'));
+          desactivar_btn_file($('#span_file_edo'), $('#file_edo'));
+          desactivar_btn_file($('#span_file_comp'), $('#file_comp'));
+          desactivar_btn_file($('#span_file_acta'), $('#file_acta'));
+          activar_btn_file($('#span_file_csf'), $('#file_csf'));
+          ine=true;
+          edo=true;
+          comp=true;
+          acta=true;
+        }
+        else{
+          desactivar_btn_file($('#span_file_csf'), $('#file_csf'));
+          desactivar_btn_file($('#span_file_ine'), $('#file_ine'));
+          desactivar_btn_file($('#span_file_edo'), $('#file_edo'));
+          desactivar_btn_file($('#span_file_comp'), $('#file_comp'));
+          desactivar_btn_file($('#span_file_acta'), $('#file_acta'));
+          csf=false;
+          ine=false;
+          edo=false;
+          comp=false;
+          acta=false;
         }
       }
       
-    });
+    }
 
-    $('#ine').blur(function(){
-      var ine=$(this).val();
-      var tipo=$('#combo_tipo_persona').val();
-       if(tipo=="FISICA"){
-        $('#file_acta').val(ine);
-      }
+    function activar_btn_file(btn, file){
+          file.removeAttr('disabled');
+          btn.removeAttr('disabled');
+          file.css('cursor','pointer');
+          btn.addClass('btn-success');
+    }
+    function desactivar_btn_file(btn, file){
+          file.attr('disabled', true);
+          btn.attr('disabled', true);
+          file.css('cursor','not-allowed');
+          btn.removeClass('btn-success');
+          btn.addClass('btn-default');
+    }
 
-    });
+   
 
     $('#txt_email_usuario').focusout(function(){
       var correo=$(this).val();
@@ -3921,8 +3968,8 @@ function validarInput() {
       file1=true;
       var tit=$('#titulo_alta').html();
       if(tit.includes("cliente")){
-        $("#enviar_solicitud_cliente").show();
-        $("#enviar_solicitud_cliente").show();
+        //$("#enviar_solicitud_cliente").show();
+        //$("#enviar_solicitud_cliente").show();
       }
       else{
         $("#files1").hide();
@@ -3941,7 +3988,7 @@ function validarInput() {
 
     },
   }); 
-    
+    /*
       $("#singleupload_INE").uploadFile({
       url:"upload.php",
       multiple:true,
@@ -3973,8 +4020,8 @@ function validarInput() {
         
       },
     }); 
-  
-
+  */
+/*
     $("#singleupload_ACTA").uploadFile({
     url:"upload.php",
     multiple:true,
@@ -4041,10 +4088,10 @@ function validarInput() {
         ver_archivos(rfc);
         $('.ajax-file-upload-statusbar').hide();
         $("#files5").hide();
-        $("#enviar_solicitud_cliente").show();
+        //$("#enviar_solicitud_cliente").show();
     },
   }); 
-    
+    */
     
     $('#btn_validar_clientes').click(function(e){
       e.preventDefault();
@@ -4199,13 +4246,33 @@ function validarInput() {
           else if(sucursal == ""){
             generate('warning', "Debe ingresar una sucursal");
                     pasa=false;
-          }        
+          }
+          else if(csf==false){
+            generate('warning', "Falta documento Constancia Situacion Fiscal");
+                    pasa=false;
+          } 
+          else if(ine==false){
+            generate('warning', "Falta documento Identificación");
+                    pasa=false;
+          }
+          else if(edo==false){
+            generate('warning', "Falta documento Estado de cuenta");
+                    pasa=false;
+          }         
+          else if(comp==false){
+            generate('warning', "Falta documento Comprobande de domicilio");
+                    pasa=false;
+          } 
+          else if(acta==false){
+            generate('warning', "Falta documento Acta Constitutiva");
+                    pasa=false;
+          } 
           else {
             pasa=true;
           }
 
           if(pasa==true){ // si todos los campos son correctos, se manda a documentos
-            $('#fieldset_documentos').fadeIn();
+            //$('#fieldset_documentos').fadeIn();
             var datos = {
               "cliente": cliente,
               "nombre_comercial": nombre_comercial,
@@ -4245,21 +4312,27 @@ function validarInput() {
               success:  function (response) {
                 //console.log(response);
                 if(response.includes("registro correcto") || response.includes("ya existe")){
+                  //generate("success", "Registro correcto");
                   //generate('success', "La solicitud se ha registrado!!");
-                  $('#enviar_solicitud_cliente').html('<i class="i_espacio fa fa-envelope-o" aria-hidden="true"></i>Enviar Solicitud'); 
+                  $('#enviar_solicitud_cliente').html('<i class="i_espacio fa fa-envelope-o" aria-hidden="true"></i>Enviar Solicitud');
+                  envio_mail_solicitud();
+                  //generate("success", "Solicitud enviada"); 
+                  //envio_mail_solicitud();
+                  
                   //limpiar_cliente();
                   //aqui
-                  $('#titulo_documentos').html("Agregar documentos - "+cliente);/*
+                  //$('#titulo_documentos').html("Agregar documentos - "+cliente);
+                  /*
                   $('#seccion_datos').fadeOut(1000, function(){
                    $('#fieldset_documentos').fadeIn("swing");
                    $('#div_siguiente').remove();
                    $('#enviar_solicitud_cliente').fadeIn("swing");
                   });
                   */
-                   $('#fieldset_documentos').fadeIn("swing");
+                   //$('#fieldset_documentos').fadeIn("swing");
                    //$('#div_siguiente').remove();
-                   $('#div_siguiente').hide();
-                   $('#div_siguiente').hide();
+                   //$('#div_siguiente').hide();
+                   //$('#div_siguiente').hide();
                    //$('#enviar_solicitud_cliente').fadeIn("swing")
                 }
 
@@ -4377,7 +4450,7 @@ function ver_archivos(carpeta){
       var datos={
         "bandera_sodexo": bandera_sodexo,
       }
-      ver_proveedores_usuarios("con");
+      ver_proveedores_usuarios(bandera_sodexo);
   });
 
  
@@ -4666,38 +4739,42 @@ $('#btn_borrar_sdp').click(function(){
     });
 
    $('#c_colonia').change(function(){
-    noty({
-                    text        : "Ingresa una colonia <p><input class='form-control' id='txt_colonia_manual' type='text'>",
-                    width       : '650px',
-                    type        : 'warning',
-                    dismissQueue: false,
-                    closeWith   : ['button'],
-                    theme       : 'metroui',
-                    timeout     : false,
-                    layout      : 'topCenter',
-                     callbacks: {
-                      afterShow: function() { },
-                    },
-                     buttons: [
-                      {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
-                        var colonia=$noty.$bar.find('input#txt_colonia_manual').val();
-                        if(colonia==""){
-                          generate("warning", "Debe ingresar una colonia");
-                        }
-                        else{
-                          $("#c_colonia").append(new Option(colonia, colonia));
-                          $("#c_colonia option[value='"+colonia+"']").prop('selected', true);
-                          $noty.close();
+    var opcion=$(this).val();
+    if(opcion=="0"){
+      noty({
+        text        : "Ingresa una colonia <p><input class='form-control' id='txt_colonia_manual' type='text'>",
+        width       : '650px',
+        type        : 'warning',
+        dismissQueue: false,
+        closeWith   : ['button'],
+        theme       : 'metroui',
+        timeout     : false,
+        layout      : 'topCenter',
+         callbacks: {
+          afterShow: function() { },
+        },
+         buttons: [
+          {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
+            var colonia=$noty.$bar.find('input#txt_colonia_manual').val();
+            if(colonia==""){
+              generate("warning", "Debe ingresar una colonia");
+            }
+            else{
+              $("#c_colonia").append(new Option(colonia, colonia));
+              $("#c_colonia option[value='"+colonia+"']").prop('selected', true);
+              $noty.close();
 
-                        }
-                        }
-                      },
-                      {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
-                         $noty.close();
-                        }
-                      }
-                     ]
-                  });
+            }
+            }
+          },
+          {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
+            $('#c_colonia').val("vacio");
+             $noty.close();
+            }
+          }
+         ]
+      });
+    }
    });
 
 /*
@@ -4784,7 +4861,157 @@ function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
     
   }
  
+ $('#file_csf').change(function(){
+    var nombre=$('#txt_nombre_cliente').val();
+    if(nombre!=""){
+      var file_data = $('#file_csf').prop('files')[0];   
+      var form_data = new FormData();                  
+      form_data.append('file', file_data);
+      form_data.append('nombre', nombre);
+      form_data.append('doc', 'CSF');
+      $.ajax({
+          url: 'upload_file.php', // point to server-side PHP script 
+          dataType: 'text',  // what to expect back from the PHP script, if anything
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: form_data,                         
+          type: 'post',
+          beforeSend: function(){
+                $('#span_file_csf label').html("<img src='img/fancybox_loading.gif'>Subiendo...");
+               },
+          success: function(php_script_response){
+            $('#span_file_csf label').html("Constancia de Situacion Fiscal");
+              ver_archivos($('#txt_nombre_cliente').val());
+              desactivar_btn_file($('#span_file_csf'), $('#file_csf'));
+              $('#span_file_csf').removeClass('btn-default');
+              $('#span_file_csf').addClass('btn-success');
+              csf=true;
+          }
+       });
+    }
+});
 
+ $('#file_ine').change(function(){
+    var nombre=$('#txt_nombre_cliente').val();
+    if(nombre!=""){
+      var file_data = $('#file_ine').prop('files')[0];   
+      var form_data = new FormData();                  
+      form_data.append('file', file_data);
+      form_data.append('nombre', nombre);
+      form_data.append('doc', 'INE');
+      $.ajax({
+          url: 'upload_file.php', // point to server-side PHP script 
+          dataType: 'text',  // what to expect back from the PHP script, if anything
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: form_data,                         
+          type: 'post',
+          beforeSend: function(){
+                $('#span_file_ine label').html("<img src='img/fancybox_loading.gif'>Subiendo...");
+               },
+          success: function(php_script_response){
+            $('#span_file_ine label').html("Identificación INE");
+              ver_archivos($('#txt_nombre_cliente').val());
+              desactivar_btn_file($('#span_file_ine'), $('#file_ine'));
+              $('#span_file_ine').removeClass('btn-default');
+              $('#span_file_ine').addClass('btn-success');
+              ine=true;
+          }
+       });
+    }
+});
+ $('#file_edo').change(function(){
+    var nombre=$('#txt_nombre_cliente').val();
+    if(nombre!=""){
+      var file_data = $('#file_edo').prop('files')[0];   
+      var form_data = new FormData();                  
+      form_data.append('file', file_data);
+      form_data.append('nombre', nombre);
+      form_data.append('doc', 'EDO');
+      $.ajax({
+          url: 'upload_file.php', // point to server-side PHP script 
+          dataType: 'text',  // what to expect back from the PHP script, if anything
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: form_data,                         
+          type: 'post',
+          beforeSend: function(){
+                $('#span_file_edo label').html("<img src='img/fancybox_loading.gif'>Subiendo...");
+               },
+          success: function(php_script_response){
+            $('#span_file_edo label').html("Estado de cuenta");
+              ver_archivos($('#txt_nombre_cliente').val());
+              desactivar_btn_file($('#span_file_edo'), $('#file_edo'));
+              $('#span_file_edo').removeClass('btn-default');
+              $('#span_file_edo').addClass('btn-success');
+              edo=true;
+          }
+       });
+    }
+});
+ $('#file_comp').change(function(){
+    var nombre=$('#txt_nombre_cliente').val();
+    if(nombre!=""){
+      var file_data = $('#file_comp').prop('files')[0];   
+      var form_data = new FormData();                  
+      form_data.append('file', file_data);
+      form_data.append('nombre', nombre);
+      form_data.append('doc', 'COMP');
+      $.ajax({
+          url: 'upload_file.php', // point to server-side PHP script 
+          dataType: 'text',  // what to expect back from the PHP script, if anything
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: form_data,                         
+          type: 'post',
+          beforeSend: function(){
+                $('#span_file_comp label').html("<img src='img/fancybox_loading.gif'>Subiendo...");
+               },
+          success: function(php_script_response){
+            $('#span_file_comp label').html("Comprobante de domicilio");
+              ver_archivos($('#txt_nombre_cliente').val());
+              desactivar_btn_file($('#span_file_comp'), $('#file_comp'));
+              $('#span_file_comp').removeClass('btn-default');
+              $('#span_file_comp').addClass('btn-success');
+              comp=true;
+          }
+       });
+    }
+});
+ $('#file_acta').change(function(){
+    var nombre=$('#txt_nombre_cliente').val();
+    if(nombre!=""){
+      var file_data = $('#file_acta').prop('files')[0];   
+      var form_data = new FormData();                  
+      form_data.append('file', file_data);
+      form_data.append('nombre', nombre);
+      form_data.append('doc', 'ACTA');
+      $.ajax({
+          url: 'upload_file.php', // point to server-side PHP script 
+          dataType: 'text',  // what to expect back from the PHP script, if anything
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: form_data,                         
+          type: 'post',
+          beforeSend: function(){
+                $('#span_file_acta label').html("<img src='img/fancybox_loading.gif'>Subiendo...");
+               },
+          success: function(php_script_response){
+            $('#span_file_acta label').html("Acta constitutiva");
+              ver_archivos($('#txt_nombre_cliente').val());
+              desactivar_btn_file($('#span_file_acta'), $('#file_acta'));
+              $('#span_file_acta').removeClass('btn-default');
+              $('#span_file_acta').addClass('btn-success');
+              acta=true;
+          }
+       });
+    }
+});
   
 /*
 $( "#txt_evento_auto" ).autocomplete({

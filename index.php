@@ -710,7 +710,45 @@
                </legend>
                <div class="col-md-6" style="border-right: 1px dashed black; min-height: 75px">
                 <h3 id='test'>Requeridos</h3>
-                  <div class="form-group col-md-12 files_clientes" id="files1" >
+                <div class='row'>
+                  <form id='form_csf' action="upload_file.php" method="post">
+                  <button id='span_file_csf' class="btn btn-default btn-file form-control" disabled>
+                    <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                      <label>Constancia de Situacion Fiscal</label><input id='file_csf' name='file_csf' type="file" style='cursor: not-allowed' disabled >
+                  </button>
+                  </form>
+                </div>
+                <div class="clearfix"></div>
+                <div class='row'>
+                  <button id='span_file_ine' class="btn btn-default btn-file form-control" disabled>
+                    <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                      <label>Identificación INE</label><input id='file_ine' type="file" style='cursor: not-allowed' disabled >
+                  </button>
+                </div>
+                 
+                 <div class="clearfix"></div>
+                <div class='row'>
+                  <button id='span_file_edo' class="btn btn-default btn-file form-control" disabled>
+                    <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                      <label>Estado de cuenta</label><input id='file_edo' type="file" style='cursor: not-allowed' disabled >
+                  </button>
+                </div>
+                 <div class="clearfix"></div>
+                <div class='row'>
+                  <button id='span_file_comp' class="btn btn-default btn-file form-control" disabled>
+                    <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                      <label>Comprobante de domicilio</label><input id='file_comp' type="file" style='cursor: not-allowed' disabled >
+                  </button>
+                </div>
+                <div class="clearfix"></div>
+                <div class='row'>
+                  <button id='span_file_acta' class="btn btn-default btn-file form-control" disabled>
+                    <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                      <label>Acta Constitutiva</label> <input id='file_acta'type="file" style='cursor: not-allowed' disabled >
+                  </button>
+                </div>
+                <!--
+                  <div class="form-group col-md-12 files_clientes disabled" id="files1" >
                      <div id="singleupload_CSF"></div>
                   </div>
                   <div class="form-group col-md-12 files_clientes" id="files2" >
@@ -725,6 +763,7 @@
                   <div class="form-group col-md-12 files_clientes" id="files5">
                      <div id="singleupload_COMPROBANTE"></div>
                   </div>
+                -->
                </div>
                <div class="col-md-6" >
                     <div class="form-group col-md-12">
@@ -740,6 +779,7 @@
                </div>
             </fieldset>
             <div class="row">
+              <!--
                <div class="form-group col-md-2" id='div_siguiente'>
                   <div class="cols-sm-10">
                      <div class="input-group">
@@ -747,6 +787,7 @@
                      </div>
                   </div>
                </div>
+             -->
                <div class="form-group col-md-2">
                   <div class="cols-sm-10">
                      <div class="input-group">
