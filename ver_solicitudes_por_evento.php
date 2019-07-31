@@ -120,6 +120,7 @@ if ($result = $mysqli->query($sql)) {
     $monto_factura=0;
     while ($row = $result->fetch_row()) {
       $contador++;
+      $A_nombre=str_replace("#", "", $row[0]);
       $usuario_registra=$row[12];
       $devolucion=$row[13];
       $fecha_dev=$row[14];
@@ -179,7 +180,7 @@ if ($result = $mysqli->query($sql)) {
       
       
       if($valida=="CXP"){
-        $resultado=$resultado."<tbody><tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$row[0]."</td><td>".$row[1]."</td>".$columna_total."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank'><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
+        $resultado=$resultado."<tbody><tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$A_nombre."</td><td>".$row[1]."</td>".$columna_total."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank'><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
         if($identificador=="SDV" || $identificador=="SDR"){
           $resultado=$resultado."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_cheque'>".$row[11]."</label></td>";
         }
@@ -205,10 +206,10 @@ if ($result = $mysqli->query($sql)) {
       }
       else{
         if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
-          $resultado=$resultado."<tbody><tr><td><input type='checkbox' value='".$row[3]."' class='check_transfer'></td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$row[0]."</td><td>".$row[1]."</td>".$columna_total."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank' ><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
+          $resultado=$resultado."<tbody><tr><td><input type='checkbox' value='".$row[3]."' class='check_transfer'></td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$A_nombre."</td><td>".$row[1]."</td>".$columna_total."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank' ><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
         }
         else{
-          $resultado=$resultado."<tbody><tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$row[0]."</td><td>".$row[1]."</td><td>".moneda($row[2])."</td><td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank' ><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
+          $resultado=$resultado."<tbody><tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$A_nombre."</td><td>".$row[1]."</td><td>".moneda($row[2])."</td><td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank' ><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
         }
         if($identificador=="SDV" || $identificador=="SDR"){
           $resultado=$resultado."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_cheque'>".$row[11]."</label></td>";

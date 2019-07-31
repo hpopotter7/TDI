@@ -2033,7 +2033,7 @@ var parametros = {
           else if(arr.length==4){
             carpeta=arr[1]+"&"+arr[2]+"&"+arr[3];
           }
-          alert(carpeta);
+          
           if(id=="vacio"){
 
           }
@@ -4806,7 +4806,7 @@ $("#resultado_solicitudes").delegate(".btn_monto", "mouseenter", function() {
 $('#resultado_solicitudes').delegate('.btn_devolucion','click', function(e) {
   var id=$(this).attr('id');
   BANCOS=BANCOS.replace('<option value="vacio">Selecciona un banco...</option>', '');
-  var inputs="<div class='row'><div class='col-md-3'>Motivo devolución:</div><div class='col-md-9'><textarea class='form-control' id='motivo' cols='3' rows='4' placeholder='Ingresa un motivo'></textarea> </div></div><p><div class='row'><div class='col-md-3'>Monto a devolver:</div> <div class='col-md-9'><input class='form-control' id='txt_monto' type='number' placeholder='Ingresa solo importe numérico '> </div></div><p><div class='row'><div class='col-md-3'>Fecha de devolución:</div><div class='col-md-9'><input id='fecha_devolucion' type='date' class='form-control fecha'></div></div><p><div class='row'><div class='col-md-3'>Banco:</div><div class='col-md-9'><select class='form-control' id='banco'><option value='EFECTIVO'>EFECTIVO</option><option value='-' disabled>--------</option>"+BANCOS+"</select></div></div>";
+  var inputs="<div class='row'><div class='col-md-3'>Motivo devolución:</div><div class='col-md-9'><textarea class='form-control' id='motivo' cols='3' rows='4' placeholder='Ingresa un motivo'></textarea> </div></div><p><div class='row'><div class='col-md-3'>Monto a devolver:</div> <div class='col-md-9'><input class='form-control' id='txt_monto' type='number' placeholder='Ingresa solo importe numérico '> </div></div><p><div class='row'><div class='col-md-3'>Fecha de devolución:</div><div class='col-md-9'><input id='fecha_devolucion' type='date' class='form-control fecha'></div></div><p><div class='row'><div class='col-md-3'>Banco:</div><div class='col-md-9'><select class='form-control' id='banco'><option value='EFECTIVO'>EFECTIVO</option><option value='SODEXO'>SODEXO</option><option value='-' disabled>--------</option>"+BANCOS+"</select></div></div>";
   noty({
                     text        : inputs,
                     width       : '650px',
