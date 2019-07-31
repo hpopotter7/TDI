@@ -1088,14 +1088,21 @@
           <div class="row">
             <div class="form-group col-md-6">
             <div class="cols-sm-10" id="div_sodexo">
-                <div class="input-group">
-                  <div class="checkbox">
+                <div class="form-group col-md-3">
+                  <div class="radio">
                     <label>
-                      <input id='check_sodexo' type="checkbox" value="">
-                      Con tarjeta sodexo
+                      <input type="radio" id='check_cheque' name="radio_pago" class="radio_pago fa fa-square-o fa-2x" value="MA. FERNANDA CARRERA HDZ" checked="checked">
+                      <span class="">Cheque</span>
                     </label>
                   </div>
-                  <label for="" id='label_fernanda' class="cols-sm-2 control-label">A nombre de: FERNANDA CARRERA</label>
+                </div>
+                 <div class="form-group col-md-4">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" id='check_sodexo' name="radio_pago" class="radio_pago fa fa-square-o fa-2x" value="TARJETA SODEXO" >
+                      <span class="">Tarjeta SODEXO</span>
+                    </label>
+                  </div>
                 </div>
               </div>
               </div>

@@ -2045,7 +2045,6 @@ var parametros = {
               ver_datos_clientes(id, "ver_datos_proveedores.php");
             }
 
-
             if ($('#check_solicitud_pendientes').is(':checked')) {
               ver_archivos(carpeta);
               $('#btn_bloquear').removeAttr("disabled");
@@ -2238,13 +2237,15 @@ var parametros = {
 
               var letra=$('#odc_label_letra').html();
               var a_nombre=$('#c_a_nombre').val();
-              var tarjeta="";
+              var tarjeta=$('.radio_pago').val();
+              /*
               if($('#check_sodexo').is(':checked')){
                 tarjeta="TARJETA SODEXO";
               }
               else{
                 tarjeta="MA. FERNANDA CARRERA HDZ";
               }
+              */
               var txt_concepto=$('#txt_concepto').val();
               var txt_servicios=$('#txt_servicios').val();
               var txt_otros=$('#txt_otros').val();
@@ -5025,6 +5026,14 @@ function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
     }
 });
   
+  $('.radio_pago').change(function(){
+    
+    ver_proveedores_usuarios($(this).val());
+  });
+/*
+  $('#check_cheque').change(function(){
+    ver_proveedores_usuarios("");
+  });*/
 /*
 $( "#txt_evento_auto" ).autocomplete({
       source: availableTags
