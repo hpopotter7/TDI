@@ -2024,6 +2024,16 @@ var parametros = {
         $('#c_clientes_alta').change(function(){
           var arr=$(this).val().split("&");
           var id=arr[0];
+          if(arr.length==2){
+            carpeta=arr[1];
+          }
+          else if(arr.length==3){
+            carpeta=arr[1]+"&"+arr[2];
+          }
+          else if(arr.length==4){
+            carpeta=arr[1]+"&"+arr[2]+"&"+arr[3];
+          }
+          alert(carpeta);
           if(id=="vacio"){
 
           }
@@ -2037,12 +2047,12 @@ var parametros = {
 
 
             if ($('#check_solicitud_pendientes').is(':checked')) {
-              ver_archivos(arr[1]);
+              ver_archivos(carpeta);
               $('#btn_bloquear').removeAttr("disabled");
               $('#btn_bloquear').removeClass("disabled");
             }
             else{
-              ver_archivos(arr[1]);
+              ver_archivos(carpeta);
               $('#btn_bloquear').attr("disabled", true);
               $('#btn_bloquear').addClass("disabled");
               
@@ -3942,7 +3952,7 @@ function validarInput() {
       }
         
     });
-
+/*
     $("#singleupload_CSF").uploadFile({
     url:"upload.php",
     multiple:true,
@@ -3974,7 +3984,7 @@ function validarInput() {
       else{
         $("#files1").hide();
         $("#files2").show();
-      }
+      }*/
       //var link="http://localhost/TDI/borrar_archivo.php?carpeta="+rfc+"&nombre="+files[0];
 //      $("#eventsmessage").html($("#eventsmessage").html()+"<br/>Success for: "+JSON.stringify(data));
       //generate('success', $("#eventsmessage").html()+"<br/>Success for: "+JSON.stringify(data));
@@ -3985,9 +3995,10 @@ function validarInput() {
      // $("#li_csf").html('<i class="fa fa-check fa-2x" aria-hidden="true"></i> <a href="archivos/'+rfc+'/'+files[0]+'" target="_blank">Constancia de situación físcal CSF </a><a href="'+link+'">></a>');
       //$("#li_csf").show();
      // $("#files1").hide();
-
+/*
     },
   }); 
+    */
     /*
       $("#singleupload_INE").uploadFile({
       url:"upload.php",
@@ -5003,6 +5014,7 @@ function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
                },
           success: function(php_script_response){
             $('#span_file_acta label').html("Acta constitutiva");
+
               ver_archivos($('#txt_nombre_cliente').val());
               desactivar_btn_file($('#span_file_acta'), $('#file_acta'));
               $('#span_file_acta').removeClass('btn-default');
