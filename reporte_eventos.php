@@ -23,11 +23,19 @@ $res='<thead>
             <th>Presupuesto</th>
         </tr>
     </thead><tbody>';
-$sql = "SELECT Numero_evento, Nombre_evento, Cliente, DATE_FORMAT(Inicio_evento, '%d/%m/%Y'), DATE_FORMAT(Fin_evento, '%d/%m/%Y'), Destino, Sede, Ejecutivo, Disenio, Produccion, Facturacion  FROM eventos where Estatus='ABIERTO'";
+$sql = "SELECT Numero_evento, Nombre_evento, Cliente, DATE_FORMAT(Inicio_evento, '%d/%m/%Y'), DATE_FORMAT(Fin_evento, '%d/%m/%Y'), Destino, Sede, Ejecutivo, Disenio, Produccion, Facturacion, Estatus  FROM eventos ";
 $result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
      while ($row = $result->fetch_row()) {
+
         $arr_cliente=explode('&', $row[2]);
+        $CLIENTE=$arr_cliente[1];
+        if($arr_cliente[2]!=""){
+            $CLIENTE=$CLIENTE."&".$arr_cliente[2];
+        }
+        if($arr_cliente[3]!=""){
+            $CLIENTE=$CLIENTE."&".$arr_cliente[3];
+        }
         $money="Revisar monto de facturacion";
         if($row[10]=="NA"){
             $money="Revisar monto de facturacion";
@@ -59,9 +67,16 @@ if ($result = $mysqli->query($sql)) {
             $pro=$pro."<li>".$ar_productor[$r]."</li>";
         }
         $pro=$pro."</ul>";
+        $estatus=$row[11];
+        if($estatus=="ABIERTO"){
+            $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$CLIENTE.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$EJE.'</td><td>'.$DISE.'</td><td>'.$pro.'</td><td>'.$money.'</td></tr>';
+        }
+        else{
+            $res=$res.'<tr style="
+    background-color: #C1C1C1;color: #c50404;"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$CLIENTE.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$EJE.'</td><td>'.$DISE.'</td><td>'.$pro.'</td><td>'.$money.'</td></tr>';
+        }
         
-        $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$arr_cliente[1].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$EJE.'</td><td>'.$DISE.'</td><td>'.$pro.'</td><td>'.$money.'</td></tr>';
- 
+    
     }
     $result->close();
 }

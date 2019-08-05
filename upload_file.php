@@ -1,7 +1,6 @@
 <?php
 $nombre=$_POST["nombre"];
 $doc=$_POST["doc"];
-s
 $output_dir = "archivos/".$nombre."/";
 
 if(!is_dir($output_dir)){

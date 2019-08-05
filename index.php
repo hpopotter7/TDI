@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/jquery.fancybox.css" />
   <link rel="stylesheet" href="css/font-awesome.css">
   <link rel="stylesheet" href="css/animate.css"/>
-  <link rel="stylesheet" href="css/sweetalert2.css"/>  
+  <link rel="stylesheet" href="css/sweetalert2.css"/>
   <link rel="stylesheet" href="css/bootstrap.toogle.min.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/bootstrap.min2.css">
@@ -25,11 +25,12 @@
   <link rel="stylesheet" href="css/uploadfile.css">
   <link rel="stylesheet" href="css/jquery_combo_editable.css">
 
+
   <script src="js/jquery-1.10.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
   <script src="js/moment.js"></script>
   <script src="js/jquery-ui.js"></script>
-  <script src="js/jquery.ui.shake.js"></script>    
+  <script src="js/jquery.ui.shake.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/core.js"></script>
   <script src="js/sweetalert2.min.js"></script>
@@ -53,6 +54,7 @@
   <script src='js/DateTables.js'></script>
   <script src="js/accounting.js"></script>
   <script src="js/jquery_combo_editable.js"></script>
+  <script src="js/spin.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
   <script src="js/metodos.js"></script>
@@ -64,8 +66,8 @@
         return x + y;
     } );
 } );
-    $(document).on("ready",inicio);  
-  </script> 
+    $(document).on("ready",inicio);
+  </script>
   <style>
 .dropdown-submenu {
   position: relative;
@@ -121,6 +123,8 @@
               <li><a id='menu_ver_formatos' href="#" class='item_menu'><i class="fa fa-list-ul" aria-hidden="true"></i> Ver solicitudes</a></li>
             </ul>
           </li>
+
+
           <li id='nav_catalogos' class="dropdown">
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catálogos<span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -135,9 +139,14 @@
                 </ul>
               </li>
 
-
               <li><a id='menu_solicitud_prov' href="#" class='item_menu'><i class="fa fa-building" aria-hidden="true"></i> Alta de proveedor</a></li>
-              <li class='solo_admin'><a id='usuarios'  href="#" class='item_menu'><i class="fa fa-users" aria-hidden="true"></i> Usuarios</a></li>              
+              <li class='solo_admin'><a id='usuarios'  href="#" class='item_menu'><i class="fa fa-users" aria-hidden="true"></i> Usuarios</a></li>
+            </ul>
+          </li>
+          <li class="dropdown" id='btn_menu_cxc'>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CxC<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a id='menu_tarjetas' href="#" class='item_menu'><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Ver tarjetas</a></li>
             </ul>
           </li>
           <li id='nav_reportes' class="dropdown">
@@ -165,9 +174,9 @@
         <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-user"></span> 
-                        <strong id='label_user'></strong>
-                        <span class="glyphicon glyphicon-chevron-down"></span>
+                        <!--<span class="fa fa-user"></span> -->
+                        <strong id='label_user' style='font-size:17px'></strong>
+                        <span class="fa fa-down"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
@@ -198,12 +207,12 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-  <?php  
+  <?php
     //include("cliente_extranjero.php");
   ?>
-  
+
   <div id='div_login' class="container" >
-    <div class="row" id="pwd-container" style="top:50px">    
+    <div class="row" id="pwd-container" style="top:50px">
       <div class="col-md-4 col-md-offset-4">
         <section class="login-form">
           <form method="post" action="#" role="login">
@@ -212,21 +221,49 @@
               <span style="position:absolute; left:-10px;top:12px;color: #464545" class="fa fa-user "></span>
               <input style="color: #464545" type="text" id="user" class="form-control input-lg" placeholder="Usuario" />
             </div>
-            
+
             <div class="form-group has-feedback">
               <span style="position:absolute; left:-10px;top:12px; color: #464545" class="fa fa-unlock-alt "></span>
               <input style="color: #464545" type="password" id="pass" class="form-control input-lg" placeholder="Contraseña" />
             </div>
             <button type="button" id="entrar" class="btn_verde btn btn-lg btn-primary btn-block">Entrar</button>
           </form>
-        </section>  
+        </section>
       </div>
-    </div>  
+    </div>
   </div>
+
+  <!-- DIV MODULO CXC-->
+  <div id='div_cxc' class="container">
+     <div class="row main">
+       <legend><h2>Movimientos de tarjetas</h2></legend>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="name" class="cols-sm-2 control-label">Tarjetas</label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>
+                <select name="c_tarjetas" id="c_tarjetas" class='form-control'>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-2">
+            <div class="cols-sm-10">
+                <button id='btn_registro_manual' class='btn btn-info abajo disabled' disabled><i class="fa fa-pencil" aria-hidden="true"> Registro manual</i></button>
+            </div>
+          </div>
+        </div>
+
+     </div>
+     <div class="row col-md-12" id='tarjetas_resultado'>
+     </div>
+  </div>
+
   <!--div formatos descargas-->
  <div id='div_formatos' class="container">
     <div class="row main">
-      <div class="main-login main-center-descargas"> 
+      <div class="main-login main-center-descargas">
       <legend><h2>Solicitudes</h2></legend>
        <div class="row">
             <div class="form-group col-md-9">
@@ -239,10 +276,10 @@
                 </div>
               </div>
             </div>
-            <div class="form-group col-md-2">                              
+            <div class="form-group col-md-2">
                   <button type="button" id='btn_transferir' class="abajo btn btn-info boton_descarga"><i class="fa fa-exchange" aria-hidden="true"></i> Transferir</button>
             </div>
-            <div class="form-group col-md-1">                              
+            <div class="form-group col-md-1">
                   <button type="button" id='btn_borrar_sdp' class="abajo btn btn-danger boton_descarga"><i class="fa fa-trash" aria-hidden="true"></i> Borrar</button>
             </div>
             <div id="div_mis_solicitudes" class="form-group col-md-6">
@@ -267,7 +304,7 @@
 <!-- div crear usuarios-->
  <div id='div_usuarios' class="container">
     <div class="row main">
-      <div class="main-login main-center-usuarios"> 
+      <div class="main-login main-center-usuarios">
       <legend><h2>Crear Usuarios</h2></legend>
       <form id='form_usuarios' method="post">
        <div class="row">
@@ -332,18 +369,18 @@
           <div class="row">
             <div class="form-group col-md-12">
               <label for="name" class="cols-sm-2 control-label">Tipo de usuario</label>
-              <div class="cols-sm-10">                    
+              <div class="cols-sm-10">
                     <div class="checkbox checkbox-primary">
                       <label>
                         <input type="checkbox" id='check_sol' name="Xsolicitante" class="fa fa-square-o fa-2x" value="X">
                         <span class="label_check ">Solicitante</span>
                       </label>
-                    
+
                       <label>
                         <input type="checkbox" id='check_eje' name="Xejecutivo" class="fa fa-square-o fa-2x" value="X">
                         <span class="label_check ">Ejecutivo de cuenta</span>
                       </label>
-                   
+
                       <label>
                         <input type="checkbox" id='check_dig' name="Xdigital" class="fa fa-square-o fa-2x" value="X">
                         <span class="label_check ">Digital</span>
@@ -352,12 +389,12 @@
                         <input type="checkbox" id='check_cxp' name="Xcxp" class="fa fa-square-o fa-2x" value="X">
                         <span class="label_check ">CXP</span>
                       </label>
-                    
+
                       <label>
                         <input type="checkbox" id='check_pro' name="Xproductor" class="fa fa-square-o fa-2x" value="X">
                         <span class="label_check ">Productor</span>
                       </label>
-                    
+
                       <label>
                         <input type="checkbox" id='check_dis' name="Xdiseño" class="tipo_pago fa fa-square-o fa-2x" value="X">
                         <span class="label_check ">Diseño</span>
@@ -369,17 +406,17 @@
                     </div>
               </div>
             </div>
-          </div> 
+          </div>
           <hr>
           <div class="row">
              <div class="form-group col-md-12">
               <label for="name" class="cols-sm-2 control-label">Catálogos</label>
-              <div class="cols-sm-10">                    
+              <div class="cols-sm-10">
                     <div class="checkbox checkbox-primary">
                       <label>
                         <input type="checkbox" id='check_sol_cat' name="XClientes" class="fa fa-square-o fa-2x" value="X">
                         <span class="label_check ">Clientes</span>
-                      </label>                    
+                      </label>
                       <label>
                         <input type="checkbox" id='check_eje_cat' name="XProveedores" class="fa fa-square-o fa-2x" value="X">
                         <span class="label_check ">Proveedores</span>
@@ -418,7 +455,7 @@
                 </div>
               </div>
             </div>
-           
+
           </div>
       </form>
       </div>
@@ -488,7 +525,7 @@
                      </div>
                   </div>
                </div>
-               
+
             </div>
             <div class="row">
                <div class="form-group col-md-10 ">
@@ -521,7 +558,7 @@
                      <textarea class='form-control' name="area_descripcion" id="area_descripcion" rows="4"></textarea>
                   </div>
                </div>
-               
+
             </div>
             <div class="row">
                <div class="form-group col-md-3 ">
@@ -703,7 +740,7 @@
                </div>
             </div>
             </section>
-            
+
             <fieldset class="scheduler-border" id='fieldset_documentos' >
                <legend class="scheduler-border">
                   <h3><label class="control-label input-label" id='titulo_documentos'>Documentos</label></h3>
@@ -725,7 +762,7 @@
                       <label>Identificación INE</label><input id='file_ine' type="file" style='cursor: not-allowed' disabled >
                   </button>
                 </div>
-                 
+
                  <div class="clearfix"></div>
                 <div class='row'>
                   <button id='span_file_edo' class="btn btn-default btn-file form-control" disabled>
@@ -795,7 +832,7 @@
                      </div>
                   </div>
                </div>
-               
+
                <div class="form-group col-md-2 pull-right">
                   <div class="cols-sm-10">
                      <div class="input-group">
@@ -811,14 +848,14 @@
                   </div>
                </div>
             </div>
-          
+
          </div>
       </div>
-   </div>  
+   </div>
   <!--CREAR EVENTO!!-->
   <div id='div_nuevo_evento' class="container">
     <div class="row main">
-      <div class="main-login main-center">        
+      <div class="main-login main-center">
         <legend><h2>Crear Evento</h2></legend>
         <form id='form_nuevo_evento' action="">
           <div class="row">
@@ -854,8 +891,8 @@
 
 
             <!--FIN DE PRUEBA-->
-            
-          </div> 
+
+          </div>
           <div class="row">
             <div class="form-group col-md-6">
               <label for="name" class="cols-sm-2 control-label">Cliente</label>
@@ -863,7 +900,7 @@
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
                   <select name="c_cliente" id="c_cliente" class='form-control combo_clientes' >
-                    
+
                   </select>
                 </div>
               </div>
@@ -878,7 +915,7 @@
                 </div>
               </div>
             </div>
-          </div>   
+          </div>
           <div class="row">
             <div class="form-group col-md-6">
               <label for="username" class="cols-sm-2 control-label">Fecha de inicio del evento</label>
@@ -898,7 +935,7 @@
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row">
             <div class="form-group col-md-6">
               <label for="username" class="cols-sm-2 control-label">Destino</label>
@@ -918,7 +955,7 @@
                 </div>
               </div>
             </div>
-          </div>     
+          </div>
           <div class="row">
             <div class="form-group col-md-6">
               <label for="password" class="cols-sm-2 control-label">Ejecutivo de cuenta</label>
@@ -964,7 +1001,7 @@
             </div>
           </div>
           <div class="row">
-            
+
             <div class="form-group col-md-6">
               <label for="confirm" class="cols-sm-2 control-label">Digital</label>
               <div class="cols-sm-10">
@@ -975,7 +1012,7 @@
                 </div>
               </div>
             </div>
-           
+
             <div class="form-group col-md-4">
               <label for="confirm" class="cols-sm-2 control-label">Facturación <i class='nota'>  *Incluyendo IVA</i></label>
               <div class="cols-sm-10">
@@ -986,16 +1023,16 @@
                   </span>
                 </div>
               </div>
-            </div>  
+            </div>
             <div class="form-group col-md-2">
               <label for="confirm" class="cols-sm-2 control-label"></label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <input id='check_estatus_facturacion' name='check_estatus_facturacion' type="checkbox" data-toggle="toggle" data-height="50" data-onstyle="success" data-on="Total" data-off="Aprox" data-offstyle="warning">
                 </div>
-                
+
               </div>
-            </div> 
+            </div>
           </div>
           <div class="row">
             <div class="form-group col-md-12">
@@ -1006,25 +1043,25 @@
                   <textarea name="area_comentarios" id="area_comentarios" class="form-control" rows="4"></textarea>
                 </div>
               </div>
-            </div>            
+            </div>
           </div>
           <div class="row col-md-12">
             <button type="button" id="btn_crear_evento" class="btn_verde btn btn-lg btn-primary "><i class="fa fa-plus" aria-hidden="true"></i> Crear evento</button>
             <button type="button" id="btn_modificar_evento" class="btn_verde btn btn-lg btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Modificar evento</button>
             <button type="button" id="limpiar_evento" class="btn btn-lg btn-info pull-right"><i class="i_espacio fa fa-eraser" aria-hidden="true"></i>Limpiar</button>
             <button type="button" id="btn_cancelar_evento" class="btn btn-lg btn-danger pull-right" style="margin-right: .5em"><i class="fa fa-trash" aria-hidden="true"></i> Cancelar evento</button>
-            
+
           </div>
           <div class='row'>
             <div class="col-md-12">_</div>
           </div>
-        </form>      
+        </form>
       </div>
     </div>
   </div>
   <div id='div_odc' class="container">
     <div class="row main">
-      <div class="main-login main-center-odc">        
+      <div class="main-login main-center-odc">
         <legend><h2 id='titulin'>Solicitud de Cheque</h2></legend>
         <form action="">
           <div class="row">
@@ -1034,7 +1071,7 @@
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
                   <select name="" id="c_numero_evento" class='form-control' >
-                    
+
                   </select>
                 </div>
               </div>
@@ -1049,11 +1086,11 @@
              <div class="form-group col-md-1 abajo">
               <div class="checkbox">
                 <label>
-                  
+
                 </label>
               </div>
             </div>
-          </div>           
+          </div>
           <div class="row">
             <div class="form-group col-md-4">
               <label for="username" class="cols-sm-2 control-label">Fecha de solicitud</label>
@@ -1248,8 +1285,8 @@
             </div>
           </div>
           <div class="row">
-            
-            
+
+
             <div class="form-group col-md-4">
               <label for="username" class="cols-sm-2 control-label">Vo.Bo. Compras</label>
               <div class="cols-sm-10">
@@ -1277,9 +1314,9 @@
                 </div>
               </div>
             </div>
-          
-          </div>          
-          <div class="row">             
+
+          </div>
+          <div class="row">
             <div class="margen row col-md-offset-2 col-md-4">
               <button type="button" id="enviar_odc" class="btn_verde btn btn-lg btn-primary pull-right"><i class="fa fa-envelope-o " aria-hidden="true"></i> Enviar solicitud</button>
             </div>
@@ -1287,18 +1324,18 @@
               <button type="button" id="limpiar_odc" class="btn btn-lg btn-info pull-right"><i class="i_espacio fa fa-eraser" aria-hidden="true"></i>Limpiar</button>
             </div>
           </div>
-          <div class="row"> 
+          <div class="row">
             <label for="">_</label>
           </div>
-        </form> 
-            
+        </form>
+
       </div>
     </div>
   </div>
   <div id='div_modificar_evento' class="container">
     <div class="row main">
-      <div class="main-login main-center-descargas"> 
-      <legend><h2>Solicitud de modificación de evento</h2></legend>      
+      <div class="main-login main-center-descargas">
+      <legend><h2>Solicitud de modificación de evento</h2></legend>
          <div class="row col-md-9">
           <label class="cols-sm-2 control-label">Evento</label>
             <select name="c_eventos_modificar" id="c_eventos_modificar" class="form-control" placeholder='Ingresa un evento'>
@@ -1316,14 +1353,14 @@
  <!-- DIV CERRRAR EVENTO -->
  <div id='div_cerrar_evento' class="container">
     <div class="row main">
-      <div class="main-login main-center-descargas"> 
-      <legend><h2>Cerrar evento</h2></legend>      
+      <div class="main-login main-center-descargas">
+      <legend><h2>Cerrar evento</h2></legend>
          <div class="row col-md-6">
           <label class="cols-sm-2 control-label">Evento</label>
             <select name="c_eventos_cerrar" id="c_eventos_cerrar" class="form-control" required="required">
             </select>
          </div>
-         
+
         <div class="row col-md-1 col-md-offset-10">
            <button type="button" id="btn_cerrar_evento" class="btn_verde btn btn-lg btn-primary margen pull-right"><i class="fa fa-check" aria-hidden="true"></i> Cerrar evento</button>
       </div>
@@ -1335,8 +1372,8 @@
   <div class="row main">
   <form id='form_solicitud_factura' action="agregar_solicitud_factura.php" method="POST">
     <div class="row">
-      <div class="main-login main-center-descargas"> 
-      <legend><h2>Solicitud de factura</h2></legend>      
+      <div class="main-login main-center-descargas">
+      <legend><h2>Solicitud de factura</h2></legend>
          <div class="col-md-6">
           <label class="cols-sm-2 control-label">Cliente</label>
           <div class="input-group">
@@ -1408,7 +1445,7 @@
             </div>
           </div>
         </div>
-        
+
           <div class="form-group col-md-4">
           <label for="" class="cols-sm-2 control-label">Empresa que factura</label>
             <div class="cols-sm-12">
@@ -1423,9 +1460,9 @@
               </div>
             </div>
           </div>
-        
+
         </div>
-        
+
 
       </div>
   </div>
@@ -1457,9 +1494,9 @@
       <label class="cols-sm-2 control-label"></label>
         <div class="cols-sm-10">
         <div class="input-group">
-          
+
             <button  id='btn_add_partida' class='btn btn-lg btn-primary'><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>
-          
+
         </div>
       </div>
     </div>
@@ -1480,7 +1517,7 @@
     </div>
     <div class="form-group col-md-4 ">
         <table class="table table-bordered table-hover">
-         
+
           <tbody>
             <tr>
               <td style="text-align: right;"><label for="">Sub-total</label></td>
@@ -1554,12 +1591,12 @@
   </div>
  </div>
  <!--div reporte eventos-->
- 
+
   <div id='div_reporte_eventos' class="container">
     <div class="row main">
       <div class="row" class='titulo_reporte'><legend><h2>Reporte de Eventos</h2></legend></div>
       <table id='reporte_eventos' class="display nowrap dataTable" style="width:100%">
-        
+
       </table>
     </div>
   </div>
@@ -1567,7 +1604,7 @@
     <div class="row main">
       <div class="row" class='titulo_reporte'><legend><h2>Reporte de Clientes</h2></legend></div>
       <table id='reporte_clientes' class="display nowrap dataTable" style="width:100%">
-        
+
       </table>
     </div>
   </div>
@@ -1575,7 +1612,7 @@
     <div class="row main">
       <div class="row" class='titulo_reporte'><legend><h2>Reporte de Proveedores</h2></legend></div>
       <table id='reporte_proveedores' class="display nowrap dataTable" style="width:100%">
-        
+
       </table>
     </div>
   </div>
@@ -1583,15 +1620,15 @@
     <div class="row main">
       <div class="row" class='titulo_reporte'><legend><h2>Reporte de Usuarios</h2></legend></div>
       <table id='reporte_usuarios' class="display nowrap dataTable" style= "width:100%">
-        
+
       </table>
     </div>
   </div>
   <div class="clearfix" style="margin-top:1em"></div>
  <!--fin div reporte eventos-->
- 
+
  <div id='d-none' class="d-none hidden">
-    <div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_user_solicita" name="c_user_solicita" class="form-control" ></select></div></div><hr><div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_finanzas" name="c_finanzas" class="form-control" ><option value="vacio">Finanzas...</option><option value="FERNANDA CARRERA">FERNANDA CARRERA</option><option value="RITA VELEZ">RITA VELEZ </option></select></div></div><hr><div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_autorizo" name="c_autorizo" class="form-control" ><?php 
+    <div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_user_solicita" name="c_user_solicita" class="form-control" ></select></div></div><hr><div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_finanzas" name="c_finanzas" class="form-control" ><option value="vacio">Finanzas...</option><option value="FERNANDA CARRERA">FERNANDA CARRERA</option><option value="RITA VELEZ">RITA VELEZ </option></select></div></div><hr><div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_autorizo" name="c_autorizo" class="form-control" ><?php
       include("conexion.php");
       if (mysqli_connect_errno()) {
           printf("Error de conexion: %s\n", mysqli_connect_error());
@@ -1610,7 +1647,7 @@
      ?></select></div></div>
   </div>
 
-  <!-- DIV OCULTO EVENTOS TRANSFERIR 
+  <!-- DIV OCULTO EVENTOS TRANSFERIR
     <div id='d-none2' class="d-none ">
     <div class="cols-sm-10">
       <div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_user_solicita" name="c_user_solicita" class="form-control" ></select></div>
@@ -1622,9 +1659,38 @@
     <select name="c_transfer" id="c_transfer" class='form-control'></select>
     <!--<input type="text" id='txt_prueba' class='form-control' placeholder="Ingresa un evento">-->
   </div>
+
+  <div id='inputs_tarjetas' class="row hidden">
+    <div class='row'>
+      <div class='col-md-3'>Fecha de afectación:</div>
+      <!--<div class='col-md-9'><input id='fecha_afectacion' type='date' class='form-control fecha'></div>-->
+      <div class="cols-sm-10">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+          <input id='fecha_afectacion' type='date' class='form-control fecha'>
+        </div>
+      </div>
+    </div>
+    <p>
+      <div class='row'>
+        <div class='col-md-3'>Importe:</div>
+        <!--<div class='col-md-9'><input value="0.0" data-decimals="2" min="0" max="1000" step="1" type="number"  class="form-control"/></div>-->
+        <div class="cols-sm-10">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
+            <input id='importe_tarjeta' placeholder="Importe" type="number" class='form-control'/>
+          </div>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-3'>Comentarios:</div>
+        <!--<div class='col-md-9'><input value="0.0" data-decimals="2" min="0" max="1000" step="1" type="number"  class="form-control"/></div>-->
+            <textarea id='comentarios_tarjeta' class='form-control'></textarea>
+      </div>
+  </div>
   <!-- Footer -->
-  
-<footer class="page-footer font-small blue pt-4" style="z-index: 400px">   
+
+<footer class="page-footer font-small blue pt-4" style="z-index: 400px">
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3" style=" position: fixed;
     left: 0;
@@ -1637,8 +1703,6 @@
     </div>
     <!-- Copyright -->
   </footer>
- 
+
 </body>
 </html>
-
-

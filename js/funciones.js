@@ -1,12 +1,12 @@
 function validar_perfiles(response){
-	bienvenido(response.usuario); 
+	bienvenido(response.usuario);
 	if(response.usuario=="ALAN SANDOVAL" || response.usuario=="SANDRA PEÑA"){
 		$('#btn_cancelar_evento').show();
 		$('#btn_modificar_evento').show();
 		$('#guardar_cliente').show();
 		//agregar al combo clientes de eventos los centros de costos
 		//agregar_centros_costos();
-		
+
 	}
 	else{
 		$('#guardar_cliente').hide();
@@ -15,7 +15,7 @@ function validar_perfiles(response){
 		$('#div_clientes_registrados').show();
 		$('.combo_clientes option[value="248&GASTO"]', ).remove();
 	}
-	
+
 	if(response.cat_cli==""){
 		$('#menu_solicitud_cliente').hide();
 	}
@@ -34,16 +34,19 @@ function validar_perfiles(response){
 	else{
 		$('#usuarios').show();
 	}
-	
+
 	//CXP
+	
 	if(response.cxc==""){
 		$('#menu_cerrar_evento').hide();
+		$('#btn_menu_cxc').hide();
 	}
 	else{
 		$('#menu_cerrar_evento').show();
+		$('#btn_menu_cxc').show();
 	}
 	//Ejecutivo de cuenta
-	
+
 	if(response.eje=="Ejecutivo de cuenta" || response.dire=="Directivo"){
 		$('#menu_modificar_evento').show();
 		$('#menu_crear_evento').show();
@@ -54,7 +57,7 @@ function validar_perfiles(response){
 	}
 
 	//Catalogo facturacion
-	
+
 	if(response.cat_fact==""){
 		$('#solicitud_facturas').hide();
 		$('#solicitud_facturas').hide();
@@ -105,6 +108,6 @@ function bienvenido(usuario){
                 progressBar : false,
                 maxVisible  : 5,
                 timeout     : [3200],
-                
+
             });
 }

@@ -39,23 +39,23 @@ $result = $mysqli->query("SET NAMES 'utf8'");
     $tipo="";
     $tipo_pago="";
     $ID2=0;
-    
+
 if($id==0){
         $sql="select max(id_odc) from odc";
     if ($result = $mysqli->query($sql)) {
          while ($row = $result->fetch_row()) {
             $id=$row[0];
-            
+
         }
-    }    
-} 
+    }
+}
 $sql="select EVENTO from odc where id_odc=".$id;
 if ($result = $mysqli->query($sql)) {
          while ($row = $result->fetch_row()) {
-            
+
             $ID2=$row[0];
         }
-    }   
+    }
 $CLIENTE="";
 $sql="SELECT Cliente from eventos where Numero_evento='".$ID2."'";
 if ($result = $mysqli->query($sql)) {
@@ -77,7 +77,7 @@ if(strpos($CLIENTE, '&')){
 //ECHO $sql;
 //exit();
 if ($result = $mysqli->query($sql)) {
-    
+
 
     while ($row = $result->fetch_row()) {
         $a_nombre = $row[0];
@@ -115,7 +115,7 @@ if ($result = $mysqli->query($sql)) {
         $compras=$row[32];
         $coordinador=$row[33];
         $project=$row[34];
-        
+
     }
 
     $result->close();
@@ -127,9 +127,9 @@ else{
 //cortamos el nombre del evento
 $pruebaevento=$evento;
 if(strlen($evento)>55){
-        
+
             $evento=substr($evento, 0,55);
-        
+
 
     }
 //exit();
@@ -147,13 +147,16 @@ $pdf->AddFont('Gotham_M','','Gotham-Medium.php');
 $pdf->SetMargins(5, 5 ,10);
 if($identificador!="Pago"){
     if(strpos($a_nombre,"##")){
-        $banco=str_replace("##","",$a_nombre);
+      $banco=str_replace("##","",$a_nombre);
+      $arr_num=explode("-",$banco);
+        $banco=$arr_num[0];
+        $TARJETA_USUARIO=$arr_num[1];
         $a_nombre="TARJETA SODEXO";
     }
     else{
         $banco=$a_nombre;
         $a_nombre="MA. FERNANDA CARRERA HDZ";
-        
+
     }
     //$metodo="";
 }
@@ -181,8 +184,8 @@ if($identificador!="Pago"){
     $pdf->Ln(7);
     $pdf->SetX(5);
     $pdf->SetFillColor(193,220,80);
-    $pdf->Cell(0,3,'',0,0,'C',true); 
-    
+    $pdf->Cell(0,3,'',0,0,'C',true);
+
     $pdf->Ln(5);
     $pdf->SetX(21.5);
     $pdf->SetFont('Gotham','',12);
@@ -209,8 +212,8 @@ if($identificador!="Pago"){
         $pdf->SetX(185);
         $pdf->Cell(10,5,"X",0,0,'C',true);
     }
-    
-    
+
+
    //salto de linea
     $pdf->Ln(7);
     $pdf->Cell(0,6,"Importe con letra:",0,0,'L',false);
@@ -307,7 +310,7 @@ if($identificador!="Pago"){
         $pdf->SetX(185);
         $pdf->Cell(10,5,"X",0,0,'C',true);
     }
-   
+
      //salto de linea
     $pdf->Ln(10);
     $pdf->SetX(5);
@@ -345,20 +348,20 @@ if($identificador!="Pago"){
     $pdf->SetX(50);
     $pdf->Cell(145,5,$FORMA_DE_PAGO,0,0,'C',true);
      //salto de linea
-    
+
      $pdf->Ln(7);
     $pdf->SetX(33);
     $pdf->Cell(0,6,"Otros: ",0,0,'L',false);
     $pdf->SetX(50);
      $pdf->Cell(145,5,utf8_decode($otros),0,0,'C',true);
      //salto de linea
-    
+
      $pdf->Ln(7);
     $pdf->SetX(18);
     $pdf->Cell(0,6,"# de cheque: ",0,0,'L',false);
     $pdf->SetX(50);
      $pdf->Cell(40,5,$no_cheque,'B',0,'C',true);
-    
+
      //salto de linea
     $pdf->Ln(10);
     $pdf->SetX(5);
@@ -385,6 +388,7 @@ if($identificador!="Pago"){
     $pdf->Cell(0,6,"Datos deposito:",0,0,'L',false);
     $pdf->SetFont('Gotham','',12);
     //salto de linea
+
     $pdf->Ln(7);
     $pdf->SetX(26);
     $pdf->Cell(0,6,"A nombre:",0,0,'L',false);
@@ -393,17 +397,20 @@ if($identificador!="Pago"){
     //salto de linea
     if($a_nombre=="TARJETA SODEXO"){
         $numero_tarjeta="";
+        /*
        $sql="SELECT sodexo from usuarios where Nombre='".utf8_decode($banco)."'";
         if ($result = $mysqli->query($sql)) {
             while ($row = $result->fetch_row()) {
                 $numero_tarjeta=$row[0];
             }
-        } 
+        } */
+        
+
     $pdf->Ln(7);
     $pdf->SetX(24);
     $pdf->Cell(0,6,"No. Tarjeta:",0,0,'L',false);
     $pdf->SetX(55);
-    $pdf->Cell(140,5,$numero_tarjeta,0,0,'C',true);
+    $pdf->Cell(140,5,$TARJETA_USUARIO,0,0,'C',true);
     //salto de linea
     }
     if($identificador=="Pago"){
@@ -430,7 +437,7 @@ if($identificador!="Pago"){
     $pdf->SetFont('Gotham','',10);
     $startx=10;
     $starty=220;
-    $pdf->SetXY($startx, $starty); 
+    $pdf->SetXY($startx, $starty);
 
     // TODOS LOS NOMBRES ARRIBA Y LOS APELLIDOS ABAJO
     $arr=explode(" ", utf8_decode($elaborado));
@@ -443,13 +450,13 @@ if($identificador!="Pago"){
 
     $pdf->MultiCell(42,5,$arr[0]."\n".$arr[1],'B','C',true);
     $startx=$startx+47.5;
-    $pdf->SetXY($startx, $starty); 
+    $pdf->SetXY($startx, $starty);
     $pdf->MultiCell(42,5,$arr2[0]."\n".$arr2[1],'B','C',true);
     $startx=$startx+47.5;
-    $pdf->SetXY($startx, $starty); 
+    $pdf->SetXY($startx, $starty);
     $pdf->MultiCell(42,5,$arr3[0]."\n".$arr3[1],'B','C',true);
     $startx=$startx+47.5;
-    $pdf->SetXY($startx, $starty); 
+    $pdf->SetXY($startx, $starty);
     $pdf->MultiCell(42,5,$arr4[0]."\n".$arr4[1],'B','C',true);
     //salto de linea
     $pdf->Ln(1);
@@ -461,19 +468,19 @@ if($identificador!="Pago"){
     $pdf->SetX(105);
     $pdf->MultiCell(42,6,utf8_decode("Finanzas"),0,'C',false);
     $starty=$starty+11;
-    $pdf->SetXY($startx, $starty); 
+    $pdf->SetXY($startx, $starty);
     $pdf->MultiCell(42,6,utf8_decode("Dirección General"),0,'C',false);
-    
-    
+
+
     //lina firms 2
     $pdf->SetFont('Gotham','',10);
     $pdf->Ln(3);
     $startx=10;
     $starty=245;
-    $pdf->SetXY($startx, $starty); 
+    $pdf->SetXY($startx, $starty);
     $pdf->MultiCell(42,5,$arr5[0]."\n".$arr5[1],'B','C',true);
     $startx=$startx+47.5;
-    $pdf->SetXY($startx, $starty); 
+    $pdf->SetXY($startx, $starty);
     $vacio="";
     if(count($arr7)==1){
         $vacio=" ";
@@ -483,7 +490,7 @@ if($identificador!="Pago"){
     }
     $pdf->MultiCell(42,5,$arr7[0]."\n".utf8_decode($vacio),'B','C',true);
     $startx=$startx+47.5;
-    $pdf->SetXY($startx, $starty); 
+    $pdf->SetXY($startx, $starty);
     $vacio="";
     if(count($arr6)==1){
         $vacio=" ";
@@ -500,9 +507,9 @@ if($identificador!="Pago"){
     $pdf->Cell(42,6,utf8_decode("Project Manager"),0,'C',false);
     $pdf->SetX(109);
     $pdf->Cell(50,6,utf8_decode("Director/Coordinador de area"),0,0,'C',false);
-    
+
     //salto de linea
-    
+
  //salto de linea
     $pdf->Ln(13);
     $pdf->SetFont('Arial','I',7);
