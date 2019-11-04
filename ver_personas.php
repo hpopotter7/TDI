@@ -11,7 +11,10 @@ $sql="SELECT Nombre FROM usuarios where Solicitante='X' order by Nombre";
 if ($result = $mysqli->query($sql)) {
     $res='<option value="vacio">Solicitante...</option>';
     while ($row = $result->fetch_row()) {
-        $res=$res."<option value='".$row[0]."'>".$row[0]."</option>";
+        if($row[0]!="ALAN SANDOVAL"){
+            $res=$res."<option value='".$row[0]."'>".$row[0]."</option>";
+        }
+        
     }
     $result->close();
 }

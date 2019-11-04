@@ -43,7 +43,7 @@ include("conexion.php");
 
 
 
-		$sql="INSERT INTO solicitud_factura (id_evento, Dias_credito, Num_pedido, Num_orden, Num_entrada, GR, correo1, correo2, correo3, correo4, correo5, Fecha_hora_registro, Usuario_registra, Observaciones, empresa_factura) VALUES ('".$id_evento."', '".$dias_credito."', '".$num_pedido."', '".$num_orden."', '".$num_entrada."', '".$gr."', '".$correo1."', '".$correo2."', '".$correo3."', '".$correo4."', '".$correo5."', NOW(), '".$user_registra."', '".$observaciones."', '".$empresa_factura."')";
+		$sql="INSERT INTO solicitud_factura (id_evento, Dias_credito, Num_pedido, Num_orden, Num_entrada, GR, correo1, correo2, correo3, correo4, correo5, Fecha_hora_registro, Usuario_registra, Observaciones, empresa_factura, Estatus) VALUES ('".$id_evento."', '".$dias_credito."', '".$num_pedido."', '".$num_orden."', '".$num_entrada."', '".$gr."', '".$correo1."', '".$correo2."', '".$correo3."', '".$correo4."', '".$correo5."', NOW(), '".$user_registra."', '".$observaciones."', '".$empresa_factura."', 'Activa')";
 		$result = $mysqli->query("SET NAMES 'utf8'");
 		if ($mysqli->query($sql)) {
 		    $respuesta= "solicitud agregada";

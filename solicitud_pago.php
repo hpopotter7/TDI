@@ -81,6 +81,17 @@ if ($result = $mysqli->query($sql)) {
 
     while ($row = $result->fetch_row()) {
         $a_nombre = $row[0];
+        if(strpos($a_nombre,"##")){
+            $arr_nombre=explode("-",$a_nombre);
+            $usuario = $arr_nombre[0];
+            $tarjeta = $arr_nombre[1];
+        }
+        if(strpos($a_nombre,"%%")){
+            $arr_nombre=explode("%%",$a_nombre);
+            $a_nombre = $arr_nombre[0];
+            $tarjeta = $arr_nombre[1];
+        }
+        
         $concepto = $row[1];
         $servicio = $row[2];
         $importe  = $row[3];
@@ -360,6 +371,8 @@ if($identificador!="Pago"){
      $pdf->Cell(40,5,$no_cheque,'B',0,'C',true);
     
      //salto de linea
+     if($a_nombre!="BBVA BANCOMER SA DE CV"){
+
     $pdf->Ln(10);
     $pdf->SetX(5);
     $pdf->SetFont('Gotham_M','',12);
@@ -378,6 +391,8 @@ if($identificador!="Pago"){
     $pdf->Cell(0,6,"Mail:",0,0,'L',false);
     $pdf->SetX(55);
     $pdf->Cell(140,5,strtolower($correo_contacto),0,0,'C',true);
+
+    }
 //salto de linea
     $pdf->Ln(10);
     $pdf->SetX(5);
@@ -389,25 +404,46 @@ if($identificador!="Pago"){
     $pdf->SetX(26);
     $pdf->Cell(0,6,"A nombre:",0,0,'L',false);
     $pdf->SetX(55);
+
+    /*SE BUSCA EL NOMBRE Y LA TARJETA DE ESE USUARIO PARA EL CASO DE BANCOMER*/
+    $sql="select (select Nombre from usuarios where id_usuarios=t.Usuario), t.No_tarjeta from tarjetas t where t.id_tarjeta=".$tarjeta;
+    
+    if ($result = $mysqli->query($sql)) {
+        while ($row = $result->fetch_row()) {
+            $usuario=$row[0];
+            $tarjeta=$row[1];
+        }
+    }
+    if($a_nombre=="TARJETA SODEXO"){
+        $banco=$usuario;
+    }
+    else if($a_nombre=="BBVA BANCOMER SA DE CV"){
+        $banco=$usuario;
+    }
     $pdf->Cell(140,5,utf8_decode($banco),0,0,'C',true);
     //salto de linea
     if($a_nombre=="TARJETA SODEXO"){
-        $numero_tarjeta="";
-       $sql="SELECT sodexo from usuarios where Nombre='".utf8_decode($banco)."'";
-        if ($result = $mysqli->query($sql)) {
-            while ($row = $result->fetch_row()) {
-                $numero_tarjeta=$row[0];
-            }
-        } 
-    $pdf->Ln(7);
-    $pdf->SetX(24);
-    $pdf->Cell(0,6,"No. Tarjeta:",0,0,'L',false);
-    $pdf->SetX(55);
-    $pdf->Cell(140,5,$numero_tarjeta,0,0,'C',true);
-    //salto de linea
+        $numero_tarjeta=$tarjeta;
+        $numero_tarjeta=str_replace("##","",$numero_tarjeta);
+        $pdf->Ln(7);
+        $pdf->SetX(24);
+        $pdf->Cell(0,6,"No. Tarjeta:",0,0,'L',false);
+        $pdf->SetX(55);
+        $pdf->Cell(140,5,$numero_tarjeta,0,0,'C',true);
+    
     }
-    if($identificador=="Pago"){
+    else if($a_nombre=="BBVA BANCOMER SA DE CV"){
+        $numero_tarjeta=$tarjeta;
+        
+        $pdf->Ln(7);
+        $pdf->SetX(24);
+        $pdf->Cell(0,6,"No. Tarjeta:",0,0,'L',false);
+        $pdf->SetX(55);
+        $pdf->Cell(140,5,$numero_tarjeta,0,0,'C',true);
+    }
+    if($identificador=="Pago" && $a_nombre!="BBVA BANCOMER SA DE CV"){
 
+//salto de linea
     $pdf->Ln(7);
     $pdf->SetX(29);
     $pdf->Cell(0,6,"Sucursal:",0,0,'L',false);

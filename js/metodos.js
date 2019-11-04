@@ -2,6 +2,7 @@ function inicio(){
 
   var ids_odc="";// cadena para transeferir eventos
   var BANCOS="";
+  var bandera_menu_activo="";
 
   var csf=false;
   var ine=false;
@@ -869,7 +870,7 @@ var parametros = {
                   generate('warning', "Ese username ya existe. <br />Por favor elija otro username");
                 }
                 else if(response.includes("usuario modificado")){
-                  //console.log(response);
+                  console.log(response);
                    limpiar();
                   ver_usuarios_registrados();
                     var user=$('#user').val();
@@ -1067,7 +1068,7 @@ var parametros = {
                   $('#c_solicitantes').multiselect("deselectAll", false).multiselect("refresh");
                   generate('success',response);
                   ver_numero_evento();
-                  ver_eventos();
+                  ver_eventos($('#c_eventos_creados'));
                 }
                 else{
                   console.log(response);
@@ -1116,7 +1117,7 @@ var parametros = {
 
         $('#menu_crear_evento').click(function(e){
            e.preventDefault();
-           ver_eventos();
+           ver_eventos($('#c_eventos_creados'));
            $("#div_cortina").animate({top: '0px'}, 1100); 
            $('#div_usuarios').fadeOut();
            $('#div_alta_cliente').fadeOut();
@@ -1136,7 +1137,7 @@ var parametros = {
 
         $('#menu_modificar_evento').click(function(e){
            e.preventDefault();
-           ver_eventos();
+           ver_eventos($('#c_eventos_modificar'));
            $("#div_cortina").animate({top: '0px'}, 1100); 
            $('#div_usuarios').fadeOut();
            $('#div_alta_cliente').fadeOut();
@@ -1178,7 +1179,7 @@ var parametros = {
           $("#combo_metodo_pago option[value='PPD']").removeAttr('disabled');
            $("#div_sodexo").hide();
           $("#div_cortina").animate({top: '0px'}, 1100); 
-          ver_eventos();
+          ver_eventos($('#c_numero_evento'));
           ver_proveedores();
           $('#titulin').html("Solicitud de pago");
            $('#div_nuevo_evento').fadeOut();       
@@ -1198,6 +1199,7 @@ var parametros = {
             $('#div_reporte_clientes').fadeOut();
             $('#div_reporte_proveedores').fadeOut();
             $("#check_sodexo:checked").prop('checked', false);
+            $("#div_tipo_reembolso").hide();
             $('#label_fernanda').html("A nombre de: FERNANDA CARRERA");
         });
 
@@ -1206,7 +1208,7 @@ var parametros = {
           $("#combo_metodo_pago option[value='PPD']").attr('disabled','disabled');
           $("#div_sodexo").show();
           $("#div_cortina").animate({top: '0px'}, 1100); 
-          ver_eventos();
+          ver_eventos($('#c_numero_evento'));
           ver_proveedores_usuarios("sin");
           $('#titulin').html("Solicitud de viáticos");
            $('#div_nuevo_evento').fadeOut();       
@@ -1226,6 +1228,7 @@ var parametros = {
            $('#div_reporte_clientes').fadeOut();
            $('#div_reporte_proveedores').fadeOut();
            $("#check_sodexo:checked").prop('checked', false);
+           $("#div_tipo_reembolso").show();
            $('#label_fernanda').html("A nombre de: FERNANDA CARRERA");
         });
 
@@ -1234,7 +1237,7 @@ var parametros = {
           $("#combo_metodo_pago option[value='PPD']").removeAttr('disabled');
            $("#div_sodexo").show();
           $("#div_cortina").animate({top: '0px'}, 1100); 
-          ver_eventos();
+          ver_eventos($('#c_numero_evento'));
           //ver_proveedores_usuarios("todos");
           $('#titulin').html("Solicitud de reembolso");
            $('#div_nuevo_evento').fadeOut();       
@@ -1254,6 +1257,7 @@ var parametros = {
            $('#div_reporte_clientes').fadeOut();
            $('#div_reporte_proveedores').fadeOut();
            $("#check_sodexo:checked").prop('checked', false);
+           $("#div_tipo_reembolso").show();
            $('#label_fernanda').html("A nombre de: FERNANDA CARRERA");
            ver_proveedores_usuarios("todos");
         });
@@ -1686,7 +1690,13 @@ var parametros = {
           ver_archivos('ca');
         }
         
-        function ver_eventos(){
+        function ver_eventos(combo){
+          if(bandera_menu_activo=="viaticos" || bandera_menu_activo=="pago" || bandera_menu_activo=="reembolso"){
+           
+          }
+          else{
+            //combo.editableSelect('destroy');
+          }
           var usuario=$('#label_user').html();
           var datos={
             "usuario": usuario,
@@ -1697,25 +1707,32 @@ var parametros = {
               data: datos,
               success:  function (response) {
                 //$('#c_transfer').html(response);
+                /*
                  $('#c_mis_eventos').editableSelect('destroy');
-                         $('#c_eventos_creados').editableSelect('destroy');                
-                         $('#c_numero_evento').editableSelect('destroy');
-                         $('#c_mis_eventos').editableSelect('destroy');
-                         $('#c_eventos_modificar').editableSelect('destroy');
-                         
+                 $('#c_eventos_creados').editableSelect('destroy');                
+                 $('#c_numero_evento').editableSelect('destroy');
+                 $('#c_mis_eventos').editableSelect('destroy');
+                 $('#c_eventos_modificar').editableSelect('destroy');
+                 */
+               
+                /*
                 $('#c_eventos_creados').html(response); // todos pueden ver
                 $('#c_mis_eventos').html(response);
                 $('#c_numero_evento').html(response); // no todos pueden pedir
                 $('#c_eventos_modificar').html(response);
-                
-                
+                */
+                 combo.html(response);
                 ver_numero_evento();
+                 combo.editableSelect().on('select.editable-select', function (e, li) {
+                      ver_detalle_eventos(li.text());
+                  });
+                  combo.attr("placeholder", "Ingresa un evento");
                /* $('#c_transfer')
                   .editableSelect()
                   .on('select.editable-select', function (e, li) {
                       //ver_detalle_eventos(li.text());
                   });*/
-                  
+                  /*
                 $('#c_eventos_creados')
                   .editableSelect()
                   .on('select.editable-select', function (e, li) {
@@ -1738,10 +1755,14 @@ var parametros = {
                   .on('select.editable-select', function (e, li) {
                       //ver_detalle_eventos(li.text());
                   });
-                  
+                  */
+                 
+                  /*
                   $('#c_numero_evento').attr("placeholder", "Ingresa un evento");
                   $('#c_mis_eventos').attr("placeholder", "Ingresa un evento");
                   $('#c_eventos_modificar').attr("placeholder", "Ingresa un evento");
+                  */
+                 
                   
               }
             });
@@ -2237,7 +2258,7 @@ var parametros = {
 
               var letra=$('#odc_label_letra').html();
               var a_nombre=$('#c_a_nombre').val();
-              var tarjeta=$('.radio_pago').val();
+              var tarjeta=$('#c_tipo_reembolso').val();
               /*
               if($('#check_sodexo').is(':checked')){
                 tarjeta="TARJETA SODEXO";
@@ -2668,8 +2689,11 @@ var parametros = {
             $('#combo_metodo_pago').val("");
             $('#txt_no_cheque').val("");
 
+            $('#txt_coordinador').val("");
+            $('#txt_project').val("");
             
-            ver_eventos();
+            
+            ver_eventos($('#c_numero_evento'));
         }
         //modificar evento
         $('#btn_modificar_evento').click(function(e){
@@ -2726,7 +2750,7 @@ var parametros = {
                   ver_opcion(evento);
                   metodo_limpiar_evento();
                   ver_numero_evento();
-                  ver_eventos();
+                  ver_eventos($('#c_eventos_creados'));
                   
                 }
 
@@ -3351,7 +3375,15 @@ function validarInput() {
               type:  'post',
               data: datos,
               success:  function (response) {
-                $('#c_evento_cliente').html(response);
+                console.log(response);
+                if(response.includes("datos faltantes")){
+                  generate("warning", "Al cliente le faltan datos fiscales");
+                }
+                else{
+                  response=response.replace("datos faltantes", "");
+                  $('#c_evento_cliente').html(response);  
+                }
+                
                 /*
                 if(response=="<option value='vacio'>Selecciona un evento...</option>"){
                   generate("warning","No se han encontrado eventos del cliente seleccionado");
@@ -3924,13 +3956,7 @@ function validarInput() {
                         generate('success',"El evento ha sido cancelado correctamente!");
 //                      enviar_notificacion_solicitud(nombre_evento, titulo);
                         metodo_limpiar_evento();
-                        
-                  
-
-
-
-
-                        ver_eventos();
+                        ver_eventos($('#c_eventos_creados'));
                       }
                       else if(response.includes("Existen pagos")){
                         generate('warning',"El evento solicitado ya cuenta con solicitudes previas");
@@ -4477,13 +4503,24 @@ function ver_archivos(carpeta){
       generate("warning", "No pueden ir datos vacios");
     }
     else{
-      
-      var iva=pu*.16;
-      var total=pu*1.16;
-
-      sumatoria_pu=(sumatoria_pu+(pu*1));
-      sumatoria_iva=(sumatoria_iva+iva);
-      sumatoria_total=(sumatoria_total+total);
+      var iva=0;
+      var total=0;
+      if($('#check_iva').is(':checked')){
+        
+        iva=0;
+        total=pu;
+        umatoria_pu=(sumatoria_pu+(pu*1));
+        sumatoria_iva=0;
+        sumatoria_total=(sumatoria_total+total);
+      }
+      else{
+        iva=pu*.16;
+        total=pu*1.16;
+        umatoria_pu=(sumatoria_pu+(pu*1));
+        sumatoria_iva=(sumatoria_iva+iva);
+        sumatoria_total=(sumatoria_total+total);
+      }
+       
 
       pu=accounting.formatMoney(pu);
       iva=accounting.formatMoney(iva);
@@ -4533,9 +4570,16 @@ function ver_archivos(carpeta){
             var pu=accounting.unformat(data[r][1]);
             sum=(sum+pu);
           }
-          $('#sumatoria_pu').html(accounting.formatMoney(sum));
-          $('#sumatoria_iva').html(accounting.formatMoney(sum*.16));
-          $('#sumatoria_total').html(accounting.formatMoney(sum*1.16));
+           if(!$('#check_iva').is(':checked')){
+            $('#sumatoria_pu').html(accounting.formatMoney(sum));
+            $('#sumatoria_iva').html(accounting.formatMoney(sum*.16));
+            $('#sumatoria_total').html(accounting.formatMoney(sum*1.16));
+          }
+          else{
+            $('#sumatoria_pu').html(accounting.formatMoney(sum));
+            $('#sumatoria_iva').html(accounting.formatMoney(0));
+            $('#sumatoria_total').html(accounting.formatMoney(sum*1));
+          }
   }
   
 
@@ -5026,18 +5070,79 @@ function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
     }
 });
   
-  $('.radio_pago').change(function(){
-    
-    ver_proveedores_usuarios($(this).val());
+  $('#c_tipo_reembolso').change(function(){
+    var valor=$(this).val();
+    var nota="";
+    if(valor=="MA. FERNANDA CARRERA HDZ"){
+      nota="El cheque saldrá a nombre de Ma. Fernanda Carrera";
+    }
+    else{
+      nota="El depósito será directamente a una tarjeta SODEXO";
+    }
+    $('#txt_nota').val(nota);
+    ver_proveedores_usuarios(valor);
   });
-/*
-  $('#check_cheque').change(function(){
-    ver_proveedores_usuarios("");
-  });*/
-/*
-$( "#txt_evento_auto" ).autocomplete({
-      source: availableTags
-    });
-*/
+
+  /*COMENTARIO DE  CASA*/
+
+  $("#resultado_solicitudes").delegate(".btn_eliminar_factura", "click", function(e) {
+    e.preventDefault();
+    //var id=$(this).attr('id');
+     var id=$(this).attr("id");
+    noty({
+        text        : "Ingresa un motivo de borrado<p><input class='form-control' id='motivo' type='text'>",
+        width       : '650px',
+        type        : 'warning',
+        dismissQueue: false,
+        closeWith   : ['button'],
+        theme       : 'metroui',
+        timeout     : false,
+        layout      : 'topCenter',
+         callbacks: {
+          afterShow: function() { },
+        },
+         buttons: [
+          {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
+            var motivo=$noty.$bar.find('input#motivo').val();
+            if(motivo==""){
+              generate("warning", "Debe ingresar un motivo");
+            }
+            else{
+              
+              borrar_sdf(motivo, id, $noty);
+            }
+            }
+          },
+          {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
+             $noty.close();
+            }
+          }
+         ]
+      });
+  });
+
+  function borrar_sdf(motivo, id, noty){
+    var parametros = {
+                  "motivo": motivo,
+                  "id": id,                  
+          };
+        $.ajax({
+          data: parametros,
+          url:   'cancelar_solicitud_factura.php',
+          type:  'post',
+          success:  function (response) {
+            if(response.includes("cancelada")){
+              generate("success", "La solicitud ha sido cancelada!!");
+              var evento=$('#c_mis_eventos').val();
+              ver_solicitudes_por_evento(evento);
+              noty.close();
+            }
+            else{
+              generate("error", "Error: "+response);
+            }
+          }
+        });
+    
+  }
 
 }

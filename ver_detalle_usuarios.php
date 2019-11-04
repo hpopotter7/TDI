@@ -6,12 +6,25 @@ if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());
     exit();
 }
+$tarjeta="vacio";
+
+$sql="SELECT id_tarjeta FROM tarjetas where Usuario=(select id_usuarios from usuarios where Nombre='".$valor."')";
+if ($result = $mysqli->query($sql)) {
+    while ($row = $result->fetch_row()) {
+        $tarjeta = $row[0];
+    }
+    $result->close();
+}
+
+
 $sql="SELECT * FROM usuarios where Nombre='".$valor."'";
 /* Select queries return a resultset */
 $result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
   /* fetch object array */
+  
     while ($row = $result->fetch_row()) {
+        $id_usuario=$row[0];
         $return = Array('nombre'=>$row[1], 
         				'user'=>$row[2], 
                     	'email'=>$row[3], 
@@ -26,7 +39,7 @@ if ($result = $mysqli->query($sql)) {
                         'cat_cli'=>$row[13],
                         'cat_prov'=>$row[14],
                         'cat_usu'=>$row[15],
-                        'sodexo'=>$row[16],
+                        'sodexo'=>$tarjeta,
                         'cat_fact'=>$row[17],
                     	'error'=>'nada',
                     	'sql'=>''
@@ -40,6 +53,8 @@ else{
         			'sql'=>mysqli_error($mysqli));
    
 }
+
+
 $res=$res.json_encode($return)."\n";
 echo $res;
 

@@ -25,9 +25,7 @@
 	$coordinador=$_POST['coordinador'];
 	$project=$_POST['project'];
 	$tarjeta=$_POST['tarjeta'];
-	if($tarjeta=="TARJETA SODEXO"){
-		$a_nombre=$a_nombre."##";
-	}
+	$id_usuario=$a_nombre;
 /*
 		$formatter = new NumberFormatter('es_MX', NumberFormatter::CURRENCY);
 		if(strpos($odc_cheque_por,"$")){  
@@ -46,21 +44,56 @@
 	    printf("Error de conexion: %s\n", mysqli_connect_error());
 	    exit();
 	}
-
-		$sql="insert into odc (evento, tipo, fecha_solicitud, fecha_pago, cheque_por, letra, a_nombre, concepto, servicio, otros, tipo_pago, cfdi, metodo_pago, docto_soporte, fecha, usuario_registra, fecha_hora_registro, identificador, solicito, finanzas, autorizo, Forma_pago, no_cheque, Compras, Coordinador, Project) values('".$evento."', '".$tipo."', '".$f_sol."', '".$f_pago."', '".$odc_cheque_por."', '".$letra."', '".$a_nombre."', '".$txt_concepto."', '".$txt_servicios."', '".$txt_otros."', '".$tipo_pago."', '".$cfdi."', '".$metodo_pago."', '".$txt_docto_soporte."', '".$odc_fecha."', '".$user."', NOW(), '".$titulo."', '".$SOLICITO."', '".$FINANZAS."', '".$DIRECTIVO."', '".$forma_pago."', '".$no_cheque."', '".$compras."', '".$coordinador."', '".$project."')";
+	if($tarjeta!="TARJETA SODEXO"){
+		$sql="select Nombre from usuarios where id_usuarios=".$id_usuario;
+			if ($result = $mysqli->query($sql)) {
+				while ($row = $result->fetch_row()) {
+					$a_nombre=$row[0];
+				}
+			}
+			
+	}
+	if($tarjeta=="TARJETA SODEXO"){
+		$sql="select u.Nombre, t.No_tarjeta from usuarios u, tarjetas t where u.id_usuarios=t.Usuario and t.id_tarjeta=".$id_usuario;
+		if ($result = $mysqli->query($sql)) {
+			while ($row = $result->fetch_row()) {
+				$a_nombre=$row[0]."-".$row[1]."##";
+			}
+		}
+		
+	}
+		$sql="insert into odc (evento, tipo, fecha_solicitud, fecha_pago, cheque_por, letra, a_nombre, concepto, servicio, otros, tipo_pago, cfdi, metodo_pago, docto_soporte, fecha, usuario_registra, fecha_hora_registro, identificador, solicito, finanzas, autorizo, Forma_pago, no_cheque, Compras, Coordinador, Project) values('".$evento."', '".$tipo."', NOW(), '".$f_pago."', '".$odc_cheque_por."', '".$letra."', '".$a_nombre."', '".$txt_concepto."', '".$txt_servicios."', '".$txt_otros."', '".$tipo_pago."', '".$cfdi."', '".$metodo_pago."', '".$txt_docto_soporte."', '".$odc_fecha."', '".$user."', NOW(), '".$titulo."', '".$SOLICITO."', '".$FINANZAS."', '".$DIRECTIVO."', '".$forma_pago."', '".$no_cheque."', '".$compras."', '".$coordinador."', '".$project."')";
 		if ($mysqli->query($sql)) {
 		    
 		    /* fetch object array */
-		    echo "registro odc correcto";
+		    $RES="registro odc correcto";
 		    /* free result set */
 		}
 		else{
 			echo $mysqli->error.":".$sql;
 		}
 
+		if($tarjeta=="TARJETA SODEXO"){
+			$arr_usuario=explode("-",$a_nombre);
+			$num_tarjeta=$arr_usuario[1];
+			$num_tarjeta=str_replace("##", "", $num_tarjeta);
+			$sql="insert into movimientos(id_solicitud, No_tarjeta, Importe_solicitado) 
+			values((select max(id_odc) from odc), '".$num_tarjeta."', '".$odc_cheque_por."')";
+			if ($mysqli->query($sql)) {
+		    
+		    /* fetch object array */
+		    $RES="registro odc correcto";
+		    /* free result set */
+		}
+		else{
+			echo $mysqli->error.":".$sql;
+		}
+
+		}
+
 
 	
 
-
+echo $RES;
 $mysqli->close();
 ?>

@@ -18,7 +18,7 @@ else{
         $sql="SELECT id_proveedor, Razon_Social, Numero_cliente, 1 FROM proveedores where Numero_cliente ='0' and Estatus='activo' order by Razon_Social asc";
     }
     else{
-        $sql="SELECT id_proveedor, Razon_Social, Numero_cliente, DATE_FORMAT(fecha_solicitud, '%d-%m-%Y %H:%i') FROM proveedores where Numero_cliente ='0' and Estatus='activo' and Usuario_solicita='".$usuario."' order by Razon_Social asc";
+        $sql="SELECT id_proveedor, Razon_Social, Numero_cliente, DATE_FORMAT(fecha_solicitud, '%d-%m-%Y') FROM proveedores where Numero_cliente ='0' and Estatus='activo' and Usuario_solicita='".$usuario."' order by Razon_Social asc";
     }
 }
 

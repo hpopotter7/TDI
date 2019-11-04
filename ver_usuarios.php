@@ -16,9 +16,12 @@ if ($result = $mysqli->query("SELECT * FROM usuarios where Estatus='activo' orde
     
 
     /* fetch object array */
-    echo "0#<option value='vacio'>Selecciona un usuario...</option>";
+    echo "<option value='vacio'>Selecciona un usuario...</option>";
     while ($row = $result->fetch_row()) {
-        echo "<option value='".$row[1]."'>".$row[1]."</option>";
+        if($row[1]!="ALAN SANDOVAL"){
+            echo "<option value='".$row[1]."'>".$row[1]."</option>";
+        }
+        
     }
 
     /* free result set */

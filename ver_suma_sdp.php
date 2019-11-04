@@ -10,6 +10,7 @@ if (mysqli_connect_errno()) {
         $arr=explode("]",$id);
         $ev=str_replace("[", "", $arr[0]);
 $sql="select id_evento from eventos where Numero_evento='".$ev."'";
+
     
     if ($result = $mysqli->query($sql)) {
         while ($row = $result->fetch_row()) {
@@ -20,13 +21,14 @@ $sql="select id_evento from eventos where Numero_evento='".$ev."'";
 $res="vacio";
 $suma=0;
 $result = $mysqli->query("SET NAMES 'utf8'");
-$sql="SELECT cheque_por FROM odc where evento=".$id;
+$sql="SELECT cheque_por FROM odc where evento='".$ev."' where cancelada='no'";
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         $suma=$suma+$row[0];
     }
     $result->close();
 }
+$query=$sql;
 $ed=$sql;
 $suma=$suma+$importe;
 $sql="SELECT Facturacion FROM eventos where id_evento=".$id;

@@ -1,6 +1,0 @@
-== ACCESOS ==
-
-Servidor: DEV PYME http://10.2.108.22:8501/CFIDE/administrator/datasources/index.cfm
-Usuario:  BRS301428
-Contraseña:   rc3dvUwdpZV6SdQm 
-

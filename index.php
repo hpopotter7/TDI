@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/bootstrap.toogle.min.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/bootstrap.min2.css">
-  <link rel="stylesheet" href="css/estilos.css"/>
+  <link rel="stylesheet" href="css/estilos_ver_0001.css"/>
   <link rel="stylesheet" href="css/estilos_menu_user.css"/>
   <link rel="stylesheet" href="css/jquery-ui_theme_green.css"/>
   <link rel="stylesheet" href="css/jquery-ui_green.css"/>
@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="css/data_tables.css">
   <link rel="stylesheet" href="css/uploadfile.css">
   <link rel="stylesheet" href="css/jquery_combo_editable.css">
+  <link href="css/easy-autocomplete.css" rel="stylesheet"/>
+  <link href="css/easy-autocomplete.themes.css" rel="stylesheet"/>
 
   <script src="js/jquery-1.10.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
@@ -47,15 +49,24 @@
   <script src="js/dataTables.js"></script>
   <script src="js/jquery.formatCurrency.js"></script>
   <script src="js/tooltipster.bundle.js"></script>
-  <script src="js/funciones.js"></script>
+  <script src="js/funciones_v100.js"></script>
   <script src="js/jquery.validate.min.js"></script>
   <script src="js/jquery.uploadfile.js"></script>
   <script src='js/DateTables.js'></script>
   <script src="js/accounting.js"></script>
   <script src="js/jquery_combo_editable.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
-  <script src="js/metodos.js"></script>
+  <script src="js/dataTables.buttons.min.js"></script>
+  <script src="js/buttons.flash.min.js"></script>
+  <script src="js/jszip.min.js"></script>
+  <script src="js/pdfmake.min.js"></script>
+  <script src="js/vfs_fonts.js"></script>
+  <script src="js/buttons.html5.min.js"></script>
+  <script src="js/buttons.print.min.js"></script>
+  <script src="js/jspdf.min.js"></script>
+  <script src="js/jquery.easy-autocomplete.js"></script>
+  
+  <script src="js/metodos_4bac93.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -94,7 +105,7 @@
 
 
   <div id='div_cortina'></div>
-  <input id='input_oculto' type="hidden">
+  <input id='input_oculto' name='input_oculto' type="hidden">
   <nav id='nav' class="navbar navbar-default">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -130,6 +141,7 @@
             <li class="dropdown-submenu">
               <a class="test" tabindex="-1" href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Alta de cliente <span class="caret"></span></a>
                 <ul class="dropdown-menu">
+                <li><a tabindex="-1" id='menu_prealta' href="pre_alta.html" target="_blank"><i class="fa fa-font-awesome" aria-hidden="true"></i> Pre-alta </a></li>
                   <li><a tabindex="-1" id='menu_solicitud_cliente' href="#"><i class="fa fa-font-awesome" aria-hidden="true"></i> Nacional </a></li>
                   <li class='disabled'><a tabindex="-1" href="#" id='menu_solicitud_cliente_ex' class='disabled' disabled><i class="fa fa-eur" aria-hidden="true"></i> Extranjero </a></li>
                 </ul>
@@ -139,6 +151,14 @@
               <li><a id='menu_solicitud_prov' href="#" class='item_menu'><i class="fa fa-building" aria-hidden="true"></i> Alta de proveedor</a></li>
               <li class='solo_admin'><a id='usuarios'  href="#" class='item_menu'><i class="fa fa-users" aria-hidden="true"></i> Usuarios</a></li>              
             </ul>
+          </li>
+          
+          <li class="dropdown" >
+            <a  id='btn_menu_cxc' href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" disabled="">CxC<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a tabindex="-1" id='menu_tarjetas' href="#" class='item_menu'><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Ver tarjetas</a></li>
+            </ul>
+            
           </li>
           <li id='nav_reportes' class="dropdown">
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
@@ -223,6 +243,28 @@
       </div>
     </div>  
   </div>
+  <!-- DIV MODULO CXC-->
+  <div id='div_cxc' class="container">
+     <div class="row main">
+       <legend><h2>Movimientos de tarjetas</h2></legend>
+        <div class="row">
+          <div class="form-group col-md-9">
+            <label for="name" class="cols-sm-2 control-label">Tarjetas</label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>
+                <select name="c_tarjetas" id="c_tarjetas" class='form-control'>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+     </div>
+     <div class="row col-md-12" id='tarjetas_resultado'>
+     </div>
+  </div>
+
   <!--div formatos descargas-->
  <div id='div_formatos' class="container">
     <div class="row main">
@@ -301,7 +343,7 @@
             </div>
         </div>
         <div class="row">
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-2">
               <label for="name" class="cols-sm-2 control-label">Username</label>
               <div class="cols-sm-10">
                 <div class="input-group">
@@ -310,23 +352,66 @@
                 </div>
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
               <label for="" class="cols-sm-2 control-label">Contraseña</label>
               <div class="cols-sm-10">
                 <div class="input-group">
-                  <input type="button"  id='btn_reestablecer_pass' class='btn_verde btn btn-lg btn-primary btn-block' value='Reestablecer contraseña'/>
+                  <input type="button"  id='btn_reestablecer_pass' class='btn_verde btn btn-lg btn-primary btn-block' value='Reestablecer'/>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group col-md-3">
+              <label for="name" class="cols-sm-2 control-label">Banco</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
+                  <input type="text"  id='txt_tipo_banco' class="form-control">
                 </div>
               </div>
             </div>
             <div class="form-group col-md-3">
-              <label for="name" class="cols-sm-2 control-label">Tarjeta Sodexo</label>
+              <label for="name" class="cols-sm-2 control-label"># tarjeta</label>
               <div class="cols-sm-10">
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
-                  <input id='txt_sodexo' name='txt_sodexo' type="text" class="form-control" placeholder="# tarjeta" required="" />
+                  <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
+                  <input type="text"  id='txt_numero_tarjeta' class="form-control">
                 </div>
               </div>
             </div>
+            <div class="form-group col-md-2">
+              <button id='btn_agregar_tarjeta' type="button" class="btn btn-success abajo"><i class="fa fa-plus-circle" aria-hidden="true"></i> Añadir</button>
+            </div>
+            <!--
+            <div class="form-group col-md-3">
+              <label for="name" class="cols-sm-2 control-label">Tarjeta Sodexo  <a id="btn_add_tarjeta" href="#"><i class='nota fa fa-plus-circle' style="margin-left: 5em;" >Añadir tarjeta</i></a></label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
+                  
+                  
+                  
+                  <select name='c_tarjeta_sodexo' class="form-control" id='c_tarjeta_sodexo'>
+                  </select>
+                </div>
+              </div>
+            </div>
+          -->
+            
+        </div>
+        <div class="row">
+          <table class="table table-striped table-inverse table-hover">
+            <thead>
+              <tr>
+                <th>Banco</th>
+                <th># Tarjeta</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id='respuesta_tarjetas'>
+              
+            </tbody>
+          </table>
         </div>
         <hr>
           <div class="row">
@@ -397,7 +482,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <div class="cols-sm-10">
                 <div class="input-group">
                   <button type="button" id="agregar_usuario" class="abajo btn_verde btn btn-lg btn-primary btn-block pull-right"><i class="i_espacio fa fa-plus" aria-hidden="true"></i>Agregar Usuario</button>
@@ -677,6 +762,7 @@
                               </select>
                            </div>
                         </div>
+                        
                      </div>
                      <div class="form-group col-md-3">
                         <label for="name" class="cols-sm-2 control-label">Banco <a id="btn_add_banco" href="#"><i class='nota'>Añadir banco</i></a></label>
@@ -703,7 +789,49 @@
                </div>
             </div>
             </section>
+            <!-- <div class="row">
             
+              <div class="file-field">
+                <div class="btn btn-primary">
+                  <span><h4><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i> Constancia situacion Fiscal</h4></span>
+                  <input type="file">
+                </div>
+                
+              </div>
+
+              <div class="file-field">
+                <div class="btn btn-primary">
+                  <span><h4><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i> Identificacion</h4></span>
+                  <input type="file">
+                </div>
+                
+              </div>
+
+              <div class="file-field">
+                <div class="btn btn-primary">
+                  <span><h4><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i> Estado de cuenta</h4></span>
+                  <input type="file">
+                </div>
+                
+              </div>
+
+              <div class="file-field">
+                <div class="btn btn-primary">
+                  <span><h4><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i> Comprobante de domicilio</h4></span>
+                  <input type="file">
+                </div>
+                
+              </div>
+
+              <div class="file-field">
+                <div class="btn btn-primary">
+                  <span><h4><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i> Acta constitutiva</h4></span>
+                  <input type="file">
+                </div>
+                
+              </div>
+            
+            </div> -->
             <fieldset class="scheduler-border" id='fieldset_documentos' >
                <legend class="scheduler-border">
                   <h3><label class="control-label input-label" id='titulo_documentos'>Documentos</label></h3>
@@ -711,16 +839,16 @@
                <div class="col-md-6" style="border-right: 1px dashed black; min-height: 75px">
                 <h3 id='test'>Requeridos</h3>
                 <div class='row'>
-                  <form id='form_csf' action="upload_file.php" method="post">
-                  <button id='span_file_csf' class="btn btn-default btn-file form-control" disabled>
+                  
+                  <button id='span_file_csf' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Constancia de Situacion Fiscal</label><input id='file_csf' name='file_csf' type="file" style='cursor: not-allowed' disabled >
                   </button>
-                  </form>
+                 
                 </div>
                 <div class="clearfix"></div>
                 <div class='row'>
-                  <button id='span_file_ine' class="btn btn-default btn-file form-control" disabled>
+                  <button id='span_file_ine' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Identificación INE</label><input id='file_ine' type="file" style='cursor: not-allowed' disabled >
                   </button>
@@ -728,52 +856,32 @@
                  
                  <div class="clearfix"></div>
                 <div class='row'>
-                  <button id='span_file_edo' class="btn btn-default btn-file form-control" disabled>
+                  <button id='span_file_edo' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Estado de cuenta</label><input id='file_edo' type="file" style='cursor: not-allowed' disabled >
                   </button>
                 </div>
                  <div class="clearfix"></div>
                 <div class='row'>
-                  <button id='span_file_comp' class="btn btn-default btn-file form-control" disabled>
+                  <button id='span_file_comp' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Comprobante de domicilio</label><input id='file_comp' type="file" style='cursor: not-allowed' disabled >
                   </button>
                 </div>
                 <div class="clearfix"></div>
                 <div class='row'>
-                  <button id='span_file_acta' class="btn btn-default btn-file form-control" disabled>
+                  <button id='span_file_acta' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Acta Constitutiva</label> <input id='file_acta'type="file" style='cursor: not-allowed' disabled >
                   </button>
                 </div>
-                <!--
-                  <div class="form-group col-md-12 files_clientes disabled" id="files1" >
-                     <div id="singleupload_CSF"></div>
-                  </div>
-                  <div class="form-group col-md-12 files_clientes" id="files2" >
-                     <div id="singleupload_INE"></div>
-                  </div>
-                  <div class="form-group col-md-12 files_clientes" id="files3" >
-                     <div id="singleupload_ACTA"></div>
-                  </div>
-                  <div class="form-group col-md-12 files_clientes" id="files4" >
-                     <div id="singleupload_EDO_CTA"></div>
-                  </div>
-                  <div class="form-group col-md-12 files_clientes" id="files5">
-                     <div id="singleupload_COMPROBANTE"></div>
-                  </div>
-                -->
+               
                </div>
                <div class="col-md-6" >
                     <div class="form-group col-md-12">
                        <h3>Guardados</h3>
                        <ul id='ul_archivos' class="list-group list-group-flush">
-                         <!-- <li id='li_csf' class="lis list-group-item" style='background-color: #649919; color: white'></li>
-                         <li id='li_ine' class="lis list-group-item" style='background-color: #649919; color: white'><i class="fa fa-check fa-2x" aria-hidden="true"></i> INE del apoderado legal <button type="button" class="btn btn-xs btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Borrar</button></li>
-                         <li id='li_acta' class="lis list-group-item" style='background-color: #649919; color: white'><i class="fa fa-check fa-2x" aria-hidden="true"></i> Acta constitutiva <button type="button" class="btn btn-xs btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Borrar</button></li>
-                         <li id='li_edo' class="lis list-group-item" style='background-color: #649919; color: white'><i class="fa fa-check fa-2x" aria-hidden="true"></i> Estado de cuenta <button type="button" class="btn btn-xs btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Borrar</button></li>
-                         <li id='li_comp' class="lis list-group-item" style='background-color: #649919; color: white'><i class="fa fa-check fa-2x" aria-hidden="true"></i> Comprobante de domicilio <button type="button" class="btn btn-xs btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Borrar</button></li> -->
+                                                  
                        </ul>
                   </div>
                </div>
@@ -800,6 +908,13 @@
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <button type="button" id="limpiar_cliente" class="abajo btn btn-lg btn-info btn-block pull-right"><i class="i_espacio fa fa-eraser" aria-hidden="true"></i>Limpiar</button>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group col-md-1 pull-right">
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <button type="button" id="btn_desc_zip" class="abajo btn btn-lg btn-info btn-block pull-right"><i class="i_espacio fa fa-download" aria-hidden="true"></i></button>
                      </div>
                   </div>
                </div>
@@ -1086,33 +1201,38 @@
             </div>
           </div>
           <div class="row">
-            <div class="form-group col-md-6">
-            <div class="cols-sm-10" id="div_sodexo">
-                <div class="form-group col-md-3">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" id='check_cheque' name="radio_pago" class="radio_pago fa fa-square-o fa-2x" value="MA. FERNANDA CARRERA HDZ" checked="checked">
-                      <span class="">Cheque</span>
-                    </label>
-                  </div>
-                </div>
-                 <div class="form-group col-md-4">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" id='check_sodexo' name="radio_pago" class="radio_pago fa fa-square-o fa-2x" value="TARJETA SODEXO" >
-                      <span class="">Tarjeta SODEXO</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
             <div class="cols-sm-10">
                 <div class="input-group pull-right">
-                  <img id="puntos_gif" src="img/puntos.gif" alt=""><label for="username" id='odc_label_letra' class="cols-sm-2 control-label text-right"></label>
+                  <img id="puntos_gif" src="img/puntos.gif" alt=""><label for="username" id='odc_label_letra' class="cols-sm-2 control-label text-right pull-right"></label>
                 </div>
               </div>
              </div>
+          </div>
+          <div class="row">
+             <div id='div_tipo_reembolso' class="form-group col-md-4">
+              <label for="username" class="cols-sm-2 control-label">Tipo</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-question" aria-hidden="true"></i></span>
+                  <select name="" id="c_tipo_reembolso" class='form-control' >
+                    <option value="MA. FERNANDA CARRERA HDZ">Cheque</option>
+                    <option value="TARJETA SODEXO">Tarjeta SODEXO</option>
+                    <option value="TARJETA DILIGO">Tarjeta DILIGO</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-8" id='div_mensaje'>
+              <label for="username" class="cols-sm-2 control-label" style="color:rgba(255,255,255.01)">_</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon" style="color:black;border:none;background-color:#945CA6"><i class="fa fa-warning" style="color:white" aria-hidden="true"></i></span>
+                  <input type="text" id="txt_nota" class="form-control disabled" readonly="" value="El cheque saldrá a nombre de Ma. Fernanda Carrera" style="color:white;border:none;background-color:#945CA6">
+                </div>
+              </div>
+            </div>
+            
           </div>
           <div class="row">
             <div class="form-group col-md-6">
@@ -1124,7 +1244,11 @@
                   </select>
                 </div>
               </div>
+              <div class="row user_proveedor" style="display: none;padding: 0.2em 1em;color: white;background-color: rgb(148, 92, 166);border-radius: .3em;"><i><a href="#" id="usuario_proveedor" style='text-decoration: none'></a></i>
+                <input type="hidden" id='id_usuario_proveedor' value='0'>
+              </div>
             </div>
+            
             <div class="form-group col-md-6">
               <label for="username" class="cols-sm-2 control-label">Concepto</label>
               <div class="cols-sm-10">
@@ -1133,6 +1257,7 @@
                   <input type="text" id="txt_concepto" class="form-control">
                 </div>
               </div>
+
             </div>
           </div>
           <div class="row">
@@ -1229,7 +1354,7 @@
               </div>
             </div>
             <div class="form-group col-md-2">
-              <label for="username" class="cols-sm-2 control-label">Docto. Soporte Fiscal</label>
+              <label for="username" class="cols-sm-2 control-label">#Factura</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
@@ -1251,11 +1376,11 @@
             
             
             <div class="form-group col-md-4">
-              <label for="username" class="cols-sm-2 control-label">Vo.Bo. Compras</label>
+              <label for="username" class="cols-sm-2 control-label">Vo.Bo. Compras/RH</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <input type="text" id="txt_vobo_compras" class="form-control" value='SANAYN MARTINEZ'>
+                  <input type="text" id="txt_vobo_compras" class="form-control">
                 </div>
               </div>
             </div>
@@ -1453,21 +1578,28 @@
         </div>
       </div>
     </div>
+    <div id='check_ivas' class="form-group col-md-2 abajo">
+        <div class="checkbox">
+           <label>
+           <input id='check_iva' type="checkbox" class="fa fa-square-o fa-2x" value="sin_iva">
+           <span class="label_check" >Sin IVA</span>
+           </label>
+        </div>
+     </div>
     <div class="form-group col-md-1">
       <label class="cols-sm-2 control-label"></label>
         <div class="cols-sm-10">
         <div class="input-group">
-          
-            <button  id='btn_add_partida' class='btn btn-lg btn-primary'><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>
+            <button  id='btn_add_partida' class='btn btn-lg btn-primary'><i class="fa fa-plus" aria-hidden="true"></i></button>
           
         </div>
       </div>
     </div>
-    <div class="form-group col-md-1 col-md-offset-1 ">
+    <div class="form-group col-md-1 ">
       <label class="cols-sm-2 control-label"></label>
         <div class="cols-sm-10">
         <div id='demonios' class="input-group">
-          <button  id='btn_quitar' class='btn btn-lg btn-danger'><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
+          <button  id='btn_quitar' class='btn btn-lg btn-danger'><i class="fa fa-trash" aria-hidden="true"></i> </button>
         </div>
       </div>
     </div>

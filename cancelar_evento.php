@@ -27,7 +27,7 @@ $sql="SELECT id_evento from eventos where Numero_evento='".$id_evento."'";
 		}
 
 
-		$sql="SELECT * from odc where evento='".$id_evento."'";		
+		$sql="SELECT * from odc where evento='".$id_evento."' where Cancelada='no' ";		
 		if ($result = $mysqli->query($sql)) {
 		    while ($row = $result->fetch_row()) {
 		        $ordenes=$ordenes+1;

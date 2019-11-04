@@ -16,9 +16,12 @@ $res='<thead>
             <th>Contacto</th>
             <th>Teléfono</th>
             <th>Correo de contacto</th>
+            <th>Descripción</th>
+            <th>CP</th>
+            <th>Estado</th>
         </tr>
     </thead><tbody>';
-$sql = "SELECT Razon_Social, Nombre_comercial, rfc, Nombre_contacto, Telefono, Correo_contacto FROM proveedores where Numero_cliente!='0' order by Razon_Social ASC";
+$sql = "SELECT Razon_Social, Nombre_comercial, rfc, Nombre_contacto, Telefono, Correo_contacto, Descripcion, cp, Estado FROM proveedores where Numero_cliente!='0' order by Razon_Social ASC";
 $result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
      while ($row = $result->fetch_row()) {
@@ -37,7 +40,7 @@ if ($result = $mysqli->query($sql)) {
         }
         $pro=$pro."</ul>";
         */
-        $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td></tr>';
+        $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td></tr>';
  
     }
     $result->close();

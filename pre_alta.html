@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>ERP Tierra de ideas</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="stylesheet" href="css/jquery.fancybox.css" />
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/animate.css"/>
+  <link rel="stylesheet" href="css/sweetalert2.css"/>  
+  <link rel="stylesheet" href="css/bootstrap.toogle.min.css" >
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/bootstrap.min2.css">
+  <link rel="stylesheet" href="css/estilos.css"/>
+
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/jquery-ui-v1.11.4.js"></script>
+  <script src="js/moment.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/sweetalert2.min.js"></script>
+  <script src="js/animate.js"></script>
+  <script src="js/noty/packaged/jquery.noty.packaged.js"></script>
+  <script src="js/jquery.mousewheel.pack.js"></script> 
+  
+  <script src="js/metodos_pre.js"></script>
+    <script>
+     $(document).on("ready",inicio);  
+    </script>
+
+</head>
+<body>
+    <div class="row">
+        <div class="container">
+            
+            <h2>Pre-alta de cliente</h2>
+            <br>
+            <div class="form-group col-md-6 ">
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-building" aria-hidden="true"> Razón Social</i></span>
+                        <input type="text" id='txt_razon_social' class='form-control'>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6 ">
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user-circle" aria-hidden="true"> Usuario Solicita</i></span>
+                        <select id="c_usuario_solicita" class='form-control'></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-md-2 pull-right">
+                   <button class="btn btn_verde" id='btn_registrar'><i class="fa fa-check" aria-hidden="true"></i> Registrar</button>
+                </div>
+                
+            
+        </div>
+    </div>
+</body>
+</html>

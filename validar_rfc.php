@@ -14,10 +14,10 @@ $result = $mysqli->query("SET NAMES 'utf8'");
 /* Select queries return a resultset */
 $sql="";
 if($tipo=="clientes"){
-$sql="SELECT RFC, Razon_Social from clientes where rfc='".$rfc."'";
+$sql="SELECT RFC, Razon_Social from clientes where rfc='".$rfc."' and Estatus='activo'";
 }
 else{
-	$sql="SELECT RFC, Razon_Social from proveedores where rfc='".$rfc."'";
+	$sql="SELECT RFC, Razon_Social from proveedores where rfc='".$rfc."' and Estatus='activo'";
 }
 if ($result = $mysqli->query($sql)) {
     
