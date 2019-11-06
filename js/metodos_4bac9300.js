@@ -1337,7 +1337,7 @@ var parametros = {
               type:  'post',
               data: datos,
               success:  function (response) {
-                console.log(response);
+                //console.log(response);
                 $('#c_a_nombre').html(response);
               }
             });

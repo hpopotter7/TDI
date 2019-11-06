@@ -66,7 +66,7 @@
   <script src="js/jspdf.min.js"></script>
   <script src="js/jquery.easy-autocomplete.js"></script>
   
-  <script src="js/metodos_4bac93.js"></script>
+  <script src="js/metodos_4bac9300.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {

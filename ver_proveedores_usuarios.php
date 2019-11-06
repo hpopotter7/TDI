@@ -23,7 +23,7 @@ if (mysqli_connect_errno()) {
 $result = $mysqli->query("SET NAMES 'utf8'");
 
 if($bandera=="MA. FERNANDA CARRERA HDZ"){ //ES DECIR SI ES CHEQUE
-    $sql="SELECT id_usuarios, Nombre FROM usuarios  order by Nombre asc";
+    $sql="SELECT id_usuarios, Nombre FROM usuarios  WHERE (Ejecutivo='X' or solicitante='X' or digitalizacion='X' OR productor='X' OR  disenio='X' OR directivo='X' OR cat_clientes='X' OR cat_prov='X' OR cat_usuarios='X') order by Nombre asc";
     if ($result = $mysqli->query($sql)) {
         echo '<option value="vacio">Selecciona un usuario...</option>';
         while ($row = $result->fetch_row()) {
@@ -34,6 +34,7 @@ if($bandera=="MA. FERNANDA CARRERA HDZ"){ //ES DECIR SI ES CHEQUE
             }   
         }
         $result->close();
+        echo "<span>".$sql."</span>";
     }
     else{
         echo $mysqli->error.":".$sql;
