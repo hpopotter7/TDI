@@ -114,12 +114,12 @@ thead{
 #notificaciones{
 	position: fixed;
 	top: 100px;
-	width: 105px;
+	width: 400px;
 	background-color: #3ee220;
 	padding: 1em;
 	border-radius:.1em;
 	z-index: 10;
-	left: -18px;
+	left: -350px;
 	-webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
@@ -128,10 +128,10 @@ thead{
 
 .cambio
 {
-	-ms-transition: all .5s ease-out;
-	-moz-transition: all .5s ease-out;
-	-o-transition: all .5s ease-out;
-	-webkit-transition: all .5s ease-out;
+	-ms-transition: all 1s ease-out;
+	-moz-transition: all 1s ease-out;
+	-o-transition: all 1s ease-out;
+	-webkit-transition: all 1s ease-out;
 }
 
 .treinta{

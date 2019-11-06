@@ -118,8 +118,20 @@ var idioma_espaniol = {
     firstDay: 1,
      minDate: -11,
 });
-   $('#notificaciones').hide();
-   $('#btn_notificaciones').click(function(e){
+
+$('#notificaciones').mouseover(function(){
+  $("#notificaciones").css('left',"0");
+  $("#txt2_evento").show();
+});
+
+$('#notificaciones').mouseout(function(){
+  $("#notificaciones").css('left',"-350px");
+  $("#txt2_evento").hide();
+});
+
+   //$('#notificaciones').hide();
+   /*
+   $('#notificaciones').click(function(e){
     e.preventDefault();
         $("#notificaciones").removeClass('slideInRight'); 
         setTimeout(function(){
@@ -127,13 +139,9 @@ var idioma_espaniol = {
           bandera_click=false;
         },1);  
         bandera_click=false;
-        //$('#notificaciones').fadeOut();
      bandera_activo="no";
-    //$('#notificaciones').switchClass( "wobble", "slideOutLeft", 1000, "easeInOutQuad" );
-    //$('#notificaciones').removeClass("wobble");
-    //$('#notificaciones').addClass("slideUpLeft");
    });
-
+*/
    $('.buttonText:eq(0)').html('CSF');
    $('.buttonText:eq(1)').html('INE');
    $('.buttonText:eq(2)').html('ACTA');
@@ -190,7 +198,6 @@ var idioma_espaniol = {
       $('.container').hide();
         nombre.removeClass('animated zoomOutDown').addClass('animated zoomInUp').show();  
     });    
-    
             
   }*/
 
@@ -311,6 +318,7 @@ var idioma_espaniol = {
                                             
                        $("#div_login").fadeOut("swing", function() {
                        });
+                       $('#notificaciones').show();
                         $('#load').show();
                         $('#nav').show();
                         $('#entrar').html("Entrar");
@@ -3268,20 +3276,16 @@ var parametros = {
       
 
       $('#txt_rfc').focusout(function(){
-        var rfc=$(this).val();
-        // patron del RFC, persona moral
-       // var _rfc_pattern_pm = "/^([A-ZÑ&]{3}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/";
-         // patron del RFC, persona fisica
-       //  var _rfc_pattern_pf = "/^([A-ZÑ&]{4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/";
-       
-        if (!ValidaRfc(rfc)){
-            generate('warning', "La estructura del de RFC no es valida");
-           $('#txt_rfc').val('');
-           $('#txt_rfc').css('border','2px solid red');
-        }
-        else{
-          //Validar que ese RFC no exista en la BD PENDIENTE
-          evitar_rfc_duplicado();
+        if($('#c_paises').val()=="RFC"){ //Si el pais es mexico se valida estructura y duplicados
+          var rfc=$(this).val();
+          if (!ValidaRfc(rfc)){
+              generate('warning', "La estructura del de RFC no es valida");
+            $('#txt_rfc').val('');
+            $('#txt_rfc').css('border','2px solid red');
+          }
+          else{
+            evitar_rfc_duplicado();
+          }
         }
       });
 
@@ -4382,8 +4386,8 @@ function validarInput() {
             generate('warning', "Debe ingresar un teléfono");
                 pasa=false;
           }
-          else if(tel.length!=10){
-            generate('warning', "El número de teléfono debe ser a 10 dígitos");
+          else if(tel.length<10){
+            generate('warning', "El número de teléfono debe tener mínimo 10 dígitos");
                 pasa=false;
           }
           else if(estado == ""){
@@ -5672,5 +5676,116 @@ $('#usuario_proveedor').click(function(e){
   e.preventDefault();
   ver_usuarios_bancomer();
 });
+
+/*
+$("#search-box").keyup(function(){
+  $.ajax({
+  type: "POST",
+  url: "readCountry.php",
+  data:'keyword='+$(this).val(),
+  beforeSend: function(){
+    $("#search-box").css("background","#FFF url(/imagess/ui-anim_basic_16x16.gif) no-repeat 165px");
+  },
+  success: function(data){
+    console.log(data);
+    $("#suggesstion-box").show();
+    $("#suggesstion-box").html(data);
+    $("#search-box").css("background","#FFF");
+  }
+  });
+});
+*/
+
+/*
+var options = {
+  data: ["blue", "green", "pink", "red", "yellow"],
+  list: {
+		match: {
+			enabled: true
+		}
+	}
+};
+*/
+var options = {
+
+  url: function(phrase) {
+    return "buscar_eventos_por_nombre.php";
+  },
+
+  getValue: function(element) {
+    return element.nombre;
+  },
+
+  ajaxSettings: {
+    dataType: "json",
+    method: "POST",
+    data: {
+      dataType: "json"
+    }
+  },
+
+  preparePostData: function(data) {
+    data.phrase = $("#txt2_evento").val();
+    return data;
+  },
+
+  requestDelay: 100,
+  theme: "plate-dark",
+  list: {
+    maxNumberOfElements: 75,
+    match: {
+        enabled: true
+    },
+    sort: {
+        enabled: true
+    }
+},
+  
+};
+
+$( "#txt2_evento" ).easyAutocomplete(options);
+
+$('#menu_solicitud_cliente_ex').click(function(){
+  $('#modal_cliente_extranjero').modal('show');
+});
+
+$('#c_paises').change(function(e){
+  $('#identificador_rfc').html($('#c_paises').val());
+  $('#txt_rfc').attr('placeholder', $('#c_paises').val());
+  
+});
+
+$('#btn_ok_pais').click(function(e){
+  e.preventDefault();
+  $('#modal_cliente_extranjero').modal('hide');
+  limpiar_cliente();
+    limpiar_cortinas();
+    $("#div_cortina").animate({top: '0px'}, 1100);
+    $('#div_alta_cliente').fadeIn();
+    ver_bancos();
+    $('#div_tipo_persona').show();
+    $('#form_alta_proveedores').hide();
+    $('#div_area_descripcion').hide();
+    $('#l_cli').html("Clientes registrados");
+    $('#l_razon').html("Razón social del cliente");
+    $('#guardar_cliente').html("<i class='i_espacio fa fa-save' aria-hidden='true'></i>Guardar cliente");
+    $('#txt_cuenta_bancaria').val("0");
+    $('#txt_clabe').val("0");
+    $('#titulo_alta').html("Solicitud de alta de cliente");
+    $("#check_solicitud_pendientes:checked").prop('checked', false);
+    ver_solicitudes_clientes("false", "clientes");
+    if($('#input_oculto').val()=="ALAN SANDOVAL" || 
+    $('#input_oculto').val()=="SANDRA PEÑA"){
+      $('#guardar_cliente').show();
+    }
+    else{
+      $('#guardar_cliente').hide();
+    }
+    $('#files2').hide();
+    $('#files3').hide();
+    $('#files4').hide();
+    $('#files5').hide();
+});
+
 
 }

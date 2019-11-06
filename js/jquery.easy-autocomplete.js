@@ -647,7 +647,7 @@ var EasyAutocomplete = (function(scope) {
 				if (typeof value === "string") {
 					value = value.toLowerCase();
 				}
-
+				
 				phrase = phrase.toLowerCase();
 			}
 			if (config.get("list").match.method(value, phrase)) {
@@ -1234,6 +1234,7 @@ var EasyAutocomplete = (function(scope) {
 
 						phrase = config.get("getValue")(elementsList[i]);
 						if (!config.get("list").match.caseSensitive) {
+							console.log(phrase);
 							phrase = phrase.toLowerCase();
 						}
 
