@@ -27,28 +27,27 @@
 		$result = $mysqli->query("SET NAMES 'utf8'");
 		$sql="update usuarios set Nombre='".$nombre."' , User='".$user."', Ejecutivo='".$eje."', Solicitante='".$sol."', CXP='".$cxp."', Digitalizacion='".$dig."', Productor='".$pro."', Disenio='".$dis."', Directivo='".$dire."', cat_clientes='".$XClientes."', cat_prov='".$XProveedores."', cat_usuarios='".$XUsuarios."', sodexo='".$c_tarjeta_sodexo."', cat_facturacion='".$XFacturacion."' where Nombre='".$nombre1."'";
 		if ($mysqli->query($sql)) {
-				$sql="update tarjetas set Usuario=0 where Usuario=(select id_usuarios from usuarios where Nombre='".$nombre."')";
-				if ($mysqli->query($sql)) {
-					echo "usuario modificado".$sql;
-				}
-				else{
-					echo $sql.mysqli_error($mysqli);
-				}
 
-				$sql="update tarjetas set Usuario=(select id_usuarios from usuarios where Nombre='".$nombre."') where id_tarjeta=".$c_tarjeta_sodexo;
-			if ($mysqli->query($sql)) {
+			// 	$sql="update tarjetas set Usuario=0 where Usuario=(select id_usuarios from usuarios where Nombre='".$nombre."')";
+			// 	if ($mysqli->query($sql)) {
+			// 		echo "usuario modificado".$sql;
+			// 	}
+			// 	else{
+			// 		echo $sql.mysqli_error($mysqli);
+			// 	}
+
+			// 	$sql="update tarjetas set Usuario=(select id_usuarios from usuarios where Nombre='".$nombre."') where id_tarjeta=".$c_tarjeta_sodexo;
+			// if ($mysqli->query($sql)) {
 				echo "usuario modificado".$sql;
-			}
-			else{
-				echo $sql.mysqli_error($mysqli);
-			}
+			// }
+			// else{
+			// 	echo $sql.mysqli_error($mysqli);
+			// }
 				
 		}
 		else{
 			echo $sql.mysqli_error($mysqli);
 		}
 		
-
-
 	$mysqli->close();
 ?>
