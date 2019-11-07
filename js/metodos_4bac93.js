@@ -1,5 +1,9 @@
 function inicio(){
 
+  $("#notificaciones").hide();
+
+  ////
+
   var ids_odc="";// cadena para transeferir eventos
   var BANCOS="";
   var bandera_menu_activo="";
@@ -318,7 +322,7 @@ $('#notificaciones').mouseout(function(){
                                             
                        $("#div_login").fadeOut("swing", function() {
                        });
-                       $('#notificaciones').show();
+                       //$('#notificaciones').show();
                         $('#load').show();
                         $('#nav').show();
                         $('#entrar').html("Entrar");
@@ -1460,6 +1464,7 @@ var parametros = {
            $('#files3').hide();
            $('#files4').hide();
            $('#files5').hide();
+           $('#c_paises').val("RFC");
         });
 
           $('#menu_ver_formatos').click(function(e){
@@ -1739,11 +1744,19 @@ var parametros = {
           
           $('#txt_nombre_contacto').val('');
           $('#txt_correo_contacto').val('');
+
           $("#rfc").filestyle('clear');
           $("#ine").filestyle('clear');
           $("#acta").filestyle('clear');
           $("#estado").filestyle('clear');
           $("#domicilio").filestyle('clear');
+
+          $("#file_csf").val('');
+          $("#file_ine").val('');
+          $("#file_edo").val('');
+          $("#file_comp").val('');
+          $("#file_acta").val('');
+
           $('#txt_cuenta_bancaria').val('');
           $('#txt_clabe').val('');
           $('#c_bancos').val('vacio');
@@ -1754,11 +1767,14 @@ var parametros = {
            $('#seccion_datos').fadeIn();
            //$('#btn_validar_clientes').fadeIn();
            $('#btn_bloquear').hide();
+           
            desactivar_btn_file($('#span_file_csf'), $('#file_csf'));
           desactivar_btn_file($('#span_file_ine'), $('#file_ine'));
           desactivar_btn_file($('#span_file_edo'), $('#file_edo'));
           desactivar_btn_file($('#span_file_comp'), $('#file_comp'));
           desactivar_btn_file($('#span_file_acta'), $('#file_acta'));
+
+          
           csf=false;
           ine=false;
           edo=false;
@@ -2170,9 +2186,11 @@ var parametros = {
               dataType: "json",
               success:  function (response) {
                  //var data = JSON.parse(response);
-                //console.log(response);
+                console.log(response);
                 $('#txt_nombre_cliente').val(response.nombre);
                 $('#txt_nombre_comercial').val(response.nombre_comercial);
+                $('#c_paises').val(response.pais);
+                $('#identificador_rfc').html(response.pais);
                 $('#c_metodo_pago').val(response.metodo_pago);
                 $('#txt_rfc').val(response.rfc);
                 $('#digitos').val(response.digitos);
@@ -2194,6 +2212,7 @@ var parametros = {
                 $('#txt_nombre_contacto').val(response.nombre_contacto);
                 $('#txt_correo_contacto').val(response.email_contacto);
                 $('#c_CFDI_CLIENTE').val(response.cfdi);
+                /*
                 $('#txt_cuenta_bancaria').val(response.cuenta);
                 $('#txt_clabe').val(response.clabe);
                 $('#c_bancos').val(response.banco);
@@ -2202,7 +2221,7 @@ var parametros = {
                   var CUENTA = response.cuenta.substring(tam-4,tam);
                   $('#digitos').val(CUENTA);
                 }
-
+*/
                 if($('#input_oculto').val()=="ALAN SANDOVAL" || $('#input_oculto').val()=="SANDRA PEÑA" ||
                    $('#input_oculto').val()=="SANAYN MARTINEZ"){
                 $('#btn_bloquear').show();
@@ -3709,7 +3728,8 @@ function validarInput() {
               }
             });
             if(coincide==false){
-              opciones=opciones+'<option value="'+colonia+'">'+colonia+'</option>';
+              //alert("Colonia: "+colonia+"-");
+              //opciones=opciones+'<option value="'+colonia+'">'+colonia+'</option>';
             }
               opciones=opciones+'<option value="0">Ingresa una colonia</option>';
             
@@ -5744,14 +5764,19 @@ var options = {
 };
 
 $( "#txt2_evento" ).easyAutocomplete(options);
-
+/*
 $('#menu_solicitud_cliente_ex').click(function(){
   $('#modal_cliente_extranjero').modal('show');
 });
+*/
 
 $('#c_paises').change(function(e){
   $('#identificador_rfc').html($('#c_paises').val());
   $('#txt_rfc').attr('placeholder', $('#c_paises').val());
+  $('#txt_cp').val("");
+  $('#txt_estado').val("");
+  $('#txt_municipio').val("");
+  $('#c_colonia').html("<option value='vacio'>Selecciona...</option><option value='0'>Ingresa una colonia</option>");
   
 });
 

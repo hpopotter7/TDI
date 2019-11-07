@@ -10,7 +10,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 /* Select queries return a resultset */
-$sql="SELECT Razon_Social, rfc, digitos, tipo_persona, nombre_comercial, calle, num_ext, num_int, colonia, cp, telefono, estado, municipio, nombre_contacto, correo_contacto, uso_cfdi   FROM clientes where id_cliente=".$id;
+$sql="SELECT c.Razon_Social, c.rfc, c.digitos, c.tipo_persona, c.nombre_comercial, c.calle, c.num_ext, c.num_int, c.colonia, c.cp, c.telefono, c.estado, c.municipio, c.nombre_contacto, c.correo_contacto, c.uso_cfdi, p.identificacion  FROM clientes c, paises p where c.pais=p.Nombre and id_cliente=".$id;
 $result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
 
@@ -32,6 +32,7 @@ if ($result = $mysqli->query($sql)) {
         	'nombre_contacto'=>$row[13],
         	'email_contacto'=>$row[14],
             'cfdi'=>$row[15],
+            'pais'=>$row[16],
             'error'=>'nada',
             'sql'=>''
         	);

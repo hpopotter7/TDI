@@ -140,17 +140,24 @@
           <li id='nav_catalogos' class="dropdown">
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catálogos<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <!--
+              
                <li><a id='menu_solicitud_cliente' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Alta de cliente</a></li>
-             -->
+             
+             <!--
             <li class="dropdown-submenu">
               <a class="test" tabindex="-1" href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Alta de cliente <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                 <li><a tabindex="-1" id='menu_prealta' href="pre_alta.html" target="_blank"><i class="fa fa-font-awesome" aria-hidden="true"></i> Pre-alta </a></li>
-                  <li><a tabindex="-1" id='menu_solicitud_cliente' href="#"><i class="fa fa-font-awesome" aria-hidden="true"></i> Nacional </a></li>
+                  <li><a tabindex="-1" id='menu_solicitud_clientesss' href="#"><i class="fa fa-font-awesome" aria-hidden="true"></i> Nacional </a></li>
+                  -->
+                  <!--
                   <li><a tabindex="-1" href="#" id='menu_solicitud_cliente_ex'><i class="fa fa-eur" aria-hidden="true"></i> Extranjero </a></li>
+                  -->
+                  <!--
                 </ul>
               </li>
+
+              -->
 
 
               <li><a id='menu_solicitud_prov' href="#" class='item_menu'><i class="fa fa-building" aria-hidden="true"></i> Alta de proveedor</a></li>
@@ -680,8 +687,11 @@
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                        
                         <select id="c_colonia" name='c_colonia' class='form-control'>
                         </select>
+                        
+                        
                      </div>
                   </div>
                </div>
