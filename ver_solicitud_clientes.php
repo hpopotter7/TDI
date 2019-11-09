@@ -15,7 +15,7 @@ if($bandera=="false"){
 }
 else{
     if($usuario=="SANDRA PEÑA" || $usuario=="ALAN SANDOVAL"){
-        $sql="SELECT id_cliente, Razon_Social, Numero_cliente, 1 FROM clientes where Numero_cliente ='0' and Estatus='activo' order by Razon_Social asc";
+        $sql="SELECT id_cliente, Razon_Social, Numero_cliente,  Usuario_Solicita FROM clientes where Numero_cliente ='0' and Estatus='activo' order by Razon_Social asc";
     }
     else{
 	   $sql="SELECT id_cliente, Razon_Social, Numero_cliente, DATE_FORMAT(fecha_solicitud, '%d-%m-%Y') FROM clientes where Numero_cliente ='0'  and Usuario_solicita='".$usuario."' order by Razon_Social asc";
@@ -29,13 +29,14 @@ if ($result = $mysqli->query($sql)) {
            $resultado='<option value="vacio">Selecciona un cliente...</option>';
    
     while ($row = $result->fetch_row()) {
+        $nom="";
         if($row[3]=="1"){
-            $var="";
+            $nom=$row[1];
         }
         else{
-            $var="  <i>[".$row[3]."]</i>";
+            $nom=$row[1]." [".$row[3]."]";
         }
-        $resultado=$resultado."<option value='".$row[0]."&".$row[1]."'><b>".$row[1]."</b>".$var."</option>";
+        $resultado=$resultado."<option value='".$row[0]."&".$row[1]."'>".$nom."</option>";
     }
 
     /* free result set */
