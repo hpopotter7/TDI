@@ -1,6 +1,6 @@
 function inicio(){
 
-  $("#notificaciones").hide();
+  $("#notificaciones").show();
 
   ////
 

@@ -24,8 +24,8 @@
   <link rel="stylesheet" href="css/data_tables.css">
   <link rel="stylesheet" href="css/uploadfile.css">
   <link rel="stylesheet" href="css/jquery_combo_editable.css">
-  <link rel="stylesheet" href="css/easy-autocomplete.css" />
-  <link rel="stylesheet" href="css/easy-autocomplete.themes.css"/>
+  <link href="css/easy-autocomplete.css" rel="stylesheet"/>
+  <link href="css/easy-autocomplete.themes.css" rel="stylesheet"/>
 
   <script src="js/jquery-1.10.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
@@ -55,7 +55,7 @@
   <script src='js/DateTables.js'></script>
   <script src="js/accounting.js"></script>
   <script src="js/jquery_combo_editable.js"></script>
-  
+
   <script src="js/dataTables.buttons.min.js"></script>
   <script src="js/buttons.flash.min.js"></script>
   <script src="js/jszip.min.js"></script>
@@ -66,7 +66,7 @@
   <script src="js/jspdf.min.js"></script>
   <script src="js/jquery.easy-autocomplete.js"></script>
   
-  <script src="js/metodos_4bac93.js"></script>
+  <script src="js/metodos_4bac9300.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -88,25 +88,54 @@
   margin-top: -1px;
 }
 </style>
-<style>
-  .ui-autocomplete-loading {
-    background: white url("imagess/ui-anim_basic_16x16.gif") right center no-repeat;
-  }
-  </style>
 </head>
 <body>
   <audio id="audio_error">
    <source src="audio/error.mp3" type="audio/mp3" />
    <source src="audio/error.wav" type="audio/wav" />
 </audio>
-<!--
+
   <div id="notificaciones" class="quick-btn col-md-1 cambio">
-      <a id='btn_notificaciones' href="#" class="pull-right">
-        <i class="fa fa-commenting-o fa-3x"></i><br/>
-      </a>
-      <span class="label label-danger">2</span>
+  <label id="" style='text-align: left; color:black; font-size:1.7em;'>Bitácora de notificaciones</label>
+  <a id='btn_notificaciones' href="#" class="pull-right">
+        <i class="fa fa-bell fa-2x" style='color:black'></i>      
+  <span class="label label-danger" style='font-size:95%; vertical-align:top;'>2</span>
+  </a>
+  <a id='btn_cerrar_bitacora' href="#" class="pull-right">
+        <i class="fa fa-close fa-2x" style='color:black'></i>      
+  
+  </a>
+  <div class="row" style='background-color:white'>
+   <aside class="dropdown-item dropdown-notification">
+      <div class="col-md-12" style='text-align: left;'>
+        <span class="btn btn-primary" >Solicitud de alta de proveedor</span><br>
+        <span style="color:black">
+          <i class="fa fa-user" aria-hidden="true"></i> LUCERO AVILA
+        </span>
+        <br>
+        <span style="color:black">
+          <i class="fa fa-clock-o" aria-hidden="true"></i> 08/11/19 07:12 PM
+        </span>
+      </div>
+    </aside>
+      </div>
+     <div class="clearfix"></div>
+      <div class="row" style='background-color:white'>
+   <aside class="dropdown-item dropdown-notification">
+      <div class="col-md-12" style='text-align: left;'>
+        <span class="btn btn-primary" >Solicitud de modificación a evento</span><br>
+        <span style="color:black">
+          <i class="fa fa-user" aria-hidden="true"></i> ANGELA OLEA
+        </span>
+        <br>
+        <span style="color:black">
+          <i class="fa fa-clock-o" aria-hidden="true"></i> 08/11/19 03:12 PM
+        </span>
+      </div>
+    </aside>
+      </div>
   </div>
--->
+
 
 
   <div id='div_cortina'></div>
@@ -140,24 +169,17 @@
           <li id='nav_catalogos' class="dropdown">
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catálogos<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              
+              <!--
                <li><a id='menu_solicitud_cliente' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Alta de cliente</a></li>
-             
-             <!--
+             -->
             <li class="dropdown-submenu">
               <a class="test" tabindex="-1" href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Alta de cliente <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                 <li><a tabindex="-1" id='menu_prealta' href="pre_alta.html" target="_blank"><i class="fa fa-font-awesome" aria-hidden="true"></i> Pre-alta </a></li>
-                  <li><a tabindex="-1" id='menu_solicitud_clientesss' href="#"><i class="fa fa-font-awesome" aria-hidden="true"></i> Nacional </a></li>
-                  -->
-                  <!--
-                  <li><a tabindex="-1" href="#" id='menu_solicitud_cliente_ex'><i class="fa fa-eur" aria-hidden="true"></i> Extranjero </a></li>
-                  -->
-                  <!--
+                  <li><a tabindex="-1" id='menu_solicitud_cliente' href="#"><i class="fa fa-font-awesome" aria-hidden="true"></i> Nacional </a></li>
+                  <li class='disabled'><a tabindex="-1" href="#" id='menu_solicitud_cliente_ex' class='disabled' disabled><i class="fa fa-eur" aria-hidden="true"></i> Extranjero </a></li>
                 </ul>
               </li>
-
-              -->
 
 
               <li><a id='menu_solicitud_prov' href="#" class='item_menu'><i class="fa fa-building" aria-hidden="true"></i> Alta de proveedor</a></li>
@@ -230,16 +252,9 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-  <div class="row col-md-2 cambio" id='notificaciones'>
-    <label for="">Nombre evento:</label>
-  <i class="fa fa-envira fa-2x pull-right" aria-hidden="true"></i>
-    <aside>
-    <div class="ui-widget">
-      <input type="text" name="" id="txt2_evento" class="form-control" value="" required="required" placeholder="Buscar" style='display:none'>
-    </div>
-    </aside>
-    
-  </div>
+  <?php  
+    //include("cliente_extranjero.php");
+  ?>
   
   <div id='div_login' class="container" >
     <div class="row" id="pwd-container" style="top:50px">    
@@ -575,29 +590,11 @@
                   </div>
                </div>
                <div class="form-group col-md-3 ">
-                  <label  for="name" class="cols-sm-2 control-label">País</label>
+                  <label for="name" class="cols-sm-2 control-label">RFC</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-flag" aria-hidden="true"></i></span>
-                        <select id="c_paises" class="form-control">
-                          <?php 
-                            include("conexion.php");
-                            if (mysqli_connect_errno()) {
-                                printf("Error de conexion: %s\n", mysqli_connect_error());
-                                exit();
-                            }
-                            $result = $mysqli->query("SET NAMES 'utf8'");
-                            $sql="SELECT Nombre, Identificacion, moneda FROM paises order by Nombre asc";
-                            if ($result = $mysqli->query($sql)) {
-                                $res='<option value="vacio">--- Selecciona ---</option>';
-                                while ($row = $result->fetch_row()) {
-                                    $res=$res.'<option value="'.$row[1].'">'.$row[0].' - ['.$row[2].']</option>';
-                                }
-                                $result->close();
-                            }
-                            echo $res;
-                          ?>
-                          </select>
+                        <span class="input-group-addon"><i class="fa fa-qrcode" aria-hidden="true"></i></span>
+                        <input id='txt_rfc' name='txt_rfc' type="text" class="form-control" placeholder="RFC" />
                      </div>
                   </div>
                </div>
@@ -613,7 +610,7 @@
                
             </div>
             <div class="row">
-               <div class="form-group col-md-6 ">
+               <div class="form-group col-md-10 ">
                   <label for="name" class="cols-sm-10 control-label">Nombre comercial</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
@@ -622,16 +619,7 @@
                      </div>
                   </div>
                </div>
-               <div class="form-group col-md-3 ">
-                  <label id='identificador_rfc' for="name" class="cols-sm-2 control-label">RFC</label>
-                  <div class="cols-sm-10">
-                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-qrcode" aria-hidden="true"></i></span>
-                        <input id='txt_rfc' name='txt_rfc' type="text" class="form-control" placeholder="RFC" />
-                     </div>
-                  </div>
-               </div>
-               <div id='div_tipo_persona' class="form-group col-md-3 ">
+               <div id='div_tipo_persona' class="form-group col-md-2 ">
                   <label for="name" class="cols-sm-2 control-label">Tipo persona</label>
                   <div class="cols-sm-1">
                      <div class="input-group">
@@ -687,11 +675,8 @@
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                        
                         <select id="c_colonia" name='c_colonia' class='form-control'>
                         </select>
-                        
-                        
                      </div>
                   </div>
                </div>
@@ -1807,7 +1792,7 @@
   
 <footer class="page-footer font-small blue pt-4" style="z-index: 400px">   
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3" style="position:fixed;
+    <div class="footer-copyright text-center py-3" style=" position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -1818,49 +1803,6 @@
     </div>
     <!-- Copyright -->
   </footer>
-
-  <div class="modal fade" id="modal_cliente_extranjero" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title" id="myModalLabel">Alta cliente extranjero</h4>
-              </div>
-              <div class="modal-body">
-      <div class="container-fluid">
-        <div class="form-group input-group">
-          <span class="input-group-addon" style="width:150px;">País</span>
-          <select id="c_paises" class="form-control" style="width:350px;">
-          <?php 
-            include("conexion.php");
-            if (mysqli_connect_errno()) {
-                printf("Error de conexion: %s\n", mysqli_connect_error());
-                exit();
-            }
-            $result = $mysqli->query("SET NAMES 'utf8'");
-            $sql="SELECT Nombre, Identificacion FROM paises order by Nombre asc";
-            if ($result = $mysqli->query($sql)) {
-                $res='<option value="vacio">--- Selecciona ---</option>';
-                while ($row = $result->fetch_row()) {
-                    $res=$res.'<option value="'.$row[1].'">'.$row[0].'</option>';
-                }
-                $result->close();
-            }
-            echo $res;
-          ?>
-          </select>
-        </div>	        
-      </div>
-      </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
-              <button id='btn_ok_pais' type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> </i> Aceptar</button>
-          </div>
-          </div>
-      </div>
-    
-  </div>
  
 </body>
 </html>

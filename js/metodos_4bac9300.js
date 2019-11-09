@@ -118,9 +118,14 @@ var idioma_espaniol = {
     firstDay: 1,
      minDate: -11,
 });
-   $('#notificaciones').hide();
+   //$('#notificaciones').hide();
    $('#btn_notificaciones').click(function(e){
+     
     e.preventDefault();
+    $('#notificaciones').css("left","-10px");
+    $('#btn_notificaciones').hide();
+    $('#btn_cerrar_bitacora').show();
+    /*
         $("#notificaciones").removeClass('slideInRight'); 
         setTimeout(function(){
           $("#notificaciones").addClass('slideOutRight');
@@ -132,6 +137,28 @@ var idioma_espaniol = {
     //$('#notificaciones').switchClass( "wobble", "slideOutLeft", 1000, "easeInOutQuad" );
     //$('#notificaciones').removeClass("wobble");
     //$('#notificaciones').addClass("slideUpLeft");
+    */
+   });
+
+   $('#btn_cerrar_bitacora').click(function(e){
+     
+    e.preventDefault();
+    $('#notificaciones').css("left","-360px");
+    $('#btn_notificaciones').show();
+    $('#btn_cerrar_bitacora').hide();
+    /*
+        $("#notificaciones").removeClass('slideInRight'); 
+        setTimeout(function(){
+          $("#notificaciones").addClass('slideOutRight');
+          bandera_click=false;
+        },1);  
+        bandera_click=false;
+        //$('#notificaciones').fadeOut();
+     bandera_activo="no";
+    //$('#notificaciones').switchClass( "wobble", "slideOutLeft", 1000, "easeInOutQuad" );
+    //$('#notificaciones').removeClass("wobble");
+    //$('#notificaciones').addClass("slideUpLeft");
+    */
    });
 
    $('.buttonText:eq(0)').html('CSF');
