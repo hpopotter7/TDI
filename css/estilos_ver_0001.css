@@ -134,6 +134,14 @@ thead{
 	-webkit-transition: all 1s ease-out;
 }
 
+.cambio_3s
+{
+	-ms-transition: all 5s ease-out;
+	-moz-transition: all 5s ease-out;
+	-o-transition: all 5s ease-out;
+	-webkit-transition: all 5s ease-out;
+}
+
 .treinta{
 	width: 30%;
 	background-color: #EC971F;

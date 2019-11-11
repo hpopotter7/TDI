@@ -1,5 +1,8 @@
 function inicio(){
 
+  var contador_tiempo=-1;
+  //ver_numero_notificaciones();
+
   var ids_odc="";// cadena para transeferir eventos
   var BANCOS="";
   var bandera_menu_activo="";
@@ -118,26 +121,15 @@ var idioma_espaniol = {
     firstDay: 1,
      minDate: -11,
 });
-   //$('#notificaciones').hide();
+   $('#notificaciones').hide();
+   $('#btn_cerrar_bitacora').hide();
+
    $('#btn_notificaciones').click(function(e){
-     
     e.preventDefault();
     $('#notificaciones').css("left","-10px");
     $('#btn_notificaciones').hide();
     $('#btn_cerrar_bitacora').show();
-    /*
-        $("#notificaciones").removeClass('slideInRight'); 
-        setTimeout(function(){
-          $("#notificaciones").addClass('slideOutRight');
-          bandera_click=false;
-        },1);  
-        bandera_click=false;
-        //$('#notificaciones').fadeOut();
-     bandera_activo="no";
-    //$('#notificaciones').switchClass( "wobble", "slideOutLeft", 1000, "easeInOutQuad" );
-    //$('#notificaciones').removeClass("wobble");
-    //$('#notificaciones').addClass("slideUpLeft");
-    */
+    consultar_bitacora();
    });
 
    $('#btn_cerrar_bitacora').click(function(e){
@@ -146,19 +138,7 @@ var idioma_espaniol = {
     $('#notificaciones').css("left","-360px");
     $('#btn_notificaciones').show();
     $('#btn_cerrar_bitacora').hide();
-    /*
-        $("#notificaciones").removeClass('slideInRight'); 
-        setTimeout(function(){
-          $("#notificaciones").addClass('slideOutRight');
-          bandera_click=false;
-        },1);  
-        bandera_click=false;
-        //$('#notificaciones').fadeOut();
-     bandera_activo="no";
-    //$('#notificaciones').switchClass( "wobble", "slideOutLeft", 1000, "easeInOutQuad" );
-    //$('#notificaciones').removeClass("wobble");
-    //$('#notificaciones').addClass("slideUpLeft");
-    */
+    $('#resultado_bitacora').html("");
    });
 
    $('.buttonText:eq(0)').html('CSF');
@@ -335,9 +315,12 @@ var idioma_espaniol = {
                           });
                     }
                     else{
-                                            
+                      contador_tiempo=15;
+                      updateReloj();
+                      ver_numero_notificaciones();           
                        $("#div_login").fadeOut("swing", function() {
                        });
+                       //consultar_bitacora();
                         $('#load').show();
                         $('#nav').show();
                         $('#entrar').html("Entrar");
@@ -5715,5 +5698,97 @@ $('#usuario_proveedor').click(function(e){
   e.preventDefault();
   ver_usuarios_bancomer();
 });
+
+function consultar_bitacora(){
+  $.ajax({
+    url:   'consultar_bitacora.php',
+    type:  'post',
+    success:  function (response) {
+      $('#resultado_bitacora').html(response);
+    }
+  });
+}
+
+function ver_numero_notificaciones(){
+  $.ajax({
+    url:   'ver_numero_notificaciones.php',
+    type:  'post',
+    success:  function (response) {
+      console.log(response);
+      if(response.includes("ninguno")){
+        $('#badge_numero_notificaciones').hide();
+        $('#notificaciones').show();
+        $("#notificaciones").addClass("slower slideInDown animated").one('animationend webkitAnimationEnd oAnimationEnd', function() {
+          $("#notificaciones").removeClass("slower slideInDown animated");
+          
+        });        
+      }
+      else{
+        $('#notificaciones').show();
+        $('#notificaciones').css("left","-250px");
+        $("#notificaciones").addClass("slower tada animated").one('animationend webkitAnimationEnd oAnimationEnd', function() {
+          $("#notificaciones").removeClass("slower tada animated");
+        });
+        $('#notificaciones').css("left","-360px");
+        $("#audio_ding")[0].play(); //dee usarse dentro del click de un boton
+        $('#badge_numero_notificaciones').html(response);
+      }
+    }
+  });
+}
+
+function updateReloj() {
+  //console.log(formatSeconds(tiempoTotal));
+  /*
+  if(tiempoTotal==900){
+      
+  //$('#hurry').get(0).play();
+  /*
+      var styles = {
+        color : "red",
+        transition: "all .45s ease-in-out",
+        transform: "scale(1.6) translate(0px, 20px)",
+      };
+      $('#timer').css(styles);
+  }
+  else if(tiempoTotal==899){
+      $('#timer').css('transition','all .45s ease-in-out');
+      $('#timer').css('transform','scale(1)');
+      $('#timer').css('transform','translate(0px, 0px)');
+  }
+  document.getElementById("timer").innerHTML = "<h5>Tiempo</h5><p>"+formatSeconds(tiempoTotal)+
+  '<button type="button" id="btn_enviar" class="btn btn-success btn-lg btn3d"><span class="fa fa-paper-plane-o"></span>  Enviar respuestas</button>';
+*/
+
+  if (contador_tiempo == 0) {
+    ver_numero_notificaciones();
+    contador_tiempo=120;
+/*
+      swal({
+              title: "Alto!",
+              text: "El tiempo ah finalizado , tu progreso sera guardado!",
+              type: "warning",
+              showCancelButton: false,
+              //confirmButtonColor: "#DD6B55",
+              confirmButtonText: "OK, lo entiendo.",
+              showLoaderOnConfirm: true,
+              closeOnConfirm: false
+          },
+          function() {
+              //swal("Felicidades!", "Haz concluido tu examen.", "success");
+              //location.href = "index.php";
+              terminar_examen();
+          });
+
+      finalizar();
+*/
+  } else {
+    contador_tiempo -= 1;
+    
+      setTimeout(updateReloj, 1000);
+  }
+  //window.onload = updateReloj;
+}
+
 
 }

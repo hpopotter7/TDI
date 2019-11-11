@@ -65,6 +65,7 @@
   <script src="js/buttons.print.min.js"></script>
   <script src="js/jspdf.min.js"></script>
   <script src="js/jquery.easy-autocomplete.js"></script>
+  <script src="js/audio.min.js"></script>
   
   <script src="js/metodos_4bac9300.js"></script>
   <script>
@@ -94,46 +95,40 @@
    <source src="audio/error.mp3" type="audio/mp3" />
    <source src="audio/error.wav" type="audio/wav" />
 </audio>
+<audio id="audio_ding">
+   <source src="audio/tada.mp3" type="audio/mp3" />
+   <source src="audio/tada.wav" type="audio/wav" />
+</audio>
+
 
   <div id="notificaciones" class="quick-btn col-md-1 cambio">
   <label id="" style='text-align: left; color:black; font-size:1.7em;'>Bitácora de notificaciones</label>
   <a id='btn_notificaciones' href="#" class="pull-right">
         <i class="fa fa-bell fa-2x" style='color:black'></i>      
-  <span class="label label-danger" style='font-size:95%; vertical-align:top;'>2</span>
   </a>
   <a id='btn_cerrar_bitacora' href="#" class="pull-right">
         <i class="fa fa-close fa-2x" style='color:black'></i>      
-  
   </a>
-  <div class="row" style='background-color:white'>
-   <aside class="dropdown-item dropdown-notification">
-      <div class="col-md-12" style='text-align: left;'>
-        <span class="btn btn-primary" >Solicitud de alta de proveedor</span><br>
-        <span style="color:black">
-          <i class="fa fa-user" aria-hidden="true"></i> LUCERO AVILA
-        </span>
-        <br>
-        <span style="color:black">
-          <i class="fa fa-clock-o" aria-hidden="true"></i> 08/11/19 07:12 PM
-        </span>
-      </div>
-    </aside>
-      </div>
-     <div class="clearfix"></div>
-      <div class="row" style='background-color:white'>
-   <aside class="dropdown-item dropdown-notification">
-      <div class="col-md-12" style='text-align: left;'>
-        <span class="btn btn-primary" >Solicitud de modificación a evento</span><br>
-        <span style="color:black">
-          <i class="fa fa-user" aria-hidden="true"></i> ANGELA OLEA
-        </span>
-        <br>
-        <span style="color:black">
-          <i class="fa fa-clock-o" aria-hidden="true"></i> 08/11/19 03:12 PM
-        </span>
-      </div>
-    </aside>
-      </div>
+  <span id='badge_numero_notificaciones' class="label label-danger" style='font-size:95%; vertical-align:top;'>
+  
+  </span>
+  <section id='resultado_bitacora'>
+  
+  </section>
+      <!-- <div class="row" style='background-color:white'>
+        <aside class="dropdown-item dropdown-notification">
+            <div class="col-md-12" style='text-align: left;'>
+              <span class="btn btn-primary" >Solicitud de modificación a evento</span><br>
+              <span style="color:black">
+                <i class="fa fa-user" aria-hidden="true"></i> ANGELA OLEA
+              </span>
+              <br>
+              <span style="color:black">
+                <i class="fa fa-clock-o" aria-hidden="true"></i> 08/11/19 03:12 PM
+              </span>
+            </div>
+          </aside>
+      </div> -->
   </div>
 
 
