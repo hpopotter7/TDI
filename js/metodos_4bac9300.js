@@ -248,6 +248,7 @@ var idioma_espaniol = {
 */
 
   $('#entrar').click(function(){
+    
     var user=$('#user').val();
     var pass=$('#pass').val();
     if(user=="" || pass==""){
@@ -315,7 +316,7 @@ var idioma_espaniol = {
                           });
                     }
                     else{
-                      contador_tiempo=15;
+                      contador_tiempo=120;
                       updateReloj();
                       ver_numero_notificaciones();           
                        $("#div_login").fadeOut("swing", function() {
@@ -5716,12 +5717,24 @@ function ver_numero_notificaciones(){
     success:  function (response) {
       console.log(response);
       if(response.includes("ninguno")){
-        $('#badge_numero_notificaciones').hide();
-        $('#notificaciones').show();
-        $("#notificaciones").addClass("slower slideInDown animated").one('animationend webkitAnimationEnd oAnimationEnd', function() {
-          $("#notificaciones").removeClass("slower slideInDown animated");
-          
-        });        
+        
+        if ( $('#notificaciones').is(':visible') ){
+          if(response.includes("ninguno")){
+            $('#badge_numero_notificaciones').html('');
+          }
+          else{
+            $('#badge_numero_notificaciones').html(response);
+          }
+         
+        }
+        else{
+          $('#badge_numero_notificaciones').hide();
+          $('#notificaciones').show();
+          $("#notificaciones").addClass("slower slideInDown animated").one('animationend webkitAnimationEnd oAnimationEnd', function() {
+            $("#notificaciones").removeClass("slower slideInDown animated");
+          });
+        }
+                
       }
       else{
         $('#notificaciones').show();
@@ -5738,57 +5751,46 @@ function ver_numero_notificaciones(){
 }
 
 function updateReloj() {
-  //console.log(formatSeconds(tiempoTotal));
-  /*
-  if(tiempoTotal==900){
-      
-  //$('#hurry').get(0).play();
-  /*
-      var styles = {
-        color : "red",
-        transition: "all .45s ease-in-out",
-        transform: "scale(1.6) translate(0px, 20px)",
-      };
-      $('#timer').css(styles);
-  }
-  else if(tiempoTotal==899){
-      $('#timer').css('transition','all .45s ease-in-out');
-      $('#timer').css('transform','scale(1)');
-      $('#timer').css('transform','translate(0px, 0px)');
-  }
-  document.getElementById("timer").innerHTML = "<h5>Tiempo</h5><p>"+formatSeconds(tiempoTotal)+
-  '<button type="button" id="btn_enviar" class="btn btn-success btn-lg btn3d"><span class="fa fa-paper-plane-o"></span>  Enviar respuestas</button>';
-*/
 
   if (contador_tiempo == 0) {
     ver_numero_notificaciones();
     contador_tiempo=120;
-/*
-      swal({
-              title: "Alto!",
-              text: "El tiempo ah finalizado , tu progreso sera guardado!",
-              type: "warning",
-              showCancelButton: false,
-              //confirmButtonColor: "#DD6B55",
-              confirmButtonText: "OK, lo entiendo.",
-              showLoaderOnConfirm: true,
-              closeOnConfirm: false
-          },
-          function() {
-              //swal("Felicidades!", "Haz concluido tu examen.", "success");
-              //location.href = "index.php";
-              terminar_examen();
-          });
-
-      finalizar();
-*/
-  } else {
+  } 
+  else {
     contador_tiempo -= 1;
-    
+  
       setTimeout(updateReloj, 1000);
   }
   //window.onload = updateReloj;
 }
+
+$('#resultado_bitacora').delegate('.btn_notificacion', 'click', function(){
+  var id=$(this).attr('id');
+  var datos={
+      "id":id,
+  };
+  $.ajax({
+    url:   'consultar_mensaje_bitacora.php',
+    type:  'post',
+    data: datos,
+    success:  function (response) {
+      console.log(response);
+      $('#mensaje_notificacion').html(response);
+      $("#modal_notificacion").modal({
+        fadeDuration: 100
+      });
+    }
+  });
+  
+});
+
+$('#modal_notificacion').on($.modal.CLOSE, function(event, modal) {
+  $('#notificaciones').css("left","-360px");
+  $('#btn_notificaciones').show();
+  $('#btn_cerrar_bitacora').hide();
+  $('#resultado_bitacora').html("");
+  ver_numero_notificaciones();
+});
 
 
 }

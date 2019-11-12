@@ -24,8 +24,9 @@
   <link rel="stylesheet" href="css/data_tables.css">
   <link rel="stylesheet" href="css/uploadfile.css">
   <link rel="stylesheet" href="css/jquery_combo_editable.css">
-  <link href="css/easy-autocomplete.css" rel="stylesheet"/>
-  <link href="css/easy-autocomplete.themes.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/easy-autocomplete.css" />
+  <link rel="stylesheet" href="css/easy-autocomplete.themes.css""/>
+  <link rel="stylesheet" href="css/jquery.modal.css"/>
 
   <script src="js/jquery-1.10.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
@@ -66,6 +67,8 @@
   <script src="js/jspdf.min.js"></script>
   <script src="js/jquery.easy-autocomplete.js"></script>
   <script src="js/audio.min.js"></script>
+  <script src="js/jquery.modal.js"></script>
+  
   
   <script src="js/metodos_4bac9300.js"></script>
   <script>
@@ -102,7 +105,7 @@
 
 
   <div id="notificaciones" class="quick-btn col-md-1 cambio">
-  <label id="" style='text-align: left; color:black; font-size:1.7em;'>Bitácora de notificaciones</label>
+  <label id="titulo_notificaciones" style='text-align: left; color:black; font-size:1.7em;'>Bitácora de notificaciones</label>
   <a id='btn_notificaciones' href="#" class="pull-right">
         <i class="fa fa-bell fa-2x" style='color:black'></i>      
   </a>
@@ -1784,6 +1787,19 @@
     <!--<input type="text" id='txt_prueba' class='form-control' placeholder="Ingresa un evento">-->
   </div>
   <!-- Footer -->
+  
+
+ <!-- Modal HTML embedded directly into document -->
+<div id="modal_notificacion" class="modal">
+  <div contenteditable="true" id='mensaje_notificacion'>
+  
+  </div>
+  
+</div>
+
+<!-- Link to open the modal -->
+
+  
   
 <footer class="page-footer font-small blue pt-4" style="z-index: 400px">   
     <!-- Copyright -->

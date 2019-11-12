@@ -118,7 +118,7 @@ thead{
 	background-color: #e9fa00;
 	padding: 1em;
 	border-radius:.1em;
-	z-index: 10;
+	/*z-index: 10;*/
 	left: -360px;
 	-webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);

@@ -6,7 +6,7 @@ if (mysqli_connect_errno()) {
 }
 
 $result = $mysqli->query("SET NAMES 'utf8'"); 
-$sql="select Quien_hizo, DATE_FORMAT(Fecha_hora, '%d/%m/%Y %l:%i %p') Fecha, Asunto from notificaciones where visto='0'";
+$sql="select id_notificaciones, Quien_hizo, DATE_FORMAT(Fecha_hora, '%d/%m/%Y %l:%i %p') Fecha, Asunto from notificaciones where visto='0'";
 $res="";
 if ($result = $mysqli->query($sql)) {
    $cont=0;
@@ -14,7 +14,7 @@ if ($result = $mysqli->query($sql)) {
         $res=$res.'<div class="row" style="background-color:white">
         <aside class="dropdown-item dropdown-notification">
            <div class="col-md-12" style="text-align: left;">
-             <span class="btn btn-primary" >'.$row["Asunto"].'</span><br>
+             <span id="'.$row["id_notificaciones"].'" class="btn btn-primary btn_notificacion" >'.$row["Asunto"].'</span><br>
              <span style="color:black">
                <i class="fa fa-user" aria-hidden="true"></i> Solicita: '.$row["Quien_hizo"].'
              </span>
@@ -25,7 +25,7 @@ if ($result = $mysqli->query($sql)) {
            </div>
          </aside>
            </div>
-          <div class="clearfix"></div><span class="tada></span>';
+          <hr>';
         $res=$res.$row[1];
         $cont++;
     }
