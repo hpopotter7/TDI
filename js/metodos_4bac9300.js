@@ -2527,7 +2527,7 @@ var parametros = {
                                             }
                                             else{
                                               console.log(response);
-                                              generate('error',"Ocurrio un error al guardar la solicitud");
+                                              generate('error',"Ocurrio un error al guardar la solicitud\n"+response);
                                             }
                                           }
                                         });
@@ -2643,7 +2643,7 @@ var parametros = {
                                             }
                                             else{
                                               console.log(response);
-                                              generate('error',"Ocurrio un error al guardar la solicitud");
+                                              generate('error',"Ocurrio un error al guardar la solicitud\n"+response);
                                             }
                                           }
                                         });

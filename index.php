@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="css/sweetalert2.css"/>  
   <link rel="stylesheet" href="css/bootstrap.toogle.min.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
-  <link rel="stylesheet" href="css/bootstrap.min2.css">
+  <link rel="stylesheet" href="css/bootstrap.min3.css">
   <link rel="stylesheet" href="css/estilos_ver_0001.css"/>
   <link rel="stylesheet" href="css/estilos_menu_user.css"/>
   <link rel="stylesheet" href="css/jquery-ui_theme_green.css"/>

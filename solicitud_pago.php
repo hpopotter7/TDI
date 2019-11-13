@@ -2,21 +2,22 @@
 <?php
 $id=$_GET['id'];
 
+
 header("Content-Type: text/html;charset=utf-8");
 require('fpdf.php');
 date_default_timezone_set ("America/Mexico_City");
 $hoy=getdate();
-$d = $hoy[mday];
-$m = $hoy[mon];
-$y = $hoy[year];
+$d = $hoy["mday"];
+$m = $hoy["mon"];
+$y = $hoy["year"];
 if($m<10){
     $m="0".$m;
 }
-
+/*
 if($titulo=="ODC"){
     $titulo="PAGO";
 }
-
+*/
 //Connect to your database
 include("conexion.php");
 
@@ -73,9 +74,10 @@ if(strpos($CLIENTE, '&')){
 /*  SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.factura, DATE_FORMAT(o.fecha, '%d/%m/%Y'), CONCAT(e.Numero_evento, ' ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, e.solicita, o.tipo, o.tipo_pago FROM odc o, eventos e, clientes c where o.evento=e.id_evento and o.a_nombre=c.Nombre and o.id_odc=27
 */
 
-    $sql="SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.docto_soporte, DATE_FORMAT(o.fecha, '%d/%m/%Y'),  CONCAT('".$ID2."', ' ".$CLIENTE." - ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, o.tipo, o.tipo_pago, DATE_FORMAT(e.inicio_evento ,'%d/%m/%Y'), DATE_FORMAT(e.fin_evento,'%d/%m/%Y'), o.otros, o.cfdi, o.metodo_pago, c.metodo_pago, c.nombre_contacto, c.correo_contacto, c.sucursal, c.Numero_cliente, o.solicito, o.finanzas, o.usuario_registra, o.autorizo, o.Forma_pago, o.identificador, o.no_cheque, o.Compras, o.Coordinador, o.Project FROM odc o LEFT JOIN proveedores c on o.a_nombre=c.Razon_Social left join eventos e on o.evento=e.Numero_evento where o.id_odc=".$id;
+    $sql="SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.factura, DATE_FORMAT(o.fecha, '%d/%m/%Y'),  CONCAT('".$ID2."', ' ".$CLIENTE." - ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, o.tipo, o.tipo_pago, DATE_FORMAT(e.inicio_evento ,'%d/%m/%Y'), DATE_FORMAT(e.fin_evento,'%d/%m/%Y'), o.otros, o.cfdi, o.metodo_pago, c.metodo_pago, c.nombre_contacto, c.correo_contacto, c.sucursal, c.Numero_cliente, o.solicito, o.finanzas, o.usuario_registra, o.autorizo, o.Forma_pago, o.identificador, o.no_cheque, o.Compras, o.Coordinador, o.Project FROM odc o LEFT JOIN proveedores c on o.a_nombre=c.Razon_Social left join eventos e on o.evento=e.Numero_evento where o.id_odc=".$id;
 //ECHO $sql;
 //exit();
+$tarjeta="";
 if ($result = $mysqli->query($sql)) {
     
 
@@ -132,7 +134,7 @@ if ($result = $mysqli->query($sql)) {
     $result->close();
 }
 else{
-    echo "Error MySql: ".$mysqli->error;
+    echo "Error MySql: ".mysqli_error($mysqli);
     exit();
 }
 //cortamos el nombre del evento
@@ -473,6 +475,9 @@ if($identificador!="Pago"){
     $arr2=explode(" ", utf8_decode($solicito));
     $arr3=explode(" ", utf8_decode($finanzas));
     $arr4=explode(" ", utf8_decode($autorizo));
+    if (strlen($compras) ==0){
+        $compras="CAMPO VACIO";
+    }
     $arr5=explode(" ", utf8_decode($compras));
     $arr6=explode(" ", utf8_decode($coordinador));
     $arr7=explode(" ", utf8_decode($project));
@@ -501,13 +506,14 @@ if($identificador!="Pago"){
     $pdf->MultiCell(42,6,utf8_decode("Dirección General"),0,'C',false);
     
     
-    //lina firms 2
+    //lina firmas 2
     $pdf->SetFont('Gotham','',10);
     $pdf->Ln(3);
     $startx=10;
     $starty=245;
     $pdf->SetXY($startx, $starty); 
     $pdf->MultiCell(42,5,$arr5[0]."\n".$arr5[1],'B','C',true);
+    //$pdf->MultiCell(42,5,"ARR[0]"."\n"."ARR[1]",'B','C',true);
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $vacio="";

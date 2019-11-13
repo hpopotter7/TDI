@@ -1,0 +1,4 @@
+[12-Nov-2019 23:51:10 UTC] PHP Notice:  Undefined index: id in /home/admini27/public_html/solicitud_pago.php on line 3
+[12-Nov-2019 17:51:10 America/Mexico_City] PHP Notice:  Use of undefined constant mday - assumed 'mday' in /home/admini27/public_html/solicitud_pago.php on line 10
+[12-Nov-2019 17:51:10 America/Mexico_City] PHP Notice:  Use of undefined constant mon - assumed 'mon' in /home/admini27/public_html/solicitud_pago.php on line 11
+[12-Nov-2019 17:51:10 America/Mexico_City] PHP Notice:  Use of undefined constant year - assumed 'year' in /home/admini27/public_html/solicitud_pago.php on line 12
