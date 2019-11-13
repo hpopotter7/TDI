@@ -18,7 +18,7 @@ $res='<thead>
             <th>Correo de contacto</th>
         </tr>
     </thead><tbody>';
-$sql = "SELECT Razon_Social, Nombre_comercial, rfc, Nombre_contacto, Telefono, Correo_contacto FROM clientes where Numero_cliente!='0' order by Razon_Social ASC";
+$sql = "SELECT Razon_Social, Nombre_comercial, rfc, Nombre_contacto, Telefono, Correo_contacto FROM clientes where Numero_cliente!='0' and Estatus='activo' order by Razon_Social ASC";
 $result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
      while ($row = $result->fetch_row()) {
