@@ -193,7 +193,7 @@
             
           </li>
           <li id='nav_reportes' class="dropdown">
-            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Base de datos<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li class=""><a id='rep_eventos' href="#" class='item_menu'><i class="fa fa-file-text" aria-hidden="true"></i> Eventos</a></li>
 
