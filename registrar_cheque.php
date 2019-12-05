@@ -17,7 +17,7 @@ include("conexion.php");
 		$pagada="";
 		$result = $mysqli->query($sql);
 		if (! $result){
-		echo " La consulta SQL contiene errores.".mysql_error();
+		echo " La consulta SQL contiene errores.".$sql.mysqli_error($mysqli);
 		}else {
 			if ($result = $mysqli->query($sql)) {
 				while ($row = $result->fetch_row()) {

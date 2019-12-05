@@ -5,19 +5,16 @@
  $total_facturas=0;
 
 function moneda($value) {
-
   return '$' . number_format($value, 2);
-  
 }
-//$mysqli = new mysqli("localhost", "tierra_ideas", "adminadmin", "tierra_ideas");
-include("conexion.php");
-//$mysqli = new mysqli("localhost", "tierrad9_admin", "Quick2215!", "tierrad9_admin");
 
-/* check connection */
+include("conexion.php");
+
 if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());
     exit();
 }
+
 $valida="";
 $suma_facturado=0;
 $sql1="select CXP from usuarios where Nombre='".$usuario."'";
@@ -27,20 +24,13 @@ if ($result = $mysqli->query($sql1)) {
     if($row[0]=='X'){
       $valida='CXP';
     }
-    
   }
 }
-/*
-if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA" || $usuario=="ANDRES EMANUELLI" || $usuario=="FERNANDA CARRERA"){
-      $valida='CXP';
-  }
-  */
-$sql="";
+
 if(substr($evento,0,1)==="["){
     $arr=explode("]",$evento);
     $ID=str_replace("[", "", $arr[0]);
     $sql="select id_evento, Facturacion from eventos where Numero_evento='".$ID."'";
-    
     if ($result = $mysqli->query($sql)) {
         while ($row = $result->fetch_row()) {
             $evento=$row[0];
@@ -49,63 +39,7 @@ if(substr($evento,0,1)==="["){
         $result->close();
     }
 }
-/*
-$sql2="select sum(Total) from solicitud_factura where Estatus='Activa' and id_evento=".$evento;
-if ($result = $mysqli->query($sql2)) {
-  while ($row = $result->fetch_row()) {
-      
-      $suma_facturado=$row[0];    
-  }
-}
-*/
-$suma_facturado="no hay nada";
-$COUNT=0;
-/*
-$sql2="SELECT p.id_sol_factura, ROUND(sum(p.total),2) from partidas p, solicitud_factura s where s.id_evento=".$evento." and s.Estaus='Activa' and p.id_sol_factura=s.id_solicitud group by p.id_sol_factura";
-*/
-$sql2="SELECT p.id_sol_factura, ROUND(sum(p.total),2), s.Estatus from partidas p, solicitud_factura s where s.id_evento=".$evento." and p.id_sol_factura=s.id_solicitud and s.Estatus='Activa' group by p.id_sol_factura";
-if ($result = $mysqli->query($sql2)) {
-  while ($row = $result->fetch_row()) {
-    $COUNT++;
-      $tbody=$tbody."<tr>
-                <td class='text-center'>".$COUNT."</td>
-                <td class='text-center td_btn_numero_factura'>";
 
-                if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
-                  $tbody=$tbody."<label id=".$row[0]." class='btn btn_verde btn_success btn_numero_factura'>0</label>";
-                }
-                else{
-                  $tbody=$tbody."<label class='btn btn_verde btn_success disabled'>0</label>";
-                }
-                
-      $tbody=$tbody."
-                </td>
-                <td class='text-center'>";
-                if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
-                  $tbody=$tbody."<select class='form-control'>";
-                }
-                else{
-                  $tbody=$tbody."<select class='form-control disabled' disabled>";
-                }
-        $tbody=$tbody."
-                <option value='vacio'> </option>
-                <option value='PAGADO'>PAGADO</option>
-                <option value='COBRADO'>COBRADO</option>
-                <option value='NOTA CREDITO'>NOTA CREDITO</option>
-                <option value='POR COBRAR'>POR COBRAR</option>
-                </select></td>
-                <td class='text-center'><h4><span class='label label-primary'>".moneda($row[1])."</span></h4></td>
-              ";
-              if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
-                  $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><label class='btn btn-info btn_descargar_facturas'><i class='fa fa-download fa-2x' aria-hidden='true'></i></label></a> <a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' > <i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
-                }
-                else{
-                  $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><label class='btn btn-info btn_descargar_facturas'><i class='fa fa-download fa-2x' aria-hidden='true'></i></label></a></td>";
-                }
-                 $tbody=$tbody."</tr>";
-              $total_facturas=$total_facturas+$row[1];
-  }
-}
 $num_evento="";
 $sql3="select Numero_evento from eventos where id_evento=".$evento;
 if ($result = $mysqli->query($sql3)) {
@@ -114,216 +48,153 @@ if ($result = $mysqli->query($sql3)) {
   }
 }
 
+$sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra, o.Monto_devolucion, DATE_FORMAT(o.Fecha_devolucion, '%d-%m-%Y') as 'Fecha_dev', o.Motivo_devolucion, o.Banco_devolucion, o.Tipo_tarjeta, o.No_Tarjeta FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.Cancelada='no' order by o.id_odc desc";
 
-$sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra, o.Monto_devolucion, DATE_FORMAT(o.Fecha_devolucion, '%d-%m-%Y'), o.Motivo_devolucion, o.Banco_devolucion FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.Cancelada='no' order by o.Concepto asc";
-/*
-$a="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.Cancelada='no' order by o.Concepto asc";
-*/
 
 if ($result = $mysqli->query($sql)) {
-        
      $resultado='<table class="table table-inverse" style="width:99%"><thead><tr><th>#</th><th>Elaborado</th>
-     <th>Solicita</th><th>Proveedor</th><th>Concepto</th><th>Total</th><th>Factura</th><th>Descargar</th><th>Cheque</th><th>Pagado</th><th>Comp</th><th>Tipo</th><th>Devolucion</th></tr></thead>';
-  	$suma=0;
+     <th>Solicita</th><th>Proveedor</th><th>Concepto</th><th>Importe</th><th>Devolución</th><th>Total</th><th>Factura</th><th>Descargar</th><th>Cheque</th><th>Pag</th><th>Comp</th><th>Tipo</th></tr></thead>';
+  	$contador=0;
     $disabled="";
     $tit="";
     $TITULO="";
+    $suma_solicitudes=0;
     $monto_factura=0;
-    while ($row = $result->fetch_row()) {
+    while ($row = $result->fetch_assoc()) {
       $contador++;
-      $A_nombre=str_replace("#", "", $row[0]);
-      $usuario_registra=$row[12];
-      $devolucion=$row[13];
-      $fecha_dev=$row[14];
-      $motivo=$row[15];
-      $banco=$row[16];
-      $monto_factura=$row[10]; //10 facturacion
-      $suma=$suma+$row[2];
-
-      $columna_total="";
-      //class="label label-danger"
-
-      $identificador="SD".substr($row[9], 0, 1);
-      if($identificador=="SDO"){
-        $identificador="SDP";
+      $a_nombre=$row['a_nombre'];
+      $concepto=$row['concepto'];
+      $cheque_por=$row['cheque_por'];
+      $id_odc=$row['id_odc'];
+      $Nombre_evento=$row['Nombre_evento'];
+      $factura=$row['Factura'];
+      $pagado=$row['pagado'];
+      $comprobado=$row['comprobado'];
+      $solicito=$row['solicito'];
+      $identificador=$row['identificador'];
+      $Facturacion=$row['Facturacion'];
+      $no_cheque=$row['no_cheque'];
+      $usuario_registra=$row['usuario_registra'];
+      $Monto_devolucion=$row['Monto_devolucion'];
+      $Fecha_dev=$row['Fecha_dev'];
+      $Motivo_devolucion=$row['Motivo_devolucion'];
+      $Banco_devolucion=$row['Banco_devolucion'];
+      $Tipo_tarjeta=$row['Tipo_tarjeta'];
+      $No_Tarjeta=$row['No_Tarjeta'];
+      $suma_solicitudes=$suma_solicitudes+$cheque_por;
+      
+      $importe="<td>".moneda($cheque_por)."</td>";
+      $fuente='"Neuton';
+      $Factura="";
+      if($factura==null || $factura==""){
+        $Factura="<i class='fa fa-plus'></i>";
+      }
+      $arr_factura=explode(',',$factura);
+      for($i=0;$i<=count($arr_factura)-1;$i++){
+        $Factura=$Factura."<pre style='border:none;background:rgba(0,0,0,0);padding: .5px;font-family: ".$fuente."'>".$arr_factura[$i]."</pre>";
       }
 
-      switch ($identificador) {
-        case 'SDP':
-          $tit="Solicitud de pago";
-          $TITULO="PAGO";
-          $devolucion="NA";
-          $columna_total="<td><h4><span class='label label-primary'>".moneda($row[2])."</span></h4></td>";
-          break;
-        case 'SDV':
-          $tit="Solicitud de viáticos";
-          $TITULO="VIÁTICOS";
-          /*
-          $devolucion="NA";
-          $columna_total="<td><h4><span class='label label-primary'>".moneda($row[2])."</span></h4></td>";
-          */
-          if($devolucion==""){
-            $devolucion="<button type='button' id='".$row[3]."' name='id' class='btn btn-info btn_devolucion'><i class='fa fa-retweet'></i></button>";
-            $columna_total="<td><h4><span class='label label-primary'>".moneda($row[2])."</span></h4></td>";
-          }
-          else{
-            $devolucion="<span class='bubble' id='uno' title='Ya tiene una devolucion'><button type='button' id='".$row[3]."' name='id' class='btn btn-info disabled' disabled><i class='fa fa-retweet'></i></button></span>";
-             $columna_total=$row[2]-$row[13];
-             $dev=$row[13];
-         $columna_total="<td><h4><span class='bubble3' title='<div>Se hizo una devolución por ".moneda($dev)."</div>El dia ".$fecha_dev."<p>En: ".$banco."</div><div>Por motivo: ".$motivo."</div>'><span class='label label-danger'>".moneda($columna_total)."</span></span></td>";
-          }
-          break;
-        case 'SDR':
-          $tit="Solicitud de reembolso";
-          $TITULO="REEMBOLSO";
-          if($devolucion==""){
-            $devolucion="<button type='button' id='".$row[3]."' name='id' class='btn btn-info btn_devolucion'><i class='fa fa-retweet'></i></button>";
-            $columna_total="<td><h4><span class='label label-primary'>".moneda($row[2])."</span></h4></td>";
-          }
-          else{
-            $devolucion="<span class='bubble' id='uno' title='Ya tiene una devolucion'><button type='button' id='".$row[3]."' name='id' class='btn btn-info disabled' disabled><i class='fa fa-retweet'></i></button></span>";
-             $columna_total=$row[2]-$row[13];
-             $dev=$row[13];
-         $columna_total="<td><h4><span class='bubble3' title='<div>Se hizo una devolución por ".moneda($dev)."</div>El dia ".$fecha_dev."<p>En: ".$banco."</div><div>Por motivo: ".$motivo."</div>'><span class='label label-danger'>".moneda($columna_total)."</span></span></td>";
-          }
-          break;
+      switch($identificador){
+        case "Pago":
+          $identificador="SDP";
+        break;
+        case "Viáticos":
+          $identificador="SDV";
+        break;
+        case "Reembolso":
+          $identificador="SDR";
+        break;
       }
-      
-      
-      if($valida=="CXP"){
-        $resultado=$resultado."<tbody><tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$A_nombre."</td><td>".$row[1]."</td>".$columna_total."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank'><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
-        if($identificador=="SDV" || $identificador=="SDR"){
-          $resultado=$resultado."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_cheque'>".$row[11]."</label></td>";
+
+      $devolucion="NA";
+      if($identificador=="SDV" || $identificador=="SDR"){
+        if($comprobado=="no"){
+          if($Monto_devolucion==null || $Monto_devolucion==0){
+            $Monto_devolucion=0;
+            $devolucion="<button type='button' id='".$row['id_odc']."_".$cheque_por."' name='".$Tipo_tarjeta."-".$No_Tarjeta."' class='btn btn-info btn_devolucion'><i class='fa fa-retweet'></i></button>";
+          }
+          else{
+            $devolucion="<label id='".$row['id_odc']."_".$cheque_por."' class='btn btn-warning btn_devolucion' name='".$Tipo_tarjeta."-".$No_Tarjeta."' title='Motivo: ".$Motivo_devolucion."'>-".moneda($Monto_devolucion)."</label>";
+          }
         }
         else{
-           $resultado=$resultado."<td></td>";
+          if($Monto_devolucion==null || $Monto_devolucion==0){
+            $Monto_devolucion=0;
+            $devolucion="<button type='button' id='".$row['id_odc']."_".$cheque_por."' name='".$Tipo_tarjeta."-".$No_Tarjeta."' class='btn btn-info disabled' disabled='disabled' title='Ya esta comprobada'><i class='fa fa-retweet'></i></button>";
+          }
+          else{
+            $devolucion="<label class='btn btn-warning disabled' title='Ya esta comprobada'>-".moneda($Monto_devolucion)."</label>";
+          }
         }
-          if($row[6]=="no"){
-            $resultado=$resultado."<td><center><input type='checkbox' class='check_pagado fa fa-2x' value='".$row[3]."'></center></td>";
-          }
-          else{
-            $resultado=$resultado."<td><center><input type='checkbox' class='check_pagado fa fa-2x' value='".$row[3]."' checked></center></td>";
-          }
+      }
 
-          if($row[7]=="no"){
-          $resultado=$resultado."<td><center><input type='checkbox' class='check_comp fa fa-2x' value='".$row[3]."' ></center></td>";
+      $total=$cheque_por-$Monto_devolucion;
+      
+      if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
+        $contador="<input type='checkbox' value='".$id_odc."' class='check_transfer'/>";
+      }
+      
+     // if($valida=="CXP"){
+        $resultado=$resultado."<tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td class='td_boton'><label id='".$id_odc."' class='btn btn_verde btn_success btn_factura'>".$Factura."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td>";
+        if($identificador!="Pagado"){
+          $resultado=$resultado."<td class='td_boton'><label id='".$idc_odc."' class='btn btn_verde btn_success btn_cheque'>".$no_cheque."</label></td>";
+        }
+        else{
+           $resultado=$resultado."<td>NA</td>";
+        }
+        if($valida=="CXP"){  // SI TIENE PERMISO DE CXP
+          if($pagado=="no"){
+            $resultado=$resultado."<td><center><input type='checkbox' class='check_pagado fa fa-2x' value='".$id_odc."'></center></td>";
           }
-          else{
-            $resultado=$resultado."<td><center><input type='checkbox' class='check_comp fa fa-2x' value='".$row[3]."' checked></center></td>";
+          else if($pagado=="si"){
+            $resultado=$resultado."<td><center><input type='checkbox' class='check_pagado fa fa-2x' value='".$id_odc."' checked></center></td>";
           }
+        }
+        else{  // si no tiene permiso solo se mostrara el icono
+          if($pagado=="no"){
+            $resultado=$resultado."<td><center><i class='fa fa-square-o'></center></td>";
+          }
+          else if($pagado=="si"){
+            $resultado=$resultado."<td><center><i class='fa fa-check-square-o'></i></center></td>";
+          }
+        }
+         
+        if($valida=="CXP"){
+          if($comprobado=="no"){
+          $resultado=$resultado."<td><center><input type='checkbox' class='check_comp fa fa-2x' value='".$id_odc."' ></center></td>";
+          }
+          else if($comprobado=="si"){
+            $resultado=$resultado."<td><center><input type='checkbox' class='check_comp fa fa-2x' value='".$id_odc."' checked></center></td>";
+          }
+        }
+        else{
+          if($comprobado=="no"){
+            $resultado=$resultado."<td><center><i class='fa fa-square-o'></center></td>";
+          }
+          else if($comprobado=="si"){
+            $resultado=$resultado."<td><center><i class='fa fa-check-square-o'></i></center></td>";
+          }
+        }
           $resultado=$resultado."<td title='".$tit."'>".$identificador."</td>";
-          $resultado=$resultado."<td><center>".$devolucion."</center></td>";
-           $resultado=$resultado."</tr></tbody>";
-      }
-      else{
-        if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
-          $resultado=$resultado."<tbody><tr><td><input type='checkbox' value='".$row[3]."' class='check_transfer'></td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$A_nombre."</td><td>".$row[1]."</td>".$columna_total."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank' ><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
-        }
-        else{
-          $resultado=$resultado."<tbody><tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$row[8]."</td><td>".$A_nombre."</td><td>".$row[1]."</td><td>".moneda($row[2])."</td><td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_factura'>".$row[5]."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$row[3]."' target='_blank' ><button type='button' id='".$row[3]."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download fa-2x' aria-hidden='true'></i></button></a></td>";
-        }
-        if($identificador=="SDV" || $identificador=="SDR"){
-          $resultado=$resultado."<td class='td_boton'><label id='".$row[3]."' class='btn btn_verde btn_success btn_cheque'>".$row[11]."</label></td>";
-        }
-        else{
-           $resultado=$resultado."<td></td>";
-        }
-          if($row[6]=="no"){
-            $resultado=$resultado."<td><center><input type='checkbox' class='check_pagado fa fa-2x' value='".$row[3]."' disabled style='cursor: not-allowed'></center></td>";
-          }
-          else{
-            $resultado=$resultado."<td><center><input type='checkbox' class='check_pagado fa fa-2x' value='".$row[3]."' checked disabled style='cursor: not-allowed'></center></td>";
-          }
-
-
-          if($row[7]=="no"){
-          $resultado=$resultado."<td><center><input type='checkbox' class='check_comp fa fa-2x' value='".$row[3]."' disabled style='cursor: not-allowed'></center></td>";
-          }
-          else{
-            $resultado=$resultado."<td><center><input type='checkbox' class='check_comp fa fa-2x' value='".$row[3]."' checked disabled style='cursor: not-allowed'></center></td>";
-          }
-          $resultado=$resultado."<td>".$identificador."</td>";
-          $resultado=$resultado."<td><center>".$devolucion."</center></td>";
-           $resultado=$resultado."</tr></tbody>";
-          
-      }
-      				
-		
-        /*$resultado=$resultado."<div class='col-md-4 col-sm-4'><label id='".$row[3]."' class='btn btn_verde btn_success'>".$row[4]."</label></div>"."<div class='col-md-5 col-sm-5'>".$row[1]."</div>"."<div class='center col-md-3 col-sm-3'>".moneda($row[2])."</div>"."<div class='center col-md-3 col-sm-3'>".$row[5]."</div>";*/
-        //$resultado=$resultado."</div><hr>";
-        
-    }
-    /* free result set */
+           $resultado=$resultado."</tr>";
+      
+  }
     $result->close();
+    $resultado=$resultado."</table>";
 }
 else{
-    $resultado= $resultado.mysqli_error($mysqli)."--".$sql;
+    $resultado= mysqli_error($mysqli)."--".$sql;
 }
-/*
-$resultado=$resultado."</table><div class='row col-md-5'><strong><b>Suma total: ".moneda($suma)."</b></strong></div><div class='row col-md-5'><strong><b>Presupuesto: ".moneda($monto_factura)."</b></strong></div><div class='row col-md-2'><strong><b><a href='#'><a id='badge".$evento."' class='btn_badge' href='#'><span class='badge badge-info'>".$cantidad_facturas."</span></a> Facturado: ".moneda($suma_facturado)."</b></strong></div>";
-*/
-$resultado2="";
-$resultado2=$resultado2."<div></table>
-<div class='row col-md-3'>
-<table class='table table-user-information table-sm'>
-                    <thead style='background-color: #455F87; color: white'>
-                    <tr>
-                      <th class='text-center'>Suma solicitudes</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class='text-center'><h3><span class='label label-primary'>".moneda($suma)."</span></h3></td>
-                      </tr>
-                    </tbody>
-                    </table>
-</div>
-<div class='row col-md-3'>
-<table class='table table-user-information table-sm'>
-                    <thead style='background-color: #455F87; color: white'>
-                    <tr>
-                      <th class='text-center'>Presupuesto</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class='text-center'><h3><span class='label label-primary'>".moneda($facturacion)."</span></h3></td>
-                      </tr>
-                    </tbody>
-                    </table>
-</div>
-<div class='row col-md-6'>
-<table class='table table-user-information table-sm'>
-                    <thead style='background-color: #455F87; color: white'>
-                    <tr >
-                      <th colspan='5' class='text-center'>Facturación</th>
-                    </tr>
-                    </thead>
-                    <thead style='background-color: #455F87; color: white'>
-                      <tr>
-                        <th class='text-center'>#</th>
-                        <th class='text-center'>Factura</th>
-                        <th class='text-center'>Estatus</th>
-                        <th class='text-center'>Monto</th>
-                        <th class='text-center'>descargar</th>
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                      ".$tbody."
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                        <th colspan='3' class='text-right'><label class='abajo'>Total:</label></th>
-                        <th colspan='2' class='text-center'><h3><span class='label label-primary'>".moneda($total_facturas)."</span></h3></th>
-                      </tr>
-                      </tfoot>
-                  </table></div>";
 
-if($suma==0){
-$resultado=$resultado."<div class='row col-md-12'><i>No hay solicitudes para este evento.</i></div><div class='row'></div><div class='clearfix row'></div>";
+if($suma_solicitudes==0){
+$resultado=$resultado."<div class='row col-md-12'><i>No hay solicitudes relaizadas para este evento.</i></div><div class='row'></div><div class='clearfix row'></div>";
 }
-echo $resultado.$resultado2;
+
+include('tabla_facturacion_detalle_eventos.php');
+
+$resultado=$resultado.$resultado2;
+
+echo $resultado;
 
 
 $mysqli->close();

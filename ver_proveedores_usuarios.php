@@ -23,7 +23,7 @@ if (mysqli_connect_errno()) {
 $result = $mysqli->query("SET NAMES 'utf8'");
 
 if($bandera=="MA. FERNANDA CARRERA HDZ"){ //ES DECIR SI ES CHEQUE
-    $sql="SELECT id_usuarios, Nombre FROM usuarios  order by Nombre asc";
+    $sql="SELECT id_usuarios, Nombre FROM usuarios where email not like '%DILIGO%' order by Nombre asc";
     if ($result = $mysqli->query($sql)) {
         echo '<option value="vacio">Selecciona un usuario...</option>';
         while ($row = $result->fetch_row()) {
@@ -60,7 +60,7 @@ else if($bandera=="TARJETA SODEXO"){  // SI ES TARJETA SODEXO
         echo $mysqli->error.":".$sql;
     }
 }
-else if($bandera=="TARJETA DILIGO"){  // SI ES TARJETA SODEXO
+else if($bandera=="TARJETA DILIGO"){  // SI ES TARJETA DILIGO
     $sql="SELECT t.id_tarjeta, t.No_tarjeta, u.Nombre, t.Usuario FROM tarjetas t left join usuarios u on u.id_usuarios=t.Usuario where t.Tipo='DILIGO'";
     if ($result = $mysqli->query($sql)) {
         echo '<option value="vacio">Selecciona una tarjeta...</option>';
@@ -69,10 +69,10 @@ else if($bandera=="TARJETA DILIGO"){  // SI ES TARJETA SODEXO
                 $numero=$row[1];
                 $nombre_usuario=$row[2];
                 if($nombre_usuario==null){
-                    echo "<option value='".$id."' disabled class='disabled' style='background-color:LightGrey;color:red'>".$numero." - [sin asignar]</option>";
+                    echo "<option value='".$numero."' disabled class='disabled' style='background-color:LightGrey;color:red'>".$numero." - [sin asignar]</option>";
                 }
                 else{
-                    echo "<option value='".$id."'>".$numero." - [".$nombre_usuario."]</option>";
+                    echo "<option value='".$numero."'>".$numero." - [".$nombre_usuario."]</option>";
                 }
         }
         $result->close();

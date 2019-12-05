@@ -153,6 +153,19 @@ if (mysqli_connect_errno()) {
 
 }
 
+include("../conexion.php");
+if (mysqli_connect_error()) {
+	echo "Error de conexion: %s\n", mysqli_connect_error();
+	exit();
+}
+$result = $mysqli->query("SET NAMES 'utf8'");
+$sql="INSERT INTO notificaciones (Asunto, Notificacion,	Fecha_hora,	Quien_hizo,	Visto,	Para_quien) values('".$asunto."', '".$body."', NOW(), '".$usuario."', '0', '".$to."')";
+if ($mysqli->query($sql)) {
+	$respuesta= "Registro guardado";
+}
+else{
+	$respuesta= $sql."<br>".mysqli_error($mysqli);
+}
 
 $headers = "From: ERP@Tierradeideas.mx\r\n";
 //$headers .= "Reply-To: ". strip_tags($_POST['req-email']) . "\r\n";
@@ -161,11 +174,14 @@ $headers .= "Bcc: alaneduardosandoval@yahoo.com\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
+
+
 //send the message, check for errors
 if (!mail($to, $asunto, $body, $headers)) {
     echo "Ocurrio un error al enviar la notificación".error_get_last()['message'];;
 } else {
-    echo "Enviado";
+    echo "Enviado".$respuesta;
 }
+
 
 ?>

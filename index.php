@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/bootstrap.toogle.min.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/bootstrap.min2.css">
-  <link rel="stylesheet" href="css/estilos_ver_0001.css"/>
+  <link rel="stylesheet" href="css/estilos_ver_0003.css"/>
   <link rel="stylesheet" href="css/estilos_menu_user.css"/>
   <link rel="stylesheet" href="css/jquery-ui_theme_green.css"/>
   <link rel="stylesheet" href="css/jquery-ui_green.css"/>
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="css/easy-autocomplete.themes.css""/>
   <link rel="stylesheet" href="css/jquery.modal.css"/>
 
-  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/jquery-1.11.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
   <script src="js/moment.js"></script>
   <script src="js/jquery-ui.js"></script>
@@ -70,7 +70,7 @@
   <script src="js/jquery.modal.js"></script>
   
   
-  <script src="js/metodos_4bac9300.js"></script>
+  <script src="js/metodos_4bac93081.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -90,7 +90,26 @@
   top: 0;
   left: 100%;
   margin-top: -1px;
+  #
 }
+</style>
+<!--
+  Estilo bubble button  
+-->
+<style>
+  <style>
+  .ui-tooltip {
+    background: black;
+    border: 2px solid white;
+  }
+  .ui-tooltip {
+    padding: 10px 20px;
+    border-radius: 20px;
+    font: bold 14px "Helvetica Neue", Sans-Serif;
+    text-transform: uppercase;
+    box-shadow: 0 0 7px black;
+  }
+  </style>
 </style>
 </head>
 <body>
@@ -186,7 +205,7 @@
           </li>
           
           <li class="dropdown" >
-            <a  id='btn_menu_cxc' href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" disabled="">CxC<span class="caret"></span></a>
+            <a  id='btn_menu_cxc' href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" disabled="">CxP<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a tabindex="-1" id='menu_tarjetas' href="#" class='item_menu'><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Ver tarjetas</a></li>
             </ul>
@@ -278,17 +297,20 @@
   <!-- DIV MODULO CXC-->
   <div id='div_cxc' class="container">
      <div class="row main">
-       <legend><h2>Movimientos de tarjetas</h2></legend>
+       <legend><h2>Tarjetas</h2></legend>
         <div class="row">
-          <div class="form-group col-md-9">
-            <label for="name" class="cols-sm-2 control-label">Tarjetas</label>
+          <div class="form-group col-md-4">
+            <label for="name" class="cols-sm-2 control-label">Selecciona un banco</label>
             <div class="cols-sm-10">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>
-                <select name="c_tarjetas" id="c_tarjetas" class='form-control'>
+                <select name="c_banco_tarjetas" id="c_banco_tarjetas" class='form-control'>
                 </select>
               </div>
             </div>
+          </div>
+          <div id='btn_gif_tarjetas_resumen' class="form-group col-md-2 abajo " style="display:none">
+            <button class='btn btn-primary'><img src="img/fancybox_loading.gif" > Buscando información</button>
           </div>
         </div>
 
@@ -330,10 +352,12 @@
               </div>
             </div>
         </div>
-        <div class="row" id='resultado_solicitudes'>
+        <div class="row" id='resultado_solicitudes' style="position: relative;
+    overflow: auto;
+    width: 107%;">
         </div>
         <div class="row" id='espacio'>
-          <span>_</span>
+          <span></span>
         </div>
       </div>
     </div>
@@ -452,35 +476,35 @@
               <div class="cols-sm-10">                    
                     <div class="checkbox checkbox-primary">
                       <label>
-                        <input type="checkbox" id='check_sol' name="Xsolicitante" class="fa fa-square-o fa-2x" value="X">
+                        <input type="checkbox" id='check_sol' name="Xsolicitante" class="fa fa-o fa-2x" value="X">
                         <span class="label_check ">Solicitante</span>
                       </label>
                     
                       <label>
-                        <input type="checkbox" id='check_eje' name="Xejecutivo" class="fa fa-square-o fa-2x" value="X">
+                        <input type="checkbox" id='check_eje' name="Xejecutivo" class="fa fa-o fa-2x" value="X">
                         <span class="label_check ">Ejecutivo de cuenta</span>
                       </label>
                    
                       <label>
-                        <input type="checkbox" id='check_dig' name="Xdigital" class="fa fa-square-o fa-2x" value="X">
+                        <input type="checkbox" id='check_dig' name="Xdigital" class="fa fa-o fa-2x" value="X">
                         <span class="label_check ">Digital</span>
                       </label>
                       <label>
-                        <input type="checkbox" id='check_cxp' name="Xcxp" class="fa fa-square-o fa-2x" value="X">
+                        <input type="checkbox" id='check_cxp' name="Xcxp" class="fa fa-o fa-2x" value="X">
                         <span class="label_check ">CXP</span>
                       </label>
                     
                       <label>
-                        <input type="checkbox" id='check_pro' name="Xproductor" class="fa fa-square-o fa-2x" value="X">
+                        <input type="checkbox" id='check_pro' name="Xproductor" class="fa fa-o fa-2x" value="X">
                         <span class="label_check ">Productor</span>
                       </label>
                     
                       <label>
-                        <input type="checkbox" id='check_dis' name="Xdiseño" class="tipo_pago fa fa-square-o fa-2x" value="X">
+                        <input type="checkbox" id='check_dis' name="Xdiseño" class="tipo_pago fa fa-o fa-2x" value="X">
                         <span class="label_check ">Diseño</span>
                       </label>
                       <label>
-                        <input type="checkbox" id='check_dir' name="Xdirectivo" class="tipo_pago fa fa-square-o fa-2x" value="X">
+                        <input type="checkbox" id='check_dir' name="Xdirectivo" class="tipo_pago fa fa-o fa-2x" value="X">
                         <span class="label_check ">Directivo</span>
                       </label>
                     </div>
@@ -494,19 +518,19 @@
               <div class="cols-sm-10">                    
                     <div class="checkbox checkbox-primary">
                       <label>
-                        <input type="checkbox" id='check_sol_cat' name="XClientes" class="fa fa-square-o fa-2x" value="X">
+                        <input type="checkbox" id='check_sol_cat' name="XClientes" class="fa fa-o fa-2x" value="X">
                         <span class="label_check ">Clientes</span>
                       </label>                    
                       <label>
-                        <input type="checkbox" id='check_eje_cat' name="XProveedores" class="fa fa-square-o fa-2x" value="X">
+                        <input type="checkbox" id='check_eje_cat' name="XProveedores" class="fa fa-uare-o fa-2x" value="X">
                         <span class="label_check ">Proveedores</span>
                       </label>
                       <label>
-                        <input type="checkbox" id='check_dig_cat' name="XUsuarios" class="fa fa-square-o fa-2x" value="X">
+                        <input type="checkbox" id='check_dig_cat' name="XUsuarios" class="fa fa-o fa-2x" value="X">
                         <span class="label_check ">Usuarios</span>
                       </label>
                       <label>
-                        <input type="checkbox" id='check_fac_cat' name="XFacturacion" class="fa fa-square-o fa-2x" value="X">
+                        <input type="checkbox" id='check_fac_cat' name="XFacturacion" class="fa fa-o fa-2x" value="X">
                         <span class="label_check ">Facturación</span>
                       </label>
                     </div>
@@ -563,7 +587,7 @@
                <div id='check_pendientes' class="form-group col-md-4 abajo">
                   <div class="checkbox">
                      <label>
-                     <input id='check_solicitud_pendientes' type="checkbox" class="fa fa-square-o fa-2x" value="solicitudes">
+                     <input id='check_solicitud_pendientes' type="checkbox" class="fa" value="solicitudes">
                      <span class="label_check" >Solicitudes pendientes</span>
 
                      </label>
@@ -1316,7 +1340,7 @@
              <div class="form-group col-md-2">
               <div class="radio">
                 <label>
-                  <input type="radio" name="check_tipo_pago" class="tipo_pago fa fa-square-o fa-2x" value="Anticipo">
+                  <input type="radio" name="check_tipo_pago" class="tipo_pago fa fa-o fa-2x" value="Anticipo">
                   <span class="label_check ">Anticipo</span>
                 </label>
               </div>
@@ -1324,7 +1348,7 @@
             <div class="form-group col-md-3">
               <div class="radio">
                 <label>
-                  <input type="radio" name="check_tipo_pago" class="tipo_pago fa fa-square-o fa-2x" value="Pago Total">
+                  <input type="radio" name="check_tipo_pago" class="tipo_pago fa fa-o fa-2x" value="Pago Total">
                   <span class="label_check ">Pago Total</span>
                 </label>
               </div>
@@ -1332,7 +1356,7 @@
             <div class="form-group col-md-3">
               <div class="radio">
                 <label>
-                  <input type="radio" name="check_tipo_pago" class="tipo_pago fa fa-square-o fa-2x" value="Pago Final">
+                  <input type="radio" name="check_tipo_pago" class="tipo_pago fa fa-o fa-2x" value="Pago Final">
                   <span class="label_check ">Pago Final</span>
                 </label>
               </div>
@@ -1635,6 +1659,7 @@
         </div>
       </div>
     </div>
+    
 <!--
     <div class="form-group col-md-8 ">
       <label for="name" class="cols-sm-2 control-label">Concepto de servicio</label>
@@ -1796,6 +1821,9 @@
   </div>
   
 </div>
+
+<a id="spnTop" href="#" class="btn btn-primary btn-lg pull-right back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+
 
 <!-- Link to open the modal -->
 

@@ -2009,8 +2009,8 @@ pre code {
 }
 
 .row {
-    margin-right: 0px;
-    margin-left: 0px
+    margin-right: -15px;
+    margin-left: -15px
 }
 
 .col-lg-1,
@@ -2816,7 +2816,7 @@ th {
     width: 99%;
     max-width: 100%;
     margin-bottom: 20px;
-    margin-left: 20px;
+    margin-left: 0px;
 }
 
 .table>tbody>tr>td,
@@ -2825,9 +2825,9 @@ th {
 .table>tfoot>tr>th,
 .table>thead>tr>td,
 .table>thead>tr>th {
-    padding: 8px;
+    padding: 4px;
     line-height: 1.42857143;
-    vertical-align: top;
+    vertical-align: center;
     border-top: 1px solid #ddd;
     border-left: 2px dotted #ccc
 }
@@ -3803,7 +3803,7 @@ fieldset[disabled] .btn-default:hover {
 
 .btn-primary:hover {
     color: #fff;
-    /*background-color: #286090;*/
+    background-color: #286090;
 
 }
 

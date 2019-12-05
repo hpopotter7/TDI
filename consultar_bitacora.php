@@ -1,16 +1,29 @@
 <?php 
 include("conexion.php");
+$usuario=$_POST['usuario'];
 if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());
     exit();
 }
 
 $result = $mysqli->query("SET NAMES 'utf8'"); 
-$sql="select id_notificaciones, Quien_hizo, DATE_FORMAT(Fecha_hora, '%d/%m/%Y %l:%i %p') Fecha, Asunto from notificaciones where visto='0'";
+$sql="select email from usuarios where Nombre='".$usuario."' ";
+$email="";
+if ($result = $mysqli->query($sql)) {
+  while ($row = $result->fetch_row()) {
+    $email=$row[0];
+  }
+}
+ 
+
+$sql="select id_notificaciones, Quien_hizo, DATE_FORMAT(Fecha_hora, '%d/%m/%Y %l:%i %p') Fecha, Asunto, Para_quien from notificaciones where visto='0' ";
 $res="";
+$para="";
 if ($result = $mysqli->query($sql)) {
    $cont=0;
     while ($row = $result->fetch_assoc()) {
+      $para=$row["Para_quien"];
+      if(strpos($para, $email) !== false ){
         $res=$res.'<div class="row" style="background-color:white">
         <aside class="dropdown-item dropdown-notification">
            <div class="col-md-12" style="text-align: left;">
@@ -28,7 +41,10 @@ if ($result = $mysqli->query($sql)) {
           <hr>';
         $res=$res.$row[1];
         $cont++;
+      }
     }
+    
+    
     $result->close();
 }
 if($res==""){

@@ -21,6 +21,8 @@ if($titulo=="ODC"){
 include("conexion.php");
 
 //Select the Products you want to show in your PDF file
+
+
 $result = $mysqli->query("SET NAMES 'utf8'");
     $codigo="TDITF07";
     $a_nombre = "";
@@ -70,28 +72,11 @@ if(strpos($CLIENTE, '&')){
     $CLIENTE=$arr[1];
 }
 
-/*  SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.factura, DATE_FORMAT(o.fecha, '%d/%m/%Y'), CONCAT(e.Numero_evento, ' ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, e.solicita, o.tipo, o.tipo_pago FROM odc o, eventos e, clientes c where o.evento=e.id_evento and o.a_nombre=c.Nombre and o.id_odc=27
-*/
+    $sql="SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.factura, DATE_FORMAT(o.fecha, '%d/%m/%Y'),  CONCAT('".$ID2."', ' ".$CLIENTE." - ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, o.tipo, o.tipo_pago, DATE_FORMAT(e.inicio_evento ,'%d/%m/%Y'), DATE_FORMAT(e.fin_evento,'%d/%m/%Y'), o.otros, o.cfdi, o.metodo_pago, c.metodo_pago, c.nombre_contacto, c.correo_contacto, c.sucursal, c.Numero_cliente, o.solicito, o.finanzas, o.usuario_registra, o.autorizo, o.Forma_pago, o.identificador, o.no_cheque, o.Compras, o.Coordinador, o.Project, o.Tipo_tarjeta, o.No_tarjeta FROM odc o LEFT JOIN proveedores c on o.a_nombre=c.Razon_Social left join eventos e on o.evento=e.Numero_evento where o.id_odc=".$id;
 
-    $sql="SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.docto_soporte, DATE_FORMAT(o.fecha, '%d/%m/%Y'),  CONCAT('".$ID2."', ' ".$CLIENTE." - ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, o.tipo, o.tipo_pago, DATE_FORMAT(e.inicio_evento ,'%d/%m/%Y'), DATE_FORMAT(e.fin_evento,'%d/%m/%Y'), o.otros, o.cfdi, o.metodo_pago, c.metodo_pago, c.nombre_contacto, c.correo_contacto, c.sucursal, c.Numero_cliente, o.solicito, o.finanzas, o.usuario_registra, o.autorizo, o.Forma_pago, o.identificador, o.no_cheque, o.Compras, o.Coordinador, o.Project FROM odc o LEFT JOIN proveedores c on o.a_nombre=c.Razon_Social left join eventos e on o.evento=e.Numero_evento where o.id_odc=".$id;
-//ECHO $sql;
-//exit();
 if ($result = $mysqli->query($sql)) {
-    
-
     while ($row = $result->fetch_row()) {
-        $a_nombre = $row[0];
-        if(strpos($a_nombre,"##")){
-            $arr_nombre=explode("-",$a_nombre);
-            $usuario = $arr_nombre[0];
-            $tarjeta = $arr_nombre[1];
-        }
-        if(strpos($a_nombre,"%%")){
-            $arr_nombre=explode("%%",$a_nombre);
-            $a_nombre = $arr_nombre[0];
-            $tarjeta = $arr_nombre[1];
-        }
-        
+        $a_nombre = $row[0];                
         $concepto = $row[1];
         $servicio = $row[2];
         $importe  = $row[3];
@@ -126,26 +111,23 @@ if ($result = $mysqli->query($sql)) {
         $compras=$row[32];
         $coordinador=$row[33];
         $project=$row[34];
-        
+        $tipo_tarjeta=$row[35];
+        $numero_tarjeta=$row[36];
     }
 
     $result->close();
 }
 else{
-    echo "Error MySql: ".$mysqli->error;
+    echo "Error MySql: ".$sql." ".mysqli_error($mysqli);
     exit();
 }
 //cortamos el nombre del evento
 $pruebaevento=$evento;
 if(strlen($evento)>55){
-        
-            $evento=substr($evento, 0,55);
-        
-
+        $evento=substr($evento, 0,55);
     }
-//exit();
-//
 
+    
 //Convert the Total Price to a number with (.) for thousands, and (,) for decimals.
 //$total = number_format($total,',','.','.');
 
@@ -156,19 +138,25 @@ $pdf->AddFont('Gotham','','Gotham-Book.php');
 $pdf->AddFont('Gotham_Italic','','Gotham-BookItalic.php');
 $pdf->AddFont('Gotham_M','','Gotham-Medium.php');
 $pdf->SetMargins(5, 5 ,10);
-if($identificador!="Pago"){
-    if(strpos($a_nombre,"##")){
-        $banco=str_replace("##","",$a_nombre);
-        $a_nombre="TARJETA SODEXO";
-    }
-    else{
-        $banco=$a_nombre;
-        $a_nombre="MA. FERNANDA CARRERA HDZ";
-        
-    }
-    //$metodo="";
-}
 
+
+
+if($tipo_tarjeta=="TARJETA BANCOMER" || $tipo_tarjeta=="Tarjeta BANCOMER"){
+        $banco=$a_nombre;
+        $a_nombre="BBVA BANCOMER SA DE CV";
+}
+else if($tipo_tarjeta=="TARJETA DILIGO" || $tipo_tarjeta=="Tarjeta DILIGO"){
+    $banco=$a_nombre;
+    $a_nombre="TARJETA DILIGO";
+}
+else if($tipo_tarjeta=="TARJETA SODEXO" || $tipo_tarjeta=="Tarjeta SODEXO"){
+    $banco=$a_nombre;
+    $a_nombre="TARJETA SODEXO";
+}
+else if($tipo_tarjeta=="CHEQUE" || $tipo_tarjeta=="MA. FERNANDA CARRERA HDZ"){
+    $banco=$a_nombre;
+    $a_nombre="MA. FERNANDA CARRERA HDZ";
+}
 // Logo
     //$pdf->Image('img/logo.png',20,8,20);
     // Gotham bold 15
@@ -251,7 +239,6 @@ if($identificador!="Pago"){
             $a_nombre=substr($a_nombre, 0,53);
         }
         $pdf->SetFont('Gotham','',8);
-
     }
 
     $pdf->Cell(105,5,utf8_decode($a_nombre),0,0,'C',true);
@@ -371,8 +358,6 @@ if($identificador!="Pago"){
      $pdf->Cell(40,5,$no_cheque,'B',0,'C',true);
     
      //salto de linea
-     if($a_nombre!="BBVA BANCOMER SA DE CV"){
-
     $pdf->Ln(10);
     $pdf->SetX(5);
     $pdf->SetFont('Gotham_M','',12);
@@ -392,7 +377,6 @@ if($identificador!="Pago"){
     $pdf->SetX(55);
     $pdf->Cell(140,5,strtolower($correo_contacto),0,0,'C',true);
 
-    }
 //salto de linea
     $pdf->Ln(10);
     $pdf->SetX(5);
@@ -405,44 +389,18 @@ if($identificador!="Pago"){
     $pdf->Cell(0,6,"A nombre:",0,0,'L',false);
     $pdf->SetX(55);
 
-    /*SE BUSCA EL NOMBRE Y LA TARJETA DE ESE USUARIO PARA EL CASO DE BANCOMER*/
-    $sql="select (select Nombre from usuarios where id_usuarios=t.Usuario), t.No_tarjeta from tarjetas t where t.id_tarjeta=".$tarjeta;
-    
-    if ($result = $mysqli->query($sql)) {
-        while ($row = $result->fetch_row()) {
-            $usuario=$row[0];
-            $tarjeta=$row[1];
-        }
-    }
-    if($a_nombre=="TARJETA SODEXO"){
-        $banco=$usuario;
-    }
-    else if($a_nombre=="BBVA BANCOMER SA DE CV"){
-        $banco=$usuario;
-    }
     $pdf->Cell(140,5,utf8_decode($banco),0,0,'C',true);
     //salto de linea
-    if($a_nombre=="TARJETA SODEXO"){
-        $numero_tarjeta=$tarjeta;
-        $numero_tarjeta=str_replace("##","",$numero_tarjeta);
-        $pdf->Ln(7);
-        $pdf->SetX(24);
-        $pdf->Cell(0,6,"No. Tarjeta:",0,0,'L',false);
-        $pdf->SetX(55);
-        $pdf->Cell(140,5,$numero_tarjeta,0,0,'C',true);
+    if($numero_tarjeta!="0"){
+    $pdf->Ln(7);
+    $pdf->SetX(24);
+    $pdf->Cell(0,6,"No. Tarjeta:",0,0,'L',false);
+    $pdf->SetX(55);
+    $pdf->Cell(140,5,$numero_tarjeta,0,0,'C',true);
+    }
     
-    }
-    else if($a_nombre=="BBVA BANCOMER SA DE CV"){
-        $numero_tarjeta=$tarjeta;
-        
-        $pdf->Ln(7);
-        $pdf->SetX(24);
-        $pdf->Cell(0,6,"No. Tarjeta:",0,0,'L',false);
-        $pdf->SetX(55);
-        $pdf->Cell(140,5,$numero_tarjeta,0,0,'C',true);
-    }
-    if($identificador=="Pago" && $a_nombre!="BBVA BANCOMER SA DE CV"){
-
+    
+if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
 //salto de linea
     $pdf->Ln(7);
     $pdf->SetX(29);
@@ -468,25 +426,31 @@ if($identificador!="Pago"){
     $starty=220;
     $pdf->SetXY($startx, $starty); 
 
-    // TODOS LOS NOMBRES ARRIBA Y LOS APELLIDOS ABAJO
-    $arr=explode(" ", utf8_decode($elaborado));
-    $arr2=explode(" ", utf8_decode($solicito));
-    $arr3=explode(" ", utf8_decode($finanzas));
-    $arr4=explode(" ", utf8_decode($autorizo));
-    $arr5=explode(" ", utf8_decode($compras));
-    $arr6=explode(" ", utf8_decode($coordinador));
-    $arr7=explode(" ", utf8_decode($project));
 
-    $pdf->MultiCell(42,5,$arr[0]."\n".$arr[1],'B','C',true);
+/*
+    echo $coordinador;
+    exit();
+*/
+
+    // TODOS LOS NOMBRES ARRIBA Y LOS APELLIDOS ABAJO
+    $arr=explode(" ", ($elaborado));
+    $arr2=explode(" ", ($solicito));
+    $arr3=explode(" ", ($finanzas));
+    $arr4=explode(" ", ($autorizo));
+    $arr5=explode(" ", ($compras));
+    $arr6=explode(" ", ($coordinador));
+    $arr7=explode(" ", ($project));
+
+    $pdf->MultiCell(42,5,utf8_decode($arr[0])."\n".utf8_decode($arr[1]),'B','C',true);
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,5,$arr2[0]."\n".$arr2[1],'B','C',true);
+    $pdf->MultiCell(42,5,utf8_decode($arr2[0])."\n".utf8_decode($arr2[1]),'B','C',true);
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,5,$arr3[0]."\n".$arr3[1],'B','C',true);
+    $pdf->MultiCell(42,5,utf8_decode($arr3[0])."\n".utf8_decode($arr3[1]),'B','C',true);
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,5,$arr4[0]."\n".$arr4[1],'B','C',true);
+    $pdf->MultiCell(42,5,utf8_decode($arr4[0])."\n".utf8_decode($arr4[1]),'B','C',true);
     //salto de linea
     $pdf->Ln(1);
     $pdf->SetFont('Gotham_M','',10);
@@ -507,7 +471,13 @@ if($identificador!="Pago"){
     $startx=10;
     $starty=245;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,5,$arr5[0]."\n".$arr5[1],'B','C',true);
+    if(count($arr5)==1){
+        $vacio=" ";
+    }
+    else{
+        $vacio=$arr5[1];
+    }
+    $pdf->MultiCell(42,5,utf8_decode($arr5[0])."\n".utf8_decode($vacio),'B','C',true);
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $vacio="";
@@ -517,7 +487,7 @@ if($identificador!="Pago"){
     else{
         $vacio=$arr7[1];
     }
-    $pdf->MultiCell(42,5,$arr7[0]."\n".utf8_decode($vacio),'B','C',true);
+    $pdf->MultiCell(42,5,utf8_decode($arr7[0])."\n".utf8_decode($vacio),'B','C',true);
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $vacio="";
@@ -527,7 +497,7 @@ if($identificador!="Pago"){
     else{
         $vacio=$arr6[1];
     }
-    $pdf->MultiCell(58,5,$arr6[0]."\n".utf8_decode($vacio),'B','C',true);
+    $pdf->MultiCell(58,5,utf8_decode($arr6[0])."\n".utf8_decode($vacio),'B','C',true);
     $pdf->Ln(1);
     $pdf->SetFont('Gotham_M','',10);
     $pdf->SetX(10);
