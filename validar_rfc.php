@@ -16,7 +16,7 @@ if ($result = $mysqli->query($sql)) {
     $result->close();
 }
 
-echo $resultado."bloqueado";
+echo $resultado;
 exit();
 
 if($resultado=="bloqueado"){
