@@ -723,10 +723,13 @@ var parametros = {
 
 
   function ver_numero_evento(){//obtener los usuarios registrados
-
+    var datos={
+      "anio":"2019",
+    };
     $.ajax({
           url:   'ver_numero_evento.php',
           type:  'post',
+          data: datos,
           success:  function (response) {
               $('#txt_numero_evento').val(response);
           }
@@ -834,6 +837,7 @@ var parametros = {
           //$('#c_tipo_usuario option:nth(0)').prop("selected","selected");
          // $('#c_usuarios option:nth(0)').prop("selected","selected");
           $("#form_usuarios").trigger('reset');
+          $('#toggle-trigger').prop('checked', false).change();
          }
 
         
@@ -1061,6 +1065,12 @@ var parametros = {
             var solo_numeros=$('#txt_facturacion').asNumber({ parseType: 'Float' });
             $('#txt_facturacion').val(solo_numeros);
             var datos = $('#form_nuevo_evento').serializeArray();
+            var anio="2019";
+              if($('#check_anio_evento').prop('checked')){
+                anio="2020";
+              }
+              
+            datos.push({name: 'anio', value: anio});
             datos.push({name: 'usuario_registra', value: $('#label_user').html()});
             datos.push({name: 'productores', value: productores});
             datos.push({name: 'diseñadores', value: dis});
@@ -1789,64 +1799,12 @@ var parametros = {
               type:  'post',
               data: datos,
               success:  function (response) {
-                //$('#c_transfer').html(response);
-                /*
-                 $('#c_mis_eventos').editableSelect('destroy');
-                 $('#c_eventos_creados').editableSelect('destroy');                
-                 $('#c_numero_evento').editableSelect('destroy');
-                 $('#c_mis_eventos').editableSelect('destroy');
-                 $('#c_eventos_modificar').editableSelect('destroy');
-                 */
-               
-                /*
-                $('#c_eventos_creados').html(response); // todos pueden ver
-                $('#c_mis_eventos').html(response);
-                $('#c_numero_evento').html(response); // no todos pueden pedir
-                $('#c_eventos_modificar').html(response);
-                */
                  combo.html(response);
                 ver_numero_evento();
                  combo.editableSelect().on('select.editable-select', function (e, li) {
                       ver_detalle_eventos(li.text());
                   });
                   combo.attr("placeholder", "Ingresa un evento");
-               /* $('#c_transfer')
-                  .editableSelect()
-                  .on('select.editable-select', function (e, li) {
-                      //ver_detalle_eventos(li.text());
-                  });*/
-                  /*
-                $('#c_eventos_creados')
-                  .editableSelect()
-                  .on('select.editable-select', function (e, li) {
-                      //alert(li.val() + '. ' + li.text());
-                      //$("#c_eventos_creados2").find("option[text='" + li.text() + "']").attr("selected", true);
-                      ver_detalle_eventos(li.text());
-                  });
-                  $('#c_numero_evento')
-                  .editableSelect()
-                  .on('select.editable-select', function (e, li) {
-                      //ver_detalle_eventos(li.text());
-                  });
-                  $('#c_mis_eventos')
-                  .editableSelect()
-                  .on('select.editable-select', function (e, li) {
-                      //ver_detalle_eventos(li.text());
-                  });
-                  $('#c_eventos_modificar')
-                  .editableSelect()
-                  .on('select.editable-select', function (e, li) {
-                      //ver_detalle_eventos(li.text());
-                  });
-                  */
-                 
-                  /*
-                  $('#c_numero_evento').attr("placeholder", "Ingresa un evento");
-                  $('#c_mis_eventos').attr("placeholder", "Ingresa un evento");
-                  $('#c_eventos_modificar').attr("placeholder", "Ingresa un evento");
-                  */
-                 
-                  
               }
             });
         }
@@ -3405,7 +3363,8 @@ var parametros = {
         $('#c_produccion').multiselect("deselectAll", false).multiselect("refresh");
         $('#c_disenio').multiselect("deselectAll", false).multiselect("refresh");
         $('#c_digital').multiselect("deselectAll", false).multiselect("refresh");
-        $('#c_solicitantes').multiselect("deselectAll", false).multiselect("refresh");
+        $('#c_solicitantes').multiselect("deselectAll", false).multiselect("refresh");        
+        $('#check_anio_evento').bootstrapToggle('off');
       }
 
        $('.moneda').blur(function(){
@@ -5644,18 +5603,48 @@ $('#btn_add_tarjeta').click(function(e){
 });
 
 var options = {
-
   url: function(phrase) {
     return "ver_tarjetas_banco.php?nombre="+phrase;
   },
-
   getValue: function(element) {
     return element.name;
   },
   theme: "plate-dark"
 };
-
   $("#txt_tipo_banco").easyAutocomplete(options);
+/* NO BORRRAR, SE USARA EN UN FUTOURO CON EL INPUT DE AUTOCOMPLETE/////////
+  var options2 = {
+    url: function(phrase) {
+      return "ver_nombre_evento.php";
+    },
+    getValue: function(element) {
+      return element.name;
+    },
+    ajaxSettings: {
+      dataType: "json",
+      method: "POST",
+      data: {
+        dataType: "json"
+      }
+    },
+    preparePostData: function(data) {
+      var usuario=$('#label_user').html();
+      var evento=$("#txt_evento_demo").val()
+      var parametro=usuario+"#"+evento;
+      data.phrase = parametro ;
+      return data;
+    },
+    requestDelay: 10,
+    list: {
+      match: {
+        enabled: true
+      }
+    },
+    theme: "plate-dark"
+  };
+$("#txt_evento_demo").easyAutocomplete(options2);
+	*/
+  
 
   $('#btn_agregar_tarjeta').click(function(){
     var banco=$('#txt_tipo_banco').val();
@@ -6011,8 +6000,8 @@ $('#tarjetas_resultado').delegate('.btn-aplicar-devolucion', 'click', function()
   var minimo=$(this).attr("name");
   //var minimo=$('.'+componente).attr('id'); //class importe_2472 input --> 3000
   var valor=$('#btn_'+componente).val();  //valor introducido input 
-  alert("valor minimo:"+minimo);
-  alert("valor ingresado:"+valor);
+  //alert("valor minimo:"+minimo);
+  //alert("valor ingresado:"+valor);
   if(valor=="" || valor=="0.0" || valor=="0"){
     $('#'+minimo).val('0.0');
     $('#'+minimo).css("border","2px solid red");
@@ -6078,6 +6067,25 @@ $('#spnTop').click(function (e) {
    });
 
   });
+
+  $('#check_anio_evento').change(function() {
+    var anio="2019";
+    if($(this).prop('checked')){
+      anio="2020";
+    }
+    var datos={
+      "anio":anio,
+    };
+    $.ajax({
+      url:   'ver_numero_evento.php',
+      type:  'post',
+      data: datos,
+      success:  function (response) {
+        $('#txt_numero_evento').val(response);
+        
+      }
+    });
+  })
 
 
 }

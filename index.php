@@ -989,8 +989,13 @@
   <!--CREAR EVENTO!!-->
   <div id='div_nuevo_evento' class="container">
     <div class="row main">
-      <div class="main-login main-center">        
-        <legend><h2>Crear Evento</h2></legend>
+      <div class="main-login main-center"> 
+        <div class="row">
+          <legend><h2>Crear Evento</h2></legend>
+          <input id='check_anio_evento' name='check_anio_evento' type="checkbox" data-toggle="toggle" data-height="50" data-onstyle="success" data-on="2020" data-off="2019" data-offstyle="info">
+        </div>       
+        <div class="clearfix"></div>
+                
         <form id='form_nuevo_evento' action="">
           <div class="row">
             <div class="form-group col-md-3">
@@ -1012,6 +1017,17 @@
                 </div>
               </div>
             </div>
+<!-- input para usar como autocomplete
+            <div id='existentes' class="form-group col-md-6">
+              <label for="email" class="cols-sm-2 control-label">Demo</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
+                  <input type="text"  id='txt_evento_demo' class="form-control">
+                </div>
+              </div>
+            </div>
+-->
             <!-- PRUEBA DE CAMBIO DE COMBO POR INPUT-->
             <!-- <div class="form-group col-md-5">
               <label for="email" class="cols-sm-2 control-label">Evento existente:</label>
@@ -1845,5 +1861,3 @@
  
 </body>
 </html>
-
-
