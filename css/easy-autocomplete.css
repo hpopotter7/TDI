@@ -284,6 +284,7 @@
   display: block;
   font-weight: normal;
   word-break: break-all;
+  font-size: 1.2em;
 }
 .easy-autocomplete-container ul li b {
   font-weight: bold;

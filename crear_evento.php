@@ -1,4 +1,5 @@
 <?php 
+	$anio=$_POST["anio"];
 	$numero_evento=$_POST['txt_numero_evento'];
 	$nombre_evento=$_POST['txt_nombre_evento'];
 	$inicio_evento=$_POST['txt_fecha_inicio_evento'];
@@ -34,23 +35,23 @@ else{
 	
 	$result = $mysqli->query("SET NAMES 'utf8'");
 	//include("ver_numero_evento.php");
-
-	if ($result = $mysqli->query("SELECT count(id_evento), DATE_FORMAT(NOW(), '%Y') FROM eventos")) {
-    
-
-    $filas="0";
-    while ($row = $result->fetch_row()) {
-        $r=$row[0]+1;
-    	if($r<10){
-    		$filas= $row[1]."-00".$r;	
-    	}
-    	else if($row[0]<100){
-    		$filas= $row[1]."-0".$r;	
-    	}
-    	else{
-             $filas= $row[1]."-".$r;
-        }
-    }
+	$sql="SELECT count(id_evento), DATE_FORMAT(NOW(), '%Y') FROM eventos where numero_evento like '".$anio."%'";
+	if ($result = $mysqli->query($sql)) {
+		$filas="0";
+		$r=0;
+		while ($row = $result->fetch_row()) {
+			$r=$row[0];
+		}
+		$r++;
+		if($r<10){
+			$filas= $anio."-00".$r;	
+		}
+		else if($r<100){
+			$filas= $anio."-0".$r;	
+		}
+		else{
+			 $filas= $anio."-".$r;
+		}
     
 }
 
