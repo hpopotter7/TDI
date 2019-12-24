@@ -83,7 +83,7 @@ var idioma_espaniol = {
 
 
   $('.bubble').tooltipster();
-  $('#c_colonia').editableSelect();
+  
 
 
 
@@ -1751,7 +1751,7 @@ var parametros = {
           
           $('#txt_estado').val("");
           $('#txt_municipio').val("");
-          $('#c_colonia').val("vacio");
+          $('#c_colonia').val("");
           
           $('#txt_nombre_contacto').val('');
           $('#txt_correo_contacto').val('');
@@ -2164,7 +2164,8 @@ var parametros = {
               dataType: "json",
               success:  function (response) {
                  //var data = JSON.parse(response);
-                //console.log(response);
+                 console.log(url);
+                console.log(response);
                 $('#txt_nombre_cliente').val(response.nombre);
                 $('#txt_nombre_comercial').val(response.nombre_comercial);
                 $('#c_metodo_pago').val(response.metodo_pago);
@@ -2174,7 +2175,9 @@ var parametros = {
                 $('#txt_num_ext').val(response.num_ext);
                 $('#txt_num_int').val(response.num_int);
                 $('#txt_cp').val(response.cp);
+                $('#c_colonia').val(response.colonia);
                 //evento_cp(response.cp);
+                /*
                 var colo=$.trim(response.colonia);
                 if($('#identificador_rfc').html()=='RFC'){
                   $('#c_colonia').editableSelect('destroy');
@@ -2184,7 +2187,7 @@ var parametros = {
                   $('#c_colonia').editableSelect();
 
                 }
-                
+                */
                 //$('#c_colonia').val(response.colonia);
                 $('#txt_telefono').val(response.telefono);
                 $('#txt_municipio').val(response.municipio);
@@ -3714,6 +3717,25 @@ function validarInput() {
           
 
     $('#txt_cp').focusout(function(){
+      var cp=$(this).val();
+      var datos={
+        "cp":cp,
+      }
+      $.ajax({
+        type : 'POST',
+        url  : 'codigos_postales.php',
+        dataType: "json",
+        data: datos,
+          success : function(response){
+            if(response.municipio!=null){
+             $('#txt_municipio').val(response.municipio);
+             $('#txt_estado').val(response.estado);
+          }
+          }
+        });
+      
+
+      /*
       if($('#identificador_rfc').html()=='RFC'){
         $('#c_colonia').editableSelect('destroy');
         var codigo=$('#txt_cp').val();
@@ -3722,52 +3744,11 @@ function validarInput() {
       else{
         $('#c_colonia').editableSelect();
       }
-      
+      */
+
     });
 
-    function ver_datos_cps(codigo, colonia){
-      var cp='https://api-codigos-postales.herokuapp.com/v2/codigo_postal/'+codigo;
-      // Create a request variable and assign a new XMLHttpRequest object to it.
-      var request = new XMLHttpRequest();
-      // Open a new connection, using the GET request on the URL endpoint
-      request.open('GET', cp, true);
-      request.onload = function () {
-        // Begin accessing JSON data here
-        var data = JSON.parse(this.response);
-          // Log each movie's title
-          console.log(data.colonias);
-          $('#txt_estado').val(data.estado.toUpperCase());
-          $('#txt_municipio').val(data.municipio.toUpperCase());
-          var coincide=false;
-            data.colonias.sort();
-            var opciones=" <option value='vacio'>Selecciona...</option>";
-            Object.keys(data.colonias).forEach(function (index, value){
-              var col=data.colonias[index];
-              var colo=col.toUpperCase();
-              var colo=colo.replace("Á", "A");
-              var colo=colo.replace("É", "E");
-              var colo=colo.replace("Í", "I");
-              var colo=colo.replace("Ó", "O");
-              var colo=colo.replace("Ú", "U");
-              opciones=opciones+'<option value="'+colo+'">' + colo + '</option>';
-              if(colonia==colo){
-                coincide=true;
-              }
-            });
-            if(coincide==false){
-              opciones=opciones+'<option value="'+colonia+'">'+colonia+'</option>';
-            }
-              opciones=opciones+'<option value="0">Ingresa una colonia</option>';
-            
-            $('#c_colonia').html(opciones);
-            
-              $('#c_colonia').val(colonia);
-            
-           
-        }
-      // Send request
-      request.send();
-    }
+    
 
     $("#resultado_solicitudes").delegate(".btn_cheque", "click", function() {
            if($('#tipo_perfil').html().includes("Cuentas por pagar")){
@@ -5051,44 +5032,7 @@ $('#btn_borrar_sdp').click(function(){
         $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
     });
 
-   $('#c_colonia').change(function(){
-    var opcion=$(this).val();
-    if(opcion=="0"){
-      noty({
-        text        : "Ingresa una colonia <p><input class='form-control' id='txt_colonia_manual' type='text'>",
-        width       : '650px',
-        type        : 'warning',
-        dismissQueue: false,
-        closeWith   : ['button'],
-        theme       : 'metroui',
-        timeout     : false,
-        layout      : 'topCenter',
-         callbacks: {
-          afterShow: function() { },
-        },
-         buttons: [
-          {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
-            var colonia=$noty.$bar.find('input#txt_colonia_manual').val();
-            if(colonia==""){
-              generate("warning", "Debe ingresar una colonia");
-            }
-            else{
-              $("#c_colonia").append(new Option(colonia, colonia));
-              $("#c_colonia option[value='"+colonia+"']").prop('selected', true);
-              $noty.close();
-
-            }
-            }
-          },
-          {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
-            $('#c_colonia').val("vacio");
-             $noty.close();
-            }
-          }
-         ]
-      });
-    }
-   });
+   
 
 /*
 $("#resultado_solicitudes").delegate(".btn_monto", "mouseenter", function() {
@@ -5612,6 +5556,25 @@ var options = {
   theme: "plate-dark"
 };
   $("#txt_tipo_banco").easyAutocomplete(options);
+
+  var colonias = {
+    url: function(phrase) {
+      var cp=$("#txt_cp").val();
+      return "ver_colonias.php?cp="+cp+"&nombre="+phrase;
+    },
+    getValue: function(element) {
+      return element.name;
+    },
+    theme: "plate-dark",
+    list: {
+      maxNumberOfElements: 50,
+      match: {
+        enabled: true
+      }
+    },
+  };
+    $("#c_colonia").easyAutocomplete(colonias);
+
 /* NO BORRRAR, SE USARA EN UN FUTOURO CON EL INPUT DE AUTOCOMPLETE/////////
   var options2 = {
     url: function(phrase) {
@@ -6085,7 +6048,10 @@ $('#spnTop').click(function (e) {
         
       }
     });
-  })
+  });
+
+  
+ 
 
 
 }

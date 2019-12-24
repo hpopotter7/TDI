@@ -56,6 +56,7 @@
   <script src='js/DateTables.js'></script>
   <script src="js/accounting.js"></script>
   <script src="js/jquery_combo_editable.js"></script>
+  <script src="js/autocomplete.js"></script>
 
   <script src="js/dataTables.buttons.min.js"></script>
   <script src="js/buttons.flash.min.js"></script>
@@ -665,7 +666,7 @@
                
             </div>
             <div class="row">
-               <div class="form-group col-md-3 ">
+               <div class="form-group col-md-2 ">
                   <label for="name" class="cols-sm-2 control-label">C.P.</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
@@ -692,13 +693,14 @@
                      </div>
                   </div>
                </div>
-               <div class="form-group col-md-3 ">
+               <div class="form-group col-md-4 ">
                   <label for="name" class="cols-sm-2 control-label">Colonia</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                        <select id="c_colonia" name='c_colonia' class='form-control'>
-                        </select>
+                        <!--<select id="c_colonia" name='c_colonia' class='form-control'>-->
+                        <input type='text' id="c_colonia" name='c_colonia' class='form-control' placeholder='Colonia'/>
+                        
                      </div>
                   </div>
                </div>
