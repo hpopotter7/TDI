@@ -1,5 +1,12 @@
 function inicio(){
 
+
+  $('.nav-toggle').click(function(e) {
+    e.preventDefault();
+    $("html").toggleClass("openNav");
+    $(".nav-toggle").toggleClass("active");
+  
+  });
   
 
   var contador_tiempo=-1;
@@ -126,18 +133,25 @@ var idioma_espaniol = {
    $('#notificaciones').hide();
    $('#btn_cerrar_bitacora').hide();
 
+   
+   $('#notificaciones').mouseover(function(e){
+    e.preventDefault();
+    $('#notificaciones').css("right","-1px");
+   });
+   $('#notificaciones').mouseout(function(e){
+    e.preventDefault();
+    $('#notificaciones').css("right","-350px");
+   });
+
    $('#btn_notificaciones').click(function(e){
     e.preventDefault();
-    $('#notificaciones').css("left","-10px");
     $('#btn_notificaciones').hide();
     $('#btn_cerrar_bitacora').show();
     consultar_bitacora();
    });
 
    $('#btn_cerrar_bitacora').click(function(e){
-     
     e.preventDefault();
-    $('#notificaciones').css("left","-360px");
     $('#btn_notificaciones').show();
     $('#btn_cerrar_bitacora').hide();
     $('#resultado_bitacora').html("");
@@ -228,7 +242,7 @@ var idioma_espaniol = {
        
   $('#load2').hide();
   $('#load_prov').hide();
-  $('#nav').hide();
+  $('.nav').hide();
   $('#prueba').hide();
   /*
   $('#nav').hide();
@@ -325,7 +339,7 @@ var idioma_espaniol = {
                        });
                        //consultar_bitacora();
                         $('#load').show();
-                        $('#nav').show();
+                        $('.nav').show();
                         $('#entrar').html("Entrar");
                         var nombre_usuario=response.usuario;
                        //crear bitacora de ingresos

@@ -98,9 +98,9 @@ function bienvenido(usuario){
 	var texto="Bienvenid@ "+usuario;
 	var n = noty({
                 text        : texto,
-                type        : 'notification',
+                type        : 'success',
                 dismissQueue: true,
-                layout      : 'topRight',  //bottomLeft
+                layout      : 'topCenter',  //bottomLeft
                 animation: {
 			         open: 'animated fadeInDownBig',
 		            close: 'animated flipOutX',
@@ -108,7 +108,7 @@ function bienvenido(usuario){
 		            speed:500
 			    },
                 //closeWith   : ['button'],
-                //theme       : 'metroui',
+                theme       : 'relax',
                 progressBar : false,
                 maxVisible  : 5,
                 timeout     : [3200],

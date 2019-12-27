@@ -97,7 +97,7 @@
 <!--
   Estilo bubble button  
 -->
-<style>
+
   <style>
   .ui-tooltip {
     background: black;
@@ -110,8 +110,291 @@
     text-transform: uppercase;
     box-shadow: 0 0 7px black;
   }
+
+
+
+
+/* Menu Styles */
+
+.primary-nav {
+	
+	z-index: 999;
+}
+
+.menu {
+	position: relative;
+}
+
+.menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+	
+}
+
+.open-panel {
+  border: none;
+  background-color:#fff;
+  padding: 0;
+}
+
+.hamburger {
+	background: #fff;
+	position: relative;
+	display: block;
+	text-align: center;
+	padding: 13px 0;
+	width: 50px;
+  height: 73px;
+	left: 0;
+  top: 0;
+	z-index: 1000;
+  cursor: pointer;
+}
+
+.hamburger:before {
+	content:"\2630"; /* hamburger icon */
+	display: block;
+  color: #000;
+  line-height: 32px;
+  font-size: 16px;
+}
+
+.openNav .hamburger:before {
+	content:"\2715"; /* close icon */
+	display: block;
+  color: #000;
+  line-height: 32px;
+  font-size: 16px;
+}
+
+.hamburger:hover:before {
+  color: #000;
+}
+
+.primary-nav .menu li {
+	position: relative;
+}
+
+.menu .icon {
+	position: absolute;
+	top: 12px;
+	right: 10px;
+	pointer-events: none;
+  width: 24px;
+  height: 24px;
+  color: #fff;
+}
+
+.menu,
+.menu a,
+.menu a:visited {
+  color: #000;
+  text-decoration: none!important;
+	position: relative;
+}
+
+.menu a {
+  display: block;
+  white-space: nowrap;
+  padding: 1em;
+  font-size: 14px;
+}
+
+.menu a:hover {
+	color: #fff;
+}
+
+.menu {
+	margin-bottom: 3em;
+}
+
+.menu-dropdown li .icon {
+	color: #000;
+}
+
+.menu-dropdown li:hover .icon {
+	color: #fff;
+}
+
+
+
+.menu label {
+  margin-bottom: 0;
+  display: block;
+}
+
+.menu label:hover {
+  cursor: pointer;
+}
+
+.menu input[type="checkbox"] {
+  display: none;
+}
+
+input#menu[type="checkbox"] {
+  display: none;
+}
+
+
+
+
+
+
+.sub-menu-dropdown {
+	display: none;
+}
+
+.new-wrapper {
+	position: absolute;
+	left: 50px;
+  width: calc(100% - 50px);
+  transition: transform .45s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+#menu:checked + ul.menu-dropdown {
+    
+		left: 0;
+    -webkit-animation: all .45s cubic-bezier(0.77, 0, 0.175, 1);
+            animation: all .45s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.sub-menu-checkbox:checked + ul.sub-menu-dropdown {
+    display: block!important;
+    -webkit-animation: grow .45s cubic-bezier(0.77, 0, 0.175, 1);
+            animation: grow .45s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+
+.openNav .new-wrapper {
+  position: absolute;
+  transform: translate3d(200px, 0, 0);
+  width: calc(100% - 250px);
+  transition: transform .45s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+
+.downarrow {
+  background: transparent;
+	position: absolute;
+	right: 50px;
+	top: 12px;
+  color: #000;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  display: block;
+}
+
+.downarrow:hover {
+  color: #fff;
+}
+
+.menu {
+	position: absolute;
+	display: block;
+	left: -200px;
+  top: 0;
+	width: 250px;
+  transition: all 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+  background-color: #97C3F8;
+	z-index: 999;
+}
+
+.menu-dropdown {
+  top: 0;
+  overflow-y: auto;
+}
+
+.overflow-container {
+  position: relative;
+  height: calc(100vh)!important;
+  overflow-y: auto;
+  border-top: 73px solid #fff;
+  z-index: -1;
+  display:block;
+}
+
+.menu a.logotype {
+  position: absolute!important;
+  top: 11px;
+  left: 55px;
+  display: block;
+
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #000;
+  font-size: 21px;
+  padding: 10px;
+}
+
+.menu a.logotype span {
+  font-weight: 400;
+}
+
+.menu a.logotype:hover {
+  color: #777;
+}
+
+.sub-menu-dropdown {
+	background-color: #6ebadd;
+}
+
+.menu:hover {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.openNav .menu:hover {
+	position: absolute;
+	left: -200px;
+	top 73px;
+}
+
+.openNav .menu {
+  top 73px;
+		transform: translate3d(200px, 0, 0);
+    transition: transform .45s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+
+@-webkit-keyframes grow {
+	
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  50% {
+    display: block;
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+	
+}
+
+@keyframes grow {
+	
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  50% {
+    display: block;
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1
+  }
+	
+}
+
+
+
   </style>
-</style>
+
 </head>
 <body>
   <audio id="audio_error">
@@ -122,19 +405,54 @@
    <source src="audio/tada.mp3" type="audio/mp3" />
    <source src="audio/tada.wav" type="audio/wav" />
 </audio>
-
-
-  <div id="notificaciones" class="quick-btn col-md-1 cambio">
-  <label id="titulo_notificaciones" style='text-align: left; color:black; font-size:1.7em;'>Bitácora de notificaciones</label>
-  <a id='btn_notificaciones' href="#" class="pull-right">
-        <i class="fa fa-bell fa-2x" style='color:black'></i>      
+  <div id="notificaciones" class="quick-btn cambio">
+  <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-user fa-2x" style='color:black'></i>   
+                        <strong id='label_user' style='color:black; font-size:1em;'></strong>
+                        <i class="fa fa-chevron-down fa-2x" style='color:black'></i> 
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p class="text-left"></p>
+                                        <p id='tipo_perfil' class="text-left">Tipo perfil</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="navbar-login navbar-login-session">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p><a class="various btn btn-info btn-block" data-fancybox-type="iframe" href="ver_tutoriales.html">Ayuda</a>
+                                            <a href="javascript:window.location.href=window.location.href" class="btn btn-danger btn-block">Cerrar Sesion</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!--
+  <a id='btn_notificaciones' href="#" ">
+        <i class="fa fa-user fa-2x" style='color:black'></i> <label style='text-align: left; color:black; font-size:1.4em; padding-left: 1em; text-decoration: none;'></label> 
   </a>
-  <a id='btn_cerrar_bitacora' href="#" class="pull-right">
-        <i class="fa fa-close fa-2x" style='color:black'></i>      
+  -->
+  <a id='btn_cerrar_bitacora' href="#" >
+        <i class="fa fa-close fa-2x" style='color:black'></i>  
+          
   </a>
+  
   <span id='badge_numero_notificaciones' class="label label-danger" style='font-size:95%; vertical-align:top;'>
   
   </span>
+   
   <section id='resultado_bitacora'>
   
   </section>
@@ -158,13 +476,14 @@
 
   <div id='div_cortina'></div>
   <input id='input_oculto' name='input_oculto' type="hidden">
+  <!--
   <nav id='nav' class="navbar navbar-default">
     <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
+      
       <div class="navbar-header">
         <a class="navbar-brand" href="#"><img id="nav_logo" src="img/logo.png" alt=""></a>
       </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
+      
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="dropdown">
@@ -187,9 +506,11 @@
           <li id='nav_catalogos' class="dropdown">
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catálogos<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <!--
+              xx
+              comentario
                <li><a id='menu_solicitud_cliente' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Alta de cliente</a></li>
-             -->
+               xx
+             
             <li class="dropdown-submenu">
               <a class="test" tabindex="-1" href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Alta de cliente <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -221,7 +542,10 @@
               <li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>
 
 
-              <!--<li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>-->
+              xx
+              comentario
+              <li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>
+              xx
 
               <li class=""><a id='rep_cat_proveedores' href="#" class='item_menu'><i class="fa fa-building" aria-hidden="true"></i> Proveedores</a></li>
               <li class="hidden"><a id='rep_usuarios' href="#" class='item_menu disabled' disabled><i class="fa fa-users" aria-hidden="true"></i>  Usuarios</a></li>
@@ -267,12 +591,94 @@
                     </ul>
                 </li>
             </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+      </div>
+    </div>
   </nav>
-  <?php  
-    //include("cliente_extranjero.php");
-  ?>
+  -->
+
+<div class="primary-nav nav">
+<button href="#" class="hamburger open-panel nav-toggle">
+<span class="screen-reader-text"></span>
+</button>
+<nav role="navigation" class="menu nav">
+  <a href="#" class="logotype"><img id="nav_logo" src="img/logo.png" alt=""></a>
+  
+  <div class="overflow-container">
+    <ul class="menu-dropdown">
+    <li class="menu-hasdropdown">
+        <a href="#">Eventos</a><span class="icon"><i class="fa fa-star fa-2x"></i></span>
+        <label title="toggle menu" for="eventos">
+          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
+        </label>
+        <input type="checkbox" class="sub-menu-checkbox" id="eventos" />
+        <ul class="sub-menu-dropdown">
+          <li><a href="">Crear evento</a></li>
+          <li><a href="">Modificar evento</a></li>
+          <li><a href="">Cerrar evento</a></li>
+        </ul>
+      </li>
+      <li class="menu-hasdropdown">
+        <a href="#">Solicitudes</a><span class="icon"><i class="fa fa-file-text-o fa-2x"></i></span>
+        <label title="toggle menu" for="sol">
+          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
+        </label>
+        <input type="checkbox" class="sub-menu-checkbox" id="sol" />
+        <ul class="sub-menu-dropdown">
+          <li><a href="">Pago</a></li>
+          <li><a href="">Viáticos</a></li>
+          <li><a href="">Reembolso</a></li>
+          <li><a href="">Ver detalle</a></li>
+        </ul>
+      </li>
+      <li class="menu-hasdropdown">
+        <a href="#">Catálogos</a><span class="icon"><i class="fa fa-address-book-o fa-2x"></i></span>
+        <label title="toggle menu" for="catalogos">
+          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
+        </label>
+        <input type="checkbox" class="sub-menu-checkbox" id="catalogos" />
+        <ul class="sub-menu-dropdown">
+          <li><a href="">Clientes</a></li>
+          <li><a href="">Proveedores</a></li>
+          <li><a href="">Usuarios</a></li>
+        </ul>
+      </li>
+      <li class="menu-hasdropdown">
+        <a href="#">CXP</a><span class="icon"><i class="fa fa-money fa-2x"></i></span>
+        <label title="toggle menu" for="cxp">
+          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
+        </label>
+        <input type="checkbox" class="sub-menu-checkbox" id="cxp" />
+        <ul class="sub-menu-dropdown">
+          <li><a href="">Tarjetas</a></li>
+        </ul>
+      </li>
+      <li class="menu-hasdropdown">
+        <a href="#">Base de datos</a><span class="icon"><i class="fa fa-table fa-2x"></i></span>
+        <label title="toggle menu" for="bd">
+          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
+        </label>
+        <input type="checkbox" class="sub-menu-checkbox" id="bd" />
+        <ul class="sub-menu-dropdown">
+          <li><a href="">Eventos</a></li>
+          <li><a href="">Clientes</a></li>
+          <li><a href="">Proveedores</a></li>
+        </ul>
+      </li>
+      <li class="menu-hasdropdown">
+        <a href="#">Facturación</a><span class="icon"><i class="fa fa-table fa-2x"></i></span>
+        <label title="toggle menu" for="factura">
+          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
+        </label>
+        <input type="checkbox" class="sub-menu-checkbox" id="factura" />
+        <ul class="sub-menu-dropdown">
+          <li><a href="">Solicitud</a></li>
+          <li><a href="">Ver detalle</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+</div>
   
   <div id='div_login' class="container" >
     <div class="row" id="pwd-container" style="top:50px">    

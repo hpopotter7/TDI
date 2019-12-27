@@ -13,7 +13,7 @@
 }
 html{
 	min-width: 1024px;
-    min-height: 758px;
+    /*min-height: 758px;*/
     height: 100%;
 }
 
@@ -89,7 +89,7 @@ thead{
   position: relative;
   display: inline-block;
   padding-top: 16px;
-  margin: 10px;
+  cursor: pointer;
   color: #444444;
   text-align: center;
   text-decoration: none;
@@ -112,14 +112,15 @@ thead{
 	background-color:rgb(250, 104, 0) !important;
 }
 #notificaciones{
+	cursor: pointer;
 	position: fixed;
-	top: 100px;
+	text-align: left;
 	width: 400px;
-	background-color: #e9fa00;
+	background-color: #97C3F8;
 	padding: 1em;
 	border-radius:.1em;
 	z-index: 10;
-	left: -360px;
+	right: -350px;
 	-webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
