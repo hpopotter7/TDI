@@ -98,11 +98,15 @@ thead{
   box-shadow: 0 0 0 1px #F8F8F8 inset, 0 0 0 1px #CCCCCC;
 }
 .quick-btn .label {
-  position: absolute;
-  top: -5px;
-  right: -5px;
+	position: absolute;
+    top: 0px;
+    right: 390px;
+    width: 40px;
 }
 
+#lista_menu{
+	display: none;
+}
 .btn-metis-4 {
   color: #ffffff;
   background-color: #a264e7;

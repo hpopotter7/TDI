@@ -1,8 +1,18 @@
 function inicio(){
 
+    var bandera_menu=false;
 
   $('.nav-toggle').click(function(e) {
     e.preventDefault();
+    if(bandera_menu==false){
+      $('#lista_menu').show();
+      bandera_menu=true;
+    }
+    else{
+      $('#lista_menu').fadeOut();
+      bandera_menu=false;
+    }
+    
     $("html").toggleClass("openNav");
     $(".nav-toggle").toggleClass("active");
   
@@ -136,7 +146,7 @@ var idioma_espaniol = {
    
    $('#notificaciones').mouseover(function(e){
     e.preventDefault();
-    $('#notificaciones').css("right","-1px");
+    $('#notificaciones').css("right","0px");
    });
    $('#notificaciones').mouseout(function(e){
     e.preventDefault();
@@ -350,6 +360,7 @@ var idioma_espaniol = {
                         
                         $('#tipo_perfil').html("<ul>");
                         ver_numero_notificaciones();
+                        
                         if(response.eje.length>0){
                           $('#tipo_perfil').append('<li><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> '+response.eje+'</li>');
                         }
@@ -5801,7 +5812,6 @@ function ver_numero_notificaciones(){
     success:  function (response) {
       console.log(response);
       if(response.includes("ninguno")){
-        
         if ( $('#notificaciones').is(':visible') ){
           if(response.includes("ninguno")){
             $('#badge_numero_notificaciones').html('');
@@ -5809,7 +5819,6 @@ function ver_numero_notificaciones(){
           else{
             $('#badge_numero_notificaciones').html(response);
           }
-         
         }
         else{
           $('#badge_numero_notificaciones').hide();
@@ -5822,11 +5831,11 @@ function ver_numero_notificaciones(){
       }
       else{
         $('#notificaciones').show();
-        $('#notificaciones').css("left","-250px");
+        $('#notificaciones').css("right","0px");
         $("#notificaciones").addClass("slower tada animated").one('animationend webkitAnimationEnd oAnimationEnd', function() {
           $("#notificaciones").removeClass("slower tada animated");
         });
-        $('#notificaciones').css("left","-360px");
+        $('#notificaciones').css("right","-350px");
         $("#audio_ding")[0].play(); //dee usarse dentro del click de un boton
         $('#badge_numero_notificaciones').html(response);
       }

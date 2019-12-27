@@ -9,7 +9,7 @@
   <meta http-equiv='pragma' content='no-cache'>
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
   <link rel="stylesheet" href="css/jquery.fancybox.css" />
-  <link rel="stylesheet" href="css/font-awesome.css">
+  
   <link rel="stylesheet" href="css/animate.css"/>
   <link rel="stylesheet" href="css/sweetalert2.css"/>  
   <link rel="stylesheet" href="css/bootstrap.toogle.min.css" >
@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="css/easy-autocomplete.css" />
   <link rel="stylesheet" href="css/easy-autocomplete.themes.css""/>
   <link rel="stylesheet" href="css/jquery.modal.css"/>
+  <link rel="stylesheet" href="css/menu.css"/>
 
   <script src="js/jquery-1.11.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
@@ -69,6 +70,8 @@
   <script src="js/jquery.easy-autocomplete.js"></script>
   <script src="js/audio.min.js"></script>
   <script src="js/jquery.modal.js"></script>
+
+  <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   
   
   <script src="js/metodos_4bac93081.js"></script>
@@ -111,288 +114,6 @@
     box-shadow: 0 0 7px black;
   }
 
-
-
-
-/* Menu Styles */
-
-.primary-nav {
-	
-	z-index: 999;
-}
-
-.menu {
-	position: relative;
-}
-
-.menu ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-	
-}
-
-.open-panel {
-  border: none;
-  background-color:#fff;
-  padding: 0;
-}
-
-.hamburger {
-	background: #fff;
-	position: relative;
-	display: block;
-	text-align: center;
-	padding: 13px 0;
-	width: 50px;
-  height: 73px;
-	left: 0;
-  top: 0;
-	z-index: 1000;
-  cursor: pointer;
-}
-
-.hamburger:before {
-	content:"\2630"; /* hamburger icon */
-	display: block;
-  color: #000;
-  line-height: 32px;
-  font-size: 16px;
-}
-
-.openNav .hamburger:before {
-	content:"\2715"; /* close icon */
-	display: block;
-  color: #000;
-  line-height: 32px;
-  font-size: 16px;
-}
-
-.hamburger:hover:before {
-  color: #000;
-}
-
-.primary-nav .menu li {
-	position: relative;
-}
-
-.menu .icon {
-	position: absolute;
-	top: 12px;
-	right: 10px;
-	pointer-events: none;
-  width: 24px;
-  height: 24px;
-  color: #fff;
-}
-
-.menu,
-.menu a,
-.menu a:visited {
-  color: #000;
-  text-decoration: none!important;
-	position: relative;
-}
-
-.menu a {
-  display: block;
-  white-space: nowrap;
-  padding: 1em;
-  font-size: 14px;
-}
-
-.menu a:hover {
-	color: #fff;
-}
-
-.menu {
-	margin-bottom: 3em;
-}
-
-.menu-dropdown li .icon {
-	color: #000;
-}
-
-.menu-dropdown li:hover .icon {
-	color: #fff;
-}
-
-
-
-.menu label {
-  margin-bottom: 0;
-  display: block;
-}
-
-.menu label:hover {
-  cursor: pointer;
-}
-
-.menu input[type="checkbox"] {
-  display: none;
-}
-
-input#menu[type="checkbox"] {
-  display: none;
-}
-
-
-
-
-
-
-.sub-menu-dropdown {
-	display: none;
-}
-
-.new-wrapper {
-	position: absolute;
-	left: 50px;
-  width: calc(100% - 50px);
-  transition: transform .45s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-#menu:checked + ul.menu-dropdown {
-    
-		left: 0;
-    -webkit-animation: all .45s cubic-bezier(0.77, 0, 0.175, 1);
-            animation: all .45s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-.sub-menu-checkbox:checked + ul.sub-menu-dropdown {
-    display: block!important;
-    -webkit-animation: grow .45s cubic-bezier(0.77, 0, 0.175, 1);
-            animation: grow .45s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-
-.openNav .new-wrapper {
-  position: absolute;
-  transform: translate3d(200px, 0, 0);
-  width: calc(100% - 250px);
-  transition: transform .45s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-
-.downarrow {
-  background: transparent;
-	position: absolute;
-	right: 50px;
-	top: 12px;
-  color: #000;
-  width: 24px;
-  height: 24px;
-  text-align: center;
-  display: block;
-}
-
-.downarrow:hover {
-  color: #fff;
-}
-
-.menu {
-	position: absolute;
-	display: block;
-	left: -200px;
-  top: 0;
-	width: 250px;
-  transition: all 0.45s cubic-bezier(0.77, 0, 0.175, 1);
-  background-color: #97C3F8;
-	z-index: 999;
-}
-
-.menu-dropdown {
-  top: 0;
-  overflow-y: auto;
-}
-
-.overflow-container {
-  position: relative;
-  height: calc(100vh)!important;
-  overflow-y: auto;
-  border-top: 73px solid #fff;
-  z-index: -1;
-  display:block;
-}
-
-.menu a.logotype {
-  position: absolute!important;
-  top: 11px;
-  left: 55px;
-  display: block;
-
-  text-transform: uppercase;
-  font-weight: 800;
-  color: #000;
-  font-size: 21px;
-  padding: 10px;
-}
-
-.menu a.logotype span {
-  font-weight: 400;
-}
-
-.menu a.logotype:hover {
-  color: #777;
-}
-
-.sub-menu-dropdown {
-	background-color: #6ebadd;
-}
-
-.menu:hover {
-	position: absolute;
-	left: 0;
-	top: 0;
-}
-
-.openNav .menu:hover {
-	position: absolute;
-	left: -200px;
-	top 73px;
-}
-
-.openNav .menu {
-  top 73px;
-		transform: translate3d(200px, 0, 0);
-    transition: transform .45s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-
-@-webkit-keyframes grow {
-	
-  0% {
-    display: none;
-    opacity: 0;
-  }
-  50% {
-    display: block;
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-	
-}
-
-@keyframes grow {
-	
-  0% {
-    display: none;
-    opacity: 0;
-  }
-  50% {
-    display: block;
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1
-  }
-	
-}
-
-
-
   </style>
 
 </head>
@@ -406,12 +127,14 @@ input#menu[type="checkbox"] {
    <source src="audio/tada.wav" type="audio/wav" />
 </audio>
   <div id="notificaciones" class="quick-btn cambio">
-  <ul class="nav navbar-nav">
+  <span id='badge_numero_notificaciones' class="label label-danger" style='font-size:95%; vertical-align:top;'></span>
+  <i class="fas fa-user fa-2x" style='color:black'></i>
+  <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-user fa-2x" style='color:black'></i>   
-                        <strong id='label_user' style='color:black; font-size:1em;'></strong>
-                        <i class="fa fa-chevron-down fa-2x" style='color:black'></i> 
+                      
+                        <strong id='label_user' style='color:black; font-size:1.2em;'></strong>
+                        <i class="fas fa-chevron-down fa-2x" style='color:black;padding-right:.3em;'></i> 
                     </a>
                     <ul class="dropdown-menu">
                         <li>
@@ -448,10 +171,6 @@ input#menu[type="checkbox"] {
         <i class="fa fa-close fa-2x" style='color:black'></i>  
           
   </a>
-  
-  <span id='badge_numero_notificaciones' class="label label-danger" style='font-size:95%; vertical-align:top;'>
-  
-  </span>
    
   <section id='resultado_bitacora'>
   
@@ -597,16 +316,14 @@ input#menu[type="checkbox"] {
   -->
 
 <div class="primary-nav nav">
-<button href="#" class="hamburger open-panel nav-toggle">
-<span class="screen-reader-text"></span>
+<button style='background:#BBD32A;'>
+<img id="nav_logo" src="img/logo.png" alt="" class='hamburger open-panel nav-toggle'>
 </button>
-<nav role="navigation" class="menu nav">
-  <a href="#" class="logotype"><img id="nav_logo" src="img/logo.png" alt=""></a>
-  
-  <div class="overflow-container">
+<nav role="navigation" class="menu nav">  
+  <div class="overflow-container" id='lista_menu'>
     <ul class="menu-dropdown">
     <li class="menu-hasdropdown">
-        <a href="#">Eventos</a><span class="icon"><i class="fa fa-star fa-2x"></i></span>
+        <a href="#">Eventos</a><span class="icon"><i class="fas fa-crown fa-2x"></i></span>
         <label title="toggle menu" for="eventos">
           <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
         </label>
@@ -614,11 +331,11 @@ input#menu[type="checkbox"] {
         <ul class="sub-menu-dropdown">
           <li><a href="">Crear evento</a></li>
           <li><a href="">Modificar evento</a></li>
-          <li><a href="">Cerrar evento</a></li>
+          <!--<li><a href="">Cerrar evento</a></li>-->
         </ul>
       </li>
       <li class="menu-hasdropdown">
-        <a href="#">Solicitudes</a><span class="icon"><i class="fa fa-file-text-o fa-2x"></i></span>
+        <a href="#">Solicitudes</a><span class="icon"><i class="fas fa-file-invoice-dollar fa-2x"></i></span>
         <label title="toggle menu" for="sol">
           <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
         </label>
@@ -631,7 +348,7 @@ input#menu[type="checkbox"] {
         </ul>
       </li>
       <li class="menu-hasdropdown">
-        <a href="#">Catálogos</a><span class="icon"><i class="fa fa-address-book-o fa-2x"></i></span>
+        <a href="#">Catálogos</a><span class="icon"><i class="fas fa-address-book fa-2x"></i></span>
         <label title="toggle menu" for="catalogos">
           <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
         </label>
@@ -643,9 +360,9 @@ input#menu[type="checkbox"] {
         </ul>
       </li>
       <li class="menu-hasdropdown">
-        <a href="#">CXP</a><span class="icon"><i class="fa fa-money fa-2x"></i></span>
+        <a href="#">CXP</a><span class="icon"><i class="fas fa-funnel-dollar fa-2x"></i></span>
         <label title="toggle menu" for="cxp">
-          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
+          <span class="downarrow"><i class="fas fa-caret-down fa-2x"></i></span>
         </label>
         <input type="checkbox" class="sub-menu-checkbox" id="cxp" />
         <ul class="sub-menu-dropdown">
@@ -653,9 +370,9 @@ input#menu[type="checkbox"] {
         </ul>
       </li>
       <li class="menu-hasdropdown">
-        <a href="#">Base de datos</a><span class="icon"><i class="fa fa-table fa-2x"></i></span>
+        <a href="#">Base de datos</a><span class="icon"><i class="fas fa-list-alt fa-2x"></i></span>
         <label title="toggle menu" for="bd">
-          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
+          <span class="downarrow"><i class="fas fa-caret-down fa-2x"></i></span>
         </label>
         <input type="checkbox" class="sub-menu-checkbox" id="bd" />
         <ul class="sub-menu-dropdown">
@@ -665,7 +382,7 @@ input#menu[type="checkbox"] {
         </ul>
       </li>
       <li class="menu-hasdropdown">
-        <a href="#">Facturación</a><span class="icon"><i class="fa fa-table fa-2x"></i></span>
+        <a href="#">Facturación</a><span class="icon"><i class="fas fa-hand-holding-usd fa-2x"></i></span>
         <label title="toggle menu" for="factura">
           <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
         </label>
@@ -673,6 +390,19 @@ input#menu[type="checkbox"] {
         <ul class="sub-menu-dropdown">
           <li><a href="">Solicitud</a></li>
           <li><a href="">Ver detalle</a></li>
+        </ul>
+      </li>
+      <li class="menu-hasdropdown">
+        <a href="#">Reportes</a><span class="icon"><i class="fas fa-chart-bar fa-2x"></i></span>
+        <label title="toggle menu" for="reporte">
+          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
+        </label>
+        <input type="checkbox" class="sub-menu-checkbox" id="reporte" />
+        <ul class="sub-menu-dropdown">
+          <li><a href="">Eventos</a></li>
+          <li><a href="">Facturarción</a></li>
+          <li><a href="">Gastos</a></li>
+          <li><a href="">Módulo ventas</a></li>
         </ul>
       </li>
     </ul>
@@ -687,12 +417,12 @@ input#menu[type="checkbox"] {
           <form method="post" action="#" role="login">
             <img src="img/logo.png" class="img-responsive" alt="" />
             <div class="form-group has-feedback">
-              <span style="position:absolute; left:-10px;top:12px;color: #464545" class="fa fa-user "></span>
+              <span style="position:absolute; left:-10px;top:12px;color: #464545" class="fas fa-user "></span>
               <input style="color: #464545" type="text" id="user" class="form-control input-lg" placeholder="Usuario" />
             </div>
             
             <div class="form-group has-feedback">
-              <span style="position:absolute; left:-10px;top:12px; color: #464545" class="fa fa-unlock-alt "></span>
+              <span style="position:absolute; left:-10px;top:12px; color: #464545" class="fas fa-unlock-alt "></span>
               <input style="color: #464545" type="password" id="pass" class="form-control input-lg" placeholder="Contraseña" />
             </div>
             <button type="button" id="entrar" class="btn_verde btn btn-lg btn-primary btn-block">Entrar</button>
@@ -710,7 +440,7 @@ input#menu[type="checkbox"] {
             <label for="name" class="cols-sm-2 control-label">Selecciona un banco</label>
             <div class="cols-sm-10">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>
+                <span class="input-group-addon"><i class="fas fa-credit-card-alt" aria-hidden="true"></i></span>
                 <select name="c_banco_tarjetas" id="c_banco_tarjetas" class='form-control'>
                 </select>
               </div>
@@ -736,17 +466,17 @@ input#menu[type="checkbox"] {
               <label for="name" class="cols-sm-2 control-label">Eventos</label>
               <div class="cols-sm-10">
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
+                  <span class="input-group-addon"><i class="fas fa-list-alt" aria-hidden="true"></i></span>
                   <select name="c_mis_eventos" id="c_mis_eventos" class='form-control' placeholder='Ingresa un evento'>
                   </select>
                 </div>
               </div>
             </div>
             <div class="form-group col-md-2">                              
-                  <button type="button" id='btn_transferir' class="abajo btn btn-info boton_descarga"><i class="fa fa-exchange" aria-hidden="true"></i> Transferir</button>
+                  <button type="button" id='btn_transferir' class="abajo btn btn-info boton_descarga"><i class="fas fa-exchange" aria-hidden="true"></i> Transferir</button>
             </div>
             <div class="form-group col-md-1">                              
-                  <button type="button" id='btn_borrar_sdp' class="abajo btn btn-danger boton_descarga"><i class="fa fa-trash" aria-hidden="true"></i> Borrar</button>
+                  <button type="button" id='btn_borrar_sdp' class="abajo btn btn-danger boton_descarga"><i class="fas fa-trash" aria-hidden="true"></i> Borrar</button>
             </div>
             <div id="div_mis_solicitudes" class="form-group col-md-6">
               <label for="name" class="cols-sm-2 control-label">Solicitudes</label>
