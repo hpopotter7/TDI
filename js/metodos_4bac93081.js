@@ -4,6 +4,19 @@ function inicio(){
 
   $('.nav-toggle').click(function(e) {
     e.preventDefault();
+    accion_menu();
+    $(".menu").css("transform","translate3d(200px, 0, 0)");
+    $(".menu").css("transition", "transform .45s cubic-bezier(0.77, 0, 0.175, 1)");
+    $(".menu").css("left","-200px");
+  });
+
+  $("#lista_menu").mouseleave(function(){
+    $('#lista_menu').fadeOut();
+    bandera_menu=false;
+  });
+
+  function accion_menu(){
+   
     if(bandera_menu==false){
       $('#lista_menu').show();
       bandera_menu=true;
@@ -13,10 +26,8 @@ function inicio(){
       bandera_menu=false;
     }
     
-    $("html").toggleClass("openNav");
-    $(".nav-toggle").toggleClass("active");
-  
-  });
+    
+  }
   
 
   var contador_tiempo=-1;
@@ -1168,6 +1179,8 @@ var parametros = {
 
         $('#menu_crear_evento').click(function(e){
            e.preventDefault();
+            
+           
            
            /*
            $("#div_cortina").animate({top: '0px'}, 1100); 
@@ -1187,6 +1200,7 @@ var parametros = {
 */
             limpiar_cortinas();
             $("#div_cortina").animate({top: '0px'}, 1100);
+            
             $('#div_nuevo_evento').fadeIn();
             ver_eventos($('#c_eventos_creados'));
         });
@@ -5420,6 +5434,9 @@ function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
 });
 
   function limpiar_cortinas(){
+    $("body").css("top","0px");
+    $('#lista_menu').fadeOut();
+    bandera_menu=false;
   $('#div_usuarios').fadeOut();
   $('#div_alta_cliente').fadeOut();
   $('#div_alta_proveedores').fadeOut();

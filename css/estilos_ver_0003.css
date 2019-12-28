@@ -46,7 +46,9 @@ body {
 	font-size: 14px;
 	background-color: #D8DEE3;
     text-shadow: none;
- 	z-index: 50;
+	 z-index: 50;
+	 top: -14px;
+	position: relative;
 }
 h1,h2,h3,h4,h5,h6{
 	 font-family: 'Neuton';
@@ -319,6 +321,10 @@ input::-webkit-input-placeholder {
 .form-control {
     height: auto!important;
 padding: 8px 12px !important;
+}
+
+.container{
+/*position: relative;*/
 }
 
 #button {

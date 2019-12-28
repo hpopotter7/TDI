@@ -316,21 +316,21 @@
   -->
 
 <div class="primary-nav nav">
-<button style='background:#BBD32A;'>
-<img id="nav_logo" src="img/logo.png" alt="" class='hamburger open-panel nav-toggle'>
+<button class='nav-toggle' style='background:#BBD32A;'>
+<img id="nav_logo" src="img/logo.png" alt="" class='hamburger open-panel '>
 </button>
 <nav role="navigation" class="menu nav">  
   <div class="overflow-container" id='lista_menu'>
-    <ul class="menu-dropdown">
-    <li class="menu-hasdropdown">
+    <ul class="menu-dropdown ">
+    <li class="menu-hasdropdown ">
         <a href="#">Eventos</a><span class="icon"><i class="fas fa-crown fa-2x"></i></span>
         <label title="toggle menu" for="eventos">
           <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
         </label>
         <input type="checkbox" class="sub-menu-checkbox" id="eventos" />
         <ul class="sub-menu-dropdown">
-          <li><a href="">Crear evento</a></li>
-          <li><a href="">Modificar evento</a></li>
+          <li><a id='menu_crear_evento' href="#">Crear evento</a></li>
+          <li><a id='menu_modificar_evento' href="#">Modificar evento</a></li>
           <!--<li><a href="">Cerrar evento</a></li>-->
         </ul>
       </li>
@@ -341,10 +341,10 @@
         </label>
         <input type="checkbox" class="sub-menu-checkbox" id="sol" />
         <ul class="sub-menu-dropdown">
-          <li><a href="">Pago</a></li>
-          <li><a href="">Viáticos</a></li>
-          <li><a href="">Reembolso</a></li>
-          <li><a href="">Ver detalle</a></li>
+          <li><a id='menu_solicitud_odc 'href="#">Pago</a></li>
+          <li><a id='menu_solicitud_viaticos' href="#">Viáticos</a></li>
+          <li><a id='menu_solicitud_reembolso' href="#">Reembolso</a></li>
+          <li><a id='menu_ver_formatos' href="#">Ver detalle</a></li>
         </ul>
       </li>
       <li class="menu-hasdropdown">
@@ -354,9 +354,9 @@
         </label>
         <input type="checkbox" class="sub-menu-checkbox" id="catalogos" />
         <ul class="sub-menu-dropdown">
-          <li><a href="">Clientes</a></li>
-          <li><a href="">Proveedores</a></li>
-          <li><a href="">Usuarios</a></li>
+          <li><a id='menu_solicitud_cliente' href="#">Clientes</a></li>
+          <li><a id='menu_solicitud_prov' href="#">Proveedores</a></li>
+          <li><a id='usuarios' href="#">Usuarios</a></li>
         </ul>
       </li>
       <li class="menu-hasdropdown">
@@ -366,7 +366,7 @@
         </label>
         <input type="checkbox" class="sub-menu-checkbox" id="cxp" />
         <ul class="sub-menu-dropdown">
-          <li><a href="">Tarjetas</a></li>
+          <li><a id='menu_tarjetas' href="#">Tarjetas</a></li>
         </ul>
       </li>
       <li class="menu-hasdropdown">
@@ -376,9 +376,9 @@
         </label>
         <input type="checkbox" class="sub-menu-checkbox" id="bd" />
         <ul class="sub-menu-dropdown">
-          <li><a href="">Eventos</a></li>
-          <li><a href="">Clientes</a></li>
-          <li><a href="">Proveedores</a></li>
+          <li><a id='rep_eventos' href="#">Eventos</a></li>
+          <li><a id='rep_cat_clientes' href="#">Clientes</a></li>
+          <li><a id='rep_cat_proveedores' href="#">Proveedores</a></li>
         </ul>
       </li>
       <li class="menu-hasdropdown">
@@ -388,7 +388,7 @@
         </label>
         <input type="checkbox" class="sub-menu-checkbox" id="factura" />
         <ul class="sub-menu-dropdown">
-          <li><a href="">Solicitud</a></li>
+          <li><a id='solicitud_facturas' href="#">Solicitud</a></li>
           <li><a href="">Ver detalle</a></li>
         </ul>
       </li>
@@ -409,6 +409,7 @@
   </div>
 </nav>
 </div>
+
   
   <div id='div_login' class="container" >
     <div class="row" id="pwd-container" style="top:50px">    
