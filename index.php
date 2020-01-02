@@ -322,8 +322,9 @@
 <nav role="navigation" class="menu nav">  
   <div class="overflow-container" id='lista_menu'>
     <ul class="menu-dropdown ">
+      <!--
     <li class="menu-hasdropdown ">
-        <a href="#">Eventos</a><span class="icon"><i class="fas fa-crown fa-2x"></i></span>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos</a><span class="icon"><i class="fas fa-crown fa-2x"></i></span>
         <label title="toggle menu" for="eventos">
           <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
         </label>
@@ -331,7 +332,7 @@
         <ul class="sub-menu-dropdown">
           <li><a id='menu_crear_evento' href="#">Crear evento</a></li>
           <li><a id='menu_modificar_evento' href="#">Modificar evento</a></li>
-          <!--<li><a href="">Cerrar evento</a></li>-->
+          
         </ul>
       </li>
       <li class="menu-hasdropdown">
@@ -405,6 +406,16 @@
           <li><a href="">Módulo ventas</a></li>
         </ul>
       </li>
+
+-->
+      <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos <span class="caret"></span><i class="fas fa-crown fa-2x"></i></a>
+            <ul class="dropdown-menu">
+              <li><a id='menu_crear_evento' class='item_menu' href="#"><i class="fa fa-file-text" aria-hidden="true"></i> Crear Evento</a></li>
+              <li><a id='menu_modificar_evento' class='item_menu' href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar Evento</a></li>
+              <li class='solo_admin'><a id='menu_cerrar_evento' class='item_menu' href="#"><i class="fa fa-archive" aria-hidden="true"></i> Cerrar Evento</a></li>
+            </ul>
+          </li>
     </ul>
   </div>
 </nav>
@@ -426,7 +437,7 @@
               <span style="position:absolute; left:-10px;top:12px; color: #464545" class="fas fa-unlock-alt "></span>
               <input style="color: #464545" type="password" id="pass" class="form-control input-lg" placeholder="Contraseña" />
             </div>
-            <button type="button" id="entrar" class="btn_verde btn btn-lg btn-primary btn-block">Entrar</button>
+            <button type="button" id="entrar" class=" cambio btn btn-lg btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> Entrar</button>
           </form>
         </section>  
       </div>
@@ -1990,7 +2001,7 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #97c3f8;
+    background-color: #d0dff6;
     color: #434142;
     text-align: center;
     z-index: 400px;">© Tierra de ideas (2018) ~ <a href="mailto:alaneduardosandoval@yahoo.com">Alan Sandoval</a>

@@ -176,7 +176,7 @@ input#menu[type="checkbox"] {
   top: 0;
 	width: 250px;
   transition: all 0.45s cubic-bezier(0.77, 0, 0.175, 1);
-  background-color: #97C3F8;
+  background-color: #d0dff6;
 	z-index: 999;
 }
 

@@ -44,7 +44,7 @@ body {
 	font-family: 'Neuton';
 	background-size: 20%;
 	font-size: 14px;
-	background-color: #D8DEE3;
+	background-color: #6daadc;
     text-shadow: none;
 	 z-index: 50;
 	 top: -14px;
@@ -122,7 +122,7 @@ thead{
 	position: fixed;
 	text-align: left;
 	width: 400px;
-	background-color: #97C3F8;
+	background-color: #d0dff6;
 	padding: 1em;
 	border-radius:.1em;
 	z-index: 10;
@@ -162,19 +162,20 @@ thead{
 
 form[role=login] {
 	color: #FFFFFF;
-	background: rgba(227,238,255,1);
+	background: #d0dff6;
+	/*
 background: -moz-radial-gradient(center, ellipse cover, rgba(227,238,255,1) 0%, rgba(151,195,248,1) 65%, rgba(151,195,248,1) 100%);
 background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(227,238,255,1)), color-stop(65%, rgba(151,195,248,1)), color-stop(100%, rgba(151,195,248,1)));
 background: -webkit-radial-gradient(center, ellipse cover, rgba(227,238,255,1) 0%, rgba(151,195,248,1) 65%, rgba(151,195,248,1) 100%);
 background: -o-radial-gradient(center, ellipse cover, rgba(227,238,255,1) 0%, rgba(151,195,248,1) 65%, rgba(151,195,248,1) 100%);
 background: -ms-radial-gradient(center, ellipse cover, rgba(227,238,255,1) 0%, rgba(151,195,248,1) 65%, rgba(151,195,248,1) 100%);
 background: radial-gradient(ellipse at center, rgba(227,238,255,1) 0%, rgba(151,195,248,1) 65%, rgba(151,195,248,1) 100%);
+*/
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3eeff', endColorstr='#97c3f8', GradientType=1 );
 	padding: 25px;
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
-	
 	--webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.84);
 -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.84);
 box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.84);
@@ -202,8 +203,10 @@ box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.84);
 		font-size: 18px;
 		margin: 16px 0;
 		cursor: text;
-	    border-radius: 2em;
-	    color: black;
+		border-bottom: 0px solid #464545;
+		border-radius: 1em 0em;
+		color: black;
+	    
 	}
 	form[role=login] input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #979FAC;
@@ -221,15 +224,13 @@ form[role=login] input:-ms-input-placeholder { /* Microsoft Edge */
 		text-align: center;
 	}
 	form[role=login] button, .btn_verde{
-		background-color: #a9c030;
+		background-color: #649919;
 		cursor: pointer;
 	}
 	form[role=login] button:hover, .btn_verde:hover{
 		background-color: #649919;
 	}
-	form[role=login] button:active {
-		/*background-color: #68AF03;*/
-	}
+	
 
 	.swal2-input::placeholder{
 		color: #919191;
