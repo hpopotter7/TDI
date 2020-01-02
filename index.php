@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/bootstrap.toogle.min.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/bootstrap.min2.css">
+  <link rel="stylesheet" href="css/introjs.css"/>
   <link rel="stylesheet" href="css/estilos_ver_0003.css"/>
   <link rel="stylesheet" href="css/estilos_menu_user.css"/>
   <link rel="stylesheet" href="css/jquery-ui_theme_green.css"/>
@@ -27,6 +28,7 @@
   <link rel="stylesheet" href="css/easy-autocomplete.css" />
   <link rel="stylesheet" href="css/easy-autocomplete.themes.css""/>
   <link rel="stylesheet" href="css/jquery.modal.css"/>
+  
 
   <script src="js/jquery-1.11.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
@@ -69,6 +71,7 @@
   <script src="js/jquery.easy-autocomplete.js"></script>
   <script src="js/audio.min.js"></script>
   <script src="js/jquery.modal.js"></script>
+  <script src="js/intro.js"></script>
   
   
   <script src="js/metodos_4bac93081.js"></script>
@@ -280,7 +283,7 @@
         <section class="login-form">
           <form method="post" action="#" role="login">
             <img src="img/logo.png" class="img-responsive" alt="" />
-            <div class="form-group has-feedback">
+            <div class="form-group has-feedback" >
               <span style="position:absolute; left:-10px;top:12px;color: #464545" class="fa fa-user "></span>
               <input style="color: #464545" type="text" id="user" class="form-control input-lg" placeholder="Usuario" />
             </div>
@@ -331,8 +334,11 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
+                  <!--
                   <select name="c_mis_eventos" id="c_mis_eventos" class='form-control' placeholder='Ingresa un evento'>
                   </select>
+                  <-->
+                  <input type="text" name="c_mis_eventos" id="c_mis_eventos" class="form-control" placeholder='Ingresa un evento' pattern="" title="">
                 </div>
               </div>
             </div>
@@ -1013,10 +1019,12 @@
             <div id='existentes' class="form-group col-md-9">
               <label for="email" class="cols-sm-2 control-label">Evento existente</label>
               <div class="cols-sm-10">
-                <div class="input-group">
+                <div id="step1" class="input-group" data-step="1" data-intro='Al escribir se buscaran los primeros 15 eventos que coincidan '  data-disable-interaction="1">
                   <span class="input-group-addon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
+                  <!--
                   <select name="c_eventos_creados" id="c_eventos_creados" class='form-control' placeholder='Ingresa un evento' >
-                  </select>
+                  </select>-->
+                  <input type="text" name="c_eventos_creados" id="c_eventos_creados" class="form-control" placeholder='Ingresa un evento' pattern="" title="">
                 </div>
               </div>
             </div>
@@ -1223,9 +1231,11 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
+                  <!--
                   <select name="" id="c_numero_evento" class='form-control' >
-                    
                   </select>
+                  -->
+                  <input type="text" name="c_numero_evento" id="c_numero_evento" class="form-control" placeholder='Ingresa un evento' pattern="" title="">
                 </div>
               </div>
             </div>
@@ -1501,8 +1511,11 @@
       <legend><h2>Solicitud de modificación de evento</h2></legend>      
          <div class="row col-md-9">
           <label class="cols-sm-2 control-label">Evento</label>
+          <!--
             <select name="c_eventos_modificar" id="c_eventos_modificar" class="form-control" placeholder='Ingresa un evento'>
             </select>
+          -->
+          <input type="text" name="c_eventos_modificar" id="c_eventos_modificar" class="form-control" placeholder='Ingresa un evento' pattern="" title="">
          </div>
          <div class="row col-md-11">
           <textarea id="area_modificaciones" class="form-control margen" rows="5" placeholder="Ingrese la solicitud de la modificación"></textarea>

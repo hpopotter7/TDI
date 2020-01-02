@@ -22,9 +22,9 @@ if ($result = $mysqli->query($sql)) {
     $result->close();
 }
 else{
-  $return =mysqli_error($mysqli);
+    $return = Array('name'=>mysqli_error($mysqli));
+     $array[]=$return;
 }
-//$array[]=$return;
 echo json_encode($array);
 
 $mysqli->close();
