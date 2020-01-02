@@ -992,9 +992,10 @@
   <div id='div_nuevo_evento' class="container">
     <div class="row main">
       <div class="main-login main-center"> 
+        
         <div class="row">
           <legend><h2>Crear Evento</h2></legend>
-          <input id='check_anio_evento' name='check_anio_evento' type="checkbox" data-toggle="toggle" data-height="50" data-onstyle="success" data-on="2020" data-off="2019" data-offstyle="info">
+         
         </div>       
         <div class="clearfix"></div>
                 

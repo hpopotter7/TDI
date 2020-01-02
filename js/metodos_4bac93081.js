@@ -6031,25 +6031,7 @@ $('#spnTop').click(function (e) {
 
   });
 
-  $('#check_anio_evento').change(function() {
-    var anio="2019";
-    if($(this).prop('checked')){
-      anio="2020";
-    }
-    var datos={
-      "anio":anio,
-    };
-    $.ajax({
-      url:   'ver_numero_evento.php',
-      type:  'post',
-      data: datos,
-      success:  function (response) {
-        $('#txt_numero_evento').val(response);
-        
-      }
-    });
-  });
-
+ 
   
  
 

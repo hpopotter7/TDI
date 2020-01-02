@@ -1,5 +1,7 @@
 <?php 
-$anio=$_POST["anio"];
+/*$anio=$_POST["anio"];*/
+$anio="2020";
+
 include("conexion.php");
 if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());
