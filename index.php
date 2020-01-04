@@ -74,7 +74,7 @@
   <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   
   
-  <script src="js/metodos_4bac93081.js"></script>
+  <script src="js/metodos_4bac93082.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
