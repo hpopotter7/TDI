@@ -3232,7 +3232,8 @@ input[type=search] {
 }
 
 .form-group {
-    margin-bottom: 15px
+    margin-bottom: 15px;
+    
 }
 
 .checkbox,
@@ -5417,7 +5418,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 
 .navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
-    color: #ec971f;
+    /*color: #ec971f;*/
     background-color: transparent
 }
 

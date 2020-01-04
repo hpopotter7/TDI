@@ -82,7 +82,7 @@ thead{
 	padding: 1em;
 	border-radius:0em;
 	z-index: -10;
-	left: 70px;
+	left: 141px;
 	-webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.58); 
 	box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.58);
 	
@@ -122,16 +122,24 @@ thead{
 	position: fixed;
 	text-align: left;
 	width: 400px;
-	background-color: #d0dff6;
+	/*background-color: #d0dff6;*/
+	background-color: #BBD32A;
 	padding: 1em;
-	border-radius:.1em;
+	border-radius: 1.1em 0em 0em 1.1em;
 	z-index: 10;
+	top: 0px;
 	right: -350px;
 	-webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 }
-
+.cambio_rapido
+{
+	-ms-transition: all .31s ease-out;
+	-moz-transition: all .31s ease-out;
+	-o-transition: all .31s ease-out;
+	-webkit-transition: all .31s ease-out;
+}
 
 .cambio
 {
@@ -155,9 +163,16 @@ thead{
 }
 
 .login-form {
-	margin-top: 110px;
-	border-style: groove; border-width: .2em; 
+	margin-top: 170px;
+	
+	
 	border-radius: 1em;
+	
+	width: 85%;
+    left: 30px;
+    position: relative;
+	background-color: #d0dff6;
+
 }
 
 form[role=login] {
@@ -272,7 +287,7 @@ form[role=login] input:-ms-input-placeholder { /* Microsoft Edge */
 	color: #bd4e0d;
 }
 .main{
-	margin-left: -60px;
+	margin-left: 40px;
 }
 
 

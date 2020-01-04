@@ -1,6 +1,7 @@
 function inicio(){
-
-    var bandera_menu=false;
+  var bandera_menu=false;
+  /*
+    
 
   $('.nav-toggle').click(function(e) {
     e.preventDefault();
@@ -28,6 +29,30 @@ function inicio(){
     
     
   }
+  */
+
+ 
+$(".collapsed").click(function(e){
+  e.preventDefault();
+});
+ 
+
+
+$('#nav_verde').mouseover(function(){
+  if(bandera_menu==false){
+      $('#sidenav01').css("left","0px");
+      bandera_menu=true;
+  }
+});
+
+  
+  $(".navbar").mouseleave(function(){
+    if(bandera_menu==true){
+      $('#sidenav01').css("left","-150px");
+      bandera_menu=false;
+  }
+    
+  });
   
 
   var contador_tiempo=-1;
@@ -43,11 +68,13 @@ function inicio(){
   var comp=false;
   var acta=false;
 
+  /*
    $('.dropdown-submenu a.test').on("click", function(e){
     $(this).next('ul').toggle();
     e.stopPropagation();
     e.preventDefault();
   });
+  */
 
   /*check duplicate
     $('[id]').each(function(){
@@ -373,25 +400,25 @@ var idioma_espaniol = {
                         ver_numero_notificaciones();
                         
                         if(response.eje.length>0){
-                          $('#tipo_perfil').append('<li><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> '+response.eje+'</li>');
+                          $('#tipo_perfil').append('<li><i class="fas fa-caret-square-right" aria-hidden="true"></i> '+response.eje+'</li>');
                         }
                         if(response.sol.length>0){
-                          $('#tipo_perfil').append('<li><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> '+response.sol+'</li>');
+                          $('#tipo_perfil').append('<li><i class="fas fa-caret-square-right" aria-hidden="true"></i> '+response.sol+'</li>');
                         }
                         if(response.cxc.length>0){
-                          $('#tipo_perfil').append('<li><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> '+response.cxc+'</li>');
+                          $('#tipo_perfil').append('<li><i class="fas fa-caret-square-right" aria-hidden="true"></i> '+response.cxc+'</li>');
                         }
                         if(response.dig.length>0){
-                          $('#tipo_perfil').append('<li><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> '+response.dig+'</li>');
+                          $('#tipo_perfil').append('<li><i class="fas fa-caret-square-right" aria-hidden="true"></i> '+response.dig+'</li>');
                         }
                         if(response.pro.length>0){
-                          $('#tipo_perfil').append('<li><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> '+response.pro+'</li>');
+                          $('#tipo_perfil').append('<li><i class="fas fa-caret-square-right" aria-hidden="true"></i> '+response.pro+'</li>');
                         }
                         if(response.dis.length>0){
-                          $('#tipo_perfil').append('<li><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> '+response.dis+'</li>');
+                          $('#tipo_perfil').append('<li><i class="fas fa-caret-square-right" aria-hidden="true"></i> '+response.dis+'</li>');
                         }
                         if(response.dire.length>0){
-                          $('#tipo_perfil').append('<li><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> '+response.dire+'</li>');
+                          $('#tipo_perfil').append('<li><i class="fas fa-caret-square-right" aria-hidden="true"></i> '+response.dire+'</li>');
                         }
 
                         $('#tipo_perfil').append("</ul>");
@@ -1101,10 +1128,12 @@ var parametros = {
             var solo_numeros=$('#txt_facturacion').asNumber({ parseType: 'Float' });
             $('#txt_facturacion').val(solo_numeros);
             var datos = $('#form_nuevo_evento').serializeArray();
-            var anio="2019";
+            var anio="2020";
+            /*
               if($('#check_anio_evento').prop('checked')){
                 anio="2020";
               }
+              */
               
             datos.push({name: 'anio', value: anio});
             datos.push({name: 'usuario_registra', value: $('#label_user').html()});

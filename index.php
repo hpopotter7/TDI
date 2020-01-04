@@ -152,8 +152,8 @@
                             <div class="navbar-login navbar-login-session">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <p><a class="various btn btn-info btn-block" data-fancybox-type="iframe" href="ver_tutoriales.html">Ayuda</a>
-                                            <a href="javascript:window.location.href=window.location.href" class="btn btn-danger btn-block">Cerrar Sesion</a>
+                                        <p><a class="various btn btn-info btn-block" data-fancybox-type="iframe" href="ver_tutoriales.html"><i class="fas fa-question-circle"></i> Ayuda</a>
+                                            <a href="javascript:window.location.href=window.location.href" class="btn btn-danger btn-block"> <i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
                                         </p>
                                     </div>
                                 </div>
@@ -250,22 +250,16 @@
             <ul class="dropdown-menu">
               <li><a tabindex="-1" id='menu_tarjetas' href="#" class='item_menu'><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Ver tarjetas</a></li>
             </ul>
-            
           </li>
           <li id='nav_reportes' class="dropdown">
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Base de datos<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li class=""><a id='rep_eventos' href="#" class='item_menu'><i class="fa fa-file-text" aria-hidden="true"></i> Eventos</a></li>
-
-
               <li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>
-
-
               xx
               comentario
               <li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>
               xx
-
               <li class=""><a id='rep_cat_proveedores' href="#" class='item_menu'><i class="fa fa-building" aria-hidden="true"></i> Proveedores</a></li>
               <li class="hidden"><a id='rep_usuarios' href="#" class='item_menu disabled' disabled><i class="fa fa-users" aria-hidden="true"></i>  Usuarios</a></li>
             </ul>
@@ -313,7 +307,7 @@
       </div>
     </div>
   </nav>
-  -->
+  
 
 <div class="primary-nav nav">
 <button class='nav-toggle' style='background:#BBD32A;'>
@@ -322,7 +316,7 @@
 <nav role="navigation" class="menu nav">  
   <div class="overflow-container" id='lista_menu'>
     <ul class="menu-dropdown ">
-      <!--
+      
     <li class="menu-hasdropdown ">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos</a><span class="icon"><i class="fas fa-crown fa-2x"></i></span>
         <label title="toggle menu" for="eventos">
@@ -407,20 +401,200 @@
         </ul>
       </li>
 
--->
-      <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos <span class="caret"></span><i class="fas fa-crown fa-2x"></i></a>
-            <ul class="dropdown-menu">
+
+      <li class="menu-hasdropdown">
+        <a href="#">Eventos</a><span class="icon"><i class="fas fa-chart-bar fa-2x"></i></span>
+        <label title="toggle menu" for="reporte">
+          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
+        </label>
+        <input type="checkbox" class="sub-menu-checkbox" id="reporte" />
+        <ul class="sub-menu-dropdown">
+        <li><a id='menu_crear_evento' class='item_menu' href="#"><i class="fas fa-file-text" aria-hidden="true"></i> Crear Evento</a></li>
+        <li><a id='menu_modificar_evento' class='item_menu' href="#"><i class="fas fa-pencil-square-o" aria-hidden="true"></i> Modificar Evento</a></li>
+          
+        </ul>
+      </li>
+      <li class="menu-hasdropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos <span class="caret"></span></a>
+            <ul class="sub-menu-dropdown">
               <li><a id='menu_crear_evento' class='item_menu' href="#"><i class="fa fa-file-text" aria-hidden="true"></i> Crear Evento</a></li>
               <li><a id='menu_modificar_evento' class='item_menu' href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar Evento</a></li>
               <li class='solo_admin'><a id='menu_cerrar_evento' class='item_menu' href="#"><i class="fa fa-archive" aria-hidden="true"></i> Cerrar Evento</a></li>
             </ul>
           </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Solicitudes<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a id='menu_solicitud_odc' href="#" class='item_menu'><i class="fa fa-product-hunt" aria-hidden="true"></i> Solicitud de pago</a></li>
+              <li><a id='menu_solicitud_viaticos' href="#" class='item_menu'><i class="fa fa-vimeo" aria-hidden="true"></i> Solicitud de viáticos</a></li>
+              <li><a id='menu_solicitud_reembolso' href="#" class='item_menu'><i class="fa fa-registered" aria-hidden="true"></i> Solicitud de reembolso</a></li>
+              <li><a id='menu_ver_formatos' href="#" class='item_menu'><i class="fa fa-list-ul" aria-hidden="true"></i> Ver solicitudes</a></li>
+            </ul>
+          </li>
+          <li id='nav_catalogos' class="dropdown">
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catálogos<span class="caret"></span></a>
+            <ul class="dropdown-menu">             
+            <li class="dropdown-submenu">
+              <a class="test" tabindex="-1" href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Alta de cliente <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                <li><a tabindex="-1" id='menu_prealta' href="pre_alta.html" target="_blank"><i class="fa fa-font-awesome" aria-hidden="true"></i> Pre-alta </a></li>
+                  <li><a tabindex="-1" id='menu_solicitud_cliente' href="#"><i class="fa fa-font-awesome" aria-hidden="true"></i> Nacional </a></li>
+                  <li class='disabled'><a tabindex="-1" href="#" id='menu_solicitud_cliente_ex' class='disabled' disabled><i class="fa fa-eur" aria-hidden="true"></i> Extranjero </a></li>
+                </ul>
+              </li>
+              <li><a id='menu_solicitud_prov' href="#" class='item_menu'><i class="fa fa-building" aria-hidden="true"></i> Alta de proveedor</a></li>
+              <li class='solo_admin'><a id='usuarios'  href="#" class='item_menu'><i class="fa fa-users" aria-hidden="true"></i> Usuarios</a></li>              
+            </ul>
+          </li>
+          <li class="dropdown" >
+            <a  id='btn_menu_cxc' href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" disabled="">CxP<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a tabindex="-1" id='menu_tarjetas' href="#" class='item_menu'><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Ver tarjetas</a></li>
+            </ul>
+          </li>
+          <li id='nav_reportes' class="dropdown">
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Base de datos<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li class=""><a id='rep_eventos' href="#" class='item_menu'><i class="fa fa-file-text" aria-hidden="true"></i> Eventos</a></li>
+              <li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>
+              xx
+              comentario
+              <li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>
+              xx
+              <li class=""><a id='rep_cat_proveedores' href="#" class='item_menu'><i class="fa fa-building" aria-hidden="true"></i> Proveedores</a></li>
+              <li class="hidden"><a id='rep_usuarios' href="#" class='item_menu disabled' disabled><i class="fa fa-users" aria-hidden="true"></i>  Usuarios</a></li>
+            </ul>
+          </li>
+          <li id='nav_facturacion' class="dropdown">
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Facturación<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a id='solicitud_facturas' href="#" class='item_menu'><i class="fa fa-gg" aria-hidden="true"></i> Solicitud de facturas</a></li>
+            </ul>
+          </li>
+          <li id='nav_reportes' class="dropdown">
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
+            <ul class="dropdown-menu sub-menu-dropdown">
+              <li><a id='solicitud_facturas' href="#" class='item_menu'><i class="fa fa-gg" aria-hidden="true"></i> Reporte de eventos</a></li>
+              <li><a id='solicitud_facturas' href="#" class='item_menu'><i class="fa fa-gg" aria-hidden="true"></i> Reporte de facturación</a></li>
+              <li><a id='solicitud_facturas' href="#" class='item_menu'><i class="fa fa-gg" aria-hidden="true"></i> Reporte de gastos</a></li>
+              <li><a id='solicitud_facturas' href="#" class='item_menu'><i class="fa fa-gg" aria-hidden="true"></i> Módulo de ventas</a></li>
+            </ul>
+          </li>
+         
     </ul>
   </div>
 </nav>
 </div>
+-->
 
+
+<!--NUEV NAV-->
+<div class="row affix-row">
+    <div class="col-sm-3 col-md-2 affix-sidebar">
+		<div class="sidebar-nav">
+  <div class="navbar navbar-default cambio" role="navigation">
+    <div class="navbar-collapse collapse sidebar-navbar-collapse">
+        <ul class="nav navbar-nav" >
+            <li id='nav_verde' style='background-color: #BBD32A; min-height: 70px;width: 99%;'>
+                <img id="nav_logo" src="img/logo.png"/>
+                <span style="margin: 5px 20px;vertical-align: bottom;"><i class="fas fa-bars fa-2x"></i></span>
+            </li>
+        </ul class="nav navbar-nav">
+      <ul class="nav navbar-nav cambio_rapido" id="sidenav01">
+        <hr>
+        <li>
+          <a href="#" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed">
+            <i class="fas fa-star "></i> Eventos <span class="caret pull-right"></span>
+          </a>
+          <div class="collapse" id="toggleDemo" style="height: 0px;">
+            <ul class="nav nav-list">
+              <li><a id='menu_crear_evento' href="#">Crear Evento</a></li>
+              <li><a id='menu_modificar_evento' href="#">Modificar evento</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="#" data-toggle="collapse" data-target="#toggleDemo2" data-parent="#sidenav01" class="collapsed">
+          <span class="fas fa-file-invoice-dollar"></span> Solicitudes <span class="caret pull-right"></span>
+          </a>
+          <div class="collapse" id="toggleDemo2" style="height: 0px;">
+            <ul class="nav nav-list">
+              <li><a id='menu_solicitud_odc' href="#">Pago</a></li>
+              <li><a id='menu_solicitud_viaticos' href="#">Viáticos</a></li>
+              <li><a id='menu_solicitud_reembolso' href="#">Reembolso</a></li>
+              <li><a id='menu_ver_formatos' href="#">Ver detalles</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+            <a href="#" data-toggle="collapse" data-target="#toggleDemo3" data-parent="#sidenav01" class="collapsed">
+            <span class="fas fa-swatchbook"></span> Catálogos <span class="caret pull-right"></span>
+            </a>
+            <div class="collapse" id="toggleDemo3" style="height: 0px;">
+              <ul class="nav nav-list">
+                <li><a id='menu_prealta' href="pre_alta.html" target="_blank">Pre Alta Cliente</a></li>
+                <li><a id='menu_solicitud_cliente' href="#">Clientes</a></li>
+                <li><a id='menu_solicitud_prov' href="#">Proveedor</a></li>
+                <li><a id='usuarios' href="#">Usuarios</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a id='btn_menu_cxc' href="#" data-toggle="collapse" data-target="#toggleDemo4" data-parent="#sidenav01" class="collapsed">
+            <span class="fas fa-funnel-dollar"></span> CxP <span class="caret pull-right"></span>
+            </a>
+            <div class="collapse" id="toggleDemo4" style="height: 0px;">
+              <ul class="nav nav-list">
+                <li><a id='menu_tarjetas' href="#">Tarjetas</a></li>
+              </ul>
+            </div>
+          </li>
+          
+          <li>
+            <a href="#" data-toggle="collapse" data-target="#toggleDemo5" data-parent="#sidenav01" class="collapsed">
+            <span class="fas fa-list-alt"></span> Base de datos <span class="caret pull-right"></span>
+            </a>
+            <div class="collapse" id="toggleDemo5" style="height: 0px;">
+              <ul class="nav nav-list">
+                <li><a id='rep_eventos' href="#">Eventos</a></li>
+                <li><a id='rep_cat_clientes' href="#">Clientes</a></li>
+                <li><a id='rep_cat_proveedores' href="#">Proveedores</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a id='btn_menu_facturacion' href="#" data-toggle="collapse" data-target="#toggleDemo6" data-parent="#sidenav01" class="collapsed">
+            <span class="fas fa-hand-holding-usd"></span> Facturación <span class="caret pull-right"></span>
+            </a>
+            <div class="collapse" id="toggleDemo6" style="height: 0px;">
+              <ul class="nav nav-list">
+                <li><a id='solicitud_facturas' href="#">Nueva solicitud</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#" data-toggle="collapse" data-target="#toggleDemo7" data-parent="#sidenav01" class="collapsed">
+            <span class="fas fa-chart-bar"></span> Reportes <span class="caret pull-right"></span>
+            </a>
+            <div class="collapse" id="toggleDemo7" style="height: 0px;">
+              <ul class="nav nav-list">
+                <li><a href="#">Eventos</a></li>
+                <li><a href="#">Gastos</a></li>
+                <li><a href="#">Facturacion</a></li>
+                <li><a href="#">Modulo de ventas</a></li>
+              </ul>
+            </div>
+          </li>
+          <!--
+          <li><a href="#"><span class="fas fa-bell"></span> Bitácora <span class=" badge badge-warning pull-right">42</span></a></li>
+          -->
+      </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+	</div>
+</div>
+<!--FIN NUEVO NAV-->
   
   <div id='div_login' class="container" >
     <div class="row" id="pwd-container" style="top:50px">    
