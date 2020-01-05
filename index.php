@@ -71,7 +71,7 @@
   <script src="js/jquery.easy-autocomplete.js"></script>
   <script src="js/audio.min.js"></script>
   <script src="js/jquery.modal.js"></script>
-  
+  <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   
   <script src="js/metodos_v2_0001.js"></script>
   <script>
