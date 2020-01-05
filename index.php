@@ -73,7 +73,7 @@
   <script src="js/jquery.modal.js"></script>
   
   
-  <script src="js/metodos_4bac93082.js"></script>
+  <script src="js/metodos_v2_0001.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
