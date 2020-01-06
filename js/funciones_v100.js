@@ -27,12 +27,17 @@ function validar_perfiles(response){
 	
 	if(response.cat_cli==""){
 		$('#menu_solicitud_cliente').hide();
+		$('#menu_solicitud_cliente').remove();
+		$('#menu_solicitud_cliente').parent().remove();
+		
 	}
 	else{
 		$('#menu_solicitud_cliente').show();
 	}
 	if(response.cat_prov==""){
 		$('#menu_solicitud_prov').hide();
+		$('#menu_solicitud_prov').remove();
+		$('#menu_solicitud_prov').parent().remove();
 	}
 	else{
 		$('#menu_solicitud_prov').show();
@@ -65,7 +70,9 @@ function validar_perfiles(response){
 	}
 	else{
 		$('#menu_modificar_evento').hide();
+		$('#menu_modificar_evento').remove();
 		$('#menu_crear_evento').hide();
+		$('#menu_crear_evento').remove();
 	}
 
 	//Catalogo facturacion

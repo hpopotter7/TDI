@@ -652,9 +652,10 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
+                  <!--
                   <select name="c_mis_eventos" id="c_mis_eventos" class='form-control' placeholder='Ingresa un evento'>
                   </select>
-                  <-->
+                  -->
                   <input type="text" name="c_mis_eventos" id="c_mis_eventos" class="form-control" placeholder='Ingresa un evento' pattern="" title="">
                 </div>
               </div>
