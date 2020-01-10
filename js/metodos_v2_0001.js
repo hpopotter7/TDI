@@ -4867,6 +4867,24 @@ $("#resultado_solicitudes").delegate(".check_transfer", "click", function() {
   }
 });
 
+llenar_transfer_eventos();
+
+function llenar_transfer_eventos(){
+  var usuario=$('#label_user').html();
+  var datos={
+    "usuario": usuario,
+  }
+  $.ajax({
+      url:   "ver_eventos2.php",
+      type:  'post',
+      data: datos,
+      success:  function (response) {
+        console.log(response);
+         $('#c_transfer').html(response);
+      }
+    });
+}
+
 $('#btn_transferir').click(function(){
   noty({
                     text        : $('#prueba').html(),
