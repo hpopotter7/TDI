@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>ERP Tierra de ideas</title>
-  <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv='cache-control' content='no-cache'>
   <meta http-equiv='expires' content='0'>
   <meta http-equiv='pragma' content='no-cache'>
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
   <link rel="stylesheet" href="css/jquery.fancybox.css" />
-  
+  <link rel="stylesheet" href="css/font-awesome.css">
   <link rel="stylesheet" href="css/animate.css"/>
   <link rel="stylesheet" href="css/sweetalert2.css"/>  
   <link rel="stylesheet" href="css/bootstrap.toogle.min.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/bootstrap.min2.css">
-  <link rel="stylesheet" href="css/introjs.css"/>
   <link rel="stylesheet" href="css/estilos_ver_0003.css"/>
   <link rel="stylesheet" href="css/estilos_menu_user.css"/>
   <link rel="stylesheet" href="css/jquery-ui_theme_green.css"/>
@@ -28,7 +27,7 @@
   <link rel="stylesheet" href="css/easy-autocomplete.css" />
   <link rel="stylesheet" href="css/easy-autocomplete.themes.css""/>
   <link rel="stylesheet" href="css/jquery.modal.css"/>
-  <link rel="stylesheet" href="css/menu.css"/>
+  
 
   <script src="js/jquery-1.11.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
@@ -71,9 +70,9 @@
   <script src="js/jquery.easy-autocomplete.js"></script>
   <script src="js/audio.min.js"></script>
   <script src="js/jquery.modal.js"></script>
-  <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   
-  <script src="js/metodos_v2_0001.js"></script>
+  
+  <script src="js/metodos_4bac93083.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -99,7 +98,7 @@
 <!--
   Estilo bubble button  
 -->
-
+<style>
   <style>
   .ui-tooltip {
     background: black;
@@ -112,9 +111,8 @@
     text-transform: uppercase;
     box-shadow: 0 0 7px black;
   }
-
   </style>
-
+</style>
 </head>
 <body>
   <audio id="audio_error">
@@ -125,52 +123,19 @@
    <source src="audio/tada.mp3" type="audio/mp3" />
    <source src="audio/tada.wav" type="audio/wav" />
 </audio>
-  <div id="notificaciones" class="quick-btn cambio">
-  <span id='badge_numero_notificaciones' class="label label-danger" style='font-size:95%; vertical-align:top;'></span>
-  <i class="fas fa-user fa-2x" style='color:black'></i>
-  <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      
-                        <strong id='label_user' style='color:black; font-size:1.2em;'></strong>
-                        <i class="fas fa-chevron-down fa-2x" style='color:black;padding-right:.3em;'></i> 
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <div class="navbar-login">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <p class="text-left"></p>
-                                        <p id='tipo_perfil' class="text-left">Tipo perfil</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <div class="navbar-login navbar-login-session">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <p><a class="various btn btn-info btn-block" data-fancybox-type="iframe" href="ver_tutoriales.html"><i class="fas fa-question-circle"></i> Ayuda</a>
-                                            <a href="javascript:window.location.href=window.location.href" class="btn btn-danger btn-block"> <i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <!--
-  <a id='btn_notificaciones' href="#" ">
-        <i class="fa fa-user fa-2x" style='color:black'></i> <label style='text-align: left; color:black; font-size:1.4em; padding-left: 1em; text-decoration: none;'></label> 
+
+
+  <div id="notificaciones" class="quick-btn col-md-1 cambio">
+  <label id="titulo_notificaciones" style='text-align: left; color:black; font-size:1.7em;'>Bitácora de notificaciones</label>
+  <a id='btn_notificaciones' href="#" class="pull-right">
+        <i class="fa fa-bell fa-2x" style='color:black'></i>      
   </a>
-  -->
-  <a id='btn_cerrar_bitacora' href="#" >
-        <i class="fa fa-close fa-2x" style='color:black'></i>  
-          
+  <a id='btn_cerrar_bitacora' href="#" class="pull-right">
+        <i class="fa fa-close fa-2x" style='color:black'></i>      
   </a>
-   
+  <span id='badge_numero_notificaciones' class="label label-danger" style='font-size:95%; vertical-align:top;'>
+  
+  </span>
   <section id='resultado_bitacora'>
   
   </section>
@@ -194,14 +159,13 @@
 
   <div id='div_cortina'></div>
   <input id='input_oculto' name='input_oculto' type="hidden">
-  <!--
   <nav id='nav' class="navbar navbar-default">
     <div class="container-fluid">
-      
+      <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <a class="navbar-brand" href="#"><img id="nav_logo" src="img/logo.png" alt=""></a>
       </div>
-      
+      <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="dropdown">
@@ -224,11 +188,9 @@
           <li id='nav_catalogos' class="dropdown">
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catálogos<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              xx
-              comentario
+              <!--
                <li><a id='menu_solicitud_cliente' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Alta de cliente</a></li>
-               xx
-             
+             -->
             <li class="dropdown-submenu">
               <a class="test" tabindex="-1" href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Alta de cliente <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -249,16 +211,19 @@
             <ul class="dropdown-menu">
               <li><a tabindex="-1" id='menu_tarjetas' href="#" class='item_menu'><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Ver tarjetas</a></li>
             </ul>
+            
           </li>
           <li id='nav_reportes' class="dropdown">
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Base de datos<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li class=""><a id='rep_eventos' href="#" class='item_menu'><i class="fa fa-file-text" aria-hidden="true"></i> Eventos</a></li>
+
+
               <li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>
-              xx
-              comentario
-              <li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>
-              xx
+
+
+              <!--<li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>-->
+
               <li class=""><a id='rep_cat_proveedores' href="#" class='item_menu'><i class="fa fa-building" aria-hidden="true"></i> Proveedores</a></li>
               <li class="hidden"><a id='rep_usuarios' href="#" class='item_menu disabled' disabled><i class="fa fa-users" aria-hidden="true"></i>  Usuarios</a></li>
             </ul>
@@ -303,297 +268,12 @@
                     </ul>
                 </li>
             </ul>
-      </div>
-    </div>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
   </nav>
-  
-
-<div class="primary-nav nav">
-<button class='nav-toggle' style='background:#BBD32A;'>
-<img id="nav_logo" src="img/logo.png" alt="" class='hamburger open-panel '>
-</button>
-<nav role="navigation" class="menu nav">  
-  <div class="overflow-container" id='lista_menu'>
-    <ul class="menu-dropdown ">
-      
-    <li class="menu-hasdropdown ">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos</a><span class="icon"><i class="fas fa-crown fa-2x"></i></span>
-        <label title="toggle menu" for="eventos">
-          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
-        </label>
-        <input type="checkbox" class="sub-menu-checkbox" id="eventos" />
-        <ul class="sub-menu-dropdown">
-          <li><a id='menu_crear_evento' href="#">Crear evento</a></li>
-          <li><a id='menu_modificar_evento' href="#">Modificar evento</a></li>
-          
-        </ul>
-      </li>
-      <li class="menu-hasdropdown">
-        <a href="#">Solicitudes</a><span class="icon"><i class="fas fa-file-invoice-dollar fa-2x"></i></span>
-        <label title="toggle menu" for="sol">
-          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
-        </label>
-        <input type="checkbox" class="sub-menu-checkbox" id="sol" />
-        <ul class="sub-menu-dropdown">
-          <li><a id='menu_solicitud_odc 'href="#">Pago</a></li>
-          <li><a id='menu_solicitud_viaticos' href="#">Viáticos</a></li>
-          <li><a id='menu_solicitud_reembolso' href="#">Reembolso</a></li>
-          <li><a id='menu_ver_formatos' href="#">Ver detalle</a></li>
-        </ul>
-      </li>
-      <li class="menu-hasdropdown">
-        <a href="#">Catálogos</a><span class="icon"><i class="fas fa-address-book fa-2x"></i></span>
-        <label title="toggle menu" for="catalogos">
-          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
-        </label>
-        <input type="checkbox" class="sub-menu-checkbox" id="catalogos" />
-        <ul class="sub-menu-dropdown">
-          <li><a id='menu_solicitud_cliente' href="#">Clientes</a></li>
-          <li><a id='menu_solicitud_prov' href="#">Proveedores</a></li>
-          <li><a id='usuarios' href="#">Usuarios</a></li>
-        </ul>
-      </li>
-      <li class="menu-hasdropdown">
-        <a href="#">CXP</a><span class="icon"><i class="fas fa-funnel-dollar fa-2x"></i></span>
-        <label title="toggle menu" for="cxp">
-          <span class="downarrow"><i class="fas fa-caret-down fa-2x"></i></span>
-        </label>
-        <input type="checkbox" class="sub-menu-checkbox" id="cxp" />
-        <ul class="sub-menu-dropdown">
-          <li><a id='menu_tarjetas' href="#">Tarjetas</a></li>
-        </ul>
-      </li>
-      <li class="menu-hasdropdown">
-        <a href="#">Base de datos</a><span class="icon"><i class="fas fa-list-alt fa-2x"></i></span>
-        <label title="toggle menu" for="bd">
-          <span class="downarrow"><i class="fas fa-caret-down fa-2x"></i></span>
-        </label>
-        <input type="checkbox" class="sub-menu-checkbox" id="bd" />
-        <ul class="sub-menu-dropdown">
-          <li><a id='rep_eventos' href="#">Eventos</a></li>
-          <li><a id='rep_cat_clientes' href="#">Clientes</a></li>
-          <li><a id='rep_cat_proveedores' href="#">Proveedores</a></li>
-        </ul>
-      </li>
-      <li class="menu-hasdropdown">
-        <a href="#">Facturación</a><span class="icon"><i class="fas fa-hand-holding-usd fa-2x"></i></span>
-        <label title="toggle menu" for="factura">
-          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
-        </label>
-        <input type="checkbox" class="sub-menu-checkbox" id="factura" />
-        <ul class="sub-menu-dropdown">
-          <li><a id='solicitud_facturas' href="#">Solicitud</a></li>
-          <li><a href="">Ver detalle</a></li>
-        </ul>
-      </li>
-      <li class="menu-hasdropdown">
-        <a href="#">Reportes</a><span class="icon"><i class="fas fa-chart-bar fa-2x"></i></span>
-        <label title="toggle menu" for="reporte">
-          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
-        </label>
-        <input type="checkbox" class="sub-menu-checkbox" id="reporte" />
-        <ul class="sub-menu-dropdown">
-          <li><a href="">Eventos</a></li>
-          <li><a href="">Facturarción</a></li>
-          <li><a href="">Gastos</a></li>
-          <li><a href="">Módulo ventas</a></li>
-        </ul>
-      </li>
-
-
-      <li class="menu-hasdropdown">
-        <a href="#">Eventos</a><span class="icon"><i class="fas fa-chart-bar fa-2x"></i></span>
-        <label title="toggle menu" for="reporte">
-          <span class="downarrow"><i class="fa fa-caret-down fa-2x"></i></span>
-        </label>
-        <input type="checkbox" class="sub-menu-checkbox" id="reporte" />
-        <ul class="sub-menu-dropdown">
-        <li><a id='menu_crear_evento' class='item_menu' href="#"><i class="fas fa-file-text" aria-hidden="true"></i> Crear Evento</a></li>
-        <li><a id='menu_modificar_evento' class='item_menu' href="#"><i class="fas fa-pencil-square-o" aria-hidden="true"></i> Modificar Evento</a></li>
-          
-        </ul>
-      </li>
-      <li class="menu-hasdropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos <span class="caret"></span></a>
-            <ul class="sub-menu-dropdown">
-              <li><a id='menu_crear_evento' class='item_menu' href="#"><i class="fa fa-file-text" aria-hidden="true"></i> Crear Evento</a></li>
-              <li><a id='menu_modificar_evento' class='item_menu' href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar Evento</a></li>
-              <li class='solo_admin'><a id='menu_cerrar_evento' class='item_menu' href="#"><i class="fa fa-archive" aria-hidden="true"></i> Cerrar Evento</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Solicitudes<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a id='menu_solicitud_odc' href="#" class='item_menu'><i class="fa fa-product-hunt" aria-hidden="true"></i> Solicitud de pago</a></li>
-              <li><a id='menu_solicitud_viaticos' href="#" class='item_menu'><i class="fa fa-vimeo" aria-hidden="true"></i> Solicitud de viáticos</a></li>
-              <li><a id='menu_solicitud_reembolso' href="#" class='item_menu'><i class="fa fa-registered" aria-hidden="true"></i> Solicitud de reembolso</a></li>
-              <li><a id='menu_ver_formatos' href="#" class='item_menu'><i class="fa fa-list-ul" aria-hidden="true"></i> Ver solicitudes</a></li>
-            </ul>
-          </li>
-          <li id='nav_catalogos' class="dropdown">
-            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catálogos<span class="caret"></span></a>
-            <ul class="dropdown-menu">             
-            <li class="dropdown-submenu">
-              <a class="test" tabindex="-1" href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Alta de cliente <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                <li><a tabindex="-1" id='menu_prealta' href="pre_alta.html" target="_blank"><i class="fa fa-font-awesome" aria-hidden="true"></i> Pre-alta </a></li>
-                  <li><a tabindex="-1" id='menu_solicitud_cliente' href="#"><i class="fa fa-font-awesome" aria-hidden="true"></i> Nacional </a></li>
-                  <li class='disabled'><a tabindex="-1" href="#" id='menu_solicitud_cliente_ex' class='disabled' disabled><i class="fa fa-eur" aria-hidden="true"></i> Extranjero </a></li>
-                </ul>
-              </li>
-              <li><a id='menu_solicitud_prov' href="#" class='item_menu'><i class="fa fa-building" aria-hidden="true"></i> Alta de proveedor</a></li>
-              <li class='solo_admin'><a id='usuarios'  href="#" class='item_menu'><i class="fa fa-users" aria-hidden="true"></i> Usuarios</a></li>              
-            </ul>
-          </li>
-          <li class="dropdown" >
-            <a  id='btn_menu_cxc' href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" disabled="">CxP<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a tabindex="-1" id='menu_tarjetas' href="#" class='item_menu'><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Ver tarjetas</a></li>
-            </ul>
-          </li>
-          <li id='nav_reportes' class="dropdown">
-            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Base de datos<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li class=""><a id='rep_eventos' href="#" class='item_menu'><i class="fa fa-file-text" aria-hidden="true"></i> Eventos</a></li>
-              <li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>
-              xx
-              comentario
-              <li class=""><a id='rep_cat_clientes' href="#" class='item_menu'><i class="fa fa-user-circle-o" aria-hidden="true"></i> Clientes</a></li>
-              xx
-              <li class=""><a id='rep_cat_proveedores' href="#" class='item_menu'><i class="fa fa-building" aria-hidden="true"></i> Proveedores</a></li>
-              <li class="hidden"><a id='rep_usuarios' href="#" class='item_menu disabled' disabled><i class="fa fa-users" aria-hidden="true"></i>  Usuarios</a></li>
-            </ul>
-          </li>
-          <li id='nav_facturacion' class="dropdown">
-            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Facturación<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a id='solicitud_facturas' href="#" class='item_menu'><i class="fa fa-gg" aria-hidden="true"></i> Solicitud de facturas</a></li>
-            </ul>
-          </li>
-          <li id='nav_reportes' class="dropdown">
-            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
-            <ul class="dropdown-menu sub-menu-dropdown">
-              <li><a id='solicitud_facturas' href="#" class='item_menu'><i class="fa fa-gg" aria-hidden="true"></i> Reporte de eventos</a></li>
-              <li><a id='solicitud_facturas' href="#" class='item_menu'><i class="fa fa-gg" aria-hidden="true"></i> Reporte de facturación</a></li>
-              <li><a id='solicitud_facturas' href="#" class='item_menu'><i class="fa fa-gg" aria-hidden="true"></i> Reporte de gastos</a></li>
-              <li><a id='solicitud_facturas' href="#" class='item_menu'><i class="fa fa-gg" aria-hidden="true"></i> Módulo de ventas</a></li>
-            </ul>
-          </li>
-         
-    </ul>
-  </div>
-</nav>
-</div>
--->
-
-
-<!--NUEV NAV-->
-<div class="row affix-row">
-    <div class="col-sm-3 col-md-2 affix-sidebar">
-		<div class="sidebar-nav">
-  <div class="navbar navbar-default cambio" role="navigation">
-    <div class="navbar-collapse collapse sidebar-navbar-collapse">
-        <ul class="nav navbar-nav" >
-            <li id='nav_verde' style='background-color: #BBD32A; min-height: 70px;width: 99%;'>
-                <img id="nav_logo" src="img/logo.png"/>
-                <span style="margin: 5px 20px;vertical-align: bottom;"><i class="fas fa-bars fa-2x"></i></span>
-            </li>
-        </ul class="nav navbar-nav">
-      <ul class="nav navbar-nav cambio_rapido" id="sidenav01">
-        <hr>
-        <li>
-          <a href="#" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed">
-            <i class="fas fa-star "></i> Eventos <span class="caret pull-right"></span>
-          </a>
-          <div class="collapse" id="toggleDemo" style="height: 0px;">
-            <ul class="nav nav-list">
-              <li><a id='menu_crear_evento' href="#">Crear Evento</a></li>
-              <li><a id='menu_modificar_evento' href="#">Modificar evento</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <a href="#" data-toggle="collapse" data-target="#toggleDemo2" data-parent="#sidenav01" class="collapsed">
-          <span class="fas fa-file-invoice-dollar"></span> Solicitudes <span class="caret pull-right"></span>
-          </a>
-          <div class="collapse" id="toggleDemo2" style="height: 0px;">
-            <ul class="nav nav-list">
-              <li><a id='menu_solicitud_odc' href="#">Pago</a></li>
-              <li><a id='menu_solicitud_viaticos' href="#">Viáticos</a></li>
-              <li><a id='menu_solicitud_reembolso' href="#">Reembolso</a></li>
-              <li><a id='menu_ver_formatos' href="#">Ver detalles</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-            <a href="#" data-toggle="collapse" data-target="#toggleDemo3" data-parent="#sidenav01" class="collapsed">
-            <span class="fas fa-swatchbook"></span> Catálogos <span class="caret pull-right"></span>
-            </a>
-            <div class="collapse" id="toggleDemo3" style="height: 0px;">
-              <ul class="nav nav-list">
-                <li><a id='menu_prealta' href="pre_alta.html" target="_blank">Pre Alta Cliente</a></li>
-                <li><a id='menu_solicitud_cliente' href="#">Clientes</a></li>
-                <li><a id='menu_solicitud_prov' href="#">Proveedor</a></li>
-                <li><a id='usuarios' href="#">Usuarios</a></li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a id='btn_menu_cxc' href="#" data-toggle="collapse" data-target="#toggleDemo4" data-parent="#sidenav01" class="collapsed">
-            <span class="fas fa-funnel-dollar"></span> CxP <span class="caret pull-right"></span>
-            </a>
-            <div class="collapse" id="toggleDemo4" style="height: 0px;">
-              <ul class="nav nav-list">
-                <li><a id='menu_tarjetas' href="#">Tarjetas</a></li>
-              </ul>
-            </div>
-          </li>
-          
-          <li>
-            <a href="#" data-toggle="collapse" data-target="#toggleDemo5" data-parent="#sidenav01" class="collapsed">
-            <span class="fas fa-list-alt"></span> Base de datos <span class="caret pull-right"></span>
-            </a>
-            <div class="collapse" id="toggleDemo5" style="height: 0px;">
-              <ul class="nav nav-list">
-                <li><a id='rep_eventos' href="#">Eventos</a></li>
-                <li><a id='rep_cat_clientes' href="#">Clientes</a></li>
-                <li><a id='rep_cat_proveedores' href="#">Proveedores</a></li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a id='btn_menu_facturacion' href="#" data-toggle="collapse" data-target="#toggleDemo6" data-parent="#sidenav01" class="collapsed">
-            <span class="fas fa-hand-holding-usd"></span> Facturación <span class="caret pull-right"></span>
-            </a>
-            <div class="collapse" id="toggleDemo6" style="height: 0px;">
-              <ul class="nav nav-list">
-                <li><a id='solicitud_facturas' href="#">Nueva solicitud</a></li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="#" data-toggle="collapse" data-target="#toggleDemo7" data-parent="#sidenav01" class="collapsed">
-            <span class="fas fa-chart-bar"></span> Reportes <span class="caret pull-right"></span>
-            </a>
-            <div class="collapse" id="toggleDemo7" style="height: 0px;">
-              <ul class="nav nav-list">
-                <li><a href="#">Eventos</a></li>
-                <li><a href="#">Gastos</a></li>
-                <li><a href="#">Facturacion</a></li>
-                <li><a href="#">Modulo de ventas</a></li>
-              </ul>
-            </div>
-          </li>
-          <!--
-          <li><a href="#"><span class="fas fa-bell"></span> Bitácora <span class=" badge badge-warning pull-right">42</span></a></li>
-          -->
-      </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </div>
-	</div>
-</div>
-<!--FIN NUEVO NAV-->
+  <?php  
+    //include("cliente_extranjero.php");
+  ?>
   
   <div id='div_login' class="container" >
     <div class="row" id="pwd-container" style="top:50px">    
@@ -601,16 +281,16 @@
         <section class="login-form">
           <form method="post" action="#" role="login">
             <img src="img/logo.png" class="img-responsive" alt="" />
-            <div class="form-group has-feedback">
+            <div class="form-group has-feedback" >
               <span style="position:absolute; left:-10px;top:12px;color: #464545" class="fa fa-user "></span>
               <input style="color: #464545" type="text" id="user" class="form-control input-lg" placeholder="Usuario" />
             </div>
             
             <div class="form-group has-feedback">
-              <span style="position:absolute; left:-10px;top:12px; color: #464545" class="fas fa-unlock-alt "></span>
+              <span style="position:absolute; left:-10px;top:12px; color: #464545" class="fa fa-unlock-alt "></span>
               <input style="color: #464545" type="password" id="pass" class="form-control input-lg" placeholder="Contraseña" />
             </div>
-            <button type="button" id="entrar" class=" cambio btn btn-lg btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+            <button type="button" id="entrar" class="btn_verde btn btn-lg btn-primary btn-block">Entrar</button>
           </form>
         </section>  
       </div>
@@ -625,7 +305,7 @@
             <label for="name" class="cols-sm-2 control-label">Selecciona un banco</label>
             <div class="cols-sm-10">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fas fa-credit-card-alt" aria-hidden="true"></i></span>
+                <span class="input-group-addon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>
                 <select name="c_banco_tarjetas" id="c_banco_tarjetas" class='form-control'>
                 </select>
               </div>
@@ -655,16 +335,16 @@
                   <!--
                   <select name="c_mis_eventos" id="c_mis_eventos" class='form-control' placeholder='Ingresa un evento'>
                   </select>
-                  -->
+                  <-->
                   <input type="text" name="c_mis_eventos" id="c_mis_eventos" class="form-control" placeholder='Ingresa un evento' pattern="" title="">
                 </div>
               </div>
             </div>
             <div class="form-group col-md-2">                              
-                  <button type="button" id='btn_transferir' class="abajo btn btn-info boton_descarga"><i class="fas fa-exchange" aria-hidden="true"></i> Transferir</button>
+                  <button type="button" id='btn_transferir' class="abajo btn btn-info boton_descarga"><i class="fa fa-exchange" aria-hidden="true"></i> Transferir</button>
             </div>
             <div class="form-group col-md-1">                              
-                  <button type="button" id='btn_borrar_sdp' class="abajo btn btn-danger boton_descarga"><i class="fas fa-trash" aria-hidden="true"></i> Borrar</button>
+                  <button type="button" id='btn_borrar_sdp' class="abajo btn btn-danger boton_descarga"><i class="fa fa-trash" aria-hidden="true"></i> Borrar</button>
             </div>
             <div id="div_mis_solicitudes" class="form-group col-md-6">
               <label for="name" class="cols-sm-2 control-label">Solicitudes</label>
@@ -2158,7 +1838,9 @@
   DIV EVENTOS TRANSFERIR-->
   <div id='prueba' class="form-group col-md-6 ">
     <label>Transferir a:</label>
-    <select name="c_transfer" id="c_transfer" class='form-control'></select>
+    <select name="c_transfer" id="c_transfer" class='form-control'>
+    
+    </select>
     <!--<input type="text" id='txt_prueba' class='form-control' placeholder="Ingresa un evento">-->
   </div>
   <!-- Footer -->
@@ -2185,7 +1867,7 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #d0dff6;
+    background-color: #97c3f8;
     color: #434142;
     text-align: center;
     z-index: 400px;">© Tierra de ideas (2018) ~ <a href="mailto:alaneduardosandoval@yahoo.com">Alan Sandoval</a>

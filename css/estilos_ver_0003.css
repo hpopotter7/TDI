@@ -13,7 +13,7 @@
 }
 html{
 	min-width: 1024px;
-    /*min-height: 758px;*/
+    min-height: 758px;
     height: 100%;
 }
 
@@ -44,11 +44,9 @@ body {
 	font-family: 'Neuton';
 	background-size: 20%;
 	font-size: 14px;
-	background-color: #6daadc;
+	background-color: #D8DEE3;
     text-shadow: none;
-	 z-index: 50;
-	 top: -14px;
-	position: relative;
+ 	z-index: 50;
 }
 h1,h2,h3,h4,h5,h6{
 	 font-family: 'Neuton';
@@ -82,7 +80,7 @@ thead{
 	padding: 1em;
 	border-radius:0em;
 	z-index: -10;
-	left: 141px;
+	left: 70px;
 	-webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.58); 
 	box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.58);
 	
@@ -91,7 +89,7 @@ thead{
   position: relative;
   display: inline-block;
   padding-top: 16px;
-  cursor: pointer;
+  margin: 10px;
   color: #444444;
   text-align: center;
   text-decoration: none;
@@ -100,15 +98,11 @@ thead{
   box-shadow: 0 0 0 1px #F8F8F8 inset, 0 0 0 1px #CCCCCC;
 }
 .quick-btn .label {
-	position: absolute;
-    top: 0px;
-    right: 390px;
-    width: 40px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
 }
 
-#lista_menu{
-	display: none;
-}
 .btn-metis-4 {
   color: #ffffff;
   background-color: #a264e7;
@@ -118,28 +112,19 @@ thead{
 	background-color:rgb(250, 104, 0) !important;
 }
 #notificaciones{
-	cursor: pointer;
 	position: fixed;
-	text-align: left;
+	top: 100px;
 	width: 400px;
-	/*background-color: #d0dff6;*/
-	background-color: #BBD32A;
+	background-color: #e9fa00;
 	padding: 1em;
-	border-radius: 1.1em 0em 0em 1.1em;
+	border-radius:.1em;
 	z-index: 10;
-	top: 0px;
-	right: -350px;
+	left: -360px;
 	-webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 }
-.cambio_rapido
-{
-	-ms-transition: all .31s ease-out;
-	-moz-transition: all .31s ease-out;
-	-o-transition: all .31s ease-out;
-	-webkit-transition: all .31s ease-out;
-}
+
 
 .cambio
 {
@@ -163,34 +148,26 @@ thead{
 }
 
 .login-form {
-	margin-top: 170px;
-	
-	
+	margin-top: 110px;
+	border-style: groove; border-width: .2em; 
 	border-radius: 1em;
-	
-	width: 85%;
-    left: 30px;
-    position: relative;
-	background-color: #d0dff6;
-
 }
 
 form[role=login] {
 	color: #FFFFFF;
-	background: #d0dff6;
-	/*
+	background: rgba(227,238,255,1);
 background: -moz-radial-gradient(center, ellipse cover, rgba(227,238,255,1) 0%, rgba(151,195,248,1) 65%, rgba(151,195,248,1) 100%);
 background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(227,238,255,1)), color-stop(65%, rgba(151,195,248,1)), color-stop(100%, rgba(151,195,248,1)));
 background: -webkit-radial-gradient(center, ellipse cover, rgba(227,238,255,1) 0%, rgba(151,195,248,1) 65%, rgba(151,195,248,1) 100%);
 background: -o-radial-gradient(center, ellipse cover, rgba(227,238,255,1) 0%, rgba(151,195,248,1) 65%, rgba(151,195,248,1) 100%);
 background: -ms-radial-gradient(center, ellipse cover, rgba(227,238,255,1) 0%, rgba(151,195,248,1) 65%, rgba(151,195,248,1) 100%);
 background: radial-gradient(ellipse at center, rgba(227,238,255,1) 0%, rgba(151,195,248,1) 65%, rgba(151,195,248,1) 100%);
-*/
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3eeff', endColorstr='#97c3f8', GradientType=1 );
 	padding: 25px;
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
+	
 	--webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.84);
 -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.84);
 box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.84);
@@ -218,10 +195,8 @@ box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.84);
 		font-size: 18px;
 		margin: 16px 0;
 		cursor: text;
-		border-bottom: 0px solid #464545;
-		border-radius: 1em 0em;
-		color: black;
-	    
+	    border-radius: 2em;
+	    color: black;
 	}
 	form[role=login] input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #979FAC;
@@ -239,13 +214,15 @@ form[role=login] input:-ms-input-placeholder { /* Microsoft Edge */
 		text-align: center;
 	}
 	form[role=login] button, .btn_verde{
-		background-color: #649919;
+		background-color: #a9c030;
 		cursor: pointer;
 	}
 	form[role=login] button:hover, .btn_verde:hover{
 		background-color: #649919;
 	}
-	
+	form[role=login] button:active {
+		/*background-color: #68AF03;*/
+	}
 
 	.swal2-input::placeholder{
 		color: #919191;
@@ -287,7 +264,7 @@ form[role=login] input:-ms-input-placeholder { /* Microsoft Edge */
 	color: #bd4e0d;
 }
 .main{
-	margin-left: 40px;
+	margin-left: -60px;
 }
 
 
@@ -337,10 +314,6 @@ input::-webkit-input-placeholder {
 .form-control {
     height: auto!important;
 padding: 8px 12px !important;
-}
-
-.container{
-/*position: relative;*/
 }
 
 #button {
