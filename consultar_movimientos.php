@@ -10,7 +10,7 @@ function moneda($value) {
   }
 $res="<label>Movimientos de la tarjeta: ".$tarjeta."</label><table class='table'><thead><tr><th>Fecha</th><th>Evento</th><th>Concepto</th><th>Cargo</th><th>Sobrante</th><th>VoBo</th></tr></thead><tbody>";
 $result = $mysqli->query("SET NAMES 'utf8'");
-$sql="select DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y') as fecha_solicitud, concat('[',e.Numero_evento,'] ', e.Nombre_evento)as evento, o.concepto, importe, tipo_movimiento, m.fecha_afectacion from movimientos m join odc o on m.id_solicitud=o.id_odc join eventos e on o.evento=e.Numero_evento where Cancelada='no' and m.No_tarjeta=".$tarjeta;
+$sql="select DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y') as fecha_solicitud, concat('[',e.Numero_evento,'] ', e.Nombre_evento)as evento, o.concepto, importe, tipo_movimiento, m.fecha_afectacion from movimientos m join odc o on m.id_solicitud=o.id_odc join eventos e on o.evento=e.Numero_evento where m.No_tarjeta=".$tarjeta;
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_assoc()) {
         $fecha_sol=$row['fecha_solicitud'];

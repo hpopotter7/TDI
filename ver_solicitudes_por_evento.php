@@ -135,15 +135,13 @@ if ($result = $mysqli->query($sql)) {
       }
       
      // if($valida=="CXP"){
-        $resultado=$resultado."<tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td class='td_boton'><label id='".$id_odc."' class='btn btn_verde btn_success btn_factura'>".$Factura."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td><td class='td_boton'><label id='".$id_odc."' class='btn btn_verde btn_success btn_cheque'>".$no_cheque."</label></td>";
-        /*
+        $resultado=$resultado."<tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td class='td_boton'><label id='".$id_odc."' class='btn btn_verde btn_success btn_factura'>".$Factura."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td>";
         if($identificador!="Pagado"){
           $resultado=$resultado."<td class='td_boton'><label id='".$idc_odc."' class='btn btn_verde btn_success btn_cheque'>".$no_cheque."</label></td>";
         }
         else{
            $resultado=$resultado."<td>NA</td>";
         }
-        */
         if($valida=="CXP"){  // SI TIENE PERMISO DE CXP
           if($pagado=="no"){
             $resultado=$resultado."<td><center><input type='checkbox' class='check_pagado fa fa-2x' value='".$id_odc."'></center></td>";

@@ -12,9 +12,14 @@ function validar_perfiles(response){
 		
 	}
 	else{
+		alert(response.usuario);
+		$('#menu_prealta').parent().remove();
 		$('#menu_prealta').hide();
+		$('#guardar_cliente').remove();
 		$('#guardar_cliente').hide();
+		$('#btn_modificar_evento').remove();
 		$('#btn_modificar_evento').hide();
+		$('#btn_cancelar_evento').remove();
 		$('#btn_cancelar_evento').hide();
 		$('#div_clientes_registrados').show();
 		$('.combo_clientes option[value="248&GASTO"]', ).remove();
@@ -22,18 +27,25 @@ function validar_perfiles(response){
 	
 	if(response.cat_cli==""){
 		$('#menu_solicitud_cliente').hide();
+		$('#menu_solicitud_cliente').remove();
+		$('#menu_solicitud_cliente').parent().remove();
+		
 	}
 	else{
 		$('#menu_solicitud_cliente').show();
 	}
 	if(response.cat_prov==""){
 		$('#menu_solicitud_prov').hide();
+		$('#menu_solicitud_prov').remove();
+		$('#menu_solicitud_prov').parent().remove();
 	}
 	else{
 		$('#menu_solicitud_prov').show();
 	}
+	
 	if(response.cat_usu==""){
-		$('#usuarios').hide();
+		$('#usuarios').parent().remove();
+		//$('#usuarios').hide();
 	}
 	else{
 		$('#usuarios').show();
@@ -44,6 +56,7 @@ function validar_perfiles(response){
 	if(response.cxc==""){
 		$('#menu_cerrar_evento').hide();
 		$('#btn_menu_cxc').hide();
+		$('#btn_menu_cxc').remove();
 	}
 	else{
 		$('#menu_cerrar_evento').show();
@@ -57,50 +70,31 @@ function validar_perfiles(response){
 	}
 	else{
 		$('#menu_modificar_evento').hide();
+		$('#menu_modificar_evento').remove();
 		$('#menu_crear_evento').hide();
+		$('#menu_crear_evento').remove();
 	}
 
 	//Catalogo facturacion
 	
 	if(response.cat_fact==""){
 		$('#solicitud_facturas').hide();
-		$('#solicitud_facturas').hide();
+		$('#btn_menu_facturacion').remove();
+		$('#solicitud_facturas').parent().remove();
 	}
 	else{
 		$('#solicitud_facturas').show();
-		$('#solicitud_facturas').show();
+		
 	}
-/*
-	if(response.dire==""){
-		$('#menu_modificar_evento').hide();
-		$('#menu_crear_evento').hide();
-	}
-	else{
-		$('#menu_modificar_evento').show();
-		$('#menu_crear_evento').show();
-	}
-	*/
-}
-/*
-function agregar_centros_costos(){
-	$.ajax({
-          url: 'agregar_centros_costo.php',
-          type: 'post',
-          success: function(response){
-          	alert(response);
-          	$('#c_cliente').append(response);
-          	 //console.log(response);
-          }
-      });
-}*/
+
 
 function bienvenido(usuario){
 	var texto="Bienvenid@ "+usuario;
 	var n = noty({
                 text        : texto,
-                type        : 'notification',
+                type        : 'success',
                 dismissQueue: true,
-                layout      : 'topRight',  //bottomLeft
+                layout      : 'topCenter',  //bottomLeft
                 animation: {
 			         open: 'animated fadeInDownBig',
 		            close: 'animated flipOutX',
@@ -108,10 +102,11 @@ function bienvenido(usuario){
 		            speed:500
 			    },
                 //closeWith   : ['button'],
-                //theme       : 'metroui',
+                theme       : 'relax',
                 progressBar : false,
                 maxVisible  : 5,
                 timeout     : [3200],
                 
             });
+}
 }
