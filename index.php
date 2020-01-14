@@ -577,7 +577,7 @@
             </a>
             <div class="collapse" id="toggleDemo7" style="height: 0px;">
               <ul class="nav nav-list">
-                <li><a href="#">Eventos</a></li>
+                <li><a id='btn_rep_eventos' href="#">Eventos</a></li>
                 <li><a href="#">Gastos</a></li>
                 <li><a href="#">Facturacion</a></li>
                 <li><a href="#">Modulo de ventas</a></li>
@@ -2128,6 +2128,12 @@
   </div>
   <div class="clearfix" style="margin-top:1em"></div>
  <!--fin div reporte eventos-->
+
+ <div id="div_iframe" class='container' style='display:block; width:100%;'>
+     <iframe id="frame" src="" width="1390px" height="700">
+     </iframe>
+ </div>
+
  
  <div id='d-none' class="d-none hidden">
     <div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_user_solicita" name="c_user_solicita" class="form-control" ></select></div></div><hr><div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_finanzas" name="c_finanzas" class="form-control" ><option value="vacio">Finanzas...</option><option value="FERNANDA CARRERA">FERNANDA CARRERA</option><option value="RITA VELEZ">RITA VELEZ </option></select></div></div><hr><div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_autorizo" name="c_autorizo" class="form-control" ><?php 

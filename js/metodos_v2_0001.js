@@ -6156,6 +6156,14 @@ $('#spnTop').click(function (e) {
 
   });
 
+  $("#btn_rep_eventos").click(function (e) { 
+    
+    e.preventDefault();
+    limpiar_cortinas();
+    $("#div_cortina").animate({top: '0px'}, 1100);
+    $('#div_iframe').fadeIn();
+    $("#frame").attr("src", "pre_alta.html");
+});
  
   
   
