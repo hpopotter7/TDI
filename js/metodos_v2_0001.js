@@ -6163,7 +6163,7 @@ $('#spnTop').click(function (e) {
     $("#div_cortina").animate({top: '0px'}, 1100);
     $("#frame").attr("src", "pre_alta.html");
     $('#div_iframe').fadeIn();
-    alert("si");
+
   });
 
 $("#menu_bloqueo_prov").click(function (e) { 
