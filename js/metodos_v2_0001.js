@@ -6196,8 +6196,8 @@ $(".btn_archivos").change(function(){
       break;
     }
     var carpeta=$('#txt_nombre_cliente').val();
+    limpiar_cliente();
     ver_archivos('ca');
-    ver_archivos(carpeta);
     generate("success","Archivo subido correctamente");
   }
 });
