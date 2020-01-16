@@ -1227,7 +1227,7 @@
                   
                   <button id='span_file_csf' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-                      <label>Constancia de Situacion Fiscal</label><input id='file_csf' name='file_csf' type="file" style='cursor: not-allowed' disabled >
+                      <label>Constancia de Situacion Fiscal</label><input id='file_csf' class='btn_archivos' name='file_csf' type="file" style='cursor: not-allowed' disabled >
                   </button>
                  
                 </div>
@@ -1235,7 +1235,7 @@
                 <div class='row'>
                   <button id='span_file_ine' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-                      <label>Identificación INE</label><input id='file_ine' type="file" style='cursor: not-allowed' disabled >
+                      <label>Identificación INE</label><input id='file_ine' class='btn_archivos' type="file" style='cursor: not-allowed' disabled >
                   </button>
                 </div>
                  
@@ -1243,21 +1243,21 @@
                 <div class='row'>
                   <button id='span_file_edo' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-                      <label>Estado de cuenta</label><input id='file_edo' type="file" style='cursor: not-allowed' disabled >
+                      <label>Estado de cuenta</label><input id='file_edo' class='btn_archivos' type="file" style='cursor: not-allowed' disabled >
                   </button>
                 </div>
                  <div class="clearfix"></div>
                 <div class='row'>
                   <button id='span_file_comp' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-                      <label>Comprobante de domicilio</label><input id='file_comp' type="file" style='cursor: not-allowed' disabled >
+                      <label>Comprobante de domicilio</label><input id='file_comp' class='btn_archivos' type="file" style='cursor: not-allowed' disabled >
                   </button>
                 </div>
                 <div class="clearfix"></div>
                 <div class='row'>
                   <button id='span_file_acta' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-                      <label>Acta Constitutiva</label> <input id='file_acta'type="file" style='cursor: not-allowed' disabled >
+                      <label>Acta Constitutiva</label> <input id='file_acta'type="file" class='btn_archivos' style='cursor: not-allowed' disabled >
                   </button>
                 </div>
                

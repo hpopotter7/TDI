@@ -6174,7 +6174,33 @@ $("#menu_bloqueo_prov").click(function (e) {
   $("#frame").attr("src", "bloqueo_proveedores.html");
 });
 
-
+$(".btn_archivos").change(function(){
+  if($("#ul_archivos").html()!=""){
+    var id=$(this).attr("id");
+    var nombre=$('#txt_nombre_cliente').val();
+    switch(id){
+      case "file_csf":
+        guardar_archivos_proveedores_ine(nombre.trim());
+      break;
+      case "file_ine":
+        guardar_archivos_proveedores_csf(nombre.trim());
+      break;
+      case "file_edo":
+        guardar_archivos_proveedores_edo(nombre.trim());
+      break;
+      case "file_comp":
+        guardar_archivos_proveedores_comp(nombre.trim());
+      break;
+      case "file_acta":
+        guardar_archivos_proveedores_acta(nombre.trim());
+      break;
+    }
+    var carpeta=$('#txt_nombre_cliente').val();
+    ver_archivos('ca');
+    ver_archivos(carpeta);
+    generate("success","Archivo subido correctamente");
+  }
+});
  
   
   
