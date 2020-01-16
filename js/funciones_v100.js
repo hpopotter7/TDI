@@ -12,9 +12,11 @@ function validar_perfiles(response){
 		
 	}
 	else{
-		alert(response.usuario);
+		
 		$('#menu_prealta').parent().remove();
 		$('#menu_prealta').hide();
+		$('#menu_bloqueo_prov').parent().remove();
+		$('#menu_bloqueo_prov').hide();
 		$('#guardar_cliente').remove();
 		$('#guardar_cliente').hide();
 		$('#btn_modificar_evento').remove();

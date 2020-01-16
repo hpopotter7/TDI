@@ -28,7 +28,7 @@
   <script src="js/noty/packaged/jquery.noty.packaged.js"></script>
   <script src="js/jquery.mousewheel.pack.js"></script> 
   
-  <script src="js/metodos_pre.js"></script>
+  <script src="js/metodos_bloqueo.js"></script>
     <script>
      $(document).on("ready",inicio);  
     </script>
@@ -37,28 +37,32 @@
 <body style='background-color: rgba(255,2552,255,0) !important;background:none !important;'>
     <div class="row">
         <div class="container">
-            
-            <h2>Pre-alta de cliente</h2>
+            <h2>Bloqueo de proveedores</h2>
             <br>
             <div class="form-group col-md-6 ">
                 <div class="cols-sm-10">
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-building" aria-hidden="true"> Razón Social</i></span>
-                        <input type="text" id='txt_razon_social' class='form-control'>
+                        <span class="input-group-addon"><i class="fa fa fa-building" aria-hidden="true"> Razón Social</i></span>
+                        <select id="c_proveedores" class='form-control'></select>
                     </div>
                 </div>
             </div>
-            <div class="form-group col-md-6 ">
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-user-circle" aria-hidden="true"> Usuario Solicita</i></span>
-                        <select id="c_usuario_solicita" class='form-control'></select>
-                    </div>
+            <div class="form-group col-md-3">
+                <div class="radio">
+                  <label>
+                    <input type="radio" id="radio_activo" class="radios fa fa-o fa-2x" value="activo">
+                    <span class="label_check ">Activo</span>
+                  </label>
                 </div>
-            </div>
-            <div class="row col-md-2 pull-right">
-                   <button class="btn btn_verde" id='btn_registrar'><i class="fa fa-check" aria-hidden="true"></i> Registrar</button>
+              </div>
+              <div class="form-group col-md-3">
+                <div class="radio">
+                  <label>
+                    <input type="radio" id='radio_bloq' class="radios fa fa-o fa-2x" value="Bloqueado">
+                    <span class="label_check ">Bloqueado</span>
+                  </label>
                 </div>
+              </div>
         </div>
     </div>
 </body>

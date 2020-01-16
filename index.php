@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="css/bootstrap.toogle.min.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/bootstrap.min2.css">
-  <link rel="stylesheet" href="css/introjs.css"/>
   <link rel="stylesheet" href="css/estilos_ver_0003.css"/>
   <link rel="stylesheet" href="css/estilos_menu_user.css"/>
   <link rel="stylesheet" href="css/jquery-ui_theme_green.css"/>
@@ -29,6 +28,7 @@
   <link rel="stylesheet" href="css/easy-autocomplete.themes.css""/>
   <link rel="stylesheet" href="css/jquery.modal.css"/>
   <link rel="stylesheet" href="css/menu.css"/>
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 
   <script src="js/jquery-1.11.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
@@ -59,6 +59,7 @@
   <script src="js/accounting.js"></script>
   <script src="js/jquery_combo_editable.js"></script>
   <script src="js/autocomplete.js"></script>
+
 
   <script src="js/dataTables.buttons.min.js"></script>
   <script src="js/buttons.flash.min.js"></script>
@@ -507,8 +508,8 @@
           </a>
           <div class="collapse" id="toggleDemo" style="height: 0px;">
             <ul class="nav nav-list">
-              <li><a id='menu_crear_evento' href="#">Crear Evento</a></li>
-              <li><a id='menu_modificar_evento' href="#">Modificar evento</a></li>
+              <li><a id='menu_crear_evento' href="#"><i class="fas fa-folder-plus" aria-hidden="true"></i> Crear Evento</a></li>
+              <li><a id='menu_modificar_evento' href="#"><i class="fas fa-edit" aria-hidden="true"></i> Modificar evento</a></li>
             </ul>
           </div>
         </li>
@@ -518,23 +519,24 @@
           </a>
           <div class="collapse" id="toggleDemo2" style="height: 0px;">
             <ul class="nav nav-list">
-              <li><a id='menu_solicitud_odc' href="#">Pago</a></li>
-              <li><a id='menu_solicitud_viaticos' href="#">Viáticos</a></li>
-              <li><a id='menu_solicitud_reembolso' href="#">Reembolso</a></li>
-              <li><a id='menu_ver_formatos' href="#">Ver detalles</a></li>
+              <li><a id='menu_solicitud_odc' href="#"><i class="fas fa-parking" aria-hidden="true"></i> Pago</a></li>
+              <li><a id='menu_solicitud_viaticos' href="#"><i class="fas fa-chevron-circle-down"></i> Viáticos </a></li>
+              <li><a id='menu_solicitud_reembolso' href="#"><i class="fas fa-registered" aria-hidden="true"></i> Reembolso</a></li>
+              <li><a id='menu_ver_formatos' href="#"><i class="fas fa-list-ul" aria-hidden="true"></i> Ver solicitudes</a></li>
             </ul>
           </div>
         </li>
         <li>
             <a href="#" data-toggle="collapse" data-target="#toggleDemo3" data-parent="#sidenav01" class="collapsed">
-            <span class="fas fa-swatchbook"></span> Catálogos <span class="caret pull-right"></span>
+            <span class="fas fa-swatchbook"></span>Catálogos <span class="caret pull-right"></span>
             </a>
             <div class="collapse" id="toggleDemo3" style="height: 0px;">
               <ul class="nav nav-list">
-                <li><a id='menu_prealta' href="pre_alta.html" target="_blank">Pre Alta Cliente</a></li>
-                <li><a id='menu_solicitud_cliente' href="#">Clientes</a></li>
-                <li><a id='menu_solicitud_prov' href="#">Proveedor</a></li>
-                <li><a id='usuarios' href="#">Usuarios</a></li>
+                <li><a id='menu_prealta' href='#'><i class='fas fa-exclamation'aria-hidden="true" ></i> Pre Alta Cliente</a></li>
+                <li><a id='menu_solicitud_cliente' href="#"><i class="fa fa-user-circle" aria-hidden="true"></i> Clientes</a></li>
+                <li><a id='menu_bloqueo_prov' href='#'><i class='fas fa-ban' aria-hidden="true"></i> Bloqueo Proveedor</a></li>
+                <li><a id='menu_solicitud_prov' href="#"><i class="fas fa-building" aria-hidden="true"></i> Proveedor</a></li>
+                <li><a id='usuarios' href="#"><i class="fas fa-users" aria-hidden="true"></i> Usuarios</a></li>
               </ul>
             </div>
           </li>
@@ -544,7 +546,7 @@
             </a>
             <div class="collapse" id="toggleDemo4" style="height: 0px;">
               <ul class="nav nav-list">
-                <li><a id='menu_tarjetas' href="#">Tarjetas</a></li>
+                <li><a id='menu_tarjetas' href="#"><i class="fas fa-credit-card" aria-hidden="true"></i> Tarjetas</a></li>
               </ul>
             </div>
           </li>
@@ -555,9 +557,9 @@
             </a>
             <div class="collapse" id="toggleDemo5" style="height: 0px;">
               <ul class="nav nav-list">
-                <li><a id='rep_eventos' href="#">Eventos</a></li>
-                <li><a id='rep_cat_clientes' href="#">Clientes</a></li>
-                <li><a id='rep_cat_proveedores' href="#">Proveedores</a></li>
+                <li><a id='rep_eventos' href="#"><i class="fa fa-crown" aria-hidden="true"></i> Eventos</a></li>
+                <li><a id='rep_cat_clientes' href="#"><i class="fas fa-user-circle" aria-hidden="true"></i> Clientes</a></li>
+                <li><a id='rep_cat_proveedores' href="#"><i class="fas fa-building" aria-hidden="true"></i> Proveedores</a></li>
               </ul>
             </div>
           </li>
@@ -567,7 +569,7 @@
             </a>
             <div class="collapse" id="toggleDemo6" style="height: 0px;">
               <ul class="nav nav-list">
-                <li><a id='solicitud_facturas' href="#">Nueva solicitud</a></li>
+                <li><a id='solicitud_facturas' href="#"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i> Nueva solicitud</a></li>
               </ul>
             </div>
           </li>
@@ -602,7 +604,8 @@
           <form method="post" action="#" role="login">
             <img src="img/logo.png" class="img-responsive" alt="" />
             <div class="form-group has-feedback">
-              <span style="position:absolute; left:-10px;top:12px;color: #464545" class="fa fa-user "></span>
+            
+              <span style="position:absolute; left:-10px;top:12px;color: black" class="fas fa-user"></span>
               <input style="color: #464545" type="text" id="user" class="form-control input-lg" placeholder="Usuario" />
             </div>
             
@@ -2129,8 +2132,8 @@
   <div class="clearfix" style="margin-top:1em"></div>
  <!--fin div reporte eventos-->
 
- <div id="div_iframe" class='container' style='display:block; width:100%;'>
-     <iframe id="frame" src="" width="1390px" height="700">
+ <div id="div_iframe" class="resp-container container" >
+     <iframe class="resp-iframe" id="frame" src="" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen>
      </iframe>
  </div>
 

@@ -48,7 +48,7 @@ $('#nav_verde').mouseover(function(){
   
   $(".navbar").mouseleave(function(){
     if(bandera_menu==true){
-      $('#sidenav01').css("left","-150px");
+      $('#sidenav01').css("left","-250px");
       bandera_menu=false;
   }
     
@@ -4879,7 +4879,6 @@ function llenar_transfer_eventos(){
       type:  'post',
       data: datos,
       success:  function (response) {
-        console.log(response);
          $('#c_transfer').html(response);
       }
     });
@@ -5446,6 +5445,8 @@ function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
   $('#div_reporte_clientes').fadeOut();
   $('#div_reporte_proveedores').fadeOut();
   $('#div_cxc').fadeOut();
+  $('#div_iframe').fadeOut();
+
 }
 
 function ver_tarjetas(){
@@ -6156,14 +6157,24 @@ $('#spnTop').click(function (e) {
 
   });
 
-  $("#btn_rep_eventos").click(function (e) { 
-    
+  $("#menu_prealta").click(function (e) { 
     e.preventDefault();
     limpiar_cortinas();
     $("#div_cortina").animate({top: '0px'}, 1100);
-    $('#div_iframe').fadeIn();
     $("#frame").attr("src", "pre_alta.html");
+    $('#div_iframe').fadeIn();
+    alert("si");
+  });
+
+$("#menu_bloqueo_prov").click(function (e) { 
+  e.preventDefault();
+  limpiar_cortinas();
+  $("#div_cortina").animate({top: '0px'}, 1100);
+  $('#div_iframe').fadeIn();
+  $("#frame").attr("src", "bloqueo_proveedores.html");
 });
+
+
  
   
   

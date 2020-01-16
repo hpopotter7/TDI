@@ -363,7 +363,9 @@ table.dataTable td {
     position: relative;
     clear: both;
     *zoom: 1;
-    zoom: 1
+    zoom: 1;
+    width: 110%;
+
 }
 
 .dataTables_wrapper .dataTables_length {
