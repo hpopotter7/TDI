@@ -1,42 +1,12 @@
 function inicio(){
+
+  
   var bandera_menu=false;
-  /*
-    
-
-  $('.nav-toggle').click(function(e) {
-    e.preventDefault();
-    accion_menu();
-    $(".menu").css("transform","translate3d(200px, 0, 0)");
-    $(".menu").css("transition", "transform .45s cubic-bezier(0.77, 0, 0.175, 1)");
-    $(".menu").css("left","-200px");
-  });
-
-  $("#lista_menu").mouseleave(function(){
-    $('#lista_menu').fadeOut();
-    bandera_menu=false;
-  });
-
-  function accion_menu(){
-   
-    if(bandera_menu==false){
-      $('#lista_menu').show();
-      bandera_menu=true;
-    }
-    else{
-      $('#lista_menu').fadeOut();
-      bandera_menu=false;
-    }
-    
-    
-  }
-  */
-
+  
  
 $(".collapsed").click(function(e){
   e.preventDefault();
 });
- 
-
 
 $('#nav_verde').mouseover(function(){
   if(bandera_menu==false){
@@ -44,14 +14,12 @@ $('#nav_verde').mouseover(function(){
       bandera_menu=true;
   }
 });
-
   
   $(".navbar").mouseleave(function(){
     if(bandera_menu==true){
       $('#sidenav01').css("left","-250px");
       bandera_menu=false;
   }
-    
   });
   
 
@@ -68,21 +36,6 @@ $('#nav_verde').mouseover(function(){
   var comp=false;
   var acta=false;
 
-  /*
-   $('.dropdown-submenu a.test').on("click", function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
-  });
-  */
-
-  /*check duplicate
-    $('[id]').each(function(){
-    var ids = $('[id="'+this.id+'"]');
-    if(ids.length>1 && ids[0]==this)
-      alert('Multiple IDs #'+this.id);
-  });
-  */
 var idioma_espaniol = {
 "sProcessing":     "Procesando...",
 "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -135,8 +88,6 @@ var idioma_espaniol = {
     e.preventDefault();
   });
 
-
-
   $('.bubble').tooltipster();
   
 
@@ -147,7 +98,7 @@ var idioma_espaniol = {
   $('#div_clientes_registrados').show();
 
    $("#user").focus();
-   ver_personas();
+
   $("input[type=text]").focusout(function(){
     $(this).val($(this).val().toUpperCase());
   });
@@ -299,91 +250,19 @@ var idioma_espaniol = {
   $('#div_odc').hide();*/
   $('#borrar_usuario').hide();
 
-/*
-  $('#c_cliente').change(function(){
-    if($(this).val()!="vacio"){
-      $('#txt_nombre_evento').attr("readonly", false);
-    }
-    else{
-      $('#txt_nombre_evento').val("");
-      $('#txt_nombre_evento').attr("readonly", true);
-    }   
-  });
-*/
 
-  $('#entrar').click(function(){
-    
-    var user=$('#user').val();
-    var pass=$('#pass').val();
-    if(user=="" || pass==""){
-      generate('warning', "El usuario o contraseña no deben ir vacios");
-    }
-    else{
-    log(user, pass);
-    }
-  });
+ver_perfil();
 
-  $('#pass').keypress(function(e){
-    if(e.which == 13) {
-      var user=$('#user').val();
-      var pass=$('#pass').val();
-      if(user=="" || pass==""){
-        generate('warning', "El usuario o contraseña no deben ir vacios");
-      }
-      else{
-      log(user, pass);
-      }
-    }
-  });
 
-  function log(user, pass){
-    var parametros = {
-                  "user": user,
-                  "pass": pass,
-          };                  
+  function ver_perfil(){
           $.ajax({
-                  data: parametros,
-                  url:   'loguin.php',
+                  url:   'ver_perfil.php',
                   type:  'post',
                   dataType: "json",
                   success:  function (response) {
-                    
-                    $('#entrar').html("Entrar");
-                    if(response.usuario==("No existe") || response.usuario==("Error de conexion")){
-                      $('#pass').val("");
-                      generate('warning', "Usuario y/o contraseña incorrectas");
-                    }
-                     else if(response.usuario==("")){
-                      $('#pass').val("");
-                      generate('warning', "Usuario y/o contraseña incorrectas");
-                    }
-                    else if(response.usuario==("Cambio de pass")){
-                        swal({
-                            title: "Ingresa una nueva contraseña",
-                            input: 'password',
-                            showCancelButton: true,
-                            confirmButtonText: 'Enviar',
-                            showLoaderOnConfirm: true,
-                            preConfirm: function (password) {
-                              return new Promise(function (resolve, reject) {
-                                setTimeout(function() {
-                                  if (password === '') {
-                                    reject('La contraseña no puede ir vacia')
-                                  } else {
-                                    actualizar_contraseña(user, password);
-                                    
-                                  }
-                                }, 1000)
-                              })
-                            },
-                            allowOutsideClick: false
-                          });
-                    }
-                    else{
                       contador_tiempo=120;
                       updateReloj();
-                                 
-                       $("#div_login").fadeOut("swing", function() {
+                        $("#div_login").fadeOut("swing", function() {
                        });
                        //consultar_bitacora();
                         $('#load').show();
@@ -420,12 +299,10 @@ var idioma_espaniol = {
                         if(response.dire.length>0){
                           $('#tipo_perfil').append('<li><i class="fas fa-caret-square-right" aria-hidden="true"></i> '+response.dire+'</li>');
                         }
-
                         $('#tipo_perfil').append("</ul>");
-
                         //validar perfiles
-                        validar_perfiles(response);
-                    }
+                        validar_perfiles(response); 
+                    
                   }
             });
   }
@@ -2491,7 +2368,7 @@ var parametros = {
                 
                 
                 
-                ver_personas();
+                //ver_personas();
                 var VAL=ver_suma_sdp(evento,odc_cheque_por);
 
                 if(VAL.includes("verde")){  

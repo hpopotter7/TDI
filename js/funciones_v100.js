@@ -1,5 +1,7 @@
 function validar_perfiles(response){
 	bienvenido(response.usuario); 
+	$(".contenedor").fadeOut();
+	$(".contenedor").remove();
 	if(response.usuario=="ALAN SANDOVAL" || response.usuario=="SANDRA PEÑA"){
 		$('#btn_cancelar_evento').show();
 		$('#btn_modificar_evento').show();
