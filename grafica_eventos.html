@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>ERP Tierra de ideas</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="stylesheet" href="css/jquery.fancybox.css" />
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/animate.css"/>
+  <link rel="stylesheet" href="css/sweetalert2.css"/>  
+  <link rel="stylesheet" href="css/bootstrap.toogle.min.css" >
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/bootstrap.min2.css">
+  <link rel="stylesheet" href="css/estilos.css"/>
+  <link rel="stylesheet" href="css/multiple-select.css"/>
+
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/jquery-ui-v1.11.4.js"></script>
+  <script src="js/moment.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/sweetalert2.min.js"></script>
+  <script src="js/animate.js"></script>
+  <script src="js/noty/packaged/jquery.noty.packaged.js"></script>
+  <script src="js/jquery.mousewheel.pack.js"></script> 
+  <script src="js/multiple-select.js"></script> 
+  <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
+  
+  <script src="js/metodos_graficas.js"></script>
+    <script>
+     $(document).on("ready",inicio);  
+    </script>
+
+</head>
+<body style='background-color: rgba(255,2552,255,0) !important;background:none !important;'>
+    <div class="row">
+        <div class="container">
+            
+            <h2>Reporte de eventos</h2>
+            <h3 id='mensaje'>Cargando elementos <i class="fa fa-spinner fa-spin"></i></h3>
+            <br>
+            <div class="row">
+            <div class="form-group col-md-4 ">
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fas fa-star" aria-hidden="true"> Eventos</i></span>
+                        <select id="c_eventos" class='form-control' multiple="multiple"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4 ">
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fas fa-user-circle" aria-hidden="true"> Cliente</i></span>
+                        <select id="c_clientes" class='form-control' multiple="multiple"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4 ">
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fas fa-user-tie"></i> Ejecutivo</i></span>
+                        <select id="c_ejecutivos" class='form-control' multiple="multiple"></select>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="row col-md-2 pull-right">
+                    <button class="btn btn_verde" id='btn_buscar'><i class="fas fa-search" aria-hidden="true"></i> Buscar</button>
+                 </div>
+            </div>
+           
+        </div>
+    </div>
+</body>
+</html>

@@ -8,18 +8,18 @@ if (mysqli_connect_errno()) {
 }
 
 $result = $mysqli->query("SET NAMES 'utf8'");
-if ($result = $mysqli->query("SELECT * FROM usuarios where Tipo like '%EJE%' order by Nombre asc")) {
+if ($result = $mysqli->query("SELECT id_usuarios, Nombre FROM usuarios where Ejecutivo='X' order by Nombre asc")) {
     
-
-    /* fetch object array */
-    echo "<option value='vacio'>Selecciona un usuario...</option>";
-    echo "<option value='NA'>NA</option>";
     while ($row = $result->fetch_row()) {
-        echo "<option value='".$row[1]."'>".$row[1]."</option>";
+        if($row[1]!="ALAN SANDOVAL"){
+            echo "<option value='".$row[0]."'>".$row[1]."</option>";
+        }
+        
     }
-
-    /* free result set */
     $result->close();
+}
+else{
+    echo mysqli_error($mysqli);
 }
 
 
