@@ -1,10 +1,9 @@
 <?php     
-session_start();
+
 $user=$_POST['user'];
 $pass=$_POST['pass'];
-$usuario="No existe";
-$res="";
-include("conexion.php");
+$res="No existe";
+$mysqli = new mysqli("209.59.139.52:3306", "admini27_demo", "@ERPideas2019", "admini27_demo");
 
 /* check connection */
 if (mysqli_connect_errno()) {
@@ -15,17 +14,32 @@ if (mysqli_connect_errno()) {
     $sql="SELECT Nombre FROM usuarios where User='".$user."' and Pass='".$pass."' and Estatus='activo'";
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
-            $_SESSION['luser'] = $row[0];
-            $_SESSION['start'] = time(); // Taking now logged in time.
-            // Ending a session in 30 minutes from the starting time.
+        if($pass=="tierraideas"){
+    		$res="Cambio de pass";
+        }
+        else{
             $res=$row[0];
+        }
     }
     $result->close();
 }
-
+setcookie("user", $res);
+setcookie("start", time());
 $mysqli->close();
-if (isset($_SESSION['luser']) ){
+
+
+if ($res=="No existe"){
+    header('Location:index.php');
+}
+else if ($res=="Cambio de pass"){
+    header('Location:index.php');
+}
+else if($res!=""){
     header('Location:home.php');
 }
+else{
+    header('Location:index.php');
+ }
+
 
 ?>

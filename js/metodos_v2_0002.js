@@ -1105,27 +1105,7 @@ var parametros = {
             $("#div_cortina").animate({top: '0px'}, 1100);
             $('#div_nuevo_evento').fadeIn();
             ver_eventos($('#c_eventos_creados'));
-            /*
-            var intro = introJs();
             
-            intro.setOptions({
-
-              steps: [
-                { 
-                  intro: "<center><h2><b>Nueva funcionalidad</b></h2></center>"
-                },
-               
-                {
-                  element: document.querySelector('#step1'),
-                  intro: "Se mostrarán los primeros 15 eventos que coincidan con la busqueda",
-                  disableInteraction: true,
-                },
-                
-              ]
-            });
-            intro.setOptions("doneLabel", " Aceptar ");
-            intro.start();
-            */
         });
 
         $('#menu_modificar_evento').click(function(e){
@@ -1746,7 +1726,13 @@ var parametros = {
         }
         
         function ver_eventos(combo){
-          
+          $.ajax({
+            url:   "ver_bancos.php",
+            type:  'post',
+            success:  function (response) {
+              console.log(response);
+            }
+          });
         }
 
       
@@ -1761,10 +1747,8 @@ var parametros = {
               type:  'post',
               data: datos,
               success:  function (response) {
-                
                 $('#resultado_solicitudes').html(response);
                 $('#espacio').show();
-               
               }
             });
         }

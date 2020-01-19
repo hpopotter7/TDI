@@ -1,8 +1,21 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['luser']) || $_SESSION['luser']=="No existe") {
-      header('Location:index.php');
-    }
+  if(!isset($_COOKIE['user'])) {
+    header('Location:index.php');
+  }
+  else if(isset($_COOKIE['user']) && ($_COOKIE['user'])=="No existe"){
+    header('Location:index.php');
+  }
+  else if(isset($_COOKIE['user']) && ($_COOKIE['user'])=="Caducada"){
+    header('Location:index.php');
+  }
+  else if(isset($_COOKIE['user']) && ($_COOKIE['user'])=="Cambio de pass"){
+   header('Location:index.php');
+  }
+  else{
+    $secondsInactive = time() - $_COOKIE['start'];
+    
+  }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -235,7 +248,7 @@ circle:nth-of-type(4) {
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       
-                        <strong id='label_user' style='color:black; font-size:1.2em;'></strong>
+                        <strong id='label_user' style='color:black; font-size:1.2em;'><?php $_COOKIE['user']?></strong>
                         <i class="fas fa-chevron-down fa-2x" style='color:black;padding-right:.3em;'></i> 
                     </a>
                     <ul class="dropdown-menu">

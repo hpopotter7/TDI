@@ -1,16 +1,6 @@
 <?php 
-    session_start();
-    if (isset($_SESSION['luser']) ){
-        $secondsInactive = time() - $_SESSION['start'];
-        if ($secondsInactive > 30) {
-            session_destroy();
-            header('Location:logout.php');
-            exit();
-        }
-    }
-$user=$_POST['user'];
-$pass=$_POST['pass'];
-$usuario="No existe";
+    
+$user=$_COOKIE["user"];
 $res="";
 include("conexion.php");
 
@@ -30,7 +20,7 @@ $cat_prov="";
 $cat_usu="";
 $cat_fact="";
     $result = $mysqli->query("SET NAMES 'utf8'");
-    $sql="SELECT * FROM usuarios where Nombre='".$_SESSION['luser']."'";
+    $sql="SELECT * FROM usuarios where Nombre='".$user."'";
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         	$usuario=$row[1];
