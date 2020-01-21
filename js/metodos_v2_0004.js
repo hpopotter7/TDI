@@ -1357,6 +1357,7 @@ var parametros = {
            ver_bancos();
            ver_solicitudes_clientes("false", "proveedores");
            $('#div_tipo_persona').show();
+           /*
            if($('#input_oculto').val()=="ALAN SANDOVAL" || 
             $('#input_oculto').val()=="SANAYN MARTINEZ" ||
             $('#input_oculto').val()=="SANDRA PEÑA"){
@@ -1365,6 +1366,7 @@ var parametros = {
            else{
               $('#guardar_cliente').hide();
            }
+           */
            $('#files2').show();
            $('#files3').show();
            $('#files4').show();
@@ -1407,13 +1409,14 @@ var parametros = {
            $('#titulo_alta').html("Solicitud de alta de cliente");
            $("#check_solicitud_pendientes:checked").prop('checked', false);
            ver_solicitudes_clientes("false", "clientes");
+           /*
            if($('#input_oculto').val()=="ALAN SANDOVAL" || 
             $('#input_oculto').val()=="SANDRA PEÑA"){
               $('#guardar_cliente').show();
            }
            else{
               $('#guardar_cliente').hide();
-           }
+           }*/
            $('#files2').hide();
            $('#files3').hide();
            $('#files4').hide();
@@ -3551,7 +3554,7 @@ function validarInput() {
       $('.titulo_reporte').html("<legend><h2>Reporte de eventos</h2></legend>");
        $('#l_cli').html("Clientes registrados");
        $('#l_razon').html("Razón social del cliente");
-       $('#guardar_cliente').html("<i class='i_espacio fa fa-save' aria-hidden='true'></i>Guardar cliente");
+       //$('#guardar_cliente').html("<i class='i_espacio fa fa-save' aria-hidden='true'></i>Guardar cliente");
        $('#txt_cuenta_bancaria').val("0");
        $('#txt_clabe').val("0");
        $('#titulo_alta').html("Solicitud de alta de cliente");
@@ -3817,7 +3820,7 @@ function validarInput() {
        ver_bancos();
        $('#l_cli').html("Clientes registrados");
        $('#l_razon').html("Razón social del cliente");
-       $('#guardar_cliente').html("<i class='i_espacio fa fa-save' aria-hidden='true'></i>Guardar cliente");
+       //$('#guardar_cliente').html("<i class='i_espacio fa fa-save' aria-hidden='true'></i>Guardar cliente");
        $('#txt_cuenta_bancaria').val("0");
        $('#txt_clabe').val("0");
        $('.titulo_reporte').html("<legend><h2>Reporte de Clientes</h2></legend>");
@@ -3896,7 +3899,7 @@ function validarInput() {
           ver_bancos();
            $('#l_cli').html("Clientes registrados");
            $('#l_razon').html("Razón social del cliente");
-           $('#guardar_cliente').html("<i class='i_espacio fa fa-save' aria-hidden='true'></i>Guardar cliente");
+           //$('#guardar_cliente').html("<i class='i_espacio fa fa-save' aria-hidden='true'></i>Guardar cliente");
            $('#txt_cuenta_bancaria').val("0");
            $('#txt_clabe').val("0");
            $('.titulo_reporte').html("<legend><h2>Reporte de Proveedores</h2></legend>");

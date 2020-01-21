@@ -8,10 +8,16 @@ function validar_perfiles(response){
 		$('#guardar_cliente').show();
 		$('#check_pendientes2').show();
 		$('#menu_prealta').show();
-		
 		//agregar al combo clientes de eventos los centros de costos
 		//agregar_centros_costos();
+	}
+	else if(response.usuario=="SANAYN MARTINEZ"){
+		$('#guardar_cliente').show();
 		
+		$('#menu_bloqueo_prov').hide();
+		$('#menu_bloqueo_prov').remove();
+		$('#menu_prealta').hide();
+		$('#menu_prealta').remove();
 	}
 	else{
 		
