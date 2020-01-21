@@ -1,6 +1,6 @@
 <?php 
-$mysqli = new mysqli("localhost", "admini27_root", "@ERPideas2019", "admini27_erp");
-//$mysqli = new mysqli("209.59.139.52:3306", "admini27_demo", "@ERPideas2019", "admini27_demo");
+//$mysqli = new mysqli("localhost", "admini27_root", "@ERPideas2019", "admini27_erp");
+$mysqli = new mysqli("209.59.139.52:3306", "admini27_demo", "@ERPideas2019", "admini27_demo");
 
     if (isset($_COOKIE['user'])){
         $secondsInactive = time() - $_COOKIE['start'];
@@ -13,7 +13,7 @@ $mysqli = new mysqli("localhost", "admini27_root", "@ERPideas2019", "admini27_er
                    swal({
                       type: 'warning',
                       title: 'La sesiÃ³n ha caducado',
-                      text:  'Debe iniciar sesi¨®n de nuevo',
+                      text:  'Debe iniciar sesiï¿½ï¿½n de nuevo',
                       onClose: () => {
                         window.location.href='logout.php';
                       }
@@ -31,7 +31,7 @@ $mysqli = new mysqli("localhost", "admini27_root", "@ERPideas2019", "admini27_er
         swal({
            type: 'warning',
            title: 'La sesiÃ³n ha caducado',
-           text:  'Debe iniciar sesi¨®n de nuevo',
+           text:  'Debe iniciar sesiï¿½ï¿½n de nuevo',
            onClose: () => {
              window.location.href='logout.php';
            }
