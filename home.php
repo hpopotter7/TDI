@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="css/bootstrap.toogle.min.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/bootstrap.min2.css">
-  <link rel="stylesheet" href="css/estilos_ver_0003.css"/>
+  <link rel="stylesheet" href="css/estilos_ver_0004.css"/>
   <link rel="stylesheet" href="css/estilos_menu_user.css"/>
   <link rel="stylesheet" href="css/jquery-ui_theme_green.css"/>
   <link rel="stylesheet" href="css/jquery-ui_green.css"/>
@@ -93,7 +93,7 @@
   <script src="js/jquery.modal.js"></script>
   <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   
-  <script src="js/metodos_v2_0003.js"></script>
+  <script src="js/metodos_v2_0004.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -247,7 +247,6 @@ circle:nth-of-type(4) {
   <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      
                         <strong id='label_user' style='color:black; font-size:1.2em;'><?php $_COOKIE['user']?></strong>
                         <i class="fas fa-chevron-down fa-2x" style='color:black;padding-right:.3em;'></i> 
                     </a>
@@ -267,7 +266,9 @@ circle:nth-of-type(4) {
                             <div class="navbar-login navbar-login-session">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <p><a class="various btn btn-info btn-block" data-fancybox-type="iframe" href="ver_tutoriales.html"><i class="fas fa-question-circle"></i> Ayuda</a>
+                                        <p>
+                                        <a id='btn_notificaciones' href="#" class="btn btn-warning btn-block"> <i class="fas fa-bell"></i> Bitácora</a>
+                                        <a class="various btn btn-info btn-block" data-fancybox-type="iframe" href="ver_tutoriales.html"><i class="fas fa-question-circle"></i> Ayuda</a>
                                             <a href="logout.php" class="btn btn-danger btn-block"> <i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
                                         </p>
                                     </div>
@@ -287,7 +288,12 @@ circle:nth-of-type(4) {
           
   </a>
    
-  <section id='resultado_bitacora'>
+  <section id='resultado_bitacora' style='width: 100%;
+    margin-top: 1em;
+    padding-left: 1.5em;
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;'>
   
   </section>
       <!-- <div class="row" style='background-color:white'>

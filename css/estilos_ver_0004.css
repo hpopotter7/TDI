@@ -286,7 +286,14 @@ form[role=login] input:-ms-input-placeholder { /* Microsoft Edge */
 	font-size: .79em;
 	color: #bd4e0d;
 }
-
+#resultado_bitacora{
+	width: 100%;
+    margin-top: 1em;
+    padding-left: 1.5em;
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 
 
 /*form

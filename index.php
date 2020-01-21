@@ -27,7 +27,7 @@
   
   <link rel="stylesheet" href="css/animate.css"/>
   <link rel="stylesheet" href="css/bootstrap.min2.css">
-  <link rel="stylesheet" href="css/estilos_ver_0003.css"/>
+  <link rel="stylesheet" href="css/estilos_ver_0004.css"/>
   <link rel="stylesheet" href="css/sweetalert2.css"/> 
   <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 

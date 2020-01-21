@@ -2,7 +2,7 @@ function inicio(){
 
   
   var bandera_menu=false;
-  
+  $('#resultado_bitacora').hide();
  
 $(".collapsed").click(function(e){
   e.preventDefault();
@@ -154,6 +154,7 @@ var idioma_espaniol = {
     $('#btn_notificaciones').show();
     $('#btn_cerrar_bitacora').hide();
     $('#resultado_bitacora').html("");
+    $('#resultado_bitacora').fadeOut();
    });
 
    $('.buttonText:eq(0)').html('CSF');
@@ -5760,6 +5761,7 @@ function consultar_bitacora(){
     data: datos,
     success:  function (response) {
       $('#resultado_bitacora').html(response);
+      $('#resultado_bitacora').fadeIn();
     }
   });
 }
@@ -5842,10 +5844,11 @@ $('#resultado_bitacora').delegate('.btn_notificacion', 'click', function(){
 });
 
 $('#modal_notificacion').on($.modal.CLOSE, function(event, modal) {
-  $('#notificaciones').css("left","-360px");
+  
   $('#btn_notificaciones').show();
   $('#btn_cerrar_bitacora').hide();
   $('#resultado_bitacora').html("");
+  $('#resultado_bitacora').fadeOut();
   ver_numero_notificaciones();
 });
 
