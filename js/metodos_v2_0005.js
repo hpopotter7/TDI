@@ -3666,12 +3666,13 @@ function validarInput() {
                             data:   datos,
                             async: false,
                             success:  function (response) {
-                              console.log(response);
+                              
                                 if (numero === response) {
                                   reject('El cheque '+numero+' ya fue registrado');
                                 } else {
                                     resolve();
                                      if(response.includes("cheque registrado")){
+                                       
                                       ver_solicitudes_por_evento(evento);
                                         setTimeout(function() {
                                           ver_solicitudes_por_evento(evento);

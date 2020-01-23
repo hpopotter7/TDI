@@ -3,9 +3,6 @@ $numero=$_POST['numero'];
 $id=$_POST['id'];
 
 include("conexion.php");
-	//$mysqli = new mysqli("localhost", "tierra_ideas", "adminadmin", "tierra_ideas");
-	
-	//$mysqli = new mysqli("localhost", "tierrad9_admin", "Quick2215!", "tierrad9_admin");
 	
 	if (mysqli_connect_error()) {
 	    echo "Error de conexion: %s\n", mysqli_connect_error();
@@ -13,7 +10,7 @@ include("conexion.php");
 	}
 		$respuesta="nop";
 
-		$sql="SELECT no_cheque from odc where no_cheque=".$numero;
+		$sql="SELECT no_cheque from odc where no_cheque='".$numero."'";
 		$pagada="";
 		$result = $mysqli->query($sql);
 		if (! $result){
@@ -29,7 +26,7 @@ include("conexion.php");
 		if($pagada==""){ // si no encuentra esa factrura la agregamos
 				$sql="UPDATE odc set no_cheque='".$numero."', Fecha_hora_factura=NOW() where id_odc='".$id."'";
 			if ($mysqli->query($sql)) {
-			    $respuesta= "cheque registrado";
+			    $respuesta= "cheque registrado ".$sql;
 			}
 			else{
 				$respuesta= $sql."<br>".mysqli_error($mysqli);
