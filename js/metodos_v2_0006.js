@@ -22,6 +22,7 @@ $('#nav_verde').mouseover(function(){
   }
   });
   
+  ver_personas();
 
   var contador_tiempo=-1;
   //ver_numero_notificaciones();
@@ -171,7 +172,7 @@ var idioma_espaniol = {
    $('#check_tipo_sol').bootstrapToggle('on');
    
   ver_usuarios_registrados();
-  //ver_eventos();
+
   ver_usuarios_combos("Ejecutivo");
   ver_usuarios_combos("Solicitante");
   ver_usuarios_combos("Digitalizacion");
@@ -831,7 +832,7 @@ var parametros = {
                   generate('warning', "Ese username ya existe. <br />Por favor elija otro username");
                 }
                 else if(response.includes("usuario modificado")){
-                  console.log(response);
+                  
                    limpiar();
                   ver_usuarios_registrados();
                     var user=$('#user').val();
@@ -1036,7 +1037,7 @@ var parametros = {
                   $('#c_solicitantes').multiselect("deselectAll", false).multiselect("refresh");
                   generate('success',response);
                   ver_numero_evento();
-                  ver_eventos($('#c_eventos_creados'));
+                  
                 }
                 else{
                   console.log(response);
@@ -1105,7 +1106,7 @@ var parametros = {
             limpiar_cortinas();
             $("#div_cortina").animate({top: '0px'}, 1100);
             $('#div_nuevo_evento').fadeIn();
-            ver_eventos($('#c_eventos_creados'));
+            
             
         });
 
@@ -1114,7 +1115,7 @@ var parametros = {
             limpiar_cortinas();
             $("#div_cortina").animate({top: '0px'}, 1100);
             $('#div_modificar_evento').fadeIn();
-            ver_eventos($('#c_eventos_modificar'));
+            
            /*
            ver_eventos($('#c_eventos_modificar'));
            $("#div_cortina").animate({top: '0px'}, 1100); 
@@ -1185,7 +1186,7 @@ var parametros = {
             $('#label_fernanda').html("A nombre de: FERNANDA CARRERA");
             $("#combo_metodo_pago option[value='PPD']").removeAttr('disabled');
             $("#check_sodexo:checked").prop('checked', false);
-            ver_eventos($('#c_numero_evento'));
+            
             ver_proveedores();
 
         });
@@ -1221,7 +1222,6 @@ var parametros = {
            $("#div_tipo_reembolso").show();
            $('#label_fernanda').html("A nombre de: FERNANDA CARRERA");
            $('#div_mensaje').fadeIn();
-           ver_eventos($('#c_numero_evento'));
            ver_proveedores_usuarios("MA. FERNANDA CARRERA HDZ");
            $("#c_tipo_reembolso").val("MA. FERNANDA CARRERA HDZ");
            $('#txt_nota').val('El cheque saldrá a nombre de Ma. Fernanda Carrera');
@@ -1262,7 +1262,7 @@ var parametros = {
             
             ver_proveedores_usuarios("MA. FERNANDA CARRERA HDZ");
            $('#div_mensaje').fadeIn();
-           ver_eventos($('#c_numero_evento'));
+           
         });
         /*
         menu_solicitud_odc' href
@@ -1728,16 +1728,7 @@ var parametros = {
           acta=false;
           ver_archivos('ca');
         }
-        
-        function ver_eventos(combo){
-          $.ajax({
-            url:   "ver_bancos.php",
-            type:  'post',
-            success:  function (response) {
-              console.log(response);
-            }
-          });
-        }
+       
 
       
 
@@ -2714,6 +2705,7 @@ var parametros = {
 
         function limpiar_odc(){
             //$('#f_solicitud').val("");
+            $('#c_numero_evento').val("");
             $('#f_pago').val("");
             $('#odc_cheque_por').val("");
             $('#odc_label_letra').html("");
@@ -2735,7 +2727,7 @@ var parametros = {
             $('#id_usuario_proveedor').val("0");
             
             
-            ver_eventos($('#c_numero_evento'));
+            
         }
         //modificar evento
         $('#btn_modificar_evento').click(function(e){
@@ -2792,7 +2784,7 @@ var parametros = {
                   ver_opcion(evento);
                   metodo_limpiar_evento();
                   ver_numero_evento();
-                  ver_eventos($('#c_eventos_creados'));
+                  
                   
                 }
 
@@ -4018,7 +4010,7 @@ function validarInput() {
                         generate('success',"El evento ha sido cancelado correctamente!");
 //                      enviar_notificacion_solicitud(nombre_evento, titulo);
                         metodo_limpiar_evento();
-                        ver_eventos($('#c_eventos_creados'));
+                        
                       }
                       else if(response.includes("Existen pagos")){
                         generate('warning',"El evento solicitado ya cuenta con solicitudes previas");
@@ -4549,7 +4541,7 @@ function ver_archivos(carpeta){
     data : datos,
     
       success :  function(response){
-        console.log(response);
+      
         if(response.includes("#")){
           var arr=response.split("#");
           for(var r=2;r<=arr.length-1;r++){
@@ -4838,7 +4830,7 @@ $('#btn_bloquear').click(function(){
                         type:  'post',
                         data: parametros,
                         success:  function (response) {
-                          console.log(response);
+                          
                           if(response.includes("eliminado")){
                             limpiar_cliente();
                             $noty.close();
@@ -5212,12 +5204,18 @@ function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
     var nota="";
     if(valor=="MA. FERNANDA CARRERA HDZ"){ // si es cheche el valor es MA FERNANDA CARREA
       nota="El cheque saldrá a nombre de Ma. Fernanda Carrera";
+      var valores='<option value="02 CHEQUE NOMINATIVO"> 02 CHEQUE NOMINATIVO</option>';
+      $('#c_forma_de_pago').html(valores);
     }
     else if(valor=="TARJETA SODEXO"){ // si es cheche el valor es MA FERNANDA CARREA
       nota="El depósito será directamente a una tarjeta SODEXO";
+      var valores='<option value="03 TRANSFERENCIA ELECTRONICA DE FONDOS">03 TRANSFERENCIA ELECTRONICA DE FONDOS</option>';
+      $('#c_forma_de_pago').html(valores);
     }
     else if(valor=="TARJETA DILIGO"){ // si es cheche el valor es MA FERNANDA CARREA
       nota="El depósito será directamente a una tarjeta DILIGO";
+      var valores='<option value="03 TRANSFERENCIA ELECTRONICA DE FONDOS">03 TRANSFERENCIA ELECTRONICA DE FONDOS</option>';
+      $('#c_forma_de_pago').html(valores);
     }
     
     $('#txt_nota').val(nota);
@@ -5366,7 +5364,7 @@ function llenar_combo_tarjetas(){
     type:  'post',
     data:  datos,
     success:  function (response) {
-      console.log(response);
+      
       $('#respuesta_tarjetas').html(response);
     }
   });
@@ -5780,7 +5778,7 @@ function ver_numero_notificaciones(){
     type:  'post',
     data: datos,
     success:  function (response) {
-      console.log(response);
+      
       if(response.includes("ninguno")){
         if ( $('#notificaciones').is(':visible') ){
           if(response.includes("ninguno")){
@@ -5837,7 +5835,7 @@ $('#resultado_bitacora').delegate('.btn_notificacion', 'click', function(){
     type:  'post',
     data: datos,
     success:  function (response) {
-      console.log(response);
+      
       $('#mensaje_notificacion').html(response);
       $("#modal_notificacion").modal({
         fadeDuration: 100
@@ -5866,7 +5864,7 @@ $('#tarjetas_resultado').delegate('.btn-ver-movimientos', 'click', function(){
     type:  'post',
     data: datos,
     success:  function (response) {
-      console.log(response);
+      
       $('#resultado_modal_movimientos').html(response);
       $("#modal_ver_movimientos").modal({
         fadeDuration: 100

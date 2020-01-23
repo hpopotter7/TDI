@@ -93,7 +93,7 @@
   <script src="js/jquery.modal.js"></script>
   <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   
-  <script src="js/metodos_v2_0005.js"></script>
+  <script src="js/metodos_v2_0006.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -1662,7 +1662,7 @@ circle:nth-of-type(4) {
             <div class="form-group col-md-2 col-md-offset-1 abajo">
               <div class="checkbox">
                 <label>
-                  <input id='check_tipo_sol' name='check_tipo_sol' type="checkbox" data-toggle="toggle" data-height="50" data-onstyle="success" data-on="Normal" data-off="Urgente" data-offstyle="warning">
+                  <input id='check_tipo_sol' name='check_tipo_sol' type="checkbox" data-toggle="toggle" data-height="50" data-width="100" data-onstyle="success" data-on="Normal" data-off="Urgente" data-offstyle="warning">
                 </label>
               </div>
             </div>
@@ -1816,10 +1816,7 @@ circle:nth-of-type(4) {
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
                   <select name="" id="c_forma_de_pago" class='form-control' >
-                         <option value="03 TRANSFERENCIA ELECTRONICA DE FONDOS">03 TRANSFERENCIA ELECTRONICA DE FONDOS</option>
-                         <option value="01 EFECTIVO">01 EFECTIVO</option>
-                         <option value="02 CHEQUE NOMINATIVO"> 02CHEQUE NOMINATIVO</option>
-                         <option value="99 POR DEFINIR">99 POR DEFINIR</option>
+                         
                   </select>
                 </div>
               </div>

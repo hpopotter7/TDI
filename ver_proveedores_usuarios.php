@@ -40,7 +40,7 @@ if($bandera=="MA. FERNANDA CARRERA HDZ"){ //ES DECIR SI ES CHEQUE
     }
 }
 else if($bandera=="TARJETA SODEXO"){  // SI ES TARJETA SODEXO
-    $sql="SELECT t.id_tarjeta, t.No_tarjeta, u.Nombre, t.Usuario FROM tarjetas t left join usuarios u on u.id_usuarios=t.Usuario where t.Tipo='SODEXO'";
+    $sql="SELECT t.id_tarjeta, t.No_tarjeta, u.Nombre, t.Usuario FROM tarjetas t left join usuarios u on u.id_usuarios=t.Usuario where t.Tipo='SODEXO' order by t.No_tarjeta asc";
     if ($result = $mysqli->query($sql)) {
         echo '<option value="vacio">Selecciona una tarjeta...</option>';
         while ($row = $result->fetch_row()) {
@@ -51,7 +51,7 @@ else if($bandera=="TARJETA SODEXO"){  // SI ES TARJETA SODEXO
                     echo "<option value='".$id."' disabled class='disabled' style='background-color:LightGrey;color:red'>".$numero." - [sin asignar]</option>";
                 }
                 else{
-                    echo "<option value='".$id."'>".$numero." - [".$nombre_usuario."]</option>";
+                    echo "<option value='".$numero."'>".$numero." - [".$nombre_usuario."]</option>";
                 }
         }
         $result->close();
