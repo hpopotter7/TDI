@@ -1,0 +1,66 @@
+      /////SUBMENU DE UN DROPDOWN NAV
+
+      <li id='nav_facturacion' class="dropdown">
+          <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Facturación<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <!--
+            <li><a id='solicitud_facturas' href="#" class='item_menu'><i class="fa fa-gg" aria-hidden="true"></i> Solicitud</a></li>
+          -->
+            <li class="dropdown-submenu">
+              <a class="test" tabindex="-1" href="#"><i class="fa fa-gg" aria-hidden="true"></i> Solicitud <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a id='solicitud_facturas' tabindex="-1" href="#">Nueva</a></li>
+                <li><a tabindex="-1" href="#">Modificar</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+
+        // contanier flotante
+        <div class="container" id='ficha_facturas' >
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+          <div class="panel panel-info" style="border-radius: 1.5em">
+            <a data-original-title="" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger pull-right"><i class="glyphicon glyphicon-remove"></i></a>
+            <div class="panel-heading">
+              <h2 class="panel-title text-center">[2019-001] NOMBRE CLIENTE - NOMBRE EVENTO</h2>
+            </div>
+            <div class="panel-body">
+              <div class="row">                
+                <div class="col-md-offset-2 col-md-8 col-lg-8 "> 
+                  <table class="table table-user-information">
+                    <thead style="background-color: #455F87; color: white">
+                      <tr>
+                        <th class="text-center"># Factura</th>
+                        <th class="text-center">Monto</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="text-center">14256</td>
+                        <td class="text-center">$ 12,252.25</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">14256</td>
+                        <td class="text-center">$ 12,252.25</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">14256</td>
+                        <td class="text-center">$ 12,252.25</td>
+                      </tr>
+                      <tfoot>
+                        <tr>
+                        <th class="text-right">Total:</th>
+                        <th class="text-center">$ 12,252.25</th>
+                      </tr>
+                      </tfoot>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

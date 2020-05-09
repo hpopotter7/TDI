@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>ERP Tierra de ideas</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="stylesheet" href="css/jquery.fancybox.css" />
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/animate.css"/>
+  <link rel="stylesheet" href="css/sweetalert2.css"/>  
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/bootstrap.min5.css">
+  <link rel="stylesheet" href="css/estilos_ver_0005.css"/>
+  <link rel="stylesheet" href="css/chosen.css"/>
+  <link rel="stylesheet" href="css/easy-autocomplete.css" />
+  <link rel="stylesheet" href="css/easy-autocomplete.themes.css""/>
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+
+  <script src="js/jquery-1.11.2.js"></script>
+  <script src="js/jquery-ui-v1.11.4.js"></script>
+  <script src="js/moment.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/core.js"></script>
+  
+  <script src="js/animate.js"></script>
+  <script src="js/noty/packaged/jquery.noty.packaged.js"></script>
+  <script src="js/jquery.mousewheel.pack.js"></script> 
+  <script src="js/jquery.easy-autocomplete.js"></script>
+  <script src="js/DateTables.js" ></script>
+  <script src="js/chosen.jquery.js" ></script>
+  <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+  
+  <script src="js/metodos_cierre_eventos.js"></script>
+    <script>
+     $(document).on("ready",inicio);  
+    </script>
+
+</head>
+<body style='background-color: rgba(255,2552,255,0) !important;background:none !important;'>
+    <div class="row col-md-10 col-md-offset-1">
+        <div class="container">
+            <div class="form-group col-md-9">
+                <p><br>
+                <label for="name" class="cols-sm-2 control-label"><h1>Cerrar Evento</h1></label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
+                    <input type="text" name="c_eventos" id="c_eventos" class="form-control" placeholder='Ingresa un evento' pattern="" title="">
+                  </div>
+                </div>
+              </div>
+            
+        </div>
+        <div class="col-md-8 col-md-offset-1" id='resultados'></div>
+        <div class="col-md-8 col-md-offset-1">
+          <button type="button" class='btn btn-success' id='btn_cerrar_evento'><i class="fas fa-clipboard-check" aria-hidden="true"></i> Cerrar evento</button>
+        </div>
+        
+    </div>
+</body>
+</html>
+
+
+
