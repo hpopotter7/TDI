@@ -1,0 +1,3 @@
+select d.evento AS evento,d.suma AS suma from (admini27_erp.suma_partidas d, admini27_erp.eventos e where d.evento = e.Numero_evento and e.Estatus = 'ABIERTO'
+
+select o.evento AS evento,sum(p.total) AS suma from (admini27_erp.partidas p left join admini27_erp.odc o on((p.id_sol_factura = o.id_odc))) group by o.evento

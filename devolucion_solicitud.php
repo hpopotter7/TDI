@@ -6,6 +6,8 @@
 	$banco=$_POST['banco'];
 	$ordenes=0;
 	$ID="";
+	
+	$importe_total=0;
 	include("conexion.php");
 	
 	if (mysqli_connect_error()) {
@@ -13,7 +15,15 @@
 	    exit();
 	}
 	$result = $mysqli->query("SET NAMES 'utf8'");
-			$sql="UPDATE odc SET Motivo_devolucion='".$motivo."', Monto_devolucion='".$monto."', Fecha_devolucion=NOW(), Banco_devolucion='".$banco."' where id_odc=".$id_odc;
+
+	$sql="select cheque_por from odc where id_odc=".$id_odc;
+			if ($result = $mysqli->query($sql)) {
+				while ($row = $result->fetch_row()) {
+					$importe_total=$row[0]-$monto;
+				}
+			}
+			
+			$sql="UPDATE odc SET Motivo_devolucion='".$motivo."', Monto_devolucion='".$monto."', Fecha_devolucion=NOW(), Banco_devolucion='".$banco."', Importe_total=".$importe_total." where id_odc=".$id_odc;
 			$result = $mysqli->query("SET NAMES 'utf8'");
 			if ($mysqli->query($sql)) {		    
 			    $res= "devolucion exitosa";

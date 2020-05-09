@@ -1,0 +1,5 @@
+[09-May-2020 05:39:25 UTC] PHP Notice:  Undefined variable: respuesta in /home/admini27/public_html/generar_reporte_gastos.php on line 96
+[09-May-2020 05:39:25 UTC] PHP Notice:  Undefined offset: 0 in /home/admini27/public_html/generar_reporte_gastos.php on line 96
+[09-May-2020 05:39:25 UTC] PHP Notice:  Undefined offset: 1 in /home/admini27/public_html/generar_reporte_gastos.php on line 96
+[09-May-2020 05:40:14 UTC] PHP Notice:  Undefined offset: 0 in /home/admini27/public_html/generar_reporte_gastos.php on line 97
+[09-May-2020 05:40:14 UTC] PHP Notice:  Undefined offset: 1 in /home/admini27/public_html/generar_reporte_gastos.php on line 97

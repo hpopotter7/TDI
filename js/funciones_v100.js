@@ -2,16 +2,18 @@ function validar_perfiles(response){
 	bienvenido(response.usuario); 
 	$(".contenedor").fadeOut();
 	$(".contenedor").remove();
+	$('#menu_cerrar_evento').hide();
 	if(response.usuario=="ALAN SANDOVAL" || response.usuario=="SANDRA PEÑA"){
 		$('#btn_cancelar_evento').show();
 		$('#btn_modificar_evento').show();
 		$('#guardar_cliente').show();
 		$('#check_pendientes2').show();
 		$('#menu_prealta').show();
+		$('#menu_cerrar_evento').show();
 		//agregar al combo clientes de eventos los centros de costos
 		//agregar_centros_costos();
 	}
-	else if(response.usuario=="SANAYN MARTINEZ"){
+	else if(response.usuario=="MIGUEL POBLACION"){
 		$('#guardar_cliente').show();
 		
 		$('#menu_bloqueo_prov').hide();
@@ -20,8 +22,9 @@ function validar_perfiles(response){
 		$('#menu_prealta').remove();
 	}
 	else{
-		
+		$('#menu_cerrar_evento').hide();
 		$('#menu_prealta').parent().remove();
+		$('#menu_cerrar_evento').parent().remove();
 		$('#menu_prealta').hide();
 		$('#menu_bloqueo_prov').parent().remove();
 		$('#menu_bloqueo_prov').hide();

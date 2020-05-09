@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>ERP Tierra de ideas</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="stylesheet" href="css/jquery.fancybox.css" />
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/animate.css"/>
+  <link rel="stylesheet" href="css/sweetalert2.css"/>  
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/bootstrap.min5.css">
+  <link rel="stylesheet" href="css/estilos_ver_0005.css"/>
+  <link rel="stylesheet" href="css/chosen.css"/>
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+  
+
+
+  <!--<script src="js/jquery-1.10.2.js"></script>-->
+  
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+  
+  <script src="js/jquery-ui-v1.11.4.js"></script>
+  <script src="js/moment.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/animate.js"></script>
+  <script src="js/noty/packaged/jquery.noty.packaged.js"></script>
+  <script src="js/jquery.mousewheel.pack.js"></script> 
+  <script src="js/chosen.jquery.js" ></script>
+  <script src="js/DateTables.js"></script>
+  <script src="js/sweetalert2.min.js"></script>
+  <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+  
+  
+  <script src="js/metodos_vobos.js"></script>
+    <script>
+     $(document).on("ready",inicio);  
+    </script>
+
+</head>
+<body style='background-color: rgba(255,2552,255,0) !important;background:none !important;'>
+    <div class="row">
+        <div class="container">
+            
+            <h2>VoBo para solicitudes</h2>
+            <div class='col-md-6'>
+                <label for="name" class="cols-sm-2 control-label">Eventos</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fas fa-star aria-hidden="true"></i></span>
+                        <select class='form-control' id='c_eventos_dos' data-placeholder="Elige un evento">
+                        </select>
+                     </div>
+                  </div>
+            </div>
+            <div class="col-md-1" id='buscando'>
+                Buscando<img src="img/dots_loader.gif" alt="" style='padding-top: 10px;'>
+            </div>
+            <div class="clearfix" style='margin-top: 25px;'></div>
+            <div class='row' style='margin-top: 25px;'>
+                <table class="table table-inverse" id='tabla_vobos' style="width:99%"><thead><tr><th>#</th><th>Elaborado</th>
+                    <th>Solicitante</th><th>Proveedor</th><th>Concepto</th><th>Importe</th><th>Finanzas</th><th>Dirección</th><th>Compras</th><th>P.M.</th><th>Coordinador</th><th>Ver</th></tr></thead>
+                    <tbody id='resultado_solicitudes'>
+
+                    </tbody>
+                    </table>
+            </div>
+            
+            
+        </div>
+    </div>
+</body>
+</html>
+
+
+

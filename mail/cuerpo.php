@@ -24,8 +24,8 @@ switch($asunto){
 		';
 	break;
 	case "Solicitud de proveedor":
-	//$mail->addAddress('smartinez@tierradeideas.mx', 'SANAYN MARTINEZ');
-	$to = 'smartinez@tierradeideas.mx';
+	//$mail->addAddress('mich@tierradeideas.mx', 'MIGUEL POBLACION');
+	$to = 'mich@tierradeideas.mx';
 	$body='<html>
 		<head>
 			<title></title>

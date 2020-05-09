@@ -11,6 +11,8 @@ $int=$_POST['int'];
 $colonia=$_POST['colonia'];
 $cp=$_POST['cp'];
 $tel=$_POST['tel'];
+$extension=$_POST['extension'];
+$celular=$_POST['celular'];
 $estado=$_POST['estado'];
 $municipio=$_POST['municipio'];
 $nombre_contacto=$_POST['nombre_contacto'];
@@ -29,7 +31,7 @@ include("conexion.php");
 	}
 		$respuesta="nop";
 
-		$sql="INSERT INTO clientes (Numero_cliente,	Razon_social, Nombre_comercial, rfc, digitos, Tipo_persona, cp, estado, municipio, colonia, Calle, num_ext, num_int, telefono, nombre_contacto, correo_contacto, nombre_contacto2, correo_contacto2, uso_cfdi, Usuario_solicita, Fecha_solicitud) VALUES ('0', '".strtoupper($cliente)."', '".$nombre_comercial."', '".$rfc."', '".$digitos."', '".$tipo_persona."', '".$cp."', '".$estado."', '".$municipio."', '".$colonia."', '".$calle."', '".$ext."', '".$int."', '".$tel."', '".$nombre_contacto."', '".$correo_contacto."', '".$nombre_contacto2."', '".$correo_contacto2."', '".$uso_cfdi."', '".$usuario_solicita."', NOW())";
+		$sql="INSERT INTO clientes (Numero_cliente,	Razon_social, Nombre_comercial, rfc, digitos, Tipo_persona, cp, estado, municipio, colonia, Calle, num_ext, num_int, telefono, nombre_contacto, correo_contacto, nombre_contacto2, correo_contacto2, uso_cfdi, Usuario_solicita, Fecha_solicitud, extension, celular) VALUES ('0', '".strtoupper($cliente)."', '".$nombre_comercial."', '".$rfc."', '".$digitos."', '".$tipo_persona."', '".$cp."', '".$estado."', '".$municipio."', '".$colonia."', '".$calle."', '".$ext."', '".$int."', '".$tel."', '".$nombre_contacto."', '".$correo_contacto."', '".$nombre_contacto2."', '".$correo_contacto2."', '".$uso_cfdi."', '".$usuario_solicita."', NOW(), '".$extension."', '".$celular."')";
 		$result = $mysqli->query("SET NAMES 'utf8'");
 		if ($mysqli->query($sql)) {
 		    //$respuesta= "solicitud enviada";

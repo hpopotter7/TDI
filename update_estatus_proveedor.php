@@ -7,10 +7,10 @@
 	    echo "Error de conexion: %s\n", mysqli_connect_error();
 	    exit();
 	}
-
-		$sql="UPDATE proveedores SET estatus='".$estatus."' where Razon_Social='".$prov."'";
+	$result = $mysqli->query("SET NAMES 'utf8'");
+		$sql="UPDATE proveedores SET Estatus='".$estatus."' where Razon_Social='".$prov."'";
 		if ($mysqli->query($sql)) {		    
-		    echo "exito";
+		    echo "exito".$sql;
 		}
 		else{
 			echo $sql.mysqli_error($mysqli);

@@ -865,7 +865,7 @@
     placeholder: '',
     data: undefined,
     locale: undefined,
-    selectAll: true,
+    selectAll: false,
     single: undefined,
     singleRadio: false,
     multiple: false,

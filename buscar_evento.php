@@ -28,7 +28,7 @@
 		$result->close();
 	}
 
-	if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA" || $usuario=="ANDRES EMANUELLI" || $usuario=="FERNANDA CARRERA" || $usuario=="SANAYN MARTINEZ"){
+	if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA" || $usuario=="ANDRES EMANUELLI" || $usuario=="FERNANDA CARRERA" || $usuario=="MIGUEL POBLACION"){
 			$valida='CXP';
 	}
 	

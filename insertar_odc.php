@@ -49,27 +49,13 @@
 	}
 
 
-		$sql="insert into odc (evento, tipo, fecha_solicitud, fecha_pago, cheque_por, letra, a_nombre, concepto, servicio, otros, tipo_pago, cfdi, metodo_pago, factura, fecha, usuario_registra, fecha_hora_registro, identificador, solicito, finanzas, autorizo, Forma_pago, no_cheque, Compras, Coordinador, Project, Tipo_tarjeta, No_Tarjeta) values('".$evento."', '".$tipo."', NOW(), '".$f_pago."', '".$odc_cheque_por."', '".$letra."', '".$a_nombre."', '".$txt_concepto."', '".$txt_servicios."', '".$txt_otros."', '".$tipo_pago."', '".$cfdi."', '".$metodo_pago."', '".$txt_docto_soporte."', '".$odc_fecha."', '".$user."', NOW(), '".$titulo."', '".$SOLICITO."', '".$FINANZAS."', '".$DIRECTIVO."', '".$forma_pago."', '".$no_cheque."', '".$compras."', '".$coordinador."', '".$project."', '".$tipo_reembolso."', '".$num_tarjeta."')";
+		$sql="insert into odc (evento, tipo, fecha_solicitud, fecha_pago, cheque_por, letra, a_nombre, concepto, servicio, otros, tipo_pago, cfdi, metodo_pago, factura, fecha, usuario_registra, fecha_hora_registro, identificador, solicito, finanzas, autorizo, Forma_pago, no_cheque, Compras, Coordinador, Project, Tipo_tarjeta, No_Tarjeta, Importe_total) values('".$evento."', '".$tipo."', NOW(), '".$f_pago."', '".$odc_cheque_por."', '".$letra."', '".$a_nombre."', '".$txt_concepto."', '".$txt_servicios."', '".$txt_otros."', '".$tipo_pago."', '".$cfdi."', '".$metodo_pago."', '".$txt_docto_soporte."', '".$odc_fecha."', '".$user."', NOW(), '".$titulo."', '".$SOLICITO."', '".$FINANZAS."', '".$DIRECTIVO."', '".$forma_pago."', '".$no_cheque."', '".$compras."', '".$coordinador."', '".$project."', '".$tipo_reembolso."', '".$num_tarjeta."', ".$odc_cheque_por.")";
 		if ($mysqli->query($sql)) {
 		    
 		    $RES="registro odc correcto";
 		}
 		else{
 			$RES= mysqli_error($mysqli);
-		}
-		
-		if($RES=="registro odc correcto"){
-			
-			if ($tipo_reembolso=='TARJETA SODEXO' || $tipo_reembolso=='TARJETA DILIGO') {
-				$sql="insert into movimientos(id_solicitud, No_tarjeta, importe, Tipo_movimiento) 
-				values((select max(id_odc) from odc), '".$num_tarjeta."', '".$odc_cheque_por."', 'CARGO')";
-				if ($mysqli->query($sql)) {
-					$RES="registro odc correcto";
-				}
-				else{
-					$RES= mysqli_error($mysqli);
-				}
-			}
 		}
 		
 	echo $RES;

@@ -41,6 +41,7 @@ function inicio(){
                         type:  'post',
                         data: datos,
                         success:  function (response) {
+                            console.log(response);
                             ver_proveedores();
                         if(response.includes('exito')){
                             $('#radio_activo').prop('checked', false);

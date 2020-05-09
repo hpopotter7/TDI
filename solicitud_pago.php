@@ -1,5 +1,6 @@
 
 <?php
+try {
 $id=$_GET['id'];
 
 header("Content-Type: text/html;charset=utf-8");
@@ -72,10 +73,17 @@ if(strpos($CLIENTE, '&')){
     $CLIENTE=$arr[1];
 }
 
-    $sql="SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.factura, DATE_FORMAT(o.fecha, '%d/%m/%Y'),  CONCAT('".$ID2."', ' ".$CLIENTE." - ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, o.tipo, o.tipo_pago, DATE_FORMAT(e.inicio_evento ,'%d/%m/%Y'), DATE_FORMAT(e.fin_evento,'%d/%m/%Y'), o.otros, o.cfdi, o.metodo_pago, c.metodo_pago, c.nombre_contacto, c.correo_contacto, c.sucursal, c.Numero_cliente, o.solicito, o.finanzas, o.usuario_registra, o.autorizo, o.Forma_pago, o.identificador, o.no_cheque, o.Compras, o.Coordinador, o.Project, o.Tipo_tarjeta, o.No_tarjeta FROM odc o LEFT JOIN proveedores c on o.a_nombre=c.Razon_Social left join eventos e on o.evento=e.Numero_evento where o.id_odc=".$id;
+    $sql="SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.factura, DATE_FORMAT(o.fecha, '%d/%m/%Y'),  CONCAT('".$ID2."', ' ".$CLIENTE." - ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, o.tipo, o.tipo_pago, DATE_FORMAT(e.inicio_evento ,'%d/%m/%Y'), DATE_FORMAT(e.fin_evento,'%d/%m/%Y'), o.otros, o.cfdi, o.metodo_pago, c.metodo_pago, c.nombre_contacto, c.correo_contacto, c.sucursal, c.Numero_cliente, o.solicito, o.finanzas, o.usuario_registra, o.autorizo, o.Forma_pago, o.identificador, o.no_cheque, o.Compras, o.Coordinador, o.Project, o.Tipo_tarjeta, o.No_tarjeta, o.vobo_coordinador FROM odc o LEFT JOIN proveedores c on o.a_nombre=c.Razon_Social left join eventos e on o.evento=e.Numero_evento where o.id_odc=".$id;
 
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
+        $firma_1="sin";
+        $firma_2="sin";
+        $firma_3="sin";
+        $firma_4="sin";
+        $firma_5="sin";
+        $firma_6="sin";
+        
         $a_nombre = $row[0];                
         $concepto = $row[1];
         $servicio = $row[2];
@@ -113,6 +121,16 @@ if ($result = $mysqli->query($sql)) {
         $project=$row[34];
         $tipo_tarjeta=$row[35];
         $numero_tarjeta=$row[36];
+        $firma_coordinador=$row[37];
+        
+        if($firma_coordinador==1){
+            $firma_coordinador=str_replace(" ", "", $coordinador);
+        }
+        else{
+            $firma_coordinador="sin";
+        }
+        
+
     }
 
     $result->close();
@@ -132,6 +150,7 @@ if(strlen($evento)>55){
 //$total = number_format($total,',','.','.');
 
 //Create a new PDF file
+ob_start();
 $pdf=new FPDF();
 $pdf->AddPage();
 $pdf->AddFont('Gotham','','Gotham-Book.php');
@@ -442,28 +461,34 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $arr7=explode(" ", ($project));
 
     $pdf->MultiCell(42,5,utf8_decode($arr[0])."\n".utf8_decode($arr[1]),'B','C',true);
+    $pdf->Image('firmas/'.$firma_1.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $pdf->MultiCell(42,5,utf8_decode($arr2[0])."\n".utf8_decode($arr2[1]),'B','C',true);
+    $pdf->Image('firmas/'.$firma_2.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $pdf->MultiCell(42,5,utf8_decode($arr3[0])."\n".utf8_decode($arr3[1]),'B','C',true);
+    $pdf->Image('firmas/'.$firma_3.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $pdf->MultiCell(42,5,utf8_decode($arr4[0])."\n".utf8_decode($arr4[1]),'B','C',true);
+    $pdf->Image('firmas/'.$firma_4.'.png' , $startx ,$starty-5, 30 , 20,'png');
     //salto de linea
+    $firma1=$starty;
     $pdf->Ln(1);
     $pdf->SetFont('Gotham_M','',10);
     $pdf->SetX(10);
     $pdf->Cell(42,6,"Elaborado por",0,0,'C',false);
     $pdf->SetX(57);
     $pdf->Cell(42,6,utf8_decode("Solicitado por"),0,0,'C',false);
+    
     $pdf->SetX(105);
     $pdf->MultiCell(42,6,utf8_decode("Finanzas"),0,'C',false);
     $starty=$starty+11;
     $pdf->SetXY($startx, $starty); 
     $pdf->MultiCell(42,6,utf8_decode("Dirección General"),0,'C',false);
-    
+    $firma2=$starty;
     
     //lina firms 2
     $pdf->SetFont('Gotham','',10);
@@ -477,7 +502,9 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     else{
         $vacio=$arr5[1];
     }
+    
     $pdf->MultiCell(42,5,utf8_decode($arr5[0])."\n".utf8_decode($vacio),'B','C',true);
+    $pdf->Image('firmas/'.$firma_5.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $vacio="";
@@ -488,6 +515,7 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
         $vacio=$arr7[1];
     }
     $pdf->MultiCell(42,5,utf8_decode($arr7[0])."\n".utf8_decode($vacio),'B','C',true);
+    $pdf->Image('firmas/'.$firma_6.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $vacio="";
@@ -498,16 +526,20 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
         $vacio=$arr6[1];
     }
     $pdf->MultiCell(58,5,utf8_decode($arr6[0])."\n".utf8_decode($vacio),'B','C',true);
+    $pdf->Image('firmas/'.$firma_coordinador.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $pdf->Ln(1);
     $pdf->SetFont('Gotham_M','',10);
     $pdf->SetX(10);
-    $pdf->Cell(42,6,"Vo.Bo. Compras",0,0,'C',false);
+    $pdf->Cell(42,6,"Compras",0,0,'C',false);
     $pdf->SetX(63);
     $pdf->Cell(42,6,utf8_decode("Project Manager"),0,'C',false);
     $pdf->SetX(109);
     $pdf->Cell(50,6,utf8_decode("Director/Coordinador de area"),0,0,'C',false);
     
     //salto de linea
+    
+    
+    
     
  //salto de linea
     $pdf->Ln(13);
@@ -518,4 +550,8 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
 
 
 $pdf->Output('I',$evento.".pdf",true); // I se abre en esa pagaina el pdf; D descarga
+ob_end_flush();
+} catch (Exception $e) {
+    echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+}
 ?>

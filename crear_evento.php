@@ -21,6 +21,7 @@
 	$digital=$_POST['digital'];
 	$ejecutivo=$_POST['ejecutivo'];
 	$solicita=$_POST['solicita'];
+	$video=$_POST['video'];
 if($tipo==null){
 	$tipo="Aprox";
 }
@@ -56,7 +57,7 @@ else{
 }
 
 	$comentarios = $mysqli->real_escape_string($comentarios);
-		$sql="INSERT INTO eventos (Numero_evento, Nombre_evento,  Inicio_evento, Fin_evento, Cliente, Destino, Sede, Disenio, Produccion, Facturacion, Solicita, Tipo, Comentarios, Fecha_registro, Usuario_Registra, Estatus, ejecutivo, digital) VALUES ('".$filas."', '".strtoupper($nombre_evento)."', '".$inicio_evento."', '".$fin_evento."', '".$cliente."', '".$destino."', '".$sede."', '".$diseñadores."', '".$productores."', '".$facturacion."', '".$solicita."', '".$tipo."', '".$comentarios."', NOW(), '".$usuario_registra."', 'ABIERTO', '".$ejecutivo."', '".$digital."' )";
+		$sql="INSERT INTO eventos (Numero_evento, Nombre_evento,  Inicio_evento, Fin_evento, Cliente, Destino, Sede, Disenio, Produccion, Facturacion, Solicita, Tipo, Comentarios, Fecha_registro, Usuario_Registra, Estatus, ejecutivo, digital, video) VALUES ('".$filas."', '".strtoupper($nombre_evento)."', '".$inicio_evento."', '".$fin_evento."', '".$cliente."', '".$destino."', '".$sede."', '".$diseñadores."', '".$productores."', '".$facturacion."', '".$solicita."', '".$tipo."', '".$comentarios."', NOW(), '".$usuario_registra."', 'ABIERTO', '".$ejecutivo."', '".$digital."', '".$video."' )";
 		if ($mysqli->query($sql)) {		    
 		    echo "Evento ".$filas." creado correctamente";
 		}

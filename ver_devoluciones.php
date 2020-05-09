@@ -33,7 +33,7 @@ else{
     $res =mysqli_error($mysqli);
   }
   if($evento==""){
-    $res="<div class='col-md-12'><h4><i>Esta tarjeta no tiene solicitudes pendientes por aplicar</i></h4></div>";
+    $res="<div class='col-md-12'><h4><i>Esta tarjeta no tiene devoluciones pendientes por aplicar</i></h4></div>";
   }
   /*
   $res=$res."<tr>

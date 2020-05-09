@@ -1,4 +1,5 @@
 <?php
+
    $bandera=0;
     if(isset($_COOKIE['user']) && ($_COOKIE['user'])=="Cambio de pass"){
       $bandera=1;
@@ -9,7 +10,10 @@
     }
     else if(isset($_COOKIE['user']) && ($_COOKIE['user'])=="No existe"){
       $bandera=3;
+    }
+    else if(isset($_COOKIE['user']) && ($_COOKIE['user'])=="Modificada"){
       
+      $bandera=4;
     }
           
 ?>
@@ -26,8 +30,8 @@
   <link rel="stylesheet" href="css/jquery.fancybox.css" />
   
   <link rel="stylesheet" href="css/animate.css"/>
-  <link rel="stylesheet" href="css/bootstrap.min2.css">
-  <link rel="stylesheet" href="css/estilos_ver_0004.css"/>
+  <link rel="stylesheet" href="css/bootstrap.min3.css">
+  <link rel="stylesheet" href="css/estilos_ver_0005.css"/>
   <link rel="stylesheet" href="css/sweetalert2.css"/> 
   <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 
@@ -45,7 +49,7 @@
     <div class="row" id="pwd-container" style="top:50px">    
       <div class="col-md-4 col-md-offset-4">
       <?php
-      if($bandera==0 || $bandera==2 || $bandera==3){
+      if($bandera==0 || $bandera==2 || $bandera==3 || $bandera==4){
         echo '
         <section class="login-form">
           <form id="form_login" method="post" action="loguin.php" role="login">
@@ -55,7 +59,7 @@
               <input style="color: #464545" type="text" id="user" name="user" class="form-control input-lg" placeholder="Usuario" required/>
             </div>
             <div class="form-group has-feedback">
-              <span style="position:absolute; left:-10px;top:12px; color: #464545" class="fas fa-unlock-alt "></span>
+              <span style="position:absolute; left:-10px;top:12px; color: black" class="fas fa-unlock-alt "></span>
               <input style="color: #464545" type="password" id="pass" name="pass" class="form-control input-lg" placeholder="Contraseña" required/>
             </div>
             <button type="submit" id="btn_in" class=" cambio btn btn-lg btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> Entrar</button>
@@ -66,14 +70,15 @@
       if($bandera==1 ){
         echo '
         <section class="login-form">
-          <form method="post" action="cambio_pass.php" role="login">
+          <form method="post" action="modificar_password.php" role="login">
             <h5><label class="alert alert-warning">Ingresa una nueva contraseña</label></h5>
             <div class="form-group has-feedback">
               <span style="position:absolute; left:-10px;top:12px;color: black" class="fas fa-user"></span>
               <input style="color: #464545" type="text" id="user" name="user" class=" disabled form-control input-lg" placeholder="Usuario" value="'.$_COOKIE['nombre'].'" disabled/>
+
             </div>   
             <div class="form-group has-feedback">
-              <span style="position:absolute; left:-10px;top:12px; color: #464545" class="fas fa-unlock-alt "></span>
+              <span style="position:absolute; left:-10px;top:12px; color: black" class="fas fa-unlock-alt "></span>
               <input style="color: #464545" type="password" id="pass" name="pass" class="form-control input-lg" placeholder="Contraseña" />
             </div>
             <button type="submit" id="btn_in" class=" cambio btn btn-lg btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> Aceptar</button>
@@ -96,6 +101,16 @@ if($bandera==3){
       
     }
     ?>
+    <?php 
+if($bandera==4){
+      echo "<script>swal({
+        title: 'Contraseña actualizada',
+        type: 'success',
+        text:  'Inicia sesión de nuevo',
+      });</script>";
+      
+    }
+    ?>
 
   
 <footer class="page-footer font-small blue pt-4" style="z-index: 400px">   
@@ -113,4 +128,7 @@ if($bandera==3){
   </footer>
  
 </body>
+<script>
+
+</script>
 </html>

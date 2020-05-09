@@ -10,12 +10,16 @@ if (mysqli_connect_errno()) {
     exit();
 }
 /* Select queries return a resultset */
-$sql="SELECT *  FROM proveedores where id_proveedor=".$id;
+$sql="SELECT * FROM proveedores where id_proveedor=".$id;
 $result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
 
     /* fetch object array */
     while ($row = $result->fetch_row()) {
+        $cobertura=$row[33];
+        if($row[33]==null || $row[33]==""){
+            $cobertura=",";
+        }
         $return = Array(
             'nombre'=>$row[2],
             'nombre_comercial'=>$row[3],
@@ -40,7 +44,10 @@ if ($result = $mysqli->query($sql)) {
             'banco'=>$row[26], 
             'cfdi'=>$row[27],
             'sucursal'=>$row[28], 
-        	'tipo_persona'=>trim($row[29]),            
+            'tipo_persona'=>trim($row[29]), 
+            'extension'=>$row[31],
+            'celular'=>$row[32],
+            'cobertura'=>$cobertura,           
             'error'=>'nada',
             'sql'=>''
         	);

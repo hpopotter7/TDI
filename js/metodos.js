@@ -1317,7 +1317,7 @@ var parametros = {
          $('#menu_solicitud_prov').click(function(e){
            e.preventDefault();
            var usuario=$('#input_oculto').val();
-           if(usuario=="ALAN SANDOVAL" || usuario=="SANDRA PEÑA" || usuario=="SANAYN MARTINEZ"){
+           if(usuario=="ALAN SANDOVAL" || usuario=="SANDRA PEÑA" || usuario=="MIGUEL POBLACION"){
               $('#check_pendientes').show();
            }
            else{
@@ -1354,7 +1354,7 @@ var parametros = {
            $('#div_reporte_clientes').fadeOut();
            $('#div_reporte_proveedores').fadeOut();
            if($('#input_oculto').val()=="ALAN SANDOVAL" || 
-            $('#input_oculto').val()=="SANAYN MARTINEZ" ||
+            $('#input_oculto').val()=="MIGUEL POBLACION" ||
             $('#input_oculto').val()=="SANDRA PEÑA"){
               $('#guardar_cliente').show();
            }
@@ -2120,7 +2120,7 @@ var parametros = {
                 $('#txt_clabe').val(response.clabe);
                 $('#c_bancos').val(response.banco);
                 if($('#input_oculto').val()=="ALAN SANDOVAL" || $('#input_oculto').val()=="SANDRA PEÑA" ||
-                   $('#input_oculto').val()=="SANAYN MARTINEZ"){
+                   $('#input_oculto').val()=="MIGUEL POBLACION"){
                 $('#btn_bloquear').show();
                 }
                  

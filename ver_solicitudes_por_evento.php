@@ -48,7 +48,7 @@ if ($result = $mysqli->query($sql3)) {
   }
 }
 
-$sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra, o.Monto_devolucion, DATE_FORMAT(o.Fecha_devolucion, '%d-%m-%Y') as 'Fecha_dev', o.Motivo_devolucion, o.Banco_devolucion, o.Tipo_tarjeta, o.No_Tarjeta FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.Cancelada='no' order by o.id_odc desc";
+$sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra, o.Monto_devolucion, DATE_FORMAT(o.Fecha_devolucion, '%d-%m-%Y') as 'Fecha_dev', o.Motivo_devolucion, o.Banco_devolucion, o.Tipo_tarjeta, o.No_Tarjeta, o.Importe_total FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.Cancelada='no' order by o.id_odc desc";
 
 
 if ($result = $mysqli->query($sql)) {
@@ -81,17 +81,22 @@ if ($result = $mysqli->query($sql)) {
       $Banco_devolucion=$row['Banco_devolucion'];
       $Tipo_tarjeta=$row['Tipo_tarjeta'];
       $No_Tarjeta=$row['No_Tarjeta'];
-      $suma_solicitudes=$suma_solicitudes+$cheque_por;
+      $importe_total=$row['Importe_total'];
+      $suma_solicitudes=$suma_solicitudes+$importe_total;
       
       $importe="<td>".moneda($cheque_por)."</td>";
       $fuente='"Neuton';
       $Factura="";
+
       if($factura==null || $factura==""){
         $Factura="<i class='fa fa-plus'></i>";
       }
       $arr_factura=explode(',',$factura);
       for($i=0;$i<=count($arr_factura)-1;$i++){
-        $Factura=$Factura."<pre style='border:none;background:rgba(0,0,0,0);padding: .5px;font-family: ".$fuente."'>".$arr_factura[$i]."</pre>";
+        $Factura=$Factura."<pre style='color:white;border:none;background:rgba(0,0,0,0);padding: .5px;font-family: ".$fuente."'>".$arr_factura[$i]."</pre>";
+      }
+      if($no_cheque==null || $no_cheque==""){
+        $no_cheque="<i class='fa fa-plus'></i>";
       }
 
       switch($identificador){
@@ -134,7 +139,7 @@ if ($result = $mysqli->query($sql)) {
         $contador="<input type='checkbox' value='".$id_odc."' class='check_transfer'/>";
       }
       
-     // if($valida=="CXP"){
+      if($valida=="CXP" && ($_COOKIE['user']=="RITA VELEZ" || $_COOKIE['user']=="ANGEL RIVERA") ){  // SI TIENE PERMISO DE CXP
         $resultado=$resultado."<tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td class='td_boton'><label id='".$id_odc."' class='btn btn_verde btn_success btn_factura'>".$Factura."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td>";
         if($identificador!="Pagado"){
           $resultado=$resultado."<td class='td_boton'><label id='".$id_odc."' class='btn btn_verde btn_success btn_cheque'>".$no_cheque."</label></td>";
@@ -142,7 +147,17 @@ if ($result = $mysqli->query($sql)) {
         else{
            $resultado=$resultado."<td>NA</td>";
         }
-        if($valida=="CXP"){  // SI TIENE PERMISO DE CXP
+      }
+      else{
+        $resultado=$resultado."<tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td class='td_boton'><label class='btn btn-success' disabled='disabled'>".$Factura."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td>";
+        if($identificador!="Pagado"){
+          $resultado=$resultado."<td class='td_boton'><label class='btn btn-success' disabled='disabled'>".$no_cheque."</label></td>";
+        }
+        else{
+           $resultado=$resultado."<td>NA</td>";
+        }
+      }
+        if($valida=="CXP" && ($_COOKIE['user']=="RITA VELEZ" || $_COOKIE['user']=="ANGEL RIVERA") ){  // SI TIENE PERMISO DE CXP
           if($pagado=="no"){
             $resultado=$resultado."<td><center><input type='checkbox' class='check_pagado fa fa-2x' value='".$id_odc."'></center></td>";
           }
@@ -159,7 +174,7 @@ if ($result = $mysqli->query($sql)) {
           }
         }
          
-        if($valida=="CXP"){
+        if($valida=="CXP" && ($_COOKIE['user']=="RITA VELEZ" || $_COOKIE['user']=="ANGEL RIVERA")){
           if($comprobado=="no"){
           $resultado=$resultado."<td><center><input type='checkbox' class='check_comp fa fa-2x' value='".$id_odc."' ></center></td>";
           }
@@ -187,7 +202,7 @@ else{
 }
 
 if($suma_solicitudes==0){
-$resultado=$resultado."<div class='row col-md-12'><i>No hay solicitudes relaizadas para este evento.</i></div><div class='row'></div><div class='clearfix row'></div>";
+$resultado=$resultado."<div class='row col-md-12'><i>No hay solicitudes realizadas para este evento.</i></div><div class='row'></div><div class='clearfix row'></div>";
 }
 
 include('tabla_facturacion_detalle_eventos.php');

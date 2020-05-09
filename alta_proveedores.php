@@ -10,6 +10,8 @@ $int=$_POST['int'];
 $colonia=$_POST['colonia'];
 $cp=$_POST['cp'];
 $tel=$_POST['tel'];
+$extension=$_POST['extension'];
+$celular=$_POST['celular'];
 $estado=$_POST['estado'];
 $municipio=$_POST['municipio'];
 $nombre_contacto=$_POST['nombre_contacto'];
@@ -23,6 +25,7 @@ $sucursal=$_POST['sucursal'];
 $tipo_persona=$_POST['tipo_persona'];
 $descripcion=$_POST['descripcion'];
 $uso_cfdi=$_POST['uso_cfdi'];
+$cobertura=$_POST['cobertura'];
 
 include("conexion.php");
 	
@@ -32,7 +35,7 @@ include("conexion.php");
 	}
 		$respuesta="nop";
 
-		$sql="INSERT INTO proveedores (Numero_cliente,	Razon_Social, Nombre_comercial, rfc, Descripcion, Calle, num_ext, num_int, colonia, cp, estado, municipio, telefono, metodo_pago, digitos, nombre_contacto, correo_contacto, Usuario_solicita, cuenta, clabe, banco, sucursal, Tipo_persona, uso_cfdi, Fecha_solicitud) VALUES ('0', '".strtoupper($cliente)."', '".$nombre_comercial."', '".$rfc."', '".$descripcion."', '".strtoupper($calle)."', '".$ext."', '".$int."', '".strtoupper($colonia)."', '".$cp."', '".$estado."', '".strtoupper($municipio)."', '".$tel."', '".$metodo."', '".$digitos."', '".strtoupper($nombre_contacto)."', '".$correo_contacto."', '".$usuario_solicita."', '".$cuenta."', '".$clabe."', '".$banco."', '".$sucursal."', '".$tipo_persona."', '".$uso_cfdi."', NOW())";
+		$sql="INSERT INTO proveedores (Numero_cliente,	Razon_Social, Nombre_comercial, rfc, Descripcion, Calle, num_ext, num_int, colonia, cp, estado, municipio, telefono, metodo_pago, digitos, nombre_contacto, correo_contacto, Usuario_solicita, cuenta, clabe, banco, sucursal, Tipo_persona, uso_cfdi, Fecha_solicitud, extension, celular, cobertura) VALUES ('0', '".strtoupper($cliente)."', '".$nombre_comercial."', '".$rfc."', '".$descripcion."', '".strtoupper($calle)."', '".$ext."', '".$int."', '".strtoupper($colonia)."', '".$cp."', '".$estado."', '".strtoupper($municipio)."', '".$tel."', '".$metodo."', '".$digitos."', '".strtoupper($nombre_contacto)."', '".$correo_contacto."', '".$usuario_solicita."', '".$cuenta."', '".$clabe."', '".$banco."', '".$sucursal."', '".$tipo_persona."', '".$uso_cfdi."', NOW(), '".$extension."', '".$celular."', '".$cobertura."')";
 		$result = $mysqli->query("SET NAMES 'utf8'");
 		if ($mysqli->query($sql)) {
 		    //$respuesta= "solicitud enviada";

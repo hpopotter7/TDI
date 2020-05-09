@@ -42,7 +42,7 @@ include("conexion.php");
                             $id_max=$row[0];
                         }
                         
-                        $sql="update clientes set Numero_cliente='C_".$id_max."' where id_cliente=".$id_max;
+                        $sql="update clientes set Numero_cliente='C-".$id_max."' where id_cliente=".$id_max;
                         $result = $mysqli->query($sql);
                         if (! $result){
                         echo $sql."La consulta SQL contiene errores.".mysql_error();

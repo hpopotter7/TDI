@@ -33,22 +33,23 @@ else{
 if ($result = $mysqli->query("SELECT * FROM eventos where id_evento=".$id)) {
 
     /* fetch object array */
-    while ($row = $result->fetch_row()) {
-        $return = Array('Numero_evento'=>$row[1], 
-                    	'Nombre_evento'=>$row[2], 
-                    	'Inicio_evento'=>$row[3], 
-                    	'Fin_evento'=>$row[4],
-                    	'Cliente'=>$row[5],
-                    	'Destino'=>$row[6],
-                    	'Sede'=>$row[7],
-                    	'Diseno'=>$row[8],
-                    	'Produccion'=>$row[9],
-                    	'Facturacion'=>$row[10],
-                    	'Solicita'=>$row[11],
-                    	'Tipo'=>$row[12],
-                    	'Comentarios'=>$row[13],
-                        'Ejecutivo'=>$row[17],
-                        'Digital'=>$row[18]
+    while ($row = $result->fetch_assoc()) {
+        $return = Array('Numero_evento'=>$row['Numero_evento'], 
+                    	'Nombre_evento'=>$row['Nombre_evento'], 
+                    	'Inicio_evento'=>$row['Inicio_evento'], 
+                    	'Fin_evento'=>$row['Fin_evento'],
+                    	'Cliente'=>$row['Cliente'],
+                    	'Destino'=>$row['Destino'],
+                    	'Sede'=>$row['Sede'],
+                    	'Diseno'=>$row['Disenio'],
+                    	'Produccion'=>$row['Produccion'],
+                    	'Facturacion'=>$row['Facturacion'],
+                    	'Solicita'=>$row['Solicita'],
+                    	'Tipo'=>$row['Tipo'],
+                    	'Comentarios'=>$row['Comentarios'],
+                        'Ejecutivo'=>$row['Ejecutivo'],
+                        'Digital'=>$row['Digital'],
+                        'Video'=>$row['Video']
         	);
     }
 

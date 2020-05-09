@@ -14,7 +14,7 @@ if($bandera=="false"){
     $sql="SELECT id_proveedor, Razon_Social, Numero_cliente, 1 FROM proveedores where Numero_cliente !='0' and estatus='activo' order by Razon_Social asc";
 }
 else{
-    if($usuario=="SANAYN MARTINEZ" || $usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
+    if($usuario=="MIGUEL POBLACION" || $usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
         $sql="SELECT id_proveedor, Razon_Social, Numero_cliente, Usuario_Solicita FROM proveedores where Numero_cliente ='0' and Estatus='activo' order by Razon_Social asc";
     }
     else{
@@ -53,7 +53,7 @@ if ($result = $mysqli->query($sql)) {
 else{
     echo $sql;
 }
-echo $resultado;
+echo $resultado."-".$sql;
 
 $mysqli->close();
 ?>

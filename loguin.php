@@ -15,7 +15,8 @@ if (mysqli_connect_errno()) {
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         if($pass=="tierraideas"){
-    		$res="Cambio de pass";
+            $res="Cambio de pass";
+            setcookie("nombre", $user);
         }
         else{
             $res=$row[0];
