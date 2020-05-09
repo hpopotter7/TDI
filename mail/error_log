@@ -1,2 +1,0 @@
-[26-Nov-2019 16:58:43 America/Mexico_City] PHP Notice:  Undefined index: proveedor in /home/admini27/public_html/mail/envio_mail.php on line 10
-[03-Dec-2019 17:57:26 America/Mexico_City] PHP Notice:  Undefined offset: 4 in /home/admini27/public_html/mail/envio_mail.php on line 124
