@@ -760,7 +760,7 @@ var parametros = {
                 $('#txt_nombre_usuario').val(response.nombre);
                 $('#txt_username').val(response.user);
                 $('#txt_email_usuario').val(response.email);
-                
+                $('#c_jefe_directo').val(response.jefe_directo);
                 $('#c_tarjeta_sodexo').val(response.sodexo);
                 if(response.eje=="X"){
                   $('#check_eje').prop('checked', true);
@@ -888,7 +888,7 @@ var parametros = {
                       generate('warning', "El usuario o contraseña no deben ir vacios");
                     }
                     else{
-                    log(user, pass);
+                   // log(user, pass);
                     }
                   generate('success', "El usuario se ha modificado correctamente.");
                 }
@@ -2927,7 +2927,7 @@ var parametros = {
             clabe  = "00000000000000000";
             banco  = "NA";
             descripcion="NA";
-            tipo_persona="NA";
+            //tipo_persona="NA";
             sucursal="NA";
             cobertura="NA";
             }

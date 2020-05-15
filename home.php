@@ -544,12 +544,22 @@ circle:nth-of-type(4) {
             </div>
         </div>
         <div class="row">
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-4">
               <label for="name" class="cols-sm-2 control-label">Username</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
                   <input id='txt_username' name='txt_username' type="text" class="form-control" placeholder="Username" required="" readonly="" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="name" class="cols-sm-2 control-label">Jefe Directo</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  <select name="c_jefe_directo" id="c_jefe_directo" class='form-control combo_usuarios' >
+                  </select>
                 </div>
               </div>
             </div>

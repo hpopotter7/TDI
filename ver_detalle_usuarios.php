@@ -35,12 +35,12 @@ if ($result = $mysqli->query($sql)) {
                     	'pro'=>$row[9],
                     	'dis'=>$row[10],
                         'dire'=>$row[11],
-
                         'cat_cli'=>$row[13],
                         'cat_prov'=>$row[14],
                         'cat_usu'=>$row[15],
                         'sodexo'=>$tarjeta,
                         'cat_fact'=>$row[17],
+                        'jefe_directo'=>$row[18],
                     	'error'=>'nada',
                     	'sql'=>''
                     );

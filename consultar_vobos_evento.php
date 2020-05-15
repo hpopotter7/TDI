@@ -23,9 +23,11 @@ else{
 
 $result = $mysqli->query("SET NAMES 'utf8'"); 
 
+//elaboro, solicito, ejecutivo, coordinador, compras, director, finanzas
+
 if ($result = $mysqli->query($sql)) {
      $resultado='<table class="table table-inverse" style="width:99%"><thead><tr><th>#</th><th>Evento</th><th>Elaborado</th>
-     <th>Solicita</th><th>Proveedor</th><th>Concepto</th><th>Importe</th><th>Solicita</th><th>Ejecutivo</th><th>Dirección</th><th>Compras</th><th>P.M.</th><th>Finanzas</th><th>Ver</th></tr></thead>';
+     <th>Solicita</th><th>Proveedor</th><th>Concepto</th><th>Importe</th><th>Solicita</th><th>Ejecutivo</th><th>Ejecutivo</th><th>Compras</th><th>P.M.</th><th>Finanzas</th><th>Ver</th></tr></thead>';
   	$contador=0;
     $disabled="";
     $tit="";

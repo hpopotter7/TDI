@@ -3,6 +3,7 @@
 	$nombre=$_POST['txt_nombre_usuario'];
 	$user=$_POST['txt_username'];
 	$pass=$_POST['txt_password'];
+	$jefe_directo=$_POST['c_jefe_directo'];
 	$c_tarjeta_sodexo=$_POST['c_tarjeta_sodexo'];
 
 	$sol=$_POST['Xsolicitante'];
@@ -25,7 +26,7 @@
 	    exit();
 	}
 		$result = $mysqli->query("SET NAMES 'utf8'");
-		$sql="update usuarios set Nombre='".$nombre."' , User='".$user."', Ejecutivo='".$eje."', Solicitante='".$sol."', CXP='".$cxp."', Digitalizacion='".$dig."', Productor='".$pro."', Disenio='".$dis."', Directivo='".$dire."', cat_clientes='".$XClientes."', cat_prov='".$XProveedores."', cat_usuarios='".$XUsuarios."', sodexo='".$c_tarjeta_sodexo."', cat_facturacion='".$XFacturacion."' where Nombre='".$nombre1."'";
+		$sql="update usuarios set Nombre='".$nombre."' , User='".$user."', Ejecutivo='".$eje."', Solicitante='".$sol."', CXP='".$cxp."', Digitalizacion='".$dig."', Productor='".$pro."', Disenio='".$dis."', Directivo='".$dire."', cat_clientes='".$XClientes."', cat_prov='".$XProveedores."', cat_usuarios='".$XUsuarios."', sodexo='".$c_tarjeta_sodexo."', cat_facturacion='".$XFacturacion."', Jefe_Directo='".$jefe_directo."' where Nombre='".$nombre1."'";
 		if ($mysqli->query($sql)) {
 
 			// 	$sql="update tarjetas set Usuario=0 where Usuario=(select id_usuarios from usuarios where Nombre='".$nombre."')";
