@@ -2554,7 +2554,7 @@ var parametros = {
 
                                           if(response.includes("registro odc correcto")){
                                             generate('success',"La solicitud se ha guardado correctamente");
-                                            //enviar_notificacion_solicitud(nombre_evento, titulo);
+                                            enviar_notificacion_solicitud("ev","texto","user","Notificacion de solicitud","vacio");
                                             window.open("solicitud_pago.php?id=0",'_blank');
                                             limpiar_odc();
                                           }
@@ -2583,28 +2583,21 @@ var parametros = {
               }
         }
 
-        function enviar_notificacion_llegando_limite(evento){
-          var usuario=$('#input_oculto').val();
+        function enviar_notificacion_solicitud(evento, texto, usuario, asunto, proveedor){
           var datos={
             "evento": evento,
-            "asunto": "Notificacion de limite",
+            "asunto": asunto,
             "usuario": usuario,
-            "texto": "texto",
-            "proveedor": "prov",
+            "texto": texto,
+            "proveedor": proveedor,
           };
-          console.log(datos);
           
           $.ajax({
                   url:   "mail/envio_mail.php",
                   type:  'post',
                   data: datos,
                   success:  function (response) {
-                    if(response.includes("Enviado")){
-                      console.log("Se ha enviado la notificación del limite");
-                    }
-                    else{
-                      generate("error", response);
-                    }
+                    console.log("envio notificacion ODC: "+response);
                   }
                 });
 
@@ -2659,30 +2652,7 @@ var parametros = {
 
        
 
-        function enviar_notificacion_solicitud(nombre_eventos, tipo_solicitud){
-          
-          var nombre_evento=$('#c_numero_evento').val();
-          //alert(nombre_evento);
-          var usuario=$('#input_oculto').val();
-          var datos={
-            "usuario": usuario,
-            "nombre_evento": nombre_evento,
-            "tipo_solicitud": tipo_solicitud,
-          }
-          $.ajax({
-              url:   "enviar_notificacion_solicitud.php",
-              type:  'post',
-              data: datos,
-              success:  function (response) {
-                if(response.includes("Enviado")){
-                  generate('success',"La notificación ha sido enviada");
-                }
-                else{
-                  generate('warning', "Ocurrio un error al enviar la notificación. Consulte la consola para mas detalles."); 
-                }
-              }
-            });
-        }
+        
         
 
         $('#limpiar_odc').click(function(){
@@ -3162,7 +3132,6 @@ var parametros = {
                   generate('warning', "El usuario actual no tiene privilegios para solicitar modificaciones a este evento<br>Contacte al Ejecutivo de cuenta"); 
                 }
                else{
-                console.log(response);
                 generate('error', "Ocurrio un error. Ver la consola para más detalles");
                 
                }
@@ -3669,7 +3638,7 @@ function validarInput() {
               else{
                 var evento=$('#c_mis_eventos').val();
                 registrar_factura_cliente(numero, importe, estatus, evento, $noty);
-                here
+                
               }
               }
             },
@@ -6238,6 +6207,14 @@ $("#menu_vobo").click(function (e) {
   limpiar_cortinas();
   $("#div_cortina").animate({top: '0px'}, 1100);
   $("#frame").attr("src", "vobo_solicitud.html");
+  $('#div_iframe').fadeIn();
+});
+
+$("#menu_buscar_odc").click(function (e) { 
+  e.preventDefault();
+  limpiar_cortinas();
+  $("#div_cortina").animate({top: '0px'}, 1100);
+  $("#frame").attr("src", "buscar_gasto.html");
   $('#div_iframe').fadeIn();
 });
 

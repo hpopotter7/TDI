@@ -1,10 +1,11 @@
 function inicio(){
 
+    ver_solicitudes_por_evento("0");
 
     function ver_solicitudes_por_evento(numero_evento){
         var datos={
           "numero_evento": numero_evento,
-          "usuario": $('#label_user').html(),
+          
         }
         $.ajax({
             url:   "consultar_vobos_evento.php",
@@ -19,8 +20,6 @@ function inicio(){
       }
     
 
-    
-
     $('#c_eventos_dos').change(function(){
         var numero_evento=$(this).val();
         ver_solicitudes_por_evento(numero_evento);
@@ -32,10 +31,90 @@ function inicio(){
         type:  'post',
         async:false,
         success:  function (response) {
-            
+          response="<option value='0'></option>"+response;
         $('#c_eventos_dos').html(response);
-        $('#c_eventos_dos').chosen(); 
+        $('#c_eventos_dos').chosen({allow_single_deselect: true,width: '100%'}); 
         },
     }); 
     
+    $('#resultado_solicitudes').delegate('.check_vobo_solicitudes' ,"click", function() {
+      
+      var arr=$(this).val().split("#");
+      var tipo=arr[0];
+      var id=arr[1];
+      if($(this).is(':checked')){
+        x="1";
+      }
+      else{
+       x="0";
+      }
+      vobo_solicitudes(id, x, tipo);
+    });
+
+    function vobo_solicitudes(id, x, tipo){
+      var datos={
+        "id": id,
+        "bandera": x,
+        "tipo":tipo
+      };
+      $.ajax({
+        url:   "vobo_solicitud.php",
+        type:  'post',
+        data: datos,
+        async:false,
+        success:  function (response) {
+          
+         if(response.includes("actualizado")){
+          generate('success', "El VoBo se ha actualizado");
+         }
+         else if(response.includes("completo")){
+           var arr=response.split("#");
+           var id=arr[1];
+           generate('success', "El VoBo se ha actualizado");
+           enviar_notificacion(id);
+         }
+         else{
+          generate('warning', "Ocurrio un error: "+response);
+         }
+        },
+    });
+    }
+
+    function generate(type, text) {
+          var n = noty({
+              text        : text,
+              type        : type,
+              dismissQueue: true,
+              layout      : 'topCenter',  //bottomLeft
+              
+              //closeWith   : ['button'],
+              //theme       : 'defau',
+              progressBar : true,
+              maxVisible  : 10,
+              timeout     : [3000],
+              
+          });
+          //console.log('html: ' + n.options.id);
+          return n;
+      }
+
+      function enviar_notificacion(id){
+        var datos={
+          "evento": id,
+          "texto": "El usuario ",
+          "usuario": "",
+          "asunto": "Notificacion de VoBo",
+          "proveedor": "vacio",
+        };
+        
+      $.ajax({
+              url:   "mail/envio_mail.php",
+              type:  'post',
+              data: datos,
+              success:  function (response) {
+                console.log(response);              
+              }
+            });
+
+        }
 }
