@@ -51,6 +51,8 @@
   <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="css/chosen.css"/>
 
+  <link href="css/style_file_upload.css" rel="stylesheet" />
+
   <script src="js/jquery-1.11.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
   <script src="js/moment.js"></script>
@@ -95,8 +97,18 @@
   <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   <script src="js/chosen.jquery.js" ></script>
   <script src="js/Chart.js"></script>
+
   
-  <script src="js/metodos_v2_0021.js"></script>
+  
+  <script src="js/metodos_v2_0022.js"></script>
+  
+  <script src="js/jquery.knob.js"></script>
+
+		<!-- jQuery File Upload Dependencies -->
+		<script src="js/jquery.ui.widget.js"></script>
+		<script src="js/jquery.iframe-transport.js"></script>
+		<script src="js/jquery.fileupload.js"></script>
+		
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -1102,7 +1114,16 @@ circle:nth-of-type(4) {
                <div class="col-md-6" style="border-right: 1px dashed black; min-height: 75px">
                 <h3 id='test'>Requeridos</h3>
                 <div class='row'>
+                <form id="upload" method="post" action="upload_demo.php" enctype="multipart/form-data">
+                  <div id="drop">
+                    Arrastra aqui
+                    <a>Explorar</a>
+                    <input type="file" name="upl" multiple />
+                  </div>
                   
+                    <!-- The file uploads<ul>/ul> will be shown here -->
+                  <
+                </form>
                   <button id='span_file_csf' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Constancia de Situacion Fiscal</label><input id='file_csf' class='btn_archivos' name='file_csf' type="file" style='cursor: not-allowed' disabled >
