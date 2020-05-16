@@ -1791,6 +1791,11 @@ var parametros = {
           desactivar_btn_file($('#span_file_edo'), $('#file_edo'));
           desactivar_btn_file($('#span_file_comp'), $('#file_comp'));
           desactivar_btn_file($('#span_file_acta'), $('#file_acta'));
+          $('#file_csf').val(''); 
+          $('#file_ine').val(''); 
+          $('#file_edo').val(''); 
+          $('#file_comp').val(''); 
+          $('#file_acta').val(''); 
           csf=false;
           ine=false;
           edo=false;
