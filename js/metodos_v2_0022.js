@@ -6227,7 +6227,7 @@ $("#menu_cerrar_evento").click(function (e) {
 });
 
 $(".btn_archivos").change(function(){
-  if($("#ul_archivos").html()!=""){
+  if($('#c_clientes_alta').val()!="vacio"){
     var id=$(this).attr("id");
     var nombre=$('#txt_nombre_cliente').val();
     switch(id){
@@ -6247,7 +6247,6 @@ $(".btn_archivos").change(function(){
         guardar_archivos_proveedores_acta(nombre.trim());
       break;
     }
-    var carpeta=$('#txt_nombre_cliente').val();
     limpiar_cliente();
     ver_archivos('ca');
     generate("success","Archivo subido correctamente");
