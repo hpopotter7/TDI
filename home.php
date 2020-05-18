@@ -359,6 +359,7 @@ circle:nth-of-type(4) {
               <li><a id='menu_solicitud_reembolso' href="#"><i class="fas fa-registered" aria-hidden="true"></i> Reembolso</a></li>
               <li><a id='menu_vobo' href="#"><i class="fas fa-thumbs-up" aria-hidden="true"></i> VoBo</a></li>
               <li><a id='menu_ver_formatos' href="#"><i class="fas fa-list-ul" aria-hidden="true"></i> Ver solicitudes</a></li>
+              <li><a id='menu_buscar_odc' href="#"><i class="fas fa-search" aria-hidden="true"></i> Buscar odc</a></li>
             </ul>
           </div>
         </li>
@@ -1683,7 +1684,10 @@ circle:nth-of-type(4) {
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <input type="text" id="txt_vobo_compras" class="form-control">
+                  <select name="txt_vobo_compras" id="txt_vobo_compras" class='form-control'>
+                    <option value="na">NA</option>
+                    <option value="MIGUEL POBLACION">MIGUEL POBLACION</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -1692,7 +1696,15 @@ circle:nth-of-type(4) {
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <input type="text" id="txt_coordinador" class="form-control">
+                  <select id='txt_coordinador' class='form-control'>
+                  <option value="ANUAR AMADO">ANUAR AMADO</option>
+                  <option value="MIGUEL POBLACION">MIGUEL POBLACIÓN</option>
+                  <option value="OMAR SUCILLA">OMAR SUCILLA</option>
+                  <option value="FERNANDA CARRERA">FERNANDA CARRERA</option>
+                  <option value="ANDRES EMANUELLI">ANDRES EMANUELLI</option>
+                  <option value="ERICKA MINERA">ERICKA MINERA</option>
+                  <option value="JUAN CARLOS GARCIA">JUAN CARLOS GARCIA</option>
+                  </select>
                 </div>
               </div>
             </div>
