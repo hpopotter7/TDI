@@ -2554,7 +2554,7 @@ var parametros = {
 
                                           if(response.includes("registro odc correcto")){
                                             generate('success',"La solicitud se ha guardado correctamente");
-                                            enviar_notificacion_solicitud("ev","texto","user","Notificacion de solicitud","vacio");
+                                            enviar_notificacion_solicitud("ev","texto","user","VoBo para solicitud de compra","vacio");
                                             window.open("solicitud_pago.php?id=0",'_blank');
                                             limpiar_odc();
                                           }
@@ -2649,10 +2649,7 @@ var parametros = {
             });
            //return suma;
         }
-
        
-
-        
         
 
         $('#limpiar_odc').click(function(){

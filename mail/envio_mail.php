@@ -153,72 +153,118 @@ switch($asunto){
 		</html>
 		';
 	break;
-	case "Notificacion de VoBo":
+	case "VoBo para solicitud de compra":
 			include("../conexion.php");
 			if (mysqli_connect_error()) {
 				echo "Error de conexion: %s\n", mysqli_connect_error();
 				exit();
 			}
 			$result = $mysqli->query("SET NAMES 'utf8'");
-			$sql="select e.Nombre_evento, o.solicito from eventos e join odc o where e.Numero_evento=o.evento and o.id_odc='".$evento."'";
-			$usuario="";
-			$evt="";
-			if ($result = $mysqli->query($sql)) {
-				while ($row = $result->fetch_row()) {
-					$evt=$row[0];
-					$usuario=$row[1];
-				}
-				$result->close();
+			$sql="";
+			if($evento==""){
+				$sql="select evento, vobo_solicito, vobo_project, vobo_coordinador, vobo_compras, vobo_direccion, vobo_finanzas, solicito, project, coordinador, compras, autorizo, finanzas, a_nombre, concepto, Importe_total from odc where id_odc=(SELECT max(id_odc) from odc)";
 			}
 			else{
-				$evt= $sql."<br>".mysqli_error($mysqli);
+				$sql="select evento, vobo_solicito, vobo_project, vobo_coordinador, vobo_compras, vobo_direccion, vobo_finanzas, solicito, project, coordinador, compras, autorizo, finanzas, a_nombre, concepto, Importe_total from odc where id_odc=".$evento;
 			}
-			$sql="select email from usuarios where Nombre='".$usuario."'";
-			$usuario="";
-			if ($result = $mysqli->query($sql)) {
-				while ($row = $result->fetch_row()) {
-					$to=$row[0].";sandrap@tierradeideas.mx;rvelez@tierradeideas.mx";
-				}
-				$result->close();
-			}
-			else{
-				$evt= $sql."<br>".mysqli_error($mysqli);
-			}
-			$sql="select a_nombre, concepto, Importe_total from odc arios where id_odc='".$evento."'";
-			$resumen="<table border='1'><thead><tr><th>A nombre de</th><th>concepto</th><th>Importe</th></tr></thead><tr>";
 			
 			if ($result = $mysqli->query($sql)) {
 				while ($row = $result->fetch_row()) {
-						$resumen=$resumen."<td>".$row[0]."</td>";
-						$resumen=$resumen."<td>".$row[1]."</td>";
-						$resumen=$resumen."<td>".'$'.number_format($row[2], 2)."</td>";
+					$evento=$row[0];
+					$vobo_solicito=$row[1];
+					$vobo_project=$row[2];
+					$vobo_coordinador=$row[3];
+					$vobo_compras=$row[4];
+					$vobo_direccion=$row[5];
+					$vobo_finanzas=$row[6];
+					$solicito=$row[7];
+					$project=$row[8];
+					$cordinador=$row[9];
+					$compras=$row[10];
+					$autorizo=$row[11];
+					$finanzas=$row[12];
+					$a_nombre=$row[13];
+					$concepto=$row[14];
+					$importe=$row[15];
+					$bandera="";
+					//orden solicito, ejecutivo, coordinador, compras, direccion, finanzas
+					if($vobo_solicito=="0"){
+						$bandera=$solicito;
+					}
+					else if($vobo_project=="0"){
+						$bandera=$project;
+					}
+					else if($vobo_coordinador=="0"){
+						$bandera=$cordinador;
+					}
+					else if($vobo_compras=="0"){
+						$bandera=$compras;
+					}
+					else if($vobo_direccion=="0"){
+						$bandera=$autorizo;
+					}	
+					else if($vobo_finanzas=="0"){
+						$bandera=$finanzas;
+					}
+					else{
+						$bandera="";
+					}
 				}
 				$result->close();
 			}
 			else{
-				$evt= $sql."<br>".mysqli_error($mysqli);
+				$evento= "<br>".mysqli_error($mysqli);
 			}
-			$resumen=$resumen."</tr></table>";
-		//$to = 'sandrap@tierradeideas.mx';
+			$sql="select email from usuarios where Nombre='".$bandera."'";
+			$usuario="";
+			if ($result = $mysqli->query($sql)) {
+				while ($row = $result->fetch_row()) {
+					$to=$row[0].";sandrap@tierradeideas.mx;";
+				}
+				$result->close();
+			}
+			else{
+				$evento= "<br>".mysqli_error($mysqli);
+			}
+			$sql="select Nombre_evento from eventos where Numero_evento='".$evento."'";
+			$nombre_evento="";
+			if ($result = $mysqli->query($sql)) {
+				while ($row = $result->fetch_row()) {
+					$nombre_evento=$row[0];
+				}
+				$result->close();
+			}
+			else{
+				$evento= "<br>".mysqli_error($mysqli);
+			}
+			
+			$resumen="<div class='col-md-10'><table class='table' border='1'><thead  style='background-color: rgb(49, 177, 60);'><tr><th>Proveedor</th><th>Concepto</th><th>Importe</th></tr></thead><tr>";
+			$resumen=$resumen."<td>".$a_nombre."</td>";
+			$resumen=$resumen."<td>".$concepto."</td>";
+			$resumen=$resumen."<td>".'$'.number_format($importe, 2)."</td>";			
+			$resumen=$resumen."</tr></table></div>";
+			$tipo_letra="'Baloo Chettan 2'";
 		$body='<html>
 		<head>
 			<title></title>
+			<meta charset="utf-8">
 			<link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+			<link href="https://fonts.googleapis.com/css2?family=Baloo+Chettan+2&display=swap" rel="stylesheet">
 		</head>
-		<body aria-readonly="false">&nbsp;&nbsp;<img alt="" src="https://administraciontierradeideas.mx/img/logo_chico.png" style="float:left" /><br />
-		&nbsp;<br />
-		&nbsp;<br />
-		&nbsp;<p><br>
-		<hr /><p><br />La siguiente solicitud del evento <b>'.$evento.' - '.$evt.'</b> ha sido autorizada:<br>
+		<body aria-readonly="false" style="font-family: '.$tipo_letra.', cursive;">&nbsp;&nbsp;<img alt="" src="https://administraciontierradeideas.mx/img/logo_chico.png" style="float:left" /><br />
+		&nbsp;<p>
+		<hr /><p><br />La siguiente solicitud del evento <b>['.$evento."] - ".$nombre_evento.'</b> esta pendiente de ser autorizada:<br>
 		&nbsp;<br />'.$resumen.'
 		&nbsp;<br />
+		<i><strong>NOTA: Sin tu VoBo no se podrá autorizar las siguientes etapas</strong></i><p>
 		<span style="font-size:10px"><span style="font-family:verdana,geneva,sans-serif"><em>&nbsp;Este es un mensaje autom&aacute;tico creado por el sistema ERP.&nbsp; Favor de no responder.</em></span></span><br />
 		&nbsp;</body>
 		</html>
 		';
 		
 	break;
-	case "Notificacion de solicitud":
+	/* case "Notificacion de solicitud":
 			include("../conexion.php");
 			if (mysqli_connect_error()) {
 				echo "Error de conexion: %s\n", mysqli_connect_error();
@@ -277,7 +323,7 @@ switch($asunto){
 			&nbsp;</body>
 			</html>
 			';
-	break;
+	break; */
 
 }
 
@@ -287,7 +333,8 @@ if (mysqli_connect_error()) {
 	exit();
 }
 $result = $mysqli->query("SET NAMES 'utf8'");
-$sql="INSERT INTO notificaciones (Asunto, Notificacion,	Fecha_hora,	Quien_hizo,	Visto,Para_quien) values('".$asunto."', '".$body."', NOW(), '".$usuario."', '0', '".$to."')";
+$body_escape = $mysqli->real_escape_string($body);
+$sql="INSERT INTO notificaciones (Asunto, Notificacion,	Fecha_hora,	Quien_hizo,	Visto,Para_quien) values('".$asunto."', '".$body_escape."', NOW(), '".$usuario."', '0', '".$to."')";
 if ($mysqli->query($sql)) {
 	$respuesta= "Registro guardado";
 }

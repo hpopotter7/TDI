@@ -25,10 +25,14 @@ function inicio(){
         ver_solicitudes_por_evento(numero_evento);
         
     });
+    var datos={
+      "anio":"0",
+    };
 
     $.ajax({
         url:   "consultar_eventos_anio.php",
         type:  'post',
+        data: datos,
         async:false,
         success:  function (response) {
           response="<option value='0'></option>"+response;
@@ -98,12 +102,12 @@ function inicio(){
           return n;
       }
 
-      function enviar_notificacion(id){
+      function enviar_notificacion(evento){
         var datos={
-          "evento": id,
-          "texto": "El usuario ",
-          "usuario": "",
-          "asunto": "Notificacion de VoBo",
+          "evento": evento,
+          "texto": "texto ",
+          "usuario": "user",
+          "asunto": "VoBo para solicitud de compra",
           "proveedor": "vacio",
         };
         
