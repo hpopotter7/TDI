@@ -56,20 +56,33 @@
     <div class="row">
         <div class="container">
             
-            <h2>VoBo para solicitudes</h2>
+            <h2>Busqueda de solicitudes</h2>
             <form id='form_buscar' method="POST" action="buscar_gasto.php">
             <div class="col-md-6">
-            <label class="cols-sm-2 control-label">Concepto</label>
+            <label class="cols-sm-2 control-label">Campo a buscar</label>
             <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" name="txt_concepto" id="txt_concepto" class="form-control">
+                <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                
+                <select id="c_campo" name='c_campo' class="form-control">
+                    <option value="vacio">Selecciona un campo...</option>
+                    <option value="evento">Numero de evento</option>
+                    <option value="fecha_solicitud">Fecha de solicitud</option>
+                    <option value="a_nombre">Proveedor</option>
+                    <option value="concepto">Concepto</option>
+                    <option value="servicio">Servicio</option>
+                    <option value="otros">Otros</option>
+                    <option value="Factura">Factura</option>
+                    <option value="solicito">Solicita</option>
+                    <option value="Importe_total">Importe total</option>
+                    </select>
+                <!--<input type="text" name="txt_campo" id="txt_campo" class="form-control">-->
             </div>
             </div>
             <div class="col-md-6">
-            <label class="cols-sm-2 control-label">Importe</label>
+            <label class="cols-sm-2 control-label">Valor a buscar</label>
             <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" name="txt_importe" id="txt_importe" class="form-control">
+                <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                <input type="text" name="txt_valor" id="txt_valor" class="form-control">
             </div>
             </div>
             <p><br></p>

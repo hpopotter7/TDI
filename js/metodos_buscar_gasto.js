@@ -1,6 +1,14 @@
 function inicio(){    
  var t;
-
+/*
+ $.ajax({
+    url:   'buscar_campo.php',
+    type:  'post',
+    success:  function (response) {
+            $('#c_campo').html(response);   
+    }
+  });
+*/
  $('#tabla').hide();
     $('#form_buscar').submit(function(e){
         e.preventDefault();
