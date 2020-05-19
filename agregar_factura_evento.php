@@ -34,9 +34,9 @@ $sql="SELECT id_evento from eventos where Numero_evento='".$evento."'";
 			else{
 				$respuesta= mysqli_error($mysqli);
             }
-            
+           $pu=$importe/1.16;
             if($respuesta=="factura agregada"){
-                $sql="insert into partidas(descripcion, pu, iva, total, id_sol_factura) values('Carga inicial', '".$importe."', '".($importe*.16)."', '".($importe+($importe*.16))."', (Select max(id_solicitud) from solicitud_factura))";
+                $sql="insert into partidas(descripcion, pu, iva, total, id_sol_factura) values('Carga inicial', '".$pu."', '".($pu*.16)."', '".$importe."', (Select max(id_solicitud) from solicitud_factura))";
                 
                 if ($mysqli->query($sql)) {
                     $respuesta= "factura agregada";
