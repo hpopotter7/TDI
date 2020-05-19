@@ -15,10 +15,10 @@ if (mysqli_connect_errno()) {
 
 $sql="";
 if($numero_evento!="0"){
-  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, o.solicito, o.vobo_finanzas, o.vobo_compras, o.vobo_direccion, o.vobo_project, o.vobo_coordinador, o.usuario_registra, o.finanzas, o.autorizo, o.compras, o.coordinador, o.project, o.usuario_registra, o.vobo_solicito, o.evento FROM odc o where  o.Cancelada='no' and (o.evento like '2019-%' or o.evento like '2020-%') and o.evento='".$numero_evento."' order by o.evento asc, o.id_odc desc";
+  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, o.solicito, o.vobo_finanzas, o.vobo_compras, o.vobo_direccion, o.vobo_project, o.vobo_coordinador, o.usuario_registra, o.finanzas, o.autorizo, o.compras, o.coordinador, o.project, o.usuario_registra, o.vobo_solicito, o.evento FROM odc o where  o.Cancelada='no' and (o.evento like '2019-%' or o.evento like '2020-%') and o.evento='".$numero_evento."' and Fecha_hora_registro>='2020-03-14' order by o.evento asc, o.id_odc desc";
 }
 else{
-  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, o.solicito, o.vobo_finanzas, o.vobo_compras, o.vobo_direccion, o.vobo_project, o.vobo_coordinador, o.usuario_registra, o.finanzas, o.autorizo, o.compras, o.coordinador, o.project, o.usuario_registra, o.vobo_solicito, o.evento FROM odc o where  o.Cancelada='no' and (o.evento like '2019-%' or o.evento like '2020-%') and (usuario_registra='".$usuario."' or solicito='".$usuario."' or finanzas='".$usuario."' or autorizo='".$usuario."' or compras='".$usuario."' or project='".$usuario."' or coordinador='".$usuario."') order by o.evento asc, o.id_odc desc";
+  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, o.solicito, o.vobo_finanzas, o.vobo_compras, o.vobo_direccion, o.vobo_project, o.vobo_coordinador, o.usuario_registra, o.finanzas, o.autorizo, o.compras, o.coordinador, o.project, o.usuario_registra, o.vobo_solicito, o.evento FROM odc o where  o.Cancelada='no' and (o.evento like '2019-%' or o.evento like '2020-%') and (usuario_registra='".$usuario."' or solicito='".$usuario."' or finanzas='".$usuario."' or autorizo='".$usuario."' or compras='".$usuario."' or project='".$usuario."' or coordinador='".$usuario."') and Fecha_hora_registro>='2020-03-14' order by o.evento asc, o.id_odc desc";
 }
 
 $result = $mysqli->query("SET NAMES 'utf8'"); 
@@ -81,39 +81,40 @@ if ($result = $mysqli->query($sql)) {
         }
       }
 
-      if($vobo_finanzas=="1"){
-        if($finanzas==$usuario){
-          $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
+      if($vobo_project=="1"){
+        if($project==$usuario){
+          $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_project#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
         }
         else{
-          $check_finanzas="<center><i class='fa fa-check-square-o'></center>";
+          $check_ejecutivo="<center><i class='fa fa-check-square-o'></center>";
         } 
       }
       else{
-        if($finanzas==$usuario){
-          $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."'></center>";
+        if($project==$usuario){
+          $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_project#".$id_odc."'></center>";
         }
         else{
-          $check_finanzas="<center><i class='fa fa-square-o'></center>";
+          $check_ejecutivo="<center><i class='fa fa-square-o'></center>";
+        }
+      }
+      if($vobo_coordinador=="1"){
+        if($coordinador==$usuario){
+          $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_coordinador#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
+        }
+        else{
+          $check_coordinador="<center><i class='fa fa-check-square-o'></center>";
+        } 
+      }
+      else{
+        if($coordinador==$usuario){
+          $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_coordinador#".$id_odc."'></center>";
+        }
+        else{
+          $check_coordinador="<center><i class='fa fa-square-o'></center>";
         }
       }
 
-      if($vobo_direccion=="1"){
-        if($director==$usuario){
-          $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
-        }
-        else{
-          $check_director="<center><i class='fa fa-check-square-o'></center>";
-        } 
-      }
-      else{
-        if($director==$usuario){
-          $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_direccion#".$id_odc."'></center>";
-        }
-        else{
-          $check_director="<center><i class='fa fa-square-o'></center>";
-        }
-      }
+      
 
       if($vobo_compras=="1"){
         if($compras==$usuario){
@@ -131,38 +132,40 @@ if ($result = $mysqli->query($sql)) {
           $check_compras="<center><i class='fa fa-square-o'></center>";
         }
       }
+      if($vobo_direccion=="1"){
+        if($director==$usuario){
+          $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
+        }
+        else{
+          $check_director="<center><i class='fa fa-check-square-o'></center>";
+        } 
+      }
+      else{
+        if($director==$usuario){
+          $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_direccion#".$id_odc."'></center>";
+        }
+        else{
+          $check_director="<center><i class='fa fa-square-o'></center>";
+        }
+      }
 
-      if($vobo_project=="1"){
-        if($project==$usuario){
-          $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_project#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
-        }
-        else{
-          $check_ejecutivo="<center><i class='fa fa-check-square-o'></center>";
-        } 
-      }
-      else{
-        if($project==$usuario){
-          $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_project#".$id_odc."'></center>";
-        }
-        else{
-          $check_ejecutivo="<center><i class='fa fa-square-o'></center>";
-        }
-      }
       
-      if($vobo_coordinador=="1"){
-        if($coordinador==$usuario){
-          $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_coordinador#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
+      
+      
+      if($vobo_finanzas=="1"){
+        if($finanzas==$usuario){
+          $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
         }
         else{
-          $check_coordinador="<center><i class='fa fa-check-square-o'></center>";
+          $check_finanzas="<center><i class='fa fa-check-square-o'></center>";
         } 
       }
       else{
-        if($coordinador==$usuario){
-          $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_coordinador#".$id_odc."'></center>";
+        if($finanzas==$usuario){
+          $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."'></center>";
         }
         else{
-          $check_coordinador="<center><i class='fa fa-square-o'></center>";
+          $check_finanzas="<center><i class='fa fa-square-o'></center>";
         }
       }
         $resultado=$resultado.$linea;

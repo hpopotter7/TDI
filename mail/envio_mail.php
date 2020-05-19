@@ -333,8 +333,11 @@ if (mysqli_connect_error()) {
 	exit();
 }
 $result = $mysqli->query("SET NAMES 'utf8'");
-$body_escape = $mysqli->real_escape_string($body);
-$sql="INSERT INTO notificaciones (Asunto, Notificacion,	Fecha_hora,	Quien_hizo,	Visto,Para_quien) values('".$asunto."', '".$body_escape."', NOW(), '".$usuario."', '0', '".$to."')";
+$link='<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">';
+
+//$body_mysql = str_replace($link,"", $body);
+//$body_mysql = $mysqli->real_escape_string($body_mysql);
+$sql="INSERT INTO notificaciones (Asunto, Notificacion,	Fecha_hora,	Quien_hizo,	Visto,Para_quien) values('".$asunto."', '".$body."', NOW(), '".$usuario."', '0', '".$to."')";
 if ($mysqli->query($sql)) {
 	$respuesta= "Registro guardado";
 }

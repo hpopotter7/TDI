@@ -1469,7 +1469,7 @@ circle:nth-of-type(4) {
             </div>
             <div class="form-group col-md-2 ">
             
-            <h2><span class="bubble" title="Monto máximo para solicitar"><label id='label_maximo_odc' class='label label-success abajo' tittle='Monto ma'></label></h2>
+            <h2><span class="bubble" title="Monto máximo para solicitar"><label id='label_maximo_odc' class='label label-success abajo' title='Monto máximo para solicitar'></label></h2>
             </div>
             <div class="form-group col-md-1">
               <div class="checkbox">
@@ -1686,9 +1686,41 @@ circle:nth-of-type(4) {
               </div>
             </div>
           </div>
+
           <div class="row">
+            <div class="form-group col-md-4">
+              <label for="username" class="cols-sm-2 control-label">Solicitante</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  <select  id="c_user_solicita" name="c_user_solicita" class="form-control" ></select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="username" class="cols-sm-2 control-label">Ejecutivo de cuenta</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  <input type="text" id="txt_project" class="form-control disabled" disabled='disabled' >
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="username" class="cols-sm-2 control-label">Directivo/Coordinador</label>
+               <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  <input type="text" id="txt_coordinador" class="form-control disabled" disabled='disabled' >
+                </div>
+              </div> 
+            </div>
             
-            
+          </div>
+
+          
+          
+          <div class="row">
             <div class="form-group col-md-4">
               <label for="username" class="cols-sm-2 control-label">Vo.Bo. Compras/RH</label>
               <div class="cols-sm-10">
@@ -1697,38 +1729,47 @@ circle:nth-of-type(4) {
                   <select name="txt_vobo_compras" id="txt_vobo_compras" class='form-control'>
                     <option value="na">NA</option>
                     <option value="MIGUEL POBLACION">MIGUEL POBLACION</option>
+                    <option value="ALEJANDRA PADILLA">ALEJANDRA PADILLA</option>
                   </select>
                 </div>
               </div>
             </div>
             <div class="form-group col-md-4">
-              <label for="username" class="cols-sm-2 control-label">Directivo/Coordinador</label>
+              <label for="username" class="cols-sm-2 control-label">Dirección</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <select id='txt_coordinador' class='form-control'>
-                  <option value="ANUAR AMADO">ANUAR AMADO</option>
-                  <option value="MIGUEL POBLACION">MIGUEL POBLACIÓN</option>
-                  <option value="OMAR SUCILLA">OMAR SUCILLA</option>
-                  <option value="FERNANDA CARRERA">FERNANDA CARRERA</option>
-                  <option value="ANDRES EMANUELLI">ANDRES EMANUELLI</option>
-                  <option value="ERICKA MINERA">ERICKA MINERA</option>
-                  <option value="JUAN CARLOS GARCIA">JUAN CARLOS GARCIA</option>
-                  </select>
+                  <select  id="c_autorizo" name="c_autorizo" class="form-control" ><?php 
+                    include("conexion.php");
+                    if (mysqli_connect_errno()) {
+                        printf("Error de conexion: %s\n", mysqli_connect_error());
+                        exit();
+                    }
+                    $result = $mysqli->query("SET NAMES 'utf8'");
+                    $sql="SELECT Nombre FROM usuarios where Directivo='X' order by Nombre";
+                    if ($result = $mysqli->query($sql)) {
+                        $res='<option value="vacio">Directivo...</option>';
+                        while ($row = $result->fetch_row()) {
+                            $res=$res."<option value='".$row[0]."'>".$row[0]."</option>";
+                        }
+                        $result->close();
+                    }
+                    echo $res;
+                  ?></select>
                 </div>
               </div>
             </div>
             <div class="form-group col-md-4">
-              <label for="username" class="cols-sm-2 control-label">Project Manager</label>
-              <div class="cols-sm-10">
+              <label for="username" class="cols-sm-2 control-label">Finanzas</label>
+               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <input type="text" id="txt_project" class="form-control">
+                  <select  id="c_finanzas" name="c_finanzas" class="form-control disabled" disabled="disabled" ><option value="RITA VELEZ">RITA VELEZ </option></select>
                 </div>
-              </div>
+              </div> 
             </div>
-          
-          </div>          
+          </div>  
+
           <div class="row">             
             <div class="margen row col-md-offset-2 col-md-4">
               <button type="button" id="enviar_odc" class="btn_verde btn btn-lg btn-primary pull-right"><i class="fa fa-envelope-o " aria-hidden="true"></i> Enviar solicitud</button>
@@ -1738,7 +1779,7 @@ circle:nth-of-type(4) {
             </div>
           </div>
           <div class="row"> 
-            <label for="">_</label>
+            
           </div>
         </form> 
             
@@ -2058,23 +2099,7 @@ circle:nth-of-type(4) {
 
  
  <div id='d-none' class="d-none hidden">
-    <div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_user_solicita" name="c_user_solicita" class="form-control" ></select></div></div><hr><div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_finanzas" name="c_finanzas" class="form-control" ><option value="vacio">Finanzas...</option><option value="FERNANDA CARRERA">FERNANDA CARRERA</option><option value="RITA VELEZ">RITA VELEZ </option></select></div></div><hr><div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_autorizo" name="c_autorizo" class="form-control" ><?php 
-      include("conexion.php");
-      if (mysqli_connect_errno()) {
-          printf("Error de conexion: %s\n", mysqli_connect_error());
-          exit();
-      }
-      $result = $mysqli->query("SET NAMES 'utf8'");
-      $sql="SELECT Nombre FROM usuarios where Directivo='X' order by Nombre";
-      if ($result = $mysqli->query($sql)) {
-          $res='<option value="vacio">Directivo...</option>';
-          while ($row = $result->fetch_row()) {
-              $res=$res."<option value='".$row[0]."'>".$row[0]."</option>";
-          }
-          $result->close();
-      }
-      echo $res;
-     ?></select></div></div>
+   
   </div>
 
   <!-- DIV OCULTO EVENTOS TRANSFERIR 

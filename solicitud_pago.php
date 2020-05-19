@@ -144,7 +144,7 @@ if ($result = $mysqli->query($sql)) {
             $firma_finanzas="sin";
         }
         if($firma_compras==1){
-            $firma_compras=str_replace(" ", "", $$firma_compras==1);
+            $firma_compras=str_replace(" ", "", $compras==1);
             $contador_firmas++;
         }
         else if($firma_compras==0 && $compras=="NA"){
@@ -549,7 +549,7 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     }
     
     $pdf->MultiCell(42,5,utf8_decode($arr5[0])."\n".utf8_decode($vacio),'B','C',true);
-    if($firma_compras!="NA"){
+    if($compras!="NA"){
         $pdf->Image('firmas/'.$firma_compras.'.png' , $startx ,$starty-5, 30 , 20,'png');
     }
     $startx=$startx+47.5;
