@@ -5,7 +5,6 @@ function inicio(){
     function ver_solicitudes_por_evento(numero_evento){
         var datos={
           "numero_evento": numero_evento,
-          
         }
         $.ajax({
             url:   "consultar_vobos_evento.php",
@@ -14,7 +13,6 @@ function inicio(){
             success:  function (response) {
               var arr=response.split("$$$");
               $('#resultado_solicitudes').html(arr[0]);
-             
             }
           });
       }
@@ -28,7 +26,6 @@ function inicio(){
     var datos={
       "anio":"0",
     };
-
     $.ajax({
         url:   "consultar_eventos_anio.php",
         type:  'post',
@@ -42,7 +39,7 @@ function inicio(){
     }); 
     
     $('#resultado_solicitudes').delegate('.check_vobo_solicitudes' ,"click", function() {
-      
+      var envio="";
       var arr=$(this).val().split("#");
       var tipo=arr[0];
       var id=arr[1];
@@ -52,7 +49,7 @@ function inicio(){
       else{
        x="0";
       }
-      vobo_solicitudes(id, x, tipo);
+      vobo_solicitudes(id, x, tipo,);
     });
 
     function vobo_solicitudes(id, x, tipo){
@@ -67,15 +64,15 @@ function inicio(){
         data: datos,
         async:false,
         success:  function (response) {
-          
-         if(response.includes("actualizado")){
-          generate('success', "El VoBo se ha actualizado");
-         }
-         else if(response.includes("completo")){
+        
+         if(response.includes("completo")){
+          ver_solicitudes_por_evento($('#c_eventos_dos').val());
            var arr=response.split("#");
-           var id=arr[1];
+           //var id=arr[1];
            generate('success', "El VoBo se ha actualizado");
-           enviar_notificacion(id);
+           if(!tipo.includes("finanzas")){
+            enviar_notificacion($('#c_eventos_dos').val());
+           }
          }
          else{
           generate('warning', "Ocurrio un error: "+response);

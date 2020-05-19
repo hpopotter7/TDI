@@ -81,6 +81,8 @@ if ($result = $mysqli->query($sql)) {
         }
       }
 
+      //solicito
+
       if($vobo_project=="1"){
         if($project==$usuario){
           $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_project#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
@@ -91,12 +93,21 @@ if ($result = $mysqli->query($sql)) {
       }
       else{
         if($project==$usuario){
-          $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_project#".$id_odc."'></center>";
+          if($vobo_solicito=="1"){
+            $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_project#".$id_odc."'></center>";
+          }
+          else{
+            $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_project#".$id_odc."' disabled='disabled' style='cursor:not-allowed'></center>";
+          }
         }
         else{
           $check_ejecutivo="<center><i class='fa fa-square-o'></center>";
         }
       }
+
+      //ejecutivo
+
+
       if($vobo_coordinador=="1"){
         if($coordinador==$usuario){
           $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_coordinador#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
@@ -107,14 +118,19 @@ if ($result = $mysqli->query($sql)) {
       }
       else{
         if($coordinador==$usuario){
-          $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_coordinador#".$id_odc."'></center>";
+          if($vobo_project=="1"){
+           $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_coordinador#".$id_odc."'></center>";
+          }
+          else{
+            $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_coordinador#".$id_odc."' disabled='disabled' style='cursor:not-allowed'></center>";
+          }
         }
         else{
           $check_coordinador="<center><i class='fa fa-square-o'></center>";
         }
       }
 
-      
+      //COORDINADOR
 
       if($vobo_compras=="1"){
         if($compras==$usuario){
@@ -126,13 +142,24 @@ if ($result = $mysqli->query($sql)) {
       }
       else{
         if($compras==$usuario){
-          $check_compras="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_compras#".$id_odc."'></center>";
+          if($vobo_coordinador=="1"){
+            $check_compras="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_compras#".$id_odc."'></center>";
+           }
+           else{
+           
+            $check_compras="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_compras#".$id_odc."' disabled='disabled' style='cursor:not-allowed'></center>";
+           }
         }
         else{
           $check_compras="<center><i class='fa fa-square-o'></center>";
         }
       }
+
+      //DIRECCION
+
+
       if($vobo_direccion=="1"){
+        $comodin=0;
         if($director==$usuario){
           $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
         }
@@ -142,19 +169,23 @@ if ($result = $mysqli->query($sql)) {
       }
       else{
         if($director==$usuario){
-          $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_direccion#".$id_odc."'></center>";
+          if($vobo_compras=="1"){
+            $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_direccion#".$id_odc."'></center>";
+          }else{
+            $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_direccion#".$id_odc."' disabled='disabled' style='cursor:not-allowed'></center>";
+          }
+          
         }
         else{
           $check_director="<center><i class='fa fa-square-o'></center>";
         }
-      }
-
+      }   
       
-      
-      
+      //direccion
       if($vobo_finanzas=="1"){
         if($finanzas==$usuario){
-          $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
+          $comodin=0;
+          $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_finanzas#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
         }
         else{
           $check_finanzas="<center><i class='fa fa-check-square-o'></center>";
@@ -162,7 +193,13 @@ if ($result = $mysqli->query($sql)) {
       }
       else{
         if($finanzas==$usuario){
-          $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."'></center>";
+          if($vobo_direccion=="1"){
+            $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_finanzas#".$id_odc."'></center>";
+          }
+          else{
+            $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_finanzas#".$id_odc."' disabled='disabled' style='cursor:not-allowed'></center>";
+          }
+          
         }
         else{
           $check_finanzas="<center><i class='fa fa-square-o'></center>";

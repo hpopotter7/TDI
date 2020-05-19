@@ -584,9 +584,7 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $pdf->Cell(50,6,utf8_decode("Director/Coordinador de area"),0,0,'C',false);
     
     //salto de linea
-    
-    
-    
+        
     
  //salto de linea
     $pdf->Ln(13);
@@ -597,8 +595,7 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     if($contador_firmas<6){
         $pdf->Image('img/invalida.png' , 0 ,0, 200 , 320,'png');
     }
-
-$pdf->Output('I',$evento.".pdf",true); // I se abre en esa pagaina el pdf; D descarga
+    $pdf->Output('I',$evento.".pdf",false); // I se abre en esa pagaina el pdf; D descarga
 ob_end_flush();
 } catch (Exception $e) {
     echo 'Excepción capturada: ',  $e->getMessage(), "\n";
