@@ -5,7 +5,7 @@ function inicio() {
     initThemeChooser({
       init: function(themeSystem) {
         calendar = new FullCalendar.Calendar(calendarEl, {
-          plugins: [ 'bootstrap', 'interaction',  'timeGrid', 'list' ],
+          plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list' ],
           
           eventClick: function(info) {
             alert('Event: ' + info.event.title);
