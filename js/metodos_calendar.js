@@ -8,20 +8,24 @@ function inicio() {
           plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list' ],
           
           eventClick: function(info) {
-            alert('Event: ' + info.event.title);
+            
+            alert('se abre dialogo con información de los eventos ');
+            /*
+            alert('se abre Dialog: ' + info.event.title);
             alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
             alert('View: ' + info.view.type);
+            */
             info.jsEvent.preventDefault(); // don't let the browser navigate
 
             if (info.event.url) {
               window.open(info.event.url);
             }
             // change the border color just for fun
-            info.el.style.borderColor = 'red';
+            //info.el.style.borderColor = 'red';
           },
           eventMouseEnter: function(info){
             info.el.style.backgroundColor = 'rgba(228,192,107,0.83)';
-           // alert(info.event.extendedProps.description);
+           /*
            var tooltip = '<div class="tooltipevent" style="border-radius:1em;border:1px solid black;width:20px;color:black;background:rgba(255,186,28,1);position:fixed;z-index:10001;padding:.2em;top:'+(info.jsEvent.pageY-40)+'px;left:'+info.jsEvent.pageX+'px;">' + info.event.extendedProps.description + '</div>';
             var $tooltip = $(tooltip).appendTo('body');
 
@@ -33,7 +37,7 @@ function inicio() {
                 $tooltip.css('top', e.pageY+10 );
                 $tooltip.css('left', e.pageX+10 );
             });
-            
+            */
             
           },
           eventMouseLeave: function(info){
@@ -49,7 +53,7 @@ function inicio() {
             info.el.innerHTML = info.el.innerHTML.replace('$ICON', "<span class='badge badge-dark'>"+desc+"</span> ");
             
           },
-         
+          
           locale: 'es',
           themeSystem: themeSystem,
           header: {
@@ -58,6 +62,7 @@ function inicio() {
             right: ''//'dayGridMonth,timeGridWeek' //timeGridWeek,timeGridDay,listMonth'
           },
           defaultDate: new Date(),
+          aspectRatio: 2,
           weekNumbers: false,
           navLinks: false, // can click day/week names to navigate views
           editable: true,
@@ -66,7 +71,26 @@ function inicio() {
             {
               title: '$ICON  $15,000.00',
               start: '2020-05-20',
-              url: 'http://google.com/',
+              description: '1'
+            },
+            {
+              title: '$ICON  $45,000.00',
+              start: '2020-05-22',
+              description: '4'
+            },
+            {
+              title: '$ICON  $5,000.00',
+              start: '2020-05-24',              
+              description: '3'
+            },
+            {
+              title: '$ICON  $150,000.00',
+              start: '2020-05-25',              
+              description: '9'
+            },
+            {
+              title: '$ICON  $32,458.00',
+              start: '2020-05-28',
               description: '2'
             },
            
