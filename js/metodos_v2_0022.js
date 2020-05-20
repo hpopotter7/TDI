@@ -6257,11 +6257,65 @@ $(".btn_archivos").change(function(){
     generate("success","Archivo subido correctamente");
   }
 });
- 
+   
+  $("#resultado_solicitudes").delegate(".btn_subir_factura", "click", function(e) {
+    e.preventDefault();
+    var evento=$(this).attr('id');  
+    subir_factura(evento);        
+});
+
+function subir_factura(evento){
+  noty({
+    text        : $('#div_factura').html(),
+    width       : '400px',
+    type        : 'warning',
+    dismissQueue: false,
+    closeWith   : ['button'],
+    theme       : 'metroui',
+    timeout     : false,
+    layout      : 'topCenter',
+     buttons: [
+      {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
+         if($noty.$bar.find('input#btn_factura').val() == ''){
+            generate('warning', 'Debe seleccionar un archivo');
+          }
+          else{
+            var file_data = $noty.$bar.find('input#btn_factura').prop('files')[0];   
+            var form_data = new FormData();       
+            form_data.append('file', file_data);
+            form_data.append('evento', evento);
+            $.ajax({
+                url: 'upload_factura.php', // point to server-side PHP script 
+                dataType: 'text',  // what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,                         
+                type: 'post',
+                success: function(response){
+                  if(response.includes("Error")){
+                    generate('error',response);
+                  }
+                  else{
+                    generate('success',response);
+                  }
+                 
+                  $noty.close();
+                }
+
+             });
+          }
+        }
+      },
+      {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
+         $noty.close();
+        }
+      }
+     ]
+    }); 
+
+}
 
 
   
-  
-
-
 }

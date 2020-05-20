@@ -81,6 +81,8 @@
   <script src="js/jquery_combo_editable.js"></script>
   <script src="js/autocomplete.js"></script>
   
+  
+  
   <script src="js/dataTables.buttons.min.js"></script>
   <script src="js/buttons.flash.min.js"></script>
   <script src="js/jszip.min.js"></script>
@@ -2065,6 +2067,12 @@ circle:nth-of-type(4) {
       }
       echo $res;
      ?></select></div></div>
+  </div>
+
+  <div id='div_factura' class="d-none hidden">
+    
+    <input type="file" id='btn_factura' class="btn btn-info">
+    
   </div>
 
   <!-- DIV OCULTO EVENTOS TRANSFERIR 

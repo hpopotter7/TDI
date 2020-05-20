@@ -70,7 +70,9 @@ $descripcion=$row[5];
               ";
               if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
                 if($descripcion=="Carga inicial"){
-                  $tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-ban fa-2x' aria-hidden='true'></i></label><a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' > <i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
+                  $tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-ban fa-2x' aria-hidden='true'></i></label><button type='file' id='".$evento."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-file-pdf-o fa-2x' aria-hidden='true'></i></button><a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
+                  
+                  //$tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-file-pdf-o fa-2x' aria-hidden='true'></i></label> <i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
                 }
                 else{
                   $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><label class='btn btn-info btn_descargar_facturas'><i class='fa fa-download fa-2x' aria-hidden='true'></i></label></a> <a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' > <i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
