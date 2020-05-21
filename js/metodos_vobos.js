@@ -66,12 +66,16 @@ function inicio(){
         success:  function (response) {
         
          if(response.includes("completo")){
-          ver_solicitudes_por_evento($('#c_eventos_dos').val());
            var arr=response.split("#");
-           //var id=arr[1];
            generate('success', "El VoBo se ha actualizado");
            if(!tipo.includes("finanzas")){
-            enviar_notificacion($('#c_eventos_dos').val());
+             var ev=$('#c_eventos_dos').val();
+             alert(ev);
+            enviar_notificacion();
+            ver_solicitudes_por_evento(ev);
+           }
+           else{
+            ver_solicitudes_por_evento(ev);
            }
          }
          else{
