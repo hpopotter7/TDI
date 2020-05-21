@@ -6261,10 +6261,11 @@ $(".btn_archivos").change(function(){
   $("#resultado_solicitudes").delegate(".btn_subir_factura", "click", function(e) {
     e.preventDefault();
     var evento=$(this).attr('id');  
-    subir_factura(evento);        
+    var arr=evento.split("#");
+    subir_factura(arr[0],arr[1]);        
 });
 
-function subir_factura(evento){
+function subir_factura(evento, nombre){
   noty({
     text        : $('#div_factura').html(),
     width       : '400px',
@@ -6284,6 +6285,7 @@ function subir_factura(evento){
             var form_data = new FormData();       
             form_data.append('file', file_data);
             form_data.append('evento', evento);
+            form_data.append('nombre', nombre);
             $.ajax({
                 url: 'upload_factura.php', // point to server-side PHP script 
                 dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -6297,12 +6299,12 @@ function subir_factura(evento){
                     generate('error',response);
                   }
                   else{
+                    var evento = $("#c_mis_eventos").val();
+                    ver_solicitudes_por_evento(evento);
                     generate('success',response);
                   }
-                 
                   $noty.close();
                 }
-
              });
           }
         }
@@ -6313,7 +6315,6 @@ function subir_factura(evento){
       }
      ]
     }); 
-
 }
 
 

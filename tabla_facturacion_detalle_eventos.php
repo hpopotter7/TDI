@@ -70,7 +70,19 @@ $descripcion=$row[5];
               ";
               if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
                 if($descripcion=="Carga inicial"){
-                  $tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-ban fa-2x' aria-hidden='true'></i></label><button type='file' id='".$evento."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-file-pdf-o fa-2x' aria-hidden='true'></i></button><a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
+                  $boton_factura="";
+                  $ruta = "facturas/".$evento;
+                  $myfiles = scandir($ruta);
+                  foreach($myfiles as $file){
+                    $nombre=explode("-",$file);
+                        if($nombre[0]==$no_factura){
+                          $boton_factura="<a href='".$ruta."/".$file."' target='_blank'><button id='".$evento."#".$no_factura."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf fa-2x' aria-hidden='true'></i></button></a>";
+                        }
+                        else{
+                          $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-cloud-upload ' aria-hidden='true'></i></button>";
+                        }
+                  }
+                  $tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-ban fa-2x' aria-hidden='true'></i></label>".$boton_factura."<a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
                   
                   //$tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-file-pdf-o fa-2x' aria-hidden='true'></i></label> <i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
                 }
