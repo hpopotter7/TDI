@@ -2376,15 +2376,6 @@ var parametros = {
                 }
               }      
                            
-              
-              /*
-              if($('#check_sodexo').is(':checked')){
-                tarjeta="TARJETA SODEXO";
-              }
-              else{
-                tarjeta="MA. FERNANDA CARRERA HDZ";
-              }
-              */
               var txt_concepto=$('#txt_concepto').val();
               var txt_servicios=$('#txt_servicios').val();
               var txt_otros=$('#txt_otros').val();
@@ -2406,6 +2397,12 @@ var parametros = {
               f_sol=arr_sol[2]+"-"+arr_sol[1]+"-"+arr_sol[0];
               var arr_pago=f_pago.split("/");
               f_pago=arr_pago[2]+"-"+arr_pago[1]+"-"+arr_pago[0];
+
+              var solicita=$("#c_user_solicita").val();
+              var ejecutivo=$("#txt_project").val();
+              var direccion=$("#c_autorizo").val();
+              var finanzas=$("#c_finanzas").val();
+              
               if(odc_fecha!=""){
                   var arr_odc=odc_fecha.split("/");
                   odc_fecha=arr_odc[2]+"-"+arr_odc[1]+"-"+arr_odc[0];
@@ -2452,6 +2449,12 @@ var parametros = {
               else if(metodo_pago=="vacio"){
                 generate('warning',"Debe seleccionar un metodo de pago");
               }
+              else if(solicita=="vacio"){
+                generate('warning',"Debe seleccionar al solicitante");
+              }
+               else if(direccion=="vacio"){
+                generate('warning',"Debe seleccionar un director");
+              }
               else if(compras==""){
                 generate('warning',"Debe ingresar un Vo.Bo de Compras");
               }
@@ -2464,17 +2467,10 @@ var parametros = {
               else{
                 odc_cheque_por=$('#odc_cheque_por').asNumber({ parseType: 'Float' });
                 $('#odc_cheque_por').val(odc_cheque_por);
-                //odc_cheque_por=$('#odc_cheque_por').val();
-                //validacion de utilidad 20% 
-                //Se toma en cuenta el importe de esta solicitud mas las existentes
-                //var cheque_por=$('#odc_cheque_por').asNumber({ parseType: 'Float' });
-                
-                
-                
-                //ver_personas();
                 var VAL=ver_suma_sdp(evento);
                 var maximo=$('#label_maximo_odc').asNumber({ parseType: 'Float' });
                 if(odc_cheque_por<maximo){
+                  /*
                   ver_personas();
                   noty({
                   text        : $('#d-none').html(),
@@ -2487,90 +2483,77 @@ var parametros = {
                   layout      : 'topCenter',
                    buttons: [
                     {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
-                       if($noty.$bar.find('select#c_user_solicita').val() == 'vacio'){
-                          generate('warning', 'Debe seleccionar a un solicitante válido');
-                        }
-                         else if($noty.$bar.find('select#c_finanzas').val() == 'vacio'){
-                          generate('warning', 'Debe seleccionar a un usuario de finanzas válido');
-                        }
-                        else if($noty.$bar.find('select#c_autorizo').val() == 'vacio'){
-                          generate('warning', 'Debe seleccionar a un usuario de autorización');
-                        }
-                        else{
-                                    if(titulo.includes("pago")){
-                                      titulo="Pago";
-                                    }
-                                    else if(titulo.includes("icos")){
-                                      titulo="Viáticos";
-                                    }
-                                    else if(titulo.includes("bolso")){
-                                      titulo="Reembolso";
-                                    }
-                                    var evento=$('#c_numero_evento').val();
-                                    var nombre_evento=$('#c_numero_evento option:selected').text();
-                                    var tipo="";
-                                    var SOLICITO=$noty.$bar.find('select#c_user_solicita').val();
-                                    var FINANZAS=$noty.$bar.find('select#c_finanzas').val();
-                                    var DIRECTIVO=$noty.$bar.find('select#c_autorizo').val();
-                                    if( $('#check_tipo_sol').is(':checked')){
-                                      tipo="Normal";
-                                    }
-                                    else{
-                                      tipo="Urgente";
-                                    }
-                                    
-                                    $('#c_numero_evento').val();
-                                    
-                                    
-                                      var datos={
-                                        "titulo": titulo,
-                                        "evento": evento,
-                                        "f_sol": f_sol,
-                                        "f_pago": f_pago,
-                                        "odc_cheque_por": odc_cheque_por,
-                                        "letra": letra,
-                                        "tipo": tipo,
-                                        "cfdi": cfdi,
-                                        "metodo_pago": metodo_pago,
-                                        "a_nombre": a_nombre,
-                                        "tipo_reembolso": tipo_reembolso,
-                                        "txt_concepto": txt_concepto,
-                                        "txt_servicios": txt_servicios,
-                                        "txt_otros": txt_otros,
-                                        "txt_docto_soporte": txt_docto_soporte,
-                                        "odc_fecha": odc_fecha,
-                                        "tipo_pago": tipo_pago,
-                                        "user": user,
-                                        "SOLICITO":SOLICITO,
-                                        "FINANZAS":FINANZAS,
-                                        "DIRECTIVO":DIRECTIVO,
-                                        "forma_pago": forma_pago,
-                                        "no_cheque":no_cheque,
-                                        "compras": compras,
-                                        "coordinador": coordinador,
-                                        "project": project,
-                                        "num_tarjeta":num_tarjeta
-                                      };
-                                      $.ajax({
-                                        url:   "insertar_odc.php",
-                                        type:  'post',
-                                        data: datos,
-                                        success:  function (response) {
+                      */
+                          if(titulo.includes("pago")){
+                            titulo="Pago";
+                          }
+                          else if(titulo.includes("icos")){
+                            titulo="Viáticos";
+                          }
+                          else if(titulo.includes("bolso")){
+                            titulo="Reembolso";
+                          }
+                          var evento=$('#c_numero_evento').val();
+                          var nombre_evento=$('#c_numero_evento option:selected').text();
+                          var tipo="";
+                          if( $('#check_tipo_sol').is(':checked')){
+                            tipo="Normal";
+                          }
+                          else{
+                            tipo="Urgente";
+                          }
+                          
+                          $('#c_numero_evento').val();
+                            var datos={
+                              "titulo": titulo,
+                              "evento": evento,
+                              "f_sol": f_sol,
+                              "f_pago": f_pago,
+                              "odc_cheque_por": odc_cheque_por,
+                              "letra": letra,
+                              "tipo": tipo,
+                              "cfdi": cfdi,
+                              "metodo_pago": metodo_pago,
+                              "a_nombre": a_nombre,
+                              "tipo_reembolso": tipo_reembolso,
+                              "txt_concepto": txt_concepto,
+                              "txt_servicios": txt_servicios,
+                              "txt_otros": txt_otros,
+                              "txt_docto_soporte": txt_docto_soporte,
+                              "odc_fecha": odc_fecha,
+                              "tipo_pago": tipo_pago,
+                              "user": user,
+                              "SOLICITO":solicita,
+                              "FINANZAS":finanzas,
+                              "DIRECTIVO":direccion,
+                              "forma_pago": forma_pago,
+                              "no_cheque":no_cheque,
+                              "compras": compras,
+                              "coordinador": coordinador,
+                              "project": project,
+                              "num_tarjeta":num_tarjeta
+                            };
+                            $.ajax({
+                              url:   "insertar_odc.php",
+                              type:  'post',
+                              data: datos,
+                              success:  function (response) {
 
-                                          if(response.includes("registro odc correcto")){
-                                            generate('success',"La solicitud se ha guardado correctamente");
-                                            enviar_notificacion_solicitud("ev","texto","user","Notificacion de solicitud","vacio");
-                                            window.open("solicitud_pago.php?id=0",'_blank');
-                                            limpiar_odc();
-                                          }
-                                          else{
-                                            
-                                            generate('error',"Ocurrio un error al guardar la solicitud: "+response);
-                                          }
-                                        }
-                                      });
-                                      $noty.close();
-                                  }
+                                if(response.includes("registro odc correcto")){
+                                  generate('success',"<htm>La <a href='solicitud_pago.php?id=0'><strong>solicitud</strong></a> se ha guardado correctamente</htm>");
+                                  
+                                  enviar_notificacion_solicitud("","texto","user","VoBo para solicitud de compra","vacio");
+                                  //window.open("solicitud_pago.php?id=0",'_blank');
+                                  limpiar_odc();
+                                }
+                                else{
+                                  
+                                  generate('error',"Ocurrio un error al guardar la solicitud: "+response);
+                                }
+                              }
+                            });
+                            $noty.close();
+                          /*        
                       }
                     },
                     {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
@@ -2579,6 +2562,7 @@ var parametros = {
                     }
                    ]
                   });
+                  */
                 }
                 
                 else{
@@ -2637,8 +2621,11 @@ var parametros = {
               data: datos,
               //async: false,
               success:  function (response) {
-                var monto=Number(response.replace(/[^0-9.-]+/g,""));
-                console.log(monto);
+                var arr=response.split("&");
+                var ejecutivo=arr[0];
+                var monto=Number(arr[1].replace(/[^0-9.-]+/g,""));
+                ejecutivo=ejecutivo.replace(",","");
+                $('#txt_project').val(ejecutivo);
                 if(monto<=0){
                   $('#label_maximo_odc').html("$0.00");
                   $('#label_maximo_odc').removeClass('label-success');
@@ -2646,7 +2633,7 @@ var parametros = {
                   
                 }
                 else{
-                  $('#label_maximo_odc').html(response);
+                  $('#label_maximo_odc').html(arr[1]);
                   $('#label_maximo_odc').removeClass('label-danger');
                   $('#label_maximo_odc').addClass('label-success');
                 }
@@ -2654,10 +2641,7 @@ var parametros = {
             });
            //return suma;
         }
-
        
-
-        
         
 
         $('#limpiar_odc').click(function(){
@@ -2685,6 +2669,12 @@ var parametros = {
             $('#txt_project').val("");
             $('.user_proveedor').hide();
             $('#id_usuario_proveedor').val("0");
+            $('#c_user_solicita').val("vacio");
+            $('#c_autorizo').val("vacio");
+            $('#txt_project').val("");
+            $('#txt_vobo_compras').val("NA");
+            $('#label_maximo_odc').hide();
+            
         }
         //modificar evento
         $('#btn_modificar_evento').click(function(e){
@@ -5727,6 +5717,8 @@ var options = {
       };
       $("#c_mis_eventos").easyAutocomplete(op_mis_eventos);
 
+
+
 /* NO BORRRAR, SE USARA EN UN FUTOURO CON EL INPUT DE AUTOCOMPLETE/////////
   var options2 = {
     url: function(phrase) {
@@ -6317,6 +6309,23 @@ function subir_factura(evento, nombre){
     }); 
 }
 
+$('#c_user_solicita').change(function(){
+    var solicita=$(this).val();
+    var datos={
+      "solicita":solicita,
+    };
+    $.ajax({
+      url:   'buscar_jefe_directo.php',
+      type:  'post',
+      data: datos,
+      success:  function (response) {
+          $('#txt_coordinador').val(response);
+      }
+    });
+  });
+
 
   
+
+
 }

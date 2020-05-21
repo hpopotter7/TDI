@@ -73,7 +73,7 @@ if(strpos($CLIENTE, '&')){
     $CLIENTE=$arr[1];
 }
 
-    $sql="SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.factura, DATE_FORMAT(o.fecha, '%d/%m/%Y'),  CONCAT('".$ID2."', ' ".$CLIENTE." - ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, o.tipo, o.tipo_pago, DATE_FORMAT(e.inicio_evento ,'%d/%m/%Y'), DATE_FORMAT(e.fin_evento,'%d/%m/%Y'), o.otros, o.cfdi, o.metodo_pago, c.metodo_pago, c.nombre_contacto, c.correo_contacto, c.sucursal, c.Numero_cliente, o.solicito, o.finanzas, o.usuario_registra, o.autorizo, o.Forma_pago, o.identificador, o.no_cheque, o.Compras, o.Coordinador, o.Project, o.Tipo_tarjeta, o.No_tarjeta, o.vobo_coordinador FROM odc o LEFT JOIN proveedores c on o.a_nombre=c.Razon_Social left join eventos e on o.evento=e.Numero_evento where o.id_odc=".$id;
+    $sql="SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.factura, DATE_FORMAT(o.fecha, '%d/%m/%Y'),  CONCAT('".$ID2."', ' ".$CLIENTE." - ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, o.tipo, o.tipo_pago, DATE_FORMAT(e.inicio_evento ,'%d/%m/%Y'), DATE_FORMAT(e.fin_evento,'%d/%m/%Y'), o.otros, o.cfdi, o.metodo_pago, c.metodo_pago, c.nombre_contacto, c.correo_contacto, c.sucursal, c.Numero_cliente, o.solicito, o.finanzas, o.usuario_registra, o.autorizo, o.Forma_pago, o.identificador, o.no_cheque, o.Compras, o.Coordinador, o.Project, o.Tipo_tarjeta, o.No_tarjeta, o.vobo_coordinador, o.vobo_finanzas, o.vobo_compras, o.vobo_direccion, o.vobo_project, o.vobo_solicito FROM odc o LEFT JOIN proveedores c on o.a_nombre=c.Razon_Social left join eventos e on o.evento=e.Numero_evento where o.id_odc=".$id;
 
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
@@ -116,20 +116,66 @@ if ($result = $mysqli->query($sql)) {
         $FORMA_DE_PAGO=$row[29];
         $identificador=$row[30];
         $no_cheque=$row[31];
-        $compras=$row[32];
+        $compras=strtoupper($row[32]);
         $coordinador=$row[33];
         $project=$row[34];
         $tipo_tarjeta=$row[35];
         $numero_tarjeta=$row[36];
         $firma_coordinador=$row[37];
-        
+        $firma_finanzas=$row[38];
+        $firma_compras=$row[39];
+        $firma_director=$row[40];
+        $firma_project=$row[41];
+        $firma_solicito=$row[42];
+        $firma_elaborado=str_replace(" ", "", $elaborado);
+        $contador_firmas=0;
         if($firma_coordinador==1){
             $firma_coordinador=str_replace(" ", "", $coordinador);
+            $contador_firmas++;
         }
         else{
             $firma_coordinador="sin";
         }
-        
+        if($firma_finanzas==1){
+            $firma_finanzas=str_replace(" ", "", $finanzas);
+            $contador_firmas++;
+        }
+        else{
+            $firma_finanzas="sin";
+        }
+        if($firma_compras==1){
+            $firma_compras=str_replace(" ", "", $compras==1);
+            $contador_firmas++;
+        }
+        else if($firma_compras==0 && $compras=="NA"){
+            $firma_compras="NA";
+            $contador_firmas++;
+        }
+        else{
+            $firma_compras="sin";
+        }
+        if($firma_director==1){
+            $firma_director=str_replace(" ", "", $autorizo);
+            $contador_firmas++;
+        }
+        else{
+            $firma_director="sin";
+        }
+        if($firma_project==1){
+            $firma_project=str_replace(" ", "", $project);
+            $contador_firmas++;
+        }
+        else{
+            $firma_project="sin";
+        }  
+        if($firma_solicito==1){
+            $firma_solicito=str_replace(" ", "", $solicito);
+            $contador_firmas++;
+        }
+        else{
+            $firma_solicito="sin";
+        }        
+            $firma_2=str_replace(" ", "", $elaborado);  
 
     }
 
@@ -145,7 +191,6 @@ if(strlen($evento)>55){
         $evento=substr($evento, 0,55);
     }
 
-    
 //Convert the Total Price to a number with (.) for thousands, and (,) for decimals.
 //$total = number_format($total,',','.','.');
 
@@ -181,12 +226,12 @@ else if($tipo_tarjeta=="CHEQUE" || $tipo_tarjeta=="MA. FERNANDA CARRERA HDZ"){
     // Gotham bold 15
     $pdf->SetFont('Gotham','',25);
     // Movernos a la derecha
-
+    
     // Título
     //$pdf->SetFillColor(193,220,80);
     $pdf->SetFillColor(255,230,153);
     $pdf->SetTextColor(155,155,155);
-    $pdf->Cell(0,1,utf8_decode('Solicitud de '.$identificador),0,0,'C',false);
+    $pdf->Cell(0,1,utf8_decode('Solicitud de '.$identificador.$vobo),0,0,'C',false);
     $pdf->SetTextColor(0,0,0);
     $pdf->Ln(5);
     $pdf->SetFont('Gotham','',12);
@@ -461,19 +506,19 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $arr7=explode(" ", ($project));
 
     $pdf->MultiCell(42,5,utf8_decode($arr[0])."\n".utf8_decode($arr[1]),'B','C',true);
-    $pdf->Image('firmas/'.$firma_1.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    $pdf->Image('firmas/'.$firma_elaborado.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $pdf->MultiCell(42,5,utf8_decode($arr2[0])."\n".utf8_decode($arr2[1]),'B','C',true);
-    $pdf->Image('firmas/'.$firma_2.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    $pdf->Image('firmas/'.$firma_solicito.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $pdf->MultiCell(42,5,utf8_decode($arr3[0])."\n".utf8_decode($arr3[1]),'B','C',true);
-    $pdf->Image('firmas/'.$firma_3.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    $pdf->Image('firmas/'.$firma_finanzas.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $pdf->MultiCell(42,5,utf8_decode($arr4[0])."\n".utf8_decode($arr4[1]),'B','C',true);
-    $pdf->Image('firmas/'.$firma_4.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    $pdf->Image('firmas/'.$firma_director.'.png' , $startx ,$starty-5, 30 , 20,'png');
     //salto de linea
     $firma1=$starty;
     $pdf->Ln(1);
@@ -504,7 +549,9 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     }
     
     $pdf->MultiCell(42,5,utf8_decode($arr5[0])."\n".utf8_decode($vacio),'B','C',true);
-    $pdf->Image('firmas/'.$firma_5.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    if($compras!="NA"){
+        $pdf->Image('firmas/'.$firma_compras.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    }
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $vacio="";
@@ -515,7 +562,7 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
         $vacio=$arr7[1];
     }
     $pdf->MultiCell(42,5,utf8_decode($arr7[0])."\n".utf8_decode($vacio),'B','C',true);
-    $pdf->Image('firmas/'.$firma_6.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    $pdf->Image('firmas/'.$firma_project.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $vacio="";
@@ -537,9 +584,7 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $pdf->Cell(50,6,utf8_decode("Director/Coordinador de area"),0,0,'C',false);
     
     //salto de linea
-    
-    
-    
+        
     
  //salto de linea
     $pdf->Ln(13);
@@ -547,9 +592,10 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $pdf->SetX(13);
     // Número de página
     $pdf->Cell(183,5,utf8_decode('Fecha impresión: ').$d."/".$m."/".$y,0,0,'R', false);
-
-
-$pdf->Output('I',$evento.".pdf",true); // I se abre en esa pagaina el pdf; D descarga
+    if($contador_firmas<6){
+        $pdf->Image('img/invalida.png' , 0 ,0, 200 , 320,'png');
+    }
+    $pdf->Output('I',$evento.".pdf",false); // I se abre en esa pagaina el pdf; D descarga
 ob_end_flush();
 } catch (Exception $e) {
     echo 'Excepción capturada: ',  $e->getMessage(), "\n";

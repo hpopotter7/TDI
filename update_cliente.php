@@ -24,6 +24,7 @@ $banco=$_POST['banco'];
 $titulo=$_POST['titulo'];
 $sucursal=$_POST['sucursal'];
 $uso_cfdi=$_POST['uso_cfdi'];
+$tipo_persona=$_POST['tipo_persona'];
 $tipo=$_POST['tipo'];
 $descripcion=$_POST['descripcion'];
 $cobertura=$_POST['cobertura'];
@@ -44,7 +45,7 @@ include("conexion.php");
     if($tipo==="clientes"){
       $ID="id_cliente";
       $LETRA="C";
-      $sql="UPDATE ".$tipo." SET Numero_cliente='".$LETRA."-0".$id."' , Razon_Social='".strtoupper($cliente)."', Nombre_comercial='".$nombre_comercial."', Calle='".strtoupper($calle)."', num_ext='".$ext."', num_int='".$int."', colonia='".strtoupper($colonia)."', cp='".$cp."', estado='".$estado."', municipio='".strtoupper($municipio)."', telefono='".$tel."', rfc='".$rfc."', digitos='".$digitos."', nombre_contacto='".strtoupper($nombre_contacto)."', correo_contacto='".strtoupper($correo_contacto)."', Usuario_autoriza='".$usuario_solicita."', uso_cfdi='".$uso_cfdi."', extension='".$extension."', celular='".$celular."' WHERE ".$ID."=".$id;
+      $sql="UPDATE ".$tipo." SET Numero_cliente='".$LETRA."-0".$id."' , Razon_Social='".strtoupper($cliente)."', Nombre_comercial='".$nombre_comercial."', Calle='".strtoupper($calle)."', num_ext='".$ext."', num_int='".$int."', colonia='".strtoupper($colonia)."', cp='".$cp."', estado='".$estado."', municipio='".strtoupper($municipio)."', telefono='".$tel."', rfc='".$rfc."', digitos='".$digitos."', Tipo_persona='".$tipo_persona."', nombre_contacto='".strtoupper($nombre_contacto)."', correo_contacto='".strtoupper($correo_contacto)."', Usuario_autoriza='".$usuario_solicita."', uso_cfdi='".$uso_cfdi."', extension='".$extension."', celular='".$celular."' WHERE ".$ID."=".$id;
     }
     else{
       $ID="id_proveedor";
