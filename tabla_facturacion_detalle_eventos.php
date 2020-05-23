@@ -70,25 +70,32 @@ $descripcion=$row[5];
               ";
               if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
                 if($descripcion=="Carga inicial"){
-                  $boton_factura="";
-                  $ruta = "facturas/".$evento;
-                  $myfiles = scandir($ruta);
-                  foreach($myfiles as $file){
-                    $nombre=explode("-",$file);
-                        if($nombre[0]==$no_factura){
-                          $boton_factura="<a href='".$ruta."/".$file."' target='_blank'><button id='".$evento."#".$no_factura."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf fa-2x' aria-hidden='true'></i></button></a>";
-                        }
-                        else{
-                          $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-cloud-upload ' aria-hidden='true'></i></button>";
-                        }
-                  }
-                  $tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-ban fa-2x' aria-hidden='true'></i></label>".$boton_factura."<a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
-                  
-                  //$tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-file-pdf-o fa-2x' aria-hidden='true'></i></label> <i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
+                  $tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-ban' aria-hidden='true'></i></label>";
+
                 }
                 else{
-                  $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><label class='btn btn-info btn_descargar_facturas'><i class='fa fa-download fa-2x' aria-hidden='true'></i></label></a> <a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' > <i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
+                  $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><label class='btn btn-info btn_descargar_facturas'><i class='fa fa-download' aria-hidden='true'></i></label></a>";
                 }
+//
+                $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-cloud-upload ' aria-hidden='true'></i></button>";
+                $ruta = "facturas/".$evento;
+                $myfiles = scandir($ruta);
+                foreach($myfiles as $file){
+                  $nombre=explode("-",$file);
+                      if($nombre[0]==$no_factura){
+                        $boton_factura="<a href='".$ruta."/".$file."' target='_blank'><button id='".$evento."#".$no_factura."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button></a>";
+                      }
+                      else{
+                        $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-cloud-upload ' aria-hidden='true'></i></button>";
+                      }
+                }
+                $tbody=$tbody.$boton_factura."<a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
+
+                /*
+                <a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' > <i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
+
+                */
+
                  
                 }
                 else{
@@ -185,8 +192,8 @@ var myChart = new Chart(ctx, {
 }
 
 
-$resultado2=$resultado2."<div class='row col-md-6'></table>
-<div class='row col-md-6'>
+$resultado2=$resultado2."<div class='row col-md-5'></table>
+<div class='row col-md-5'>
 <table class='table table-user-information table-sm'>
                     <thead style='background-color: #455F87; color: white'>
                     <tr>
@@ -200,7 +207,7 @@ $resultado2=$resultado2."<div class='row col-md-6'></table>
                     </tbody>
                     </table>
 </div>
-<div class='row col-md-6'>
+<div class='row col-md-5'>
 <table class='table table-user-information table-sm'>
                     <thead style='background-color: #455F87; color: white'>
                     <tr>
@@ -259,7 +266,7 @@ $resultado2=$resultado2."<div class='row col-md-6'></table>
                   ".$variable."
                   </table> </div>
 </div>
-<div class='row col-md-6'>
+<div class='row col-md-7'>
 <table class='table table-user-information table-sm'>
                     <thead style='background-color: #455F87; color: white'>
                     <tr >

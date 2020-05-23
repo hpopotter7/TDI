@@ -1,5 +1,6 @@
 <?php 
 	$evento=$_POST['evento'];
+	$tipo=$_POST['tipo'];
 	
 	include("conexion.php");
 	
@@ -12,7 +13,7 @@
 		$arr=explode("]",$evento);
 		$evento=str_replace("[", "", $arr[0]);
 		
-		$sql="UPDATE eventos SET Estatus='CERRADO' where Numero_evento='".$evento."'";
+		$sql="UPDATE eventos SET Estatus='".$tipo."' where Numero_evento='".$evento."'";
 		
 		if ($mysqli->query($sql)) {		    
 		    echo "cerrado";

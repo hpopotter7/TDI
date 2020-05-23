@@ -96,7 +96,7 @@
   <script src="js/chosen.jquery.js" ></script>
   <script src="js/Chart.js"></script>
   
-  <script src="js/metodos_v2_0023.js"></script>
+  <script src="js/metodos_v2_0025.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -416,8 +416,8 @@ circle:nth-of-type(4) {
             </a>
             <div class="collapse" id="toggleDemo7" style="height: 0px;">
               <ul class="nav nav-list">
-                <li><a id='btn_rep_eventos' href="#">Eventos</a></li>
-                <li><a id='btn_rep_gastos' href="#">Gastos</a></li>
+                <li><a id='btn_rep_pitch' href="#"><i class='fas fa-star-half-alt'></i> Pitch</a></li>
+                <li><a id='btn_rep_gastos' href="#"><i class='fas fa-chart-bar'></i> Gastos</a></li>
                 <li><a href="#">Facturacion</a></li>
                 <li><a href="#">Modulo de ventas</a></li>
               </ul>

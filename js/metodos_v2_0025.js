@@ -6191,6 +6191,15 @@ $("#menu_bloqueo_prov").click(function (e) {
   $("#frame").attr("src", "bloqueo_proveedores.html");
 });
 
+$("#btn_rep_pitch").click(function (e) { 
+  e.preventDefault();
+  limpiar_cortinas();
+  $("#div_cortina").animate({top: '0px'}, 1100);
+  $("#frame").attr("src", "eventos_pitch.html");
+  $('#div_iframe').fadeIn();
+});
+
+
 $("#btn_rep_gastos").click(function (e) { 
   e.preventDefault();
   limpiar_cortinas();
