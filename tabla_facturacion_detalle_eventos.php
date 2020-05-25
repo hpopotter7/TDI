@@ -6,6 +6,19 @@ $estatus1="";
 $estatus2="";
 $estatus3="";
 $estatus4="";
+
+$concatenados="";
+$ruta = "facturas/".$evento;
+$myfiles = scandir($ruta);
+$array= Array();
+$array_nombres= Array();
+foreach($myfiles as $file){
+  array_push($array_nombres,$file);
+  $nombre=explode("-",$file);
+  array_push($array,$nombre[0]);
+  $concatenados=$concatenados.".".$nombre[0];
+}
+
 $sql2="SELECT p.id_sol_factura, ROUND(sum(p.total),2), s.Estatus, s.No_factura, s.Estatus_Factura, ANY_VALUE(p.descripcion) from partidas p, solicitud_factura s where s.id_evento=".$evento." and p.id_sol_factura=s.id_solicitud and s.Estatus='Activa' group by p.id_sol_factura";
 if ($result = $mysqli->query($sql2)) {
   while ($row = $result->fetch_row()) {
@@ -78,16 +91,14 @@ $descripcion=$row[5];
                 }
 //
                 $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-cloud-upload ' aria-hidden='true'></i></button>";
-                $ruta = "facturas/".$evento;
-                $myfiles = scandir($ruta);
-                foreach($myfiles as $file){
-                  $nombre=explode("-",$file);
-                      if($nombre[0]==$no_factura){
-                        $boton_factura="<a href='".$ruta."/".$file."' target='_blank'><button id='".$evento."#".$no_factura."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button></a>";
+                /*
+                $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-cloud-upload ' aria-hidden='true'></i></button>";
+                */
+                for($r=0;$r<=count($array)-1;$r++){
+                      if($array[$r]==$no_factura){
+                        $boton_factura="<a href='".$ruta."/".$array_nombres[$r]."' target='_blank'><button id='".$evento."#".$array[$r]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button></a>";
                       }
-                      else{
-                        $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-cloud-upload ' aria-hidden='true'></i></button>";
-                      }
+                      
                 }
                 $tbody=$tbody.$boton_factura."<a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
 
