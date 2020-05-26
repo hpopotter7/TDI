@@ -16,6 +16,7 @@ function inicio() {
   */
 
     var mes=new Date().getMonth()+1;
+    var mes_actual=mes;
     var anio=new Date().getFullYear();
     var dia=new Date().getDate();
     if(mes<10){
@@ -126,6 +127,13 @@ function inicio() {
             $('.tooltipevent').hide();
             */
           },
+          eventDrop: function(info) {
+            alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+        
+            if (!confirm("Are you sure about this change?")) {
+              info.revert();
+            }
+          },
           eventRender: function(info) {
             var desc=info.event.extendedProps.description;
             var texto=info.event.title;
@@ -160,6 +168,7 @@ function inicio() {
           center: 'title',
           right: 'prev,next'
         },
+        */
           customButtons: {
             prev: {
               text: 'Prev',
@@ -168,6 +177,21 @@ function inicio() {
                           //events: 'consultar_pagos_pendientes.php?mes='+(mes-1)+"&anio="+anio,
                           // do the original command
                           calendar.prev();
+                          mes--;
+                          if(mes==mes_actual){
+                            dia=new Date().getDate();
+                          }
+                          else{
+                            if(mes>mes_actual){
+                              dia=1;
+                            }
+                            else{
+                              dia = lastday(anio,mes);
+                            }
+                            
+                            
+                          }                   
+                          suma_egresos(anio,mes,dia);
                           //calendar.fullCalendar( 'refresh' );
                           // do something after
                           
@@ -180,17 +204,32 @@ function inicio() {
                          // events: 'consultar_pagos_pendientes.php?mes='+(mes+1)+"&anio="+anio,
                           // do the original command
                           calendar.next();
+                          mes++;
+                          if(mes==mes_actual){
+                            dia=new Date().getDate();
+                          }
+                          else{
+                            if(mes>mes_actual){
+                              dia=1;
+                            }
+                            else{
+                              dia = lastday(anio,mes);
+                            }
+                            
+                          } 
+                          
+                          suma_egresos(anio,mes,dia);
                           //calendar.fullCalendar( 'refresh'),
                           // do something after
               }
             },
           },
-          */
+          
           defaultDate: new Date(),
           aspectRatio: 2,
           weekNumbers: false,
           navLinks: false, // can click day/week names to navigate views
-          editable: true,
+          editable: false,
           eventLimit: true, // allow "more" link when too many events
           //events: eventos,
           events: 'consultar_pagos_pendientes.php?mes='+mes+"&anio="+anio,
@@ -252,7 +291,9 @@ function inicio() {
       }
     });
     */
-
+   function lastday(y,m){
+    return  new Date(y, m, 0).getDate();
+    }
 
     suma_egresos(anio,mes,dia);
     
