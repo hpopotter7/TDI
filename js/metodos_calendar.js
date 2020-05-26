@@ -1,4 +1,50 @@
 function inicio() {
+
+  
+/*
+  $( "#dialog" ).dialog({
+    autoOpen: false,
+    show: {
+      effect: "blind",
+      duration: 1000
+    },
+    hide: {
+      effect: "fold",
+      duration: 1000
+    }
+  });
+  */
+
+    var mes=new Date().getMonth()+1;
+    var anio=new Date().getFullYear();
+    var dia=new Date().getDate();
+    if(mes<10){
+      mes="0"+mes;
+    }
+    if(dia<10){
+      dia="0"+dia;
+    }
+    fecha=anio+"-"+mes+"-"+dia;
+
+    function suma_egresos(anio, mes, dia){
+      var datos = {
+        "anio": anio,
+        "mes": mes,
+        "dia": dia,
+      };
+      $.ajax({
+        data: datos,
+        url:   'suma_odc_fecha.php',
+        type:  'post',
+        async: true,
+        success:  function (response) {
+          var arr=response.split("#");
+            $('#resultado_vencidos').html(arr[0]);
+            $('#resultado_vigentes').html(arr[1]);
+        }
+      });
+    }
+
     var calendarEl = document.getElementById('calendar');
     var calendar;
 
@@ -8,9 +54,42 @@ function inicio() {
           plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list' ],
           
           eventClick: function(info) {
+            //funcion_dialogo();
+            var fecha=info.event.start;
+            var dia=fecha.getDate();
+            var mes=fecha.getMonth()+1;
+            var anio=fecha.getFullYear();
+            if(mes<10){
+              mes="0"+mes;
+            }
+            if(dia<10){
+              dia="0"+dia;
+            }
+            fecha=anio+"-"+mes+"-"+dia;
             
-            alert('se abre dialogo con información de los eventos ');
+            $.fancybox.open({
+              src  : "consultar_odc_por_fecha.php?fecha="+fecha,
+              type : 'iframe',
+             
+              opts : {
+                afterShow : function( instance, current ) {
+                  //console.info( 'done!' );
+                }
+              }
+            });
+            
+           // $("#dialog").fancybox();
+            //alert('se abre dialogo con información de los eventos ');
             /*
+            $('#body').addClass( 'blur' );
+            $( "#dialog" ).dialog( "open" );
+            */
+           /*
+            $('body').addClass( 'blur' );
+            $('.container' ).addClass( 'blur' );
+            */
+            
+                        /*
             alert('se abre Dialog: ' + info.event.title);
             alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
             alert('View: ' + info.view.type);
@@ -24,9 +103,10 @@ function inicio() {
             //info.el.style.borderColor = 'red';
           },
           eventMouseEnter: function(info){
+            /*
             info.el.style.backgroundColor = 'rgba(228,192,107,0.83)';
-           /*
-           var tooltip = '<div class="tooltipevent" style="border-radius:1em;border:1px solid black;width:20px;color:black;background:rgba(255,186,28,1);position:fixed;z-index:10001;padding:.2em;top:'+(info.jsEvent.pageY-40)+'px;left:'+info.jsEvent.pageX+'px;">' + info.event.extendedProps.description + '</div>';
+           
+           var tooltip = '<div class="tooltipevent" style="text-align:center;border-radius:.75em;border:1px solid black;width:75px;color:black;background:rgba(255,186,28,1);position:fixed;z-index:10001;padding:.5em;top:'+(info.jsEvent.pageY-40)+'px;left:'+info.jsEvent.pageX+'px;">' + info.event.extendedProps.description + '</div>';
             var $tooltip = $(tooltip).appendTo('body');
 
             $(this).mouseover(function(e) {
@@ -41,32 +121,82 @@ function inicio() {
             
           },
           eventMouseLeave: function(info){
-            info.el.style.backgroundColor = '#3788D8';
+            /*
+            info.el.style.backgroundColor = 'red';
             $('.tooltipevent').hide();
+            */
           },
           eventRender: function(info) {
-           
-
             var desc=info.event.extendedProps.description;
             var texto=info.event.title;
-                     
-            info.el.innerHTML = info.el.innerHTML.replace('$ICON', "<span class='badge badge-dark'>"+desc+"</span> ");
+            var fecha=info.event.start;
+            info.el.innerHTML = info.el.innerHTML.replace('ICON', "<span class='badge badge-dark'>"+desc+"</span> ");
+            var hoy=new Date();
+            if(fecha<=hoy){
+              info.el.style.backgroundColor = 'red';
+              info.el.style.borderColor = 'red';
+              info.el.innerHTML = info.el.innerHTML.replace('fc-content', "fc-content rojo");
+              
+            }
+            
             
           },
-          
+         
           locale: 'es',
           themeSystem: themeSystem,
+          
           header: {
-            left: 'prev,next today',
+            //left: 'prev,next today',
+            //center: 'title',
+            //right: ''//'dayGridMonth,timeGridWeek' //timeGridWeek,timeGridDay,listMonth'
+            left:  '', //'dayGridMonth,timeGridWeek,timeGridDay',,
             center: 'title',
-            right: ''//'dayGridMonth,timeGridWeek' //timeGridWeek,timeGridDay,listMonth'
+            right: 'prev,next'
           },
+          
+         /*
+         header: {
+          left:  '', //'dayGridMonth,timeGridWeek,timeGridDay',,
+          center: 'title',
+          right: 'prev,next'
+        },
+          customButtons: {
+            prev: {
+              text: 'Prev',
+              click: function() {
+                          // so something before
+                          //events: 'consultar_pagos_pendientes.php?mes='+(mes-1)+"&anio="+anio,
+                          // do the original command
+                          calendar.prev();
+                          //calendar.fullCalendar( 'refresh' );
+                          // do something after
+                          
+              }
+            },
+            next: {
+              text: 'Next',
+              click: function() {
+                          // so something before
+                         // events: 'consultar_pagos_pendientes.php?mes='+(mes+1)+"&anio="+anio,
+                          // do the original command
+                          calendar.next();
+                          //calendar.fullCalendar( 'refresh'),
+                          // do something after
+              }
+            },
+          },
+          */
           defaultDate: new Date(),
           aspectRatio: 2,
           weekNumbers: false,
           navLinks: false, // can click day/week names to navigate views
           editable: true,
           eventLimit: true, // allow "more" link when too many events
+          //events: eventos,
+          events: 'consultar_pagos_pendientes.php?mes='+mes+"&anio="+anio,
+          showNonCurrentDates: false,
+          
+          /*
           events: [
             {
               title: '$ICON  $15,000.00',
@@ -96,6 +226,7 @@ function inicio() {
            
             
           ]
+          */
         });
         
         calendar.render();
@@ -107,7 +238,23 @@ function inicio() {
         calendar.setOption('themeSystem', themeSystem);
       },
      
-
     });
+
+ 
+/*
+    $.fancybox.open({
+      src  : '#hidden-content',
+      type : 'inline',
+      opts : {
+        afterShow : function( instance, current ) {
+          console.info( 'done!' );
+        }
+      }
+    });
+    */
+
+
+    suma_egresos(anio,mes,dia);
+    
 
   }

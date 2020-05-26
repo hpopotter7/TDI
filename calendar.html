@@ -9,12 +9,14 @@
 <link href='packages/daygrid/main.css' rel='stylesheet' />
 <link href='packages/list/main.css' rel='stylesheet' />
 <link href='css/estilos_calendar.css' rel='stylesheet' />
-
+<link href=" https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/dark-hive/jquery-ui.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 <script
   src="https://code.jquery.com/jquery-2.2.4.js"
   integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
   crossorigin="anonymous"></script>
 
+  
 <script src='packages/core/main.js'></script>
 <script src='packages/interaction/main.js'></script>
 <script src='packages/bootstrap/main.js'></script>
@@ -22,12 +24,30 @@
 <script src='packages/timegrid/main.js'></script>
 <script src='packages/list/main.js'></script>
 <script src='js/theme-chooser.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <script src='packages/locales/es.js'></script>
 <script src="js/metodos_calendar.js"></script>
+
+
+
 <script>
  $(document).on("ready",inicio);  
 </script>
-
+<style>
+  .rojo{
+    background-color: crimson;
+    
+  }
+  .fancybox-slide--iframe .fancybox-content {
+	width  : 900px;
+	height : 600px;
+	max-width  : 80%;
+	max-height : 80%;
+	margin: 0;
+  background: #191919;
+}
+}
+</style>
 </head>
 <body>
   <div id='top' style="display: none;">
@@ -49,9 +69,18 @@
     <div class='clear'></div>
     
   </div>
-  <div class="row">
-    <h3 style='width: 100%; text-align: center;'>Pagos proximos a vencer</h3>
-</div>
-  <div id='calendar'></div>
+  <div class="container">
+    <div class="row">
+      <h3 style='width: 100%; text-align: center;'>Pagos proximos a vencer</h3>
+    </div>
+    <div id='calendar'></div>
+    <span id='resultado_vencidos' style='position: fixed;border: 2px solid red;padding: .5em;left: 300px'>
+      
+    </span>
+    <span id='resultado_vigentes' style='position: fixed;border: 2px solid royalblue;padding: .5em;left:1000px;'>
+      Suma de vigente: $000,000.00
+    </span>
+  </div>
+  
 </body>
 </html>
