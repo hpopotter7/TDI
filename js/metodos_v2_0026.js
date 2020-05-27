@@ -2624,8 +2624,18 @@ var parametros = {
                 var arr=response.split("&");
                 var ejecutivo=arr[0];
                 var monto=Number(arr[1].replace(/[^0-9.-]+/g,""));
-                ejecutivo=ejecutivo.replace(",","");
-                $('#txt_project').val(ejecutivo);
+                console.log();
+                if($('#txt_project').val()==""){
+                  var ej=ejecutivo.split(",");
+                  if(ej.length>1){
+                    elegir_ejecutivo(ejecutivo);
+                  }
+                  else{
+                    ejecutivo=ejecutivo.replace(",","");
+                    $('#txt_project').val(ejecutivo);
+                  }
+                }
+                
                 if(monto<=0){
                   $('#label_maximo_odc').html("$0.00");
                   $('#label_maximo_odc').removeClass('label-success');
@@ -6333,6 +6343,38 @@ $('#c_user_solicita').change(function(){
     });
   });
 
+  function elegir_ejecutivo(string){
+    var arr=string.split(",");
+    var select="";
+    for(var r=1;r<=arr.length-1;r++){
+      select=select+"<option val='"+arr[r]+"'>"+arr[r]+"</option>";
+    }
+    noty({
+      text        : "<div class='row'>Este evento tiene más de un ejecutivo, debes seleccionar uno.</div><select id='select'  class='form-control'><option value='vacio'>Selecciona...</option>"+select+"</select>",
+      width       : '400px',
+      type        : 'warning',
+      dismissQueue: false,
+      closeWith   : ['backdrop'],
+      theme       : 'metroui',
+      timeout     : false,
+      layout      : 'topCenter',
+       buttons: [
+        {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
+           if($noty.$bar.find('select#select').val() == 'vacio'){
+              generate('warning', 'Debe seleccionar a un ejecutivo');
+            }
+            else{
+              var ejecutivo = $noty.$bar.find('select#select').val();   
+              $('#txt_project').val(ejecutivo);
+              $noty.close();
+            }
+          }
+        },
+        
+       ]
+      }); 
+
+  }
 
   
 

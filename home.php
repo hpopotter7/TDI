@@ -96,7 +96,7 @@
   <script src="js/chosen.jquery.js" ></script>
   <script src="js/Chart.js"></script>
   
-  <script src="js/metodos_v2_0025.js"></script>
+  <script src="js/metodos_v2_0026.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
