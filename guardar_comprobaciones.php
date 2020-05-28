@@ -43,15 +43,16 @@
 			}
 			else{
 				$sql="delete from movimientos where id_solicitud=".$id." and tipo_movimiento='GASTO'";
+				if ($mysqli->query($sql)) {
+				
+					$res= "orden modificada";
+				}
+				else{
+					$res=mysqli_error($mysqli)." ".$sql;
+				}
 			}
 			
-			if ($mysqli->query($sql)) {
-				
-				$res= "orden modificada";
-			}
-			else{
-				$res=mysqli_error($mysqli)." ".$sql;
-			}
+			
 		}
 		
 
