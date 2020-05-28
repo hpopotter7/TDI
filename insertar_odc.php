@@ -57,6 +57,19 @@
 		else{
 			$RES= mysqli_error($mysqli);
 		}
+		if($RES=="registro odc correcto"){
+			
+			if ($tipo_reembolso=='TARJETA SODEXO' || $tipo_reembolso=='TARJETA DILIGO') {
+				$sql="insert into movimientos(id_solicitud, No_tarjeta, importe, Tipo_movimiento) 
+				values((select max(id_odc) from odc), '".$num_tarjeta."', '".$odc_cheque_por."', 'CARGO')";
+				if ($mysqli->query($sql)) {
+					$RES="registro odc correcto";
+				}
+				else{
+					$RES= mysqli_error($mysqli);
+				}
+			}
+		}
 		
 	echo $RES;
 $mysqli->close();
