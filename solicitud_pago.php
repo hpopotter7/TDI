@@ -77,12 +77,13 @@ if(strpos($CLIENTE, '&')){
 
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
-        $firma_1="sin";
-        $firma_2="sin";
-        $firma_3="sin";
-        $firma_4="sin";
-        $firma_5="sin";
-        $firma_6="sin";
+        $firma_elaborado="sin";
+        $firma_solicito="sin";
+        $firma_project="sin";
+        $firma_director="sin";
+        $firma_compras="sin";
+        $firma_coordinador="sin";
+        $firma_finanzas="sin";
         
         $a_nombre = $row[0];                
         $concepto = $row[1];
@@ -144,7 +145,7 @@ if ($result = $mysqli->query($sql)) {
             $firma_finanzas="sin";
         }
         if($firma_compras==1){
-            $firma_compras=str_replace(" ", "", $compras==1);
+            $firma_compras=str_replace(" ", "", $compras);
             $contador_firmas++;
         }
         else if($firma_compras==0 && $compras=="NA"){
@@ -505,6 +506,31 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $arr6=explode(" ", ($coordinador));
     $arr7=explode(" ", ($project));
 
+    if($firma_elaborado==""){
+        $firma_elaborado="sin";
+    }
+    if($firma_solicito==""){
+        $firma_solicito="sin";
+    }
+    if($firma_finanzas==""){
+        $firma_finanzas="sin";
+    }
+    if($firma_elaborado==""){
+        $firma_elaborado="sin";
+    }
+    if($firma_director==""){
+        $firma_director="sin";
+    }
+    if($firma_compras==""){
+        $firma_compras="sin";
+    }
+    if($firma_project==""){
+        $firma_project="sin";
+    }
+    if($firma_coordinador==""){
+        $firma_coordinador="sin";
+    }
+
     $pdf->MultiCell(42,5,utf8_decode($arr[0])."\n".utf8_decode($arr[1]),'B','C',true);
     $pdf->Image('firmas/'.$firma_elaborado.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
@@ -579,7 +605,7 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $pdf->SetX(10);
     $pdf->Cell(42,6,"Compras",0,0,'C',false);
     $pdf->SetX(63);
-    $pdf->Cell(42,6,utf8_decode("Project Manager"),0,'C',false);
+    $pdf->Cell(42,6,utf8_decode("Ejecutivo de cuenta"),0,'C',false);
     $pdf->SetX(109);
     $pdf->Cell(50,6,utf8_decode("Director/Coordinador de area"),0,0,'C',false);
     

@@ -1,10 +1,11 @@
 <?php 
  $numero_evento=$_POST['numero_evento'];
  $usuario=$_COOKIE['user'];
- $comodin_evento="";
-function moneda($value) {
-  return '$' . number_format($value, 2);
-}
+ 
+ $EVENTO="";
+  function moneda($value) {
+    return '$' . number_format($value, 2);
+  }
 
 include("conexion.php");
 
@@ -12,22 +13,40 @@ if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());
     exit();
 }
-
-$sql="";
-if($numero_evento!="0"){
-  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, o.solicito, o.vobo_finanzas, o.vobo_compras, o.vobo_direccion, o.vobo_project, o.vobo_coordinador, o.usuario_registra, o.finanzas, o.autorizo, o.compras, o.coordinador, o.project, o.usuario_registra, o.vobo_solicito, o.evento FROM odc o where  o.Cancelada='no' and (o.evento like '2019-%' or o.evento like '2020-%') and o.evento='".$numero_evento."' and Fecha_hora_registro>='2020-03-14' order by o.evento asc, o.id_odc desc";
+$ODC="";
+$result = $mysqli->query("SET NAMES 'utf8'"); 
+$sql="select odc from cache_por_atender where user='".$usuario."'";
+if ($result = $mysqli->query($sql)) {
+  while ($row = $result->fetch_row()) {
+    $ODC=$row[0];
+  }
 }
 else{
-  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, o.solicito, o.vobo_finanzas, o.vobo_compras, o.vobo_direccion, o.vobo_project, o.vobo_coordinador, o.usuario_registra, o.finanzas, o.autorizo, o.compras, o.coordinador, o.project, o.usuario_registra, o.vobo_solicito, o.evento FROM odc o where  o.Cancelada='no' and (o.evento like '2019-%' or o.evento like '2020-%') and (usuario_registra='".$usuario."' or solicito='".$usuario."' or finanzas='".$usuario."' or autorizo='".$usuario."' or compras='".$usuario."' or project='".$usuario."' or coordinador='".$usuario."') and Fecha_hora_registro>='2020-03-14' order by o.evento asc, o.id_odc desc";
+  $resultado= mysqli_error($mysqli)."--".$sql;
+}
+/*
+echo $numero_evento;
+exit();
+*/
+
+$sql2="";
+$cheks="and (o.vobo_finanzas='1' and o.vobo_compras='1' and o.vobo_direccion='1' and o.vobo_project='1' and o.vobo_coordinador='1'";
+
+if($ODC!=""){
+  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, o.solicito, o.vobo_finanzas, o.vobo_compras, o.vobo_direccion, o.vobo_project, o.vobo_coordinador, o.usuario_registra as user, o.finanzas, o.autorizo, o.compras, o.coordinador, o.project, o.usuario_registra, o.vobo_solicito, o.evento, e.Nombre_evento, e.Cliente, DATE_FORMAT(o.Fecha_hora_registro, '%d/%m/%y %H:%m') as fecha FROM odc o left join eventos e on o.evento=e.Numero_evento where o.id_odc='".$ODC."'";
+  $sql2="delete from cache_por_atender where odc='".$ODC."'";
+}
+else if($numero_evento!="0"){
+  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, o.solicito, o.vobo_finanzas, o.vobo_compras, o.vobo_direccion, o.vobo_project, o.vobo_coordinador, o.usuario_registra as user, o.finanzas, o.autorizo, o.compras, o.coordinador, o.project, o.usuario_registra, o.vobo_solicito, o.evento, e.Nombre_evento, DATE_FORMAT(o.Fecha_hora_registro, '%d/%m/%y %H:%m') as fecha, e.Cliente FROM odc o, eventos e where o.evento=e.Numero_evento and o.Cancelada='no' and (o.evento like '2019-%' or o.evento like '2020-%') and o.evento='".$numero_evento."' and o.Fecha_hora_registro>='2020-03-14' order by o.evento asc, o.id_odc desc";
+}
+else{
+  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, o.solicito, o.vobo_finanzas, o.vobo_compras, o.vobo_direccion, o.vobo_project, o.vobo_coordinador, o.usuario_registra as user, o.finanzas, o.autorizo, o.compras, o.coordinador, o.project, o.usuario_registra, o.vobo_solicito, o.evento, e.Nombre_evento, DATE_FORMAT(o.Fecha_hora_registro, '%d/%m/%y %H:%m') as fecha, e.Cliente FROM odc o, eventos e where o.evento=e.Numero_evento and o.Cancelada='no' and (o.evento like '2019-%' or o.evento like '2020-%') and (o.usuario_registra='".$usuario."' or o.solicito='".$usuario."' or o.finanzas='".$usuario."' or o.autorizo='".$usuario."' or o.compras='".$usuario."' or o.project='".$usuario."' or o.coordinador='".$usuario."') and o.Fecha_hora_registro>='2020-03-14' and (vobo_finanzas=0 or vobo_compras=0 or vobo_direccion=0 or vobo_project=0 or vobo_coordinador=0) order by o.evento desc, o.id_odc desc";
 }
 
-$result = $mysqli->query("SET NAMES 'utf8'"); 
-
 //elaboro, solicito, ejecutivo, coordinador, compras, director, finanzas
-
+$resultado='<table class="table table-inverse" style="width:99%">';
 if ($result = $mysqli->query($sql)) {
-     $resultado='<table class="table table-inverse" style="width:99%"><thead><tr><th>#</th><th>Evento</th><th>Elaborado</th>
-     <th>Solicita</th><th>Proveedor</th><th>Concepto</th><th>Importe</th><th>Solicita</th><th>Ejecutivo</th><th>Coordinador</th><th>Compras</th><th>Dirección</th><th>Finanzas</th><th>Ver</th></tr></thead>';
+     
   	$contador=0;
     $disabled="";
     $tit="";
@@ -53,31 +72,60 @@ if ($result = $mysqli->query($sql)) {
       $compras=$row['compras'];   
       $project=$row['project'];   
       $coordinador=$row['coordinador'];
-      $registro=$row['usuario_registra'];
+      $registro=$row['user'];
       $evento=$row['evento'];
+      $nombre_evento=$row['Nombre_evento'];
+      $fecha=$row['fecha'];
+      $CLIENTE=$row['Cliente'];
       $importe="<td>".moneda($cheque_por)."</td>";
       $Factura="";
-      if($comodin_evento!=$evento){
-        $linea="<thead><tr><th colspan='14'>".$evento."</th></tr></thead>";
-        $comodin_evento=$evento;
+      $cliente="";
+      $arr=explode("&",$CLIENTE);
+      for($r=1;$r<=count($arr)-1;$r++){
+        $cliente=$cliente.$arr[$r]."&";
+      }
+      $cliente=substr($cliente, 0, (strlen($cliente)-1));
+      $NOMBRE_EVENTO_COMPLETO=$evento."  [<i>".$cliente."</i> - ".$nombre_evento."]";
+/*
+      if($comodin_evento!=$nombre_evento){
+        $linea="<thead><tr style='background-color:rgba(72,165,241,0.63)'><th colspan='16'>".$evento."  [<i>".$cliente."</i> - ".$nombre_evento."]</th></tr><tr><th>#</th><th>Elaborado</th><th>Solicita</th><th>Proveedor</th><th>Concepto</th><th>Fecha Solicitud</th><th>Importe</th><th>Solicita</th><th>Ejecutivo</th><th>Director de Área</th><th>Compras</th><th>Dirección General</th><th>Finanzas</th><th colspan='3'>Ver</th></tr></thead>";
+        $comodin_evento=$nombre_evento;
       }
       else{
         $linea="";
       }
-      if($vobo_solicito=="1"){
-        if($solicito==$usuario){
-          $check_solicita="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
+*/
+       // $resultado=$resultado."<tr><td>".$NOMBRE_EVENTO_COMPLETO."</td></tr>";
+        //$EVENTO=$row['Nombre_evento'];
+
+        if($EVENTO==$row['Nombre_evento']){
+          $linea="";
         }
         else{
-          $check_solicita="<center><i class='fa fa-check-square-o'></center>";
+          $linea="<thead><tr style='background-color:rgba(72,165,241,0.63)'><th colspan='16'>".$NOMBRE_EVENTO_COMPLETO."</th></tr><tr><th>#</th><th>Elaborado</th><th>Solicita</th><th>Proveedor</th><th>Concepto</th><th>Fecha Solicitud</th><th>Importe</th><th>Solicita</th><th>Ejecutivo</th><th>Director de Área</th><th>Compras</th><th>Dirección General</th><th>Finanzas</th><th colspan='3'>Ver</th></tr></thead>";
+          $EVENTO=$row['Nombre_evento'];
+        }
+
+        
+    
+      if($vobo_solicito=="1" && $vobo_project=="1" && $vobo_coordinador=="1" && $vobo_compras=="1" && $vobo_direccion=="1" && $vobo_finanzas=="1"){
+
+      }
+      else{
+      if($vobo_solicito=="1"){
+        if($solicito==$usuario){
+          $check_solicita="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed' title='SOLICITA: ".$solicito."'></center>";
+        }
+        else{
+          $check_solicita="<center><i class='fa fa-check-square-o' title='SOLICITA:".$solicito."'></center>";
         } 
       }
       else{
         if($solicito==$usuario){
-          $check_solicita="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."'></center>";
+          $check_solicita="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."' title='SOLICITA: ".$solicito."'></center>";
         }
         else{
-          $check_solicita="<center><i class='fa fa-square-o'></center>";
+          $check_solicita="<center><i class='fa fa-square-o' title='SOLICITA: ".$solicito."'></center>";
         }
       }
 
@@ -85,23 +133,23 @@ if ($result = $mysqli->query($sql)) {
 
       if($vobo_project=="1"){
         if($project==$usuario){
-          $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_project#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
+          $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_project#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed' title='EJECUTIVO: ".$project."'></center>";
         }
         else{
-          $check_ejecutivo="<center><i class='fa fa-check-square-o'></center>";
+          $check_ejecutivo="<center><i class='fa fa-check-square-o' title='EJECUTIVO: ".$project."'></center>";
         } 
       }
       else{
         if($project==$usuario){
           if($vobo_solicito=="1"){
-            $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_project#".$id_odc."'></center>";
+            $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_project#".$id_odc."' title='EJECUTIVO: ".$project."'></center>";
           }
           else{
-            $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_project#".$id_odc."' disabled='disabled' style='cursor:not-allowed'></center>";
+            $check_ejecutivo="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_project#".$id_odc."' disabled='disabled' style='cursor:not-allowed' title='EJECUTIVO: ".$project."'></center>";
           }
         }
         else{
-          $check_ejecutivo="<center><i class='fa fa-square-o'></center>";
+          $check_ejecutivo="<center><i class='fa fa-square-o' title='EJECUTIVO: ".$project."'></center>";
         }
       }
 
@@ -110,23 +158,23 @@ if ($result = $mysqli->query($sql)) {
 
       if($vobo_coordinador=="1"){
         if($coordinador==$usuario){
-          $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_coordinador#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
+          $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_coordinador#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed' title='DIR DE ÁREA: ".$coordinador."'></center>";
         }
         else{
-          $check_coordinador="<center><i class='fa fa-check-square-o'></center>";
+          $check_coordinador="<center><i class='fa fa-check-square-o' title='DIR DE ÁREA: ".$coordinador."'></center>";
         } 
       }
       else{
         if($coordinador==$usuario){
-          if($vobo_project=="1"){
-           $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_coordinador#".$id_odc."'></center>";
+          if($vobo_solicito=="1" &&  $vobo_project=="1"){
+           $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_coordinador#".$id_odc."' title='DIR DE ÁREA: ".$coordinador."'></center>";
           }
           else{
-            $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_coordinador#".$id_odc."' disabled='disabled' style='cursor:not-allowed'></center>";
+            $check_coordinador="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_coordinador#".$id_odc."' disabled='disabled' style='cursor:not-allowed' title='DIR DE ÁREA: ".$coordinador."'></center>";
           }
         }
         else{
-          $check_coordinador="<center><i class='fa fa-square-o'></center>";
+          $check_coordinador="<center><i class='fa fa-square-o' title='DIR DE ÁREA: ".$coordinador."'></center>";
         }
       }
 
@@ -134,24 +182,24 @@ if ($result = $mysqli->query($sql)) {
 
       if($vobo_compras=="1"){
         if($compras==$usuario){
-          $check_compras="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_compras#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
+          $check_compras="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_compras#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed' title='COMPRAS: ".$compras."'></center>";
         }
         else{
-          $check_compras="<center><i class='fa fa-check-square-o'></center>";
+          $check_compras="<center><i class='fa fa-check-square-o' title='COMPRAS: ".$compras."'></center>";
         } 
       }
       else{
         if($compras==$usuario){
-          if($vobo_coordinador=="1"){
-            $check_compras="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_compras#".$id_odc."'></center>";
+          if($vobo_solicito=="1" &&  $vobo_project=="1" && $vobo_coordinador=="1"){
+            $check_compras="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_compras#".$id_odc."' title='COMPRAS: ".$compras."'></center>";
            }
            else{
            
-            $check_compras="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_compras#".$id_odc."' disabled='disabled' style='cursor:not-allowed'></center>";
+            $check_compras="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_compras#".$id_odc."' disabled='disabled' style='cursor:not-allowed' title='COMPRAS: ".$compras."'></center>";
            }
         }
         else{
-          $check_compras="<center><i class='fa fa-square-o'></center>";
+          $check_compras="<center><i class='fa fa-square-o' title='COMPRAS: ".$compras."'></center>";
         }
       }
 
@@ -161,23 +209,23 @@ if ($result = $mysqli->query($sql)) {
       if($vobo_direccion=="1"){
         $comodin=0;
         if($director==$usuario){
-          $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
+          $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_solicito#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed' title='DIR GENERAL: ".$director."'></center>";
         }
         else{
-          $check_director="<center><i class='fa fa-check-square-o'></center>";
+          $check_director="<center><i class='fa fa-check-square-o' title='DIR GENERAL: ".$director."'></center>";
         } 
       }
       else{
         if($director==$usuario){
-          if($vobo_compras=="1"){
-            $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_direccion#".$id_odc."'></center>";
+          if($vobo_solicito=="1" && $vobo_project=="1" && $vobo_coordinador=="1" && $vobo_compras=="1"){
+            $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_direccion#".$id_odc."' title='DIR GENERAL: ".$director."'></center>";
           }else{
-            $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_direccion#".$id_odc."' disabled='disabled' style='cursor:not-allowed'></center>";
+            $check_director="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_direccion#".$id_odc."' disabled='disabled' style='cursor:not-allowed' title='DIR GENERAL: ".$director."'></center>";
           }
           
         }
         else{
-          $check_director="<center><i class='fa fa-square-o'></center>";
+          $check_director="<center><i class='fa fa-square-o' title='DIR GENERAL: ".$director."'></center>";
         }
       }   
       
@@ -185,28 +233,59 @@ if ($result = $mysqli->query($sql)) {
       if($vobo_finanzas=="1"){
         if($finanzas==$usuario){
           $comodin=0;
-          $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_finanzas#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed'></center>";
+          $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_finanzas#".$id_odc."' checked disabled='disabled' class='disabled' style='cursor:not-allowed' title='FINANZAS: ".$finanzas."'></center>";
         }
         else{
-          $check_finanzas="<center><i class='fa fa-check-square-o'></center>";
+          $check_finanzas="<center><i class='fa fa-check-square-o' title='FINANZAS: ".$finanzas."'></center>";
         } 
       }
       else{
         if($finanzas==$usuario){
-          if($vobo_direccion=="1"){
-            $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_finanzas#".$id_odc."'></center>";
+          if($vobo_solicito=="1" && $vobo_project=="1" && $vobo_coordinador=="1" && $vobo_compras=="1" && $vobo_direccion=="1"){
+            $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes' value='vobo_finanzas#".$id_odc."' title='FINANZAS: ".$finanzas."'></center>";
           }
           else{
-            $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_finanzas#".$id_odc."' disabled='disabled' style='cursor:not-allowed'></center>";
+            $check_finanzas="<center><input type='checkbox' class='fa fa-2x check_vobo_solicitudes disabled' value='vobo_finanzas#".$id_odc."' disabled='disabled' style='cursor:not-allowed' title='FINANZAS: ".$finanzas."'></center>";
           }
           
         }
         else{
-          $check_finanzas="<center><i class='fa fa-square-o'></center>";
+          $check_finanzas="<center><i class='fa fa-square-o' title='FINANZAS: ".$finanzas."'></center>";
         }
       }
-        $resultado=$resultado.$linea;
-        $resultado=$resultado."<tr><td>".$contador."</td><td>".$evento."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."</td><td>".$check_solicita."</td><td>".$check_ejecutivo."</td><td>".$check_coordinador."</td><td>".$check_compras."</td><td>".$check_director."</td><td>".$check_finanzas."</td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td> "; 
+
+      $label_comprobante="<button id='".$clases."' class='btn btn-danger disabled' disabled='disabled'><i class='fa fa-ban' aria-hidden='true'></i></button>";
+
+      $ruta = "comprobantes/".$evento;
+      $myfiles = scandir($ruta);
+      $array= Array();
+      $array_nombre= Array();
+      //$contador=0;
+      $clases="";
+      foreach($myfiles as $file){
+        $nombre=explode("-",$file);
+        array_push($array,$nombre[0]);
+        array_push($array_nombre,$file);
+      }
+      $con=0;
+      if(is_dir($ruta)){
+        for($r=0;$r<=count($array)-1;$r++){
+          if($array[$r]==$id_odc){
+            $con++;
+            $clases=$clases."#".$evento."/".$array_nombre[$r];
+          }
+        }
+        if($con>0){
+          $label_comprobante="<label id='".$clases."' class='btn btn-success btn_ver_comprobante '><i class='fa fa-eye' aria-hidden='true'></i></label>";
+        }
+      }
+
+      $label_utilidad="<button id='".$evento."' class='btn btn-warning btn_utilidad'><i class='fa fa-pie-chart' aria-hidden='true'></i></button>";
+     // $label_utilidad="";
+
+        $resultado=$resultado.$linea; //<td>".$evento."</td>
+        $resultado=$resultado."<tr><td id='sol_".$id_odc."'>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td><td>".$fecha."</td>".$importe."</td><td>".$check_solicita."</td><td>".$check_ejecutivo."</td><td>".$check_coordinador."</td><td>".$check_compras."</td><td>".$check_director."</td><td>".$check_finanzas."</td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td><td>".$label_comprobante."</td><td>".$label_utilidad."</td> "; 
+    }
 
   }
     $result->close();
@@ -216,8 +295,16 @@ else{
     $resultado= mysqli_error($mysqli)."--".$sql;
 }
 
+if($ODC!=""){
+  if ($mysqli->query($sql2)) {
+    $respuesta= "borrado";
+  }
+  else{
+      $respuesta= $sql."<br>".mysqli_error($mysqli);
+  }
+}
 
-$resultado=$resultado.$resultado2;
+$resultado=$resultado;
 
 echo $resultado;
 

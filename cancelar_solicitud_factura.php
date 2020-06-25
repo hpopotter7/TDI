@@ -8,7 +8,7 @@
 	}
 	$result = $mysqli->query("SET NAMES 'utf8'");
 
-			$sql="update solicitud_factura set Estatus='Cancelada', Motivo_cancelacion='".$motivo."' where id_solicitud=".$id;
+			$sql="update solicitud_factura set Estatus='Cancelada', No_Factura=NULL, Motivo_cancelacion='".$motivo."' where id_solicitud=".$id;
 			if ($mysqli->query($sql)) {
 			    $res= "cancelada";
 			}

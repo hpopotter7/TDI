@@ -26,18 +26,27 @@ else{
 }
 
 $array3=array();
+$array_tipomov=array();
 for ($i=0; $i < count($array1) ; $i++) { 
    
     $suma_movs=0;
-    $sql="SELECT Importe from movimientos where tipo_movimiento='CARGO' and no_tarjeta='".$array1[$i]."' ";
+    $tipo_mov="";
+    $sql="SELECT Importe, Fecha_Afectacion from movimientos where tipo_movimiento='CARGO' and no_tarjeta='".$array1[$i]."' ";
     if ($result = $mysqli->query($sql)) {
       while ($row = $result->fetch_row()) {
         $suma_movs=$suma_movs+$row[0];
+        if($row[1]==null || $row[1]==""){
+          $tipo_mov="pendiente";
         }
+        else{
+          $tipo_mov="aprobado";
+        }
+      }
         $result->close();
     }
         
         array_push($array3,$suma_movs);
+        array_push($array_tipomov,$tipo_mov);
 }
 $array4=array();
 for ($i=0; $i < count($array1) ; $i++) { 
@@ -56,8 +65,14 @@ for ($i=0; $i < count($array1) ; $i++) {
 
 
 for ($i=0; $i < count($array3) ; $i++) { 
+  $badge="";
+  if($array_tipomov[$i]=="pendiente"){
+    $badge=" <i class='fa fa-info-circle' aria-hidden='true' style='color:rgba(230,115,6,1)'></i>";
+  }
+  
+  $saldo=moneda($array3[$i]-$array4[$i]);
 
-    $res=$res."<tr><td>".$array1[$i]."</td><td>".$array2[$i]." </td><td style='text-align:center'><strong>".moneda($array3[$i]-$array4[$i])."</strong></td><td><select class='form-control operaciones_tarjeta'>
+    $res=$res."<tr><td>".$array1[$i]."</td><td>".$array2[$i]." </td><td style='text-align:center'><strong>".$saldo.$badge."</strong></td><td><select class='form-control operaciones_tarjeta'>
     <option value='vacio'>Selecciona...</option>
     <option value='movimientos_".$array1[$i]."'>Ver Movimientos</option>
     <option value='cargos_".$array1[$i]."'>Abono a tarjeta</option>

@@ -12,7 +12,7 @@ if(!is_dir($output_dir)){
     }
     else {
         move_uploaded_file($_FILES['file']['tmp_name'], $output_dir . $doc."-".$_FILES['file']['name']);
-        echo $nombre;
+        echo "subido";
     }
 
 ?>

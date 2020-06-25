@@ -11,6 +11,7 @@ $(".collapsed").click(function(e){
 $('#nav_verde').mouseover(function(){
   if(bandera_menu==false){
       $('#sidenav01').css("left","0px");
+      
       bandera_menu=true;
   }
 });
@@ -18,9 +19,13 @@ $('#nav_verde').mouseover(function(){
   $(".navbar").mouseleave(function(){
     if(bandera_menu==true){
       $('#sidenav01').css("left","-250px");
+      
       bandera_menu=false;
   }
   });
+
+  $('.progress').hide();
+  
   
   ver_personas();
 
@@ -157,6 +162,7 @@ var idioma_espaniol = {
     $('#resultado_bitacora').html("");
     $('#resultado_bitacora').fadeOut();
    });
+   
 
    $('.buttonText:eq(0)').html('CSF');
    $('.buttonText:eq(1)').html('INE');
@@ -1820,7 +1826,26 @@ var parametros = {
                 var arr=response.split("$$$");
                 $('#resultado_solicitudes').html(arr[0]);
                 $('#espacio').show();
-                
+               // $('#tabla_resumen_solicitudes').DataTable();
+                $('#tabla_resumen_solicitudes').DataTable({
+                  "searching": true,
+                  "language" : idioma_espaniol,
+                  //"lengthChange": false,
+                  //"ordering": false,
+                  "paging": false,
+                  //"scrollX": false,
+                  "destroy": true, 
+                 //  "sort": false,
+                  //"scrollX": true,
+                  //"scrollCollapse": false,4
+                  /*
+                  "columnDefs": [
+                      { "width": "3%", "targets": [-1,-2,-3] }
+                  ],
+                  */
+                  //"lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
+                 
+               }); 
               }
             });
         }
@@ -2458,6 +2483,9 @@ var parametros = {
               else if(compras==""){
                 generate('warning',"Debe ingresar un Vo.Bo de Compras");
               }
+              else if(ejecutivo=="vacio"){
+                generate('warning',"Debe seleccionar a un Ejecutivo");
+              }
               else if(coordinador==""){
                 generate('warning',"Debe ingresar un Coordinador de área");
               }
@@ -2540,8 +2568,7 @@ var parametros = {
                               success:  function (response) {
 
                                 if(response.includes("registro odc correcto")){
-                                  generate('success',"<htm>La <a href='solicitud_pago.php?id=0'><strong>solicitud</strong></a> se ha guardado correctamente</htm>");
-                                  
+                                  generate('success',"<htm>La <a href='solicitud_pago.php?id=0' class='btn btn-info' target='_blank'><strong style='color:black;'>solicitud</strong></a> se ha guardado correctamente</htm>");
                                   enviar_notificacion_solicitud("","texto","user","VoBo para solicitud de compra","vacio");
                                   //window.open("solicitud_pago.php?id=0",'_blank');
                                   limpiar_odc();
@@ -2552,7 +2579,7 @@ var parametros = {
                                 }
                               }
                             });
-                            $noty.close();
+                            //$noty.close();
                           /*        
                       }
                     },
@@ -2624,17 +2651,7 @@ var parametros = {
                 var arr=response.split("&");
                 var ejecutivo=arr[0];
                 var monto=Number(arr[1].replace(/[^0-9.-]+/g,""));
-                console.log();
-                if($('#txt_project').val()==""){
-                  var ej=ejecutivo.split(",");
-                  if(ej.length>1){
-                    elegir_ejecutivo(ejecutivo);
-                  }
-                  else{
-                    ejecutivo=ejecutivo.replace(",","");
-                    $('#txt_project').val(ejecutivo);
-                  }
-                }
+                
                 
                 if(monto<=0){
                   $('#label_maximo_odc').html("$0.00");
@@ -3613,7 +3630,7 @@ function validarInput() {
       */
 
      $("#resultado_solicitudes").delegate(".btn-agregar-factura", "click", function(){
-       var html="<div>Ingresa el # de factura: <p><input class='form-control' id='numero' type='number'></div><div>Ingresa el importe de la factura: <p><input class='form-control' id='importe' type='number'></div><div>Selecciona el estatus de la factura: <p><select id='estatus' class='form-control'><option value=''>---Selecciona---</option><option value='PAGADO'>PAGADO</option><option value='COBRADO'>COBRADO</option><option value='NOTA CREDITO'>NOTA CREDITO</option><option value='POR COBRAR'>POR COBRAR</option></select></div>";
+       var html="<div>Ingresa el # de factura: <p><input class='form-control' id='numero' type='number'></div><div>Ingresa el importe de la factura: <p><input class='form-control' id='importe' type='number'></div><div>Selecciona el estatus de la factura: <p><select id='estatus' class='form-control'><option value=''>---Selecciona---</option><option value='PAGADO'>PAGADO</option><option value='NOTA CREDITO'>NOTA CREDITO</option><option value='POR COBRAR'>POR COBRAR</option></select></div>";
         noty({
           text        : html,
           width       : '650px',
@@ -4512,7 +4529,16 @@ function validarInput() {
                     pasa=false;
           } 
           else {
-            pasa=true;
+            
+            guardar_archivos_proveedores_csf(cliente.trim());
+            guardar_archivos_proveedores_ine(cliente.trim());
+            guardar_archivos_proveedores_edo(cliente.trim());
+            guardar_archivos_proveedores_comp(cliente.trim());
+            if(tipo_persona=="MORAL"){
+              guardar_archivos_proveedores_acta(cliente.trim());
+            }
+              pasa=true;
+           
           }
 
           if(pasa==true){ // si todos los campos son correctos, se manda a documentos
@@ -4561,17 +4587,11 @@ function validarInput() {
                 if(response.includes("registro correcto") || response.includes("ya existe")){
                   //generate("success", "Registro correcto");
                   //generate('success', "La solicitud se ha registrado!!");
-                  var nombre=$('#txt_nombre_cliente').val();
-                  guardar_archivos_proveedores_csf(nombre.trim());
-                  guardar_archivos_proveedores_ine(nombre.trim());
-                  guardar_archivos_proveedores_edo(nombre.trim());
-                  guardar_archivos_proveedores_comp(nombre.trim());
-                  if($("#file_acta").val()!=""){
-                    guardar_archivos_proveedores_acta(nombre.trim());
-                  }
+                  
                   
                   $('#enviar_solicitud_cliente').html('<i class="i_espacio fa fa-envelope-o" aria-hidden="true"></i>Enviar Solicitud');
                   envio_mail_solicitud();
+                  limpiar_cliente();
                   
                 }
 
@@ -4589,6 +4609,7 @@ function validarInput() {
     };
 
     function guardar_archivos_proveedores_csf(nombre){
+      
       var file_data = $('#file_ine').prop('files')[0];   
       var form_data = new FormData();                  
       form_data.append('file', file_data);
@@ -4602,7 +4623,13 @@ function validarInput() {
           processData: false,
           data: form_data,                         
           type: 'post',
+          async: false,
+          beforeSend: function(){
+            $('.pro_csf').fadeIn('slow');
+          },
           success: function(php_script_response){
+            console.log(php_script_response);
+            $('.pro_csf').fadeOut('slow');
           }
        });
     }
@@ -4620,7 +4647,14 @@ function validarInput() {
           processData: false,
           data: form_data,                         
           type: 'post',
+          async: false,
+          beforeSend: function(){
+            $('.pro_ine').fadeIn('slow');
+          },
           success: function(php_script_response){
+            $('.pro_ine').fadeOut('slow');
+            console.log(php_script_response);
+            
           }
        });
     }
@@ -4638,7 +4672,14 @@ function validarInput() {
           processData: false,
           data: form_data,                         
           type: 'post',
+          async: false,
+          beforeSend: function(){
+            $('.pro_edo').fadeIn('slow');
+          },
           success: function(php_script_response){
+            $('.pro_edo').fadeOut('slow');
+            console.log(php_script_response);
+            
           }
        });
     }
@@ -4656,17 +4697,23 @@ function validarInput() {
           processData: false,
           data: form_data,                         
           type: 'post',
+          async: false,
+          beforeSend: function(){
+            $('.pro_comp').fadeIn('slow');
+          },
           success: function(php_script_response){
+            console.log(php_script_response);
+            $('.pro_comp').fadeOut('slow');
           }
        });
     }
 
     function guardar_archivos_proveedores_acta(nombre){
-      var file_data = $('#file_acta').prop('files')[0];   
+      var file_data = $('#file_comp').prop('files')[0];   
       var form_data = new FormData();                  
       form_data.append('file', file_data);
       form_data.append('nombre', nombre);
-      form_data.append('doc', 'ACTA');
+      form_data.append('doc', 'COMP');
       $.ajax({
           url: 'upload_file.php', // point to server-side PHP script 
           dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -4675,7 +4722,12 @@ function validarInput() {
           processData: false,
           data: form_data,                         
           type: 'post',
+          async: false,
+          beforeSend: function(){
+            $('.pro_acta').fadeIn('slow');
+          },
           success: function(php_script_response){
+            $('.pro_acta').fadeOut('slow');
             console.log(php_script_response);
           }
        });
@@ -5015,36 +5067,36 @@ $('#btn_bloquear').click(function(){
 });
 
 $('#btn_borrar_sdp').click(function(){
-  noty({
-                    text        : "Ingresa un motivo de borrado<p><input class='form-control' id='motivo' type='text'>",
-                    width       : '650px',
-                    type        : 'warning',
-                    dismissQueue: false,
-                    closeWith   : ['button'],
-                    theme       : 'metroui',
-                    timeout     : false,
-                    layout      : 'topCenter',
-                     callbacks: {
-                      afterShow: function() { },
-                    },
-                     buttons: [
-                      {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
-                        var motivo=$noty.$bar.find('input#motivo').val();
-                        if(motivo==""){
-                          generate("warning", "Debe ingresar un motivo");
-                        }
-                        else{
-                          var evento=$('#c_mis_eventos').val();
-                          borrar_sdp(motivo, evento, ids_odc, $noty);
-                        }
-                        }
-                      },
-                      {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
-                         $noty.close();
-                        }
-                      }
-                     ]
-                  });
+      noty({
+        text        : "Ingresa un motivo de borrado<p><input class='form-control' id='motivo' type='text'>",
+        width       : '650px',
+        type        : 'warning',
+        dismissQueue: false,
+        closeWith   : ['button'],
+        theme       : 'metroui',
+        timeout     : false,
+        layout      : 'topCenter',
+          callbacks: {
+          afterShow: function() { },
+        },
+          buttons: [
+          {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
+            var motivo=$noty.$bar.find('input#motivo').val();
+            if(motivo==""){
+              generate("warning", "Debe ingresar un motivo");
+            }
+            else{
+              var evento=$('#c_mis_eventos').val();
+              borrar_sdp(motivo, evento, ids_odc, $noty);
+            }
+            }
+          },
+          {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
+              $noty.close();
+            }
+          }
+          ]
+      });
 });
     
   function borrar_sdp(motivo, evento, ids, noty){
@@ -5155,9 +5207,11 @@ $('#resultado_solicitudes').delegate('.btn_devolucion','click', function(e) {
                         if(motivo=="" || monto=="" || fecha==""){
                           generate("warning", "Todos los datos son requeridos");
                         }
+                        /*
                         else if(parseFloat(monto)>=parseFloat(maximo)){
                           generate("warning", "El monto a devolver debe ser menor al de la solicitud");
                         }
+                        */
                         else{
                           
                            devolucion_solicitud(id, monto, motivo, fecha, banco, $noty);
@@ -5974,7 +6028,7 @@ function ver_numero_notificaciones(){
 }
 
 function updateReloj() {
-
+  
   if (contador_tiempo == 0) {
     ver_numero_notificaciones();
     contador_tiempo=120;
@@ -6008,12 +6062,36 @@ $('#resultado_bitacora').delegate('.btn_notificacion', 'click', function(){
 });
 
 $('#modal_notificacion').on($.modal.CLOSE, function(event, modal) {
-  
+
   $('#btn_notificaciones').show();
   $('#btn_cerrar_bitacora').hide();
   $('#resultado_bitacora').html("");
   $('#resultado_bitacora').fadeOut();
   ver_numero_notificaciones();
+});
+
+$('#modal_notificacion').delegate(".btn_atender","click", function(e){
+  e.preventDefault();
+  var odc=$(this).attr("id");
+  var datos={
+    "odc":odc,
+};
+$.ajax({
+  url:   'cache_atender.php',
+  type:  'post',
+  data: datos,
+  success:  function (response) {
+    
+  }
+});
+
+  $.modal.close();
+  $('#menu_vobo').click();
+  
+  
+
+  //$('#modal_notificacion').modal('toggle');
+
 });
 
 $('#tarjetas_resultado').delegate('.btn-ver-movimientos', 'click', function(){
@@ -6166,9 +6244,13 @@ $(window).scroll(function () {
   
   if ($(this).scrollTop() > 50) {
       $('#spnTop').fadeIn();
+      $('#spnDown').fadeIn();
   } else {
       $('#spnTop').fadeOut();
+      $('#spnDown').fadeOut();
   }
+
+ 
 });
 
 $('#spnTop').click(function (e) {
@@ -6181,9 +6263,27 @@ $('#spnTop').click(function (e) {
 
    $('html,body').animate({ scrollTop: scrollAmount }, 'slow', function () {
     $('#spnTop').fadeOut('hide');
+    $('#spnDown').fadeOut('hide');
    });
 
   });
+
+  $('#spnDown').click(function (e) {
+    e.preventDefault();
+    
+    var percentageToScroll = 100;
+    var percentage = percentageToScroll/100;
+    var height = $(document).height();
+    var scrollAmount = height ;
+  
+     $('html,body').animate({ scrollTop: scrollAmount }, 'slow', function () {
+      $('#spnTop').fadeOut('hide');
+      $('#spnDown').fadeOut('hide');
+     });
+  
+    });
+
+  
 
   $("#menu_prealta").click(function (e) { 
     e.preventDefault();
@@ -6206,6 +6306,13 @@ $("#btn_rep_pitch").click(function (e) {
   limpiar_cortinas();
   $("#div_cortina").animate({top: '0px'}, 1100);
   $("#frame").attr("src", "eventos_pitch.html");
+  $('#div_iframe').fadeIn();
+});
+$("#btn_rep_historicos").click(function (e) { 
+  e.preventDefault();
+  limpiar_cortinas();
+  $("#div_cortina").animate({top: '0px'}, 1100);
+  $("#frame").attr("src", "eventos_historicos.html");
   $('#div_iframe').fadeIn();
 });
 
@@ -6246,6 +6353,7 @@ $(".btn_archivos").change(function(){
   if($('#c_clientes_alta').val()!="vacio"){
     var id=$(this).attr("id");
     var nombre=$('#txt_nombre_cliente').val();
+    alert(nombre);
     switch(id){
       case "file_csf":
         guardar_archivos_proveedores_ine(nombre.trim());
@@ -6341,6 +6449,19 @@ $('#c_user_solicita').change(function(){
           $('#txt_coordinador').val(response);
       }
     });
+    var evento=$('#c_numero_evento').val();
+    var datos={
+      "evento":evento,
+    };
+    $.ajax({
+      url:   'buscar_project.php',
+      type:  'post',
+      data: datos,
+      success:  function (response) {
+        console.log(response);
+          $('#txt_project').html(response);
+      }
+    });
   });
 
   function elegir_ejecutivo(string){
@@ -6376,6 +6497,116 @@ $('#c_user_solicita').change(function(){
 
   }
 
+  $("#resultado_solicitudes").delegate(".btn_subir_comprobante", "click", function() {
+    var contenido=$(this).html();
+    if(contenido.includes("upload")){
+      var arr=$(this).attr('id').split("#");
+      var id=arr[0];
+      var evento=arr[1];
+      subir_comprobante(evento, id);
+    } 
+    else{
+      contenido="ver";
+    }
+    
+  });
+
+  function subir_comprobante(evento, id){
+    noty({
+      text        : '<input type="file" id="btn_comprobante" multiple class="btn btn-info"><i>Dependiendo de la conexion a internet será el tiempo que tarde en subir los documentos.</i>',
+      width       : '400px',
+      type        : 'warning',
+      dismissQueue: false,
+      closeWith   : ['backdrop'],
+      //modal       : true,
+      theme       : 'metroui',
+      timeout     : false,
+      layout      : 'topCenter',
+       buttons: [
+        {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
+           if($noty.$bar.find('input#btn_comprobante').val() == ''){
+              generate('warning', 'Debe seleccionar un archivo');
+            }
+            else{
+              var inp = document.getElementById('btn_comprobante');
+              var contador=inp.files.length;
+              if(contador>5){
+                generate("warning","Solo se pueden subir máximo 5 documentos");
+              }
+              else{
+                for (var i = 0; i < inp.files.length; ++i) {
+                  var file_data = $noty.$bar.find('input#btn_comprobante').prop('files')[i];   
+                  var form_data = new FormData();       
+                  form_data.append('file', file_data);
+                  form_data.append('evento', evento);
+                  form_data.append('id', id);
+                  $.ajax({
+                      url: 'upload_comprobante.php', // point to server-side PHP script 
+                      dataType: 'text',  // what to expect back from the PHP script, if anything
+                      cache: false,
+                      contentType: false,
+                      processData: false,
+                      data: form_data,                         
+                      type: 'post',
+                      success: function(response){
+                        if(response.includes("Error")){
+                          generate('error',response);
+                        }
+                        else{
+                          var evento = $("#c_mis_eventos").val();
+                          ver_solicitudes_por_evento(evento);
+                          generate('success',response);
+                        }
+                        $noty.close();
+                      }
+                  });
+                }
+              }
+            }
+          }
+        },
+        {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
+           $noty.close();
+          }
+        }
+       ]
+      }); 
+  }
+
+
+  $("#resultado_solicitudes").delegate(".btn_ver_comprobante", "click", function() {    
+      var arr=$(this).attr('id').split("#");
+      if(arr.length==2){
+        window.open("comprobantes/"+arr[1],'_blank');
+      }
+      else{
+        var a="";
+        for(var r=1;r<=arr.length-1;r++){
+          a=a+"<li style='margin:.2em'><a class='btn btn-info' href='comprobantes/"+arr[r]+"' target='_blank'><b>"+arr[r]+"</b></li>";
+        }
+        var html="Este comprobante tiene varios archivos:<ul>"+a+"</ul>";
+        noty({
+          text        : html,
+          width       : '400px',
+          type        : 'warning',
+          dismissQueue: false,
+          closeWith   : ['backdrop'],
+          //modal       : true,
+          theme       : 'metroui',
+          timeout     : false,
+          layout      : 'topCenter',
+           buttons: [
+            {addClass: 'btn btn-success', text: 'Cerrar', onClick: function($noty) {
+              $noty.close();
+             }
+           }
+            ]
+          }); 
+      }
+      for(var r=0;r<=arr.length-1;r++){
+        console.log(arr[r]);
+      }
+  });
   
 
 

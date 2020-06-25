@@ -19,7 +19,7 @@ foreach($myfiles as $file){
   $concatenados=$concatenados.".".$nombre[0];
 }
 
-$sql2="SELECT p.id_sol_factura, ROUND(sum(p.total),2), s.Estatus, s.No_factura, s.Estatus_Factura, ANY_VALUE(p.descripcion) from partidas p, solicitud_factura s where s.id_evento=".$evento." and p.id_sol_factura=s.id_solicitud and s.Estatus='Activa' group by p.id_sol_factura";
+$sql2="SELECT p.id_sol_factura, ROUND(sum(p.total),2), s.Estatus, s.No_factura, s.Estatus_Factura, ANY_VALUE(p.descripcion) from partidas p, solicitud_factura s where s.id_evento=".$evento." and p.id_sol_factura=s.id_solicitud and s.Estatus='Activa' group by p.id_sol_factura order by s.No_Factura asc";
 if ($result = $mysqli->query($sql2)) {
   while ($row = $result->fetch_row()) {
     $estatus0="";
@@ -42,9 +42,10 @@ $descripcion=$row[5];
         case "PAGADO":
           $estatus1="selected='selected'";
         break;
-        case "COBRADO":
+        /*case "COBRADO":
           $estatus2="selected='selected'";
         break;
+        */
         case "NOTA CREDITO":
           $estatus3="selected='selected'";
         break;
@@ -75,7 +76,7 @@ $descripcion=$row[5];
         $tbody=$tbody."
                 <option value='vacio' ".$estatus0.">---Selecciona---</option>
                 <option value='PAGADO' ".$estatus1.">PAGADO</option>
-                <option value='COBRADO' ".$estatus2.">COBRADO</option>
+                
                 <option value='NOTA CREDITO' ".$estatus3.">NOTA CREDITO</option>
                 <option value='POR COBRAR' ".$estatus4.">POR COBRAR</option>
                 </select></td>
@@ -89,11 +90,9 @@ $descripcion=$row[5];
                 else{
                   $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><label class='btn btn-info btn_descargar_facturas'><i class='fa fa-download' aria-hidden='true'></i></label></a>";
                 }
-//
+
                 $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-cloud-upload ' aria-hidden='true'></i></button>";
-                /*
-                $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-cloud-upload ' aria-hidden='true'></i></button>";
-                */
+
                 for($r=0;$r<=count($array)-1;$r++){
                       if($array[$r]==$no_factura){
                         $boton_factura="<a href='".$ruta."/".$array_nombres[$r]."' target='_blank'><button id='".$evento."#".$array[$r]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button></a>";
@@ -101,20 +100,21 @@ $descripcion=$row[5];
                       
                 }
                 $tbody=$tbody.$boton_factura."<a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
-
-                /*
-                <a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' > <i class='fa fa-trash fa-2x' aria-hidden='true'></i></a></td>";
-
-                */
-
                  
-                }
-                else{
+              }
+              else{
+                $boton_factura="<button type='button' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-ban fa-2x' aria-hidden='true'></i></button>";
+                  for($r=0;$r<=count($array)-1;$r++){
+                    if($array[$r]==$no_factura){
+                      $boton_factura="<a href='".$ruta."/".$array_nombres[$r]."' target='_blank'><button id='".$evento."#".$array[$r]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf fa-2x' aria-hidden='true'></i></button></a>";
+                    }
+                  }
+
                   if($descripcion=="Carga inicial"){
-                    $tbody=$tbody."<td><label class='btn btn-info' disabled='disabled'><i class='fa fa-ban fa-2x' aria-hidden='true'></i></label></td>";
+                    $tbody=$tbody."<td><label class='btn btn-info' disabled='disabled'><i class='fa fa-ban fa-2x' aria-hidden='true'></i></label>".$boton_factura."</td>";
                   }
                   else{
-                    $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><label class='btn btn-info btn_descargar_facturas'><i class='fa fa-download fa-2x' aria-hidden='true'></i></label></a></td>";
+                    $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><label class='btn btn-info btn_descargar_facturas'><i class='fa fa-download fa-2x' aria-hidden='true'></i></label></a>".$boton_factura."</td>";
                   }
                   
                 }
@@ -123,7 +123,7 @@ $descripcion=$row[5];
   }
 }
 
-$resultado2="";
+$resultado2="<p><br>";
 $utilidad=$total_facturas-$suma_solicitudes;
 $util="";
 if($utilidad>0){
@@ -195,6 +195,13 @@ var myChart = new Chart(ctx, {
     responsive: false,
     maintainAspectRatio: true,
      
+  },
+  plugins: {
+    labels: {
+      render: 'percentage',
+      fontColor: '#000',
+        precision: 2
+    }
   }
 });
 </script>

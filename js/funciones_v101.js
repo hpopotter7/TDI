@@ -77,7 +77,7 @@ function validar_perfiles(response){
 	}
 	//Ejecutivo de cuenta
 	
-	if(response.eje=="Ejecutivo de cuenta" || response.dire=="Directivo"){
+	if(response.eje=="Ejecutivo de cuenta" || response.dire=="Directivo" || response.sol=="Solicitante"){
 		$('#menu_modificar_evento').show();
 		$('#menu_crear_evento').show();
 	}

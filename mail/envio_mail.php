@@ -8,10 +8,15 @@ $evento=$_POST['evento'];
 $usuario=$_POST['usuario'];
 $texto=$_POST['texto'];
 $proveedor=$_POST['proveedor'];
-
+$copia="";
 if($usuario==""){
 	$usuario=$_COOKIE['user'];
 }
+include("../conexion.php");
+			if (mysqli_connect_error()) {
+				echo "Error de conexion: %s\n", mysqli_connect_error();
+				exit();
+			}
 
 $body="";
 switch($asunto){
@@ -83,11 +88,13 @@ switch($asunto){
 		// $mail->addAddress('sandrap@tierradeideas.mx', 'Sandra Peña');
 		// $mail->AddCC('fcarrera@tierradeideas.mx', 'Fernanda Carrera');
 		// $mail->AddCC('andresemanuelli@tierradeideas.mx', 'Andres Emanuelli');
+		/*
 		include("../conexion.php");
 		if (mysqli_connect_errno()) {
 			printf("Error de conexion: %s\n", mysqli_connect_error());
 			exit();
 		}
+		*/
 		$result = $mysqli->query("SET NAMES 'utf8'");
 		$arr=explode("]",$evento);
     	$ID=str_replace("[", "", $arr[0]);
@@ -153,23 +160,23 @@ switch($asunto){
 		</html>
 		';
 	break;
+	
 	case "VoBo para solicitud de compra":
-			include("../conexion.php");
-			if (mysqli_connect_error()) {
-				echo "Error de conexion: %s\n", mysqli_connect_error();
-				exit();
-			}
+			
 			$result = $mysqli->query("SET NAMES 'utf8'");
 			$sql="";
+			$id_odc="0";
 			if($evento==""){
-				$sql="select evento, vobo_solicito, vobo_project, vobo_coordinador, vobo_compras, vobo_direccion, vobo_finanzas, solicito, project, coordinador, compras, autorizo, finanzas, a_nombre, concepto, Importe_total from odc where id_odc=(SELECT max(id_odc) from odc)";
+				$sql="select evento, vobo_solicito, vobo_project, vobo_coordinador, vobo_compras, vobo_direccion, vobo_finanzas, solicito, project, coordinador, compras, autorizo, finanzas, a_nombre, concepto, Importe_total, usuario_registra, id_odc from odc where id_odc=(SELECT max(id_odc) from odc)";
 			}
 			else{
-				$sql="select evento, vobo_solicito, vobo_project, vobo_coordinador, vobo_compras, vobo_direccion, vobo_finanzas, solicito, project, coordinador, compras, autorizo, finanzas, a_nombre, concepto, Importe_total from odc where id_odc=".$evento;
+				$sql="select evento, vobo_solicito, vobo_project, vobo_coordinador, vobo_compras, vobo_direccion, vobo_finanzas, solicito, project, coordinador, compras, autorizo, finanzas, a_nombre, concepto, Importe_total, usuario_registra, id_odc from odc where id_odc=".$evento;
+				$id_odc=$evento;
 			}
 			
 			if ($result = $mysqli->query($sql)) {
 				while ($row = $result->fetch_row()) {
+					
 					$evento=$row[0];
 					$vobo_solicito=$row[1];
 					$vobo_project=$row[2];
@@ -186,6 +193,8 @@ switch($asunto){
 					$a_nombre=$row[13];
 					$concepto=$row[14];
 					$importe=$row[15];
+					$elabora=$row[16];
+					$id_odc=$row[17];
 					$bandera="";
 					//orden solicito, ejecutivo, coordinador, compras, direccion, finanzas
 					if($vobo_solicito=="0"){
@@ -219,13 +228,25 @@ switch($asunto){
 			$usuario="";
 			if ($result = $mysqli->query($sql)) {
 				while ($row = $result->fetch_row()) {
-					$to=$row[0].";sandrap@tierradeideas.mx;";
+					$to=$row[0];
 				}
 				$result->close();
 			}
 			else{
 				$evento= "<br>".mysqli_error($mysqli);
 			}
+			$sql="select email from usuarios where Nombre='".$elabora."'";
+			if ($result = $mysqli->query($sql)) {
+				while ($row = $result->fetch_row()) {
+					$copia.= "CC: ".$row[0]."\r\n";
+					
+				}
+				$result->close();
+			}
+			else{
+				$evento= "<br>".mysqli_error($mysqli);
+			}
+			$usuario=$elabora;
 			$sql="select Nombre_evento from eventos where Numero_evento='".$evento."'";
 			$nombre_evento="";
 			if ($result = $mysqli->query($sql)) {
@@ -257,81 +278,28 @@ switch($asunto){
 		<hr /><p><br />La siguiente solicitud del evento <b>['.$evento."] - ".$nombre_evento.'</b> esta pendiente de ser autorizada:<br>
 		&nbsp;<br />'.$resumen.'
 		&nbsp;<br />
-		<i><strong>NOTA: Sin tu VoBo no se podrá autorizar las siguientes etapas</strong></i><p>
+		<div class="row"></div>
+		<div>Puedes atender dicha solcitud <i></i><a class="btn btn-info btn_atender" id="'.$id_odc.'" href="close-modal" >Aqui</a></div><p>
+		<div>
+		<i><strong>NOTA: Sin tu VoBo no se podr&aacute; autorizar las siguientes etapas</strong></i></div><p>
 		<span style="font-size:10px"><span style="font-family:verdana,geneva,sans-serif"><em>&nbsp;Este es un mensaje autom&aacute;tico creado por el sistema ERP.&nbsp; Favor de no responder.</em></span></span><br />
 		&nbsp;</body>
 		</html>
 		';
 		
+		//echo "Se omite el envió por spam";
+		//exit();
 	break;
-	/* case "Notificacion de solicitud":
-			include("../conexion.php");
-			if (mysqli_connect_error()) {
-				echo "Error de conexion: %s\n", mysqli_connect_error();
-				exit();
-			}
-			$result = $mysqli->query("SET NAMES 'utf8'");
-
-			$sql="select e.Numero_evento, e.Nombre_evento, o.finanzas, o.autorizo, o.compras, o.coordinador, o.project, o.solicito from eventos e join odc o where e.Numero_evento=o.evento and o.id_odc=(select MAX(id_odc) from odc)";
-			$evt="";
-			$evento="";
-			$solicito="";
-			$array=array();
-			if ($result = $mysqli->query($sql)) {
-				while ($row = $result->fetch_row()) {
-					$evento=$row[0];
-					$evt=$row[1];
-					
-					array_push($array, $row[2]);
-					array_push($array, $row[3]);
-					array_push($array, $row[4]);
-					array_push($array, $row[5]);
-					array_push($array, $row[6]);
-					$solicito=$row[7];
-				}
-				$result->close();
-			}
-			else{
-				$evt= $sql."<br>".mysqli_error($mysqli);
-			}
-			for($r=0;$r<=count($array)-1;$r++){
-				$sql="select email from usuarios where Nombre='".$array[$r]."'";
-				if ($result = $mysqli->query($sql)) {
-					while ($row = $result->fetch_row()) {
-						$to=$to.$row[0].";";
-					}
-					$result->close();
-				}
-				else{
-					$evt= $sql."<br>".mysqli_error($mysqli);
-				}
-			}
-			$usuario=$solicito;
-			$body='<html>
-			<head>
-				<title></title>
-				<link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
-			</head>
-			<body aria-readonly="false">&nbsp;&nbsp;<img alt="" src="https://administraciontierradeideas.mx/img/logo_chico.png" style="float:left" /><br />
-			&nbsp;<br />
-			&nbsp;<br />
-			&nbsp;<p><br>
-			<hr /><p><br />Se te ha agregado una solicitud del evento <b>'.$evento.' - '.$evt.'</b><br>
-			&nbsp;<br />
-			&nbsp;<br />
-			<span style="font-size:10px"><span style="font-family:verdana,geneva,sans-serif"><em>&nbsp;Este es un mensaje autom&aacute;tico creado por el sistema ERP.&nbsp; Favor de no responder.</em></span></span><br />
-			&nbsp;</body>
-			</html>
-			';
-	break; */
+	
 
 }
-
+/*
 include("../conexion.php");
 if (mysqli_connect_error()) {
 	echo "Error de conexion: %s\n", mysqli_connect_error();
 	exit();
 }
+*/
 $result = $mysqli->query("SET NAMES 'utf8'");
 $link='<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">';
 
@@ -352,14 +320,19 @@ $headers .= "Bcc: alaneduardosandoval@yahoo.com\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
-
+if($copia!=""){
+	$headers .= $copia;
+}
 
 //send the message, check for errors
-if (!mail($to, $asunto, $body, $headers)) {
-    echo "Ocurrio un error al enviar la notificación".error_get_last()['message'];
-} else {
-    echo "Enviado".$respuesta;
+if($asunto!="VoBo para solicitud de compra"){
+	if (!mail($to, $asunto, $body, $headers)) {
+		echo "Ocurrio un error al enviar la notificación".error_get_last()['message'];
+	} else {
+		echo "Enviado".$respuesta;
+	}
 }
+
 
 
 ?>

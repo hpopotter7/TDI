@@ -29,7 +29,6 @@
   <meta http-equiv='pragma' content='no-cache'>
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
   <link rel="stylesheet" href="css/jquery.fancybox.css" />
-  
   <link rel="stylesheet" href="css/animate.css"/>
   <link rel="stylesheet" href="css/sweetalert2.css"/>  
   <link rel="stylesheet" href="css/bootstrap.toogle.min_v001.css" >
@@ -45,7 +44,7 @@
   <link rel="stylesheet" href="css/uploadfile.css">
   <link rel="stylesheet" href="css/jquery_combo_editable.css">
   <link rel="stylesheet" href="css/easy-autocomplete.css" />
-  <link rel="stylesheet" href="css/easy-autocomplete.themes.css""/>
+  <link rel="stylesheet" href="css/easy-autocomplete.themes.css"/>
   <link rel="stylesheet" href="css/jquery.modal.css"/>
   <link rel="stylesheet" href="css/menu.css"/>
   <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
@@ -73,7 +72,7 @@
   <script src="js/dataTables.js"></script>
   <script src="js/jquery.formatCurrency.js"></script>
   <script src="js/tooltipster.bundle.js"></script>
-  <script src="js/funciones_v100.js"></script>
+  <script src="js/funciones_v101.js"></script>
   <script src="js/jquery.validate.min.js"></script>
   <script src="js/jquery.uploadfile.js"></script>
   <script src='js/DateTables.js'></script>
@@ -95,8 +94,9 @@
   <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   <script src="js/chosen.jquery.js" ></script>
   <script src="js/Chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
-  <script src="js/metodos_v2_0026.js"></script>
+  <script src="js/metodos_v2_0034.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -359,13 +359,13 @@ circle:nth-of-type(4) {
               <li><a id='menu_solicitud_reembolso' href="#"><i class="fas fa-registered" aria-hidden="true"></i> Reembolso</a></li>
               <li><a id='menu_vobo' href="#"><i class="fas fa-thumbs-up" aria-hidden="true"></i> VoBo</a></li>
               <li><a id='menu_ver_formatos' href="#"><i class="fas fa-list-ul" aria-hidden="true"></i> Ver solicitudes</a></li>
-              <li><a id='menu_buscar_odc' href="#"><i class="fas fa-search" aria-hidden="true"></i> Buscar odc</a></li>
+              <li><a id='menu_buscar_odc' href="#"><i class="fas fa-search" aria-hidden="true"></i> Buscar solicitudes</a></li>
             </ul>
           </div>
         </li>
         <li>
             <a href="#" data-toggle="collapse" data-target="#toggleDemo3" data-parent="#sidenav01" class="collapsed">
-            <span class="fas fa-swatchbook"></span>Catálogos <span class="caret pull-right"></span>
+            <span class="fas fa-swatchbook"></span> Catálogos <span class="caret pull-right"></span>
             </a>
             <div class="collapse" id="toggleDemo3" style="height: 0px;">
               <ul class="nav nav-list">
@@ -416,6 +416,7 @@ circle:nth-of-type(4) {
             </a>
             <div class="collapse" id="toggleDemo7" style="height: 0px;">
               <ul class="nav nav-list">
+                <li><a id='btn_rep_historicos' href="#"><i class="fas fa-landmark"></i> Historicos</a></li>
                 <li><a id='btn_rep_pitch' href="#"><i class='fas fa-star-half-alt'></i> Pitch</a></li>
                 <li><a id='btn_rep_gastos' href="#"><i class='fas fa-chart-bar'></i> Gastos</a></li>
                 <li><a href="#">Facturacion</a></li>
@@ -660,7 +661,7 @@ circle:nth-of-type(4) {
                       </label>
                       <label>
                         <input type="checkbox" id='check_dir' name="Xdirectivo" class="tipo_pago fa fa-o fa-2x" value="X">
-                        <span class="label_check ">Directivo</span>
+                        <span class="label_check ">Directivo de área</span>
                       </label>
                     </div>
               </div>
@@ -1118,7 +1119,7 @@ circle:nth-of-type(4) {
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Constancia de Situacion Fiscal</label><input id='file_csf' class='btn_archivos' name='file_csf' type="file" style='cursor: not-allowed' disabled >
                   </button>
-                 
+                  <div class="progress pro_csf"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">Subiendo archivo...</span></div></div>
                 </div>
                 <div class="clearfix"></div>
                 <div class='row'>
@@ -1126,6 +1127,7 @@ circle:nth-of-type(4) {
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Identificación INE</label><input id='file_ine' class='btn_archivos' type="file" style='cursor: not-allowed' disabled >
                   </button>
+                  <div class="progress pro_ine"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">Subiendo archivo...</span></div></div>
                 </div>
                  
                  <div class="clearfix"></div>
@@ -1134,6 +1136,7 @@ circle:nth-of-type(4) {
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Estado de cuenta</label><input id='file_edo' class='btn_archivos' type="file" style='cursor: not-allowed' disabled >
                   </button>
+                  <div class="progress pro_edo"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">Subiendo archivo...</span></div></div>
                 </div>
                  <div class="clearfix"></div>
                 <div class='row'>
@@ -1141,6 +1144,7 @@ circle:nth-of-type(4) {
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Comprobante de domicilio</label><input id='file_comp' class='btn_archivos' type="file" style='cursor: not-allowed' disabled >
                   </button>
+                  <div class="progress pro_comp"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">Subiendo archivo...</span></div></div>
                 </div>
                 <div class="clearfix"></div>
                 <div class='row'>
@@ -1148,6 +1152,7 @@ circle:nth-of-type(4) {
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Acta Constitutiva</label> <input id='file_acta'type="file" class='btn_archivos' style='cursor: not-allowed' disabled >
                   </button>
+                  <div class="progress pro_acta"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">Subiendo archivo...</span></div></div>
                 </div>
                
                </div>
@@ -1277,11 +1282,12 @@ circle:nth-of-type(4) {
               </div>
             </div>
             <div class="form-group col-md-6">
+            <span class="bubble" title="Solo el nombre del evento (SIN Cliente)">
               <label for="email" class="cols-sm-2 control-label">Nombre del evento</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
-                  <span class="bubble" title="Solo el nombre del evento (SIN Cliente)">
+                  
                   <input id='txt_nombre_evento' name='txt_nombre_evento' type="text" class="form-control" placeholder="Nombre del evento"/>
                 </div>
               </div>
@@ -1702,12 +1708,13 @@ circle:nth-of-type(4) {
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <input type="text" id="txt_project" class="form-control disabled" disabled='disabled' >
+                  <!-- <input type="text" id="txt_project" class="form-control disabled" disabled='disabled' > -->
+                  <select name="txt_project" id="txt_project" class='form-control'></select>
                 </div>
               </div>
             </div>
             <div class="form-group col-md-4">
-              <label for="username" class="cols-sm-2 control-label">Directivo/Coordinador</label>
+              <label for="username" class="cols-sm-2 control-label">Director de área</label>
                <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
@@ -1727,9 +1734,10 @@ circle:nth-of-type(4) {
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
                   <select name="txt_vobo_compras" id="txt_vobo_compras" class='form-control'>
-                    <option value="na">NA</option>
-                    <option value="MIGUEL POBLACION">MIGUEL POBLACION</option>
+                    <option value="">Selecciona</option>
                     <option value="ALEJANDRA PADILLA">ALEJANDRA PADILLA</option>
+                    <option value="FERNANDA CARRERA">FERNANDA CARRERA</option>
+                    <option value="MIGUEL POBLACION">MIGUEL POBLACION</option>
                   </select>
                 </div>
               </div>
@@ -2125,13 +2133,20 @@ circle:nth-of-type(4) {
 
  <!-- Modal HTML embedded directly into document -->
 <div id="modal_notificacion" class="modal">
-  <div contenteditable="true" id='mensaje_notificacion'>
+  <div contenteditable="false" id='mensaje_notificacion'>
   
   </div>
   
 </div>
 
-<a id="spnTop" href="#" class="btn btn-primary btn-lg pull-right back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+<a id="spnTop" href="#" class="btn btn-primary btn-lg pull-right back-to-top" role="button" title="Ir al cielo" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+
+<a id="spnDown" href="#" class="btn btn-primary btn-lg pull-right back-to-top" role="button" title="Ir abajo" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-down"></span></a>
+
+<!--
+<a href="#" id='spnDown' class="btn btn-primary btn-lg pull-right back-to-top" style="position: fixed;bottom: 20px;right: 80px;"><span class="glyphicon glyphicon-chevron-down"></span></a>
+
+                  -->
 
 
 <!-- Link to open the modal -->

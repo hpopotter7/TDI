@@ -28,9 +28,10 @@
 		$result->close();
 	}
 
-	if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA" || $usuario=="ANDRES EMANUELLI" || $usuario=="FERNANDA CARRERA" || $usuario=="MIGUEL POBLACION"){
+	if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA" || $usuario=="ANDRES EMANUELLI" || $usuario=="FERNANDA CARRERA"){
 			$valida='CXP';
 	}
+
 	
 	if($valida=='CXP'){
 	

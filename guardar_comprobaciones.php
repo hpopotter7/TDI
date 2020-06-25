@@ -31,7 +31,7 @@
 					$result->close();
 				}
 				if(strpos($tipo_tarjeta, "TARJETA") !== false){
-				$sql="insert into movimientos(id_solicitud, No_tarjeta, Importe, Tipo_movimiento, Fecha_Afectacion, Fecha_creacion) values(".$id.", (select No_tarjeta from odc where id_odc=".$id."), (select cheque_por from odc where id_odc=".$id."), 'GASTO', NOW(), NOW())";
+				$sql="insert into movimientos(id_solicitud, No_tarjeta, Importe, Tipo_movimiento, Fecha_Afectacion, Fecha_creacion) values(".$id.", (select No_tarjeta from odc where id_odc=".$id."), (select importe_total from odc where id_odc=".$id."), 'GASTO', NOW(), NOW())";
 					if ($mysqli->query($sql)) {
 				
 						$res="orden modificada";

@@ -44,7 +44,7 @@
 				$res= $sql.mysqli_error($mysqli);
 			}
 			if($contador==0){
-				$sql="insert into movimientos (id_solicitud, No_Tarjeta, Importe, tipo_movimiento, comentarios) values(".$id_odc.", '".$banco."', ".$monto.", 'DEVOLUCION', '".$motivo."')";
+				$sql="insert into movimientos (id_solicitud, No_Tarjeta, Importe, tipo_movimiento, comentarios, Fecha_afectacion, Fecha_creacion) values(".$id_odc.", '".$banco."', ".$monto.", 'DEVOLUCION', '".$motivo."', NOW(), NOW())";
 				if ($mysqli->query($sql)) {		    
 					$res= "devolucion exitosa";
 				}

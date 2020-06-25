@@ -16,7 +16,7 @@ if ($result = $mysqli->query($sql)) {
 }
  
 
-$sql="select id_notificaciones, Quien_hizo, DATE_FORMAT(Fecha_hora, '%d/%m/%Y %l:%i %p') Fecha, Asunto, Para_quien from notificaciones where visto='0' ";
+$sql="select id_notificaciones, Quien_hizo, DATE_FORMAT(Fecha_hora, '%d/%m/%Y %l:%i %p') Fecha, Asunto, Para_quien from notificaciones where visto='0' order by id_notificaciones desc";
 $res="";
 $para="";
 if ($result = $mysqli->query($sql)) {
