@@ -41,6 +41,7 @@ if ($result = $mysqli->query($sql)) {
                         'sodexo'=>$tarjeta,
                         'cat_fact'=>$row[17],
                         'jefe_directo'=>$row[18],
+                        'pa'=>$row[19],
                     	'error'=>'nada',
                     	'sql'=>''
                     );

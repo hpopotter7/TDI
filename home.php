@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="css/sweetalert2.css"/>  
   <link rel="stylesheet" href="css/bootstrap.toogle.min_v001.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
-  <link rel="stylesheet" href="css/bootstrap.min5.css">
+  <link rel="stylesheet" href="css/bootstrap.min6.css">
   <link rel="stylesheet" href="css/estilos_ver_0005.css"/>
   <link rel="stylesheet" href="css/estilos_menu_user.css"/>
   <link rel="stylesheet" href="css/jquery-ui_theme_green.css"/>
@@ -47,6 +47,7 @@
   <link rel="stylesheet" href="css/easy-autocomplete.themes.css"/>
   <link rel="stylesheet" href="css/jquery.modal.css"/>
   <link rel="stylesheet" href="css/menu.css"/>
+  
   <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="css/chosen.css"/>
 
@@ -72,7 +73,7 @@
   <script src="js/dataTables.js"></script>
   <script src="js/jquery.formatCurrency.js"></script>
   <script src="js/tooltipster.bundle.js"></script>
-  <script src="js/funciones_v101.js"></script>
+  
   <script src="js/jquery.validate.min.js"></script>
   <script src="js/jquery.uploadfile.js"></script>
   <script src='js/DateTables.js'></script>
@@ -96,6 +97,7 @@
   <script src="js/Chart.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
+  <script src="js/funciones_v103.js"></script>
   <script src="js/metodos_v2_0034.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
@@ -220,6 +222,194 @@ circle:nth-of-type(4) {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
   }
+}
+
+  </style>
+  <style>
+    .anil_nepal{width:90%; display:block;}
+.switch {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 100px;
+    height: 30px;
+    padding: 3px;
+    margin: 0 10px 10px 0;
+    background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+    background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
+    border-radius: 18px;
+    box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    box-sizing: content-box;
+}
+label {
+    font-weight: inherit;
+}
+input[type=checkbox], input[type=radio] {
+    margin: 4px 0 0;
+
+    line-height: normal;
+      -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+
+.switch-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    box-sizing: content-box;
+}
+.switch-left-right .switch-input:checked ~ .switch-label {
+    background: inherit;
+}
+.switch-input:checked ~ .switch-label {
+    background: #E1B42B;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.switch-left-right .switch-label {
+    overflow: hidden;
+}
+.switch-label, .switch-handle {
+    transition: All 0.3s ease;
+    -webkit-transition: All 0.3s ease;
+    -moz-transition: All 0.3s ease;
+    -o-transition: All 0.3s ease;
+}
+.switch-label {
+    position: relative;
+    display: block;
+    height: inherit;
+    font-size: 10px;
+    text-transform: uppercase;
+    background: #eceeef;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+    box-sizing: content-box;
+}
+.switch-left-right .switch-input:checked ~ .switch-label:before {
+    opacity: 1;
+    left: 100px;
+}
+.switch-input:checked ~ .switch-label:before {
+    opacity: 0;
+}
+.switch-left-right .switch-label:before {
+    background: #eceeef;
+    text-align: left;
+    padding-left: 80px!important;
+}
+.switch-left-right .switch-label:before, .switch-left-right .switch-label:after {
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 11px 0 0 0;
+    text-indent: -12px;
+    border-radius: 20px;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+}
+.switch-label:before {
+    content: attr(data-off);
+    right: 11px;
+    color: #aaaaaa;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+
+span.switch-label:after {
+    content: attr(data-on);
+    left: 11px;
+    color: #FFFFFF;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+    position: absolute;
+  
+}
+
+.switch-label:before, .switch-label:after {
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    line-height: 1;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    -o-transition: inherit;
+    transition: inherit;
+    box-sizing: content-box;
+}
+
+.switch-left-right .switch-input:checked ~ .switch-label:after {
+    left: 0!important;
+    opacity: 1;
+    padding-left: 20px;
+}
+
+
+.switch-input:checked ~ .switch-label:after {
+    opacity: 1;
+}
+
+
+.switch-left-right .switch-label:after {
+    text-align: left;
+    text-indent: 9px;
+    background: #1aa516!important;
+    left: -100px!important;
+    opacity: 1;
+    width: 100%!important;
+ 
+}
+.switch-left-right .switch-label:before, .switch-left-right .switch-label:after {
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 11px 0 0 0;
+    text-indent: -12px;
+    border-radius: 20px;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+}
+.switch-input:checked ~ .switch-handle {
+    left: 74px;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+.switch-label, .switch-handle {
+    transition: All 0.3s ease;
+    -webkit-transition: All 0.3s ease;
+    -moz-transition: All 0.3s ease;
+    -o-transition: All 0.3s ease;
+}
+
+.switch-handle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+    background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+    border-radius: 100%;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.switch-handle:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -6px 0 0 -6px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+    background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+    border-radius: 6px;
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
 }
 
   </style>
@@ -359,7 +549,7 @@ circle:nth-of-type(4) {
               <li><a id='menu_solicitud_reembolso' href="#"><i class="fas fa-registered" aria-hidden="true"></i> Reembolso</a></li>
               <li><a id='menu_vobo' href="#"><i class="fas fa-thumbs-up" aria-hidden="true"></i> VoBo</a></li>
               <li><a id='menu_ver_formatos' href="#"><i class="fas fa-list-ul" aria-hidden="true"></i> Ver solicitudes</a></li>
-              <li><a id='menu_buscar_odc' href="#"><i class="fas fa-search" aria-hidden="true"></i> Buscar solicitudes</a></li>
+              <!--<li><a id='menu_buscar_odc' href="#"><i class="fas fa-search" aria-hidden="true"></i> Buscar solicitudes</a></li>-->
             </ul>
           </div>
         </li>
@@ -418,8 +608,8 @@ circle:nth-of-type(4) {
               <ul class="nav nav-list">
                 <li><a id='btn_rep_historicos' href="#"><i class="fas fa-landmark"></i> Historicos</a></li>
                 <li><a id='btn_rep_pitch' href="#"><i class='fas fa-star-half-alt'></i> Pitch</a></li>
-                <li><a id='btn_rep_gastos' href="#"><i class='fas fa-chart-bar'></i> Gastos</a></li>
-                <li><a href="#">Facturacion</a></li>
+                <li><a id='menu_buscar_odc' href="#"><i class='fas fa-chart-bar'></i> Gastos</a></li>
+                <li><a id='btn_rep_gastos' href="#"><i class='fas fa-search-dollar'></i> Facturacion</a></li>
                 <li><a href="#">Modulo de ventas</a></li>
               </ul>
             </div>
@@ -564,6 +754,15 @@ circle:nth-of-type(4) {
                 </div>
               </div>
             </div>
+            <div class="form-group col-md-2">
+              <label for="" class="cols-sm-2 control-label">Ausente</label>
+              <div class="anil_nepal">
+                <label class="switch switch-left-right">
+                  <input class="switch-input" type="checkbox" id='check_pa' value='PA'>
+                  <span class="switch-label" data-on="On" data-off="Off"></span> <span class="switch-handle"></span> </label>
+              </div>
+            </div>
+            
             <div class="form-group col-md-2">
               <label for="" class="cols-sm-2 control-label">Contraseña</label>
               <div class="cols-sm-10">
@@ -1339,7 +1538,7 @@ circle:nth-of-type(4) {
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i></span>
-                  <select name="c_ejecutivos" id="c_ejecutivos" class='form-control' multiple="multiple">
+                  <select name="c_ejecutivos" id="c_ejecutivos" class='form-control'>
                   </select>
                 </div>
               </div>

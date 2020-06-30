@@ -19,16 +19,35 @@ if ($result = $mysqli->query($sql)) {
         
     }
     $result->close();
-}
+}    
 
+    $jefe_directo=substr($resultado,1,strlen($resultado));
     
-    $ARR=explode(",",$resultado);
-    $tamaño=count($ARR);
-    
-	for ($i=1; $i <= $tamaño-1; $i++) { 
-     $res=$res."<option value='".$ARR[$i]."'>".$ARR[$i]."</option>";
+
+    $sql="SELECT pa FROM usuarios where Nombre='".$jefe_directo."'";
+    if ($result = $mysqli->query($sql)) {
+        while ($row = $result->fetch_row()) {
+            if($row[0]=="1"){
+                $res="pa";
+            }      
+        }
+        $result->close();
     }
-echo $res;
+    
+    if($res=="pa"){
+        $sql="SELECT Jefe_directo FROM usuarios where Nombre='".$jefe_directo."'";
+        if ($result = $mysqli->query($sql)) {
+            while ($row = $result->fetch_row()) {
+                $res="PA ".$row[0];
+            }
+            $result->close();
+        }
+    }
+    else{
+        $res=$jefe_directo;
+    }
+
+echo "<option value='".$res."'>".$res."</option>";
 
 $mysqli->close();
 ?>

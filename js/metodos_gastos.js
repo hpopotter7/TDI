@@ -212,7 +212,10 @@ function inicio() {
                 else {
                     $('#tabla_reporte').html(response);
                     t = $('#tabla_reporte').DataTable({
-                        
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'copy', 'csv', 'excel', 'pdf', 'print'
+                        ],
                         "searching": true,
                         "language": idioma_espaniol,
                         "lengthChange": false,
@@ -225,10 +228,7 @@ function inicio() {
                         ],
                         "lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
                         "paging": true,
-                        dom: 'Bfrtip',
-                        buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
-                        ]
+                        
                     });
                 }
             }

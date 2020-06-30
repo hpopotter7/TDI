@@ -2,9 +2,23 @@ function inicio(){
 
   ver_solicitudes_por_evento("0");
 
+  $('#check_vobos_sol').change(function(){
+    var numero_evento=$('#c_eventos_dos').val();
+    if(numero_evento==null){
+      numero_evento="0";
+    }
+    
+    ver_solicitudes_por_evento(numero_evento);
+  });
+
     function ver_solicitudes_por_evento(numero_evento){
+      var check_todos="todos";
+        if( $('#check_vobos_sol').is(':checked')){
+          check_todos="propios";
+      }
         var datos={
           "numero_evento": numero_evento,
+          "check_todos":check_todos
         }
         $.ajax({
             url:   "consultar_vobos_evento.php",
@@ -220,6 +234,34 @@ function inicio(){
       },
       
       options: {
+        tooltips: {
+          callbacks: {
+            title: function(tooltipItem, data) {
+              return data['labels'][tooltipItem[0]['index']];
+            },
+            label: function(tooltipItem, data) {
+              //; 
+              var cantidad=data['datasets'][0]['data'][tooltipItem['index']];
+              cantidad=parseFloat(cantidad).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+              return "$"+cantidad;
+            },
+            /*
+            afterLabel: function(tooltipItem, data) {
+              var dataset = data['datasets'][0];
+              var percent = Math.round((dataset['data'][tooltipItem['index']] / dataset["_meta"][0]['total']) * 100)
+              return '(' + percent + '%)';
+            }
+            */
+          },
+          backgroundColor: '#FFF',
+          titleFontSize: 22,
+          titleFontColor: '#0066ff',
+          bodyFontColor: '#000',
+          bodyFontSize: 20,
+          displayColors: false,
+          xPadding:16,
+          yPadding:16,
+        },
         plugins: {
           labels: {
             render: 'percentage',

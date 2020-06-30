@@ -23,6 +23,15 @@ function inicio(){
                     $('#tabla').show();
                         $('#tabla').html(response);
                         t = $('#tabla').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: [
+                                {
+                                    extend: 'pdfHtml5',
+                                    orientation: 'landscape',
+                                    pageSize: 'LEGAL'
+                                },
+                                'excel', 'print'
+                            ],
                             "searching": true,
                             "language": idioma_espaniol,
                             "columnDefs": [

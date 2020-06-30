@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="css/animate.css"/>
   <link rel="stylesheet" href="css/sweetalert2.css"/>  
   <link rel="stylesheet" href="css/jquery-ui.css">
-  <link rel="stylesheet" href="css/bootstrap.min5.css">
+  <link rel="stylesheet" href="css/bootstrap.min6.css">
   <link rel="stylesheet" href="css/estilos_ver_0005.css"/>
   <link rel="stylesheet" href="css/chosen.css"/>
    <link rel="stylesheet" href="css/tooltipster.bundle.css" />
@@ -48,7 +48,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   
-  <script src="js/metodos_vobos6.js"></script>
+  <script src="js/metodos_vobos7.js"></script>
     <script>
      $(document).on("ready",inicio);  
     </script>
@@ -56,6 +56,15 @@
         #fijo{
             position: fixed;
             top: 20px;
+        }
+        .container{
+          margin-left: 140px !important;
+        }
+        center{
+          margin-bottom: 10px
+        }
+        .alert{
+          font-size: .8em !important;
         }
     </style>
 
@@ -65,7 +74,7 @@
         <div class="container">
             
             <h2>VoBo para solicitudes</h2>
-            <div class='col-md-6'>
+            <div class='col-md-8'>
                 <label for="name" class="cols-sm-2 control-label">Eventos</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
@@ -77,10 +86,12 @@
                      <!-- <a class='btn btn-info' href="#sol_10774">click</a> -->
                   </div>
             </div>
-            <div class="form-group col-md-1">
+            <div class="form-group col-md-2">
                 <div class="checkbox">
                   <label>
+                    
                     <input id='check_vobos_sol' name='check_vobos_sol' type="checkbox" data-toggle="toggle" data-height="50" data-width="100" data-onstyle="success" data-on="Propios" data-off="Todos" data-offstyle="info">
+                    
                   </label>
                 </div>
               </div>

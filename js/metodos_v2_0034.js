@@ -802,6 +802,12 @@ var parametros = {
                 if(response.cat_fact=="X"){
                   $('#check_fac_cat').prop('checked', true);
                 }
+                if(response.pa=="1"){
+                  $('#check_pa').prop('checked', true);
+                }
+                else{
+                  $('#check_pa').prop('checked', false);
+                }
                 llenar_combo_tarjetas();
                }
              
@@ -1251,7 +1257,7 @@ var parametros = {
             $('#label_fernanda').html("A nombre de: FERNANDA CARRERA");
             //$("#combo_metodo_pago option[value='PPD']").removeAttr('disabled');
             $("#check_sodexo:checked").prop('checked', false);
-            
+            ver_personas();
             ver_proveedores();
             var valores='<option value="03 TRANSFERENCIA ELECTRONICA DE FONDOS">03 TRANSFERENCIA ELECTRONICA DE FONDOS</option>';
              $('#c_forma_de_pago').html(valores);
@@ -1279,7 +1285,7 @@ var parametros = {
            limpiar_cortinas();
             $("#div_cortina").animate({top: '0px'}, 1100);
             $('#div_odc').fadeIn();
-
+            ver_personas();
            $('#titulin').html("Solicitud de viáticos");
            //$("#combo_metodo_pago option[value='PPD']").attr('disabled','disabled');
            $('#label_a_nombre').html("Se depositará a");
@@ -1327,7 +1333,7 @@ var parametros = {
            $('#label_fernanda').html("A nombre de: FERNANDA CARRERA");
             $("#c_tipo_reembolso").val("MA. FERNANDA CARRERA HDZ");
             $('#txt_nota').val('El cheque saldrá a nombre de Ma. Fernanda Carrera');
-            
+            ver_personas();
             ver_proveedores_usuarios("MA. FERNANDA CARRERA HDZ");
            $('#div_mensaje').fadeIn();
            var valores='<option value="02 CHEQUE NOMINATIVO"> 02 CHEQUE NOMINATIVO</option>';
@@ -2301,7 +2307,7 @@ var parametros = {
                 data: datos,
                 dataType: "json",
                 success:  function (response) {
-                  //console.log(response.error);
+                  console.log(response);
                   //$('#btn_modificar_evento').show();
                   $('#btn_crear_evento').hide();
                   $('#txt_numero_evento').val(response.Numero_evento);
@@ -2314,7 +2320,8 @@ var parametros = {
                   $('#txt_sede').val(response.Sede);
                   
                   var ejecutivo=response.Ejecutivo.split(",");
-                  $("#c_ejecutivos").val(ejecutivo);
+                  
+                  $("#c_ejecutivos").val(ejecutivo[1]);
                   $("#c_ejecutivos").multiselect("refresh");
 
                   var produc=response.Produccion.split(",");
@@ -2624,6 +2631,7 @@ var parametros = {
               url:   "ver_personas.php",
               type:  'post',
               success:  function (response) {
+                
                 if(response.includes("</option>")){
                   $('#c_user_solicita').html(response);
                 }
@@ -6341,6 +6349,15 @@ $("#menu_buscar_odc").click(function (e) {
   $('#div_iframe').fadeIn();
 });
 
+$('#toggleDemo').delegate("#menu_cerrar_evento", 'click', function(e){
+  e.preventDefault();
+  limpiar_cortinas();
+  $("#div_cortina").animate({top: '0px'}, 1100);
+  $("#frame").attr("src", "cierre_eventos.html");
+  $('#div_iframe').fadeIn();
+  
+});
+
 $("#menu_cerrar_evento").click(function (e) { 
   e.preventDefault();
   limpiar_cortinas();
@@ -6458,7 +6475,6 @@ $('#c_user_solicita').change(function(){
       type:  'post',
       data: datos,
       success:  function (response) {
-        console.log(response);
           $('#txt_project').html(response);
       }
     });
@@ -6607,6 +6623,34 @@ $('#c_user_solicita').change(function(){
         console.log(arr[r]);
       }
   });
+
+  $('#check_pa').change(function(){
+    var usuario=$('#txt_nombre_usuario').val();
+    var valor="0";
+    if($(this).is(':checked')){
+      valor="1";
+    }
+    var datos={
+          "valor":valor,
+          "usuario":usuario
+        };
+    $.ajax({
+      url: 'update_PA.php', // point to server-side PHP script 
+      data: datos,                         
+      type: 'post',
+      success: function(response){
+        console.log(response);
+        if(response.includes("Error")){
+          generate('error',"Ocurrio un eror: "+response);
+        }
+        else{
+          generate('success',"El usuario ha sido actualizado");
+        }
+      }
+  });
+    
+  });
+
   
 
 
