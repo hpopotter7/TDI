@@ -9,7 +9,7 @@ $array=array();
 $array_pa=array();
 $array_pa_user=array();
 $result = $mysqli->query("SET NAMES 'utf8'");
-$sql="SELECT Nombre FROM usuarios where Solicitante='X' order by Nombre";
+$sql="SELECT Nombre FROM usuarios where Solicitante='X' and estatus='activo' order by Nombre";
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         if($row[0]!="ALAN SANDOVAL"){
@@ -20,7 +20,7 @@ if ($result = $mysqli->query($sql)) {
 }
 
 
-$sql="SELECT Nombre FROM usuarios where pa=1";
+$sql="SELECT Nombre FROM usuarios where pa=1 and estatus='activo'";
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         array_push($array_pa,$row[0]);
@@ -30,7 +30,7 @@ if ($result = $mysqli->query($sql)) {
     
 foreach($array_pa as $valor){
     $x=$valor;
-    $sql="SELECT jefe_directo FROM usuarios where Nombre='".$valor."'";
+    $sql="SELECT jefe_directo FROM usuarios where estatus='activo' and Nombre='".$valor."'";
     if ($result = $mysqli->query($sql)) {
         while ($row = $result->fetch_row()) {
             array_push($array_pa_user,$row[0]);
@@ -39,7 +39,7 @@ foreach($array_pa as $valor){
     }
 }
 
-$res='<option value="vacio">Solicitante...</option>';
+$res='<option value="vacio">Selecciona...</option>';
 for($r=0;$r<=count($array)-1;$r++){
     $var="<option value='".$array[$r]."'>".$array[$r]."</option>";
     for($x=0;$x<=count($array_pa_user)-1;$x++){

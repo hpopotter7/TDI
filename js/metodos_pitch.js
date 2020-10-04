@@ -42,4 +42,47 @@ function inicio(){
             });            
         }
         }); 
+
+        $('#reporte_eventos').delegate('.ver_solicitudes', 'click', function(){
+            
+            var evento=$(this).attr('id');
+            ver_solicitudes_por_evento(evento);
+        });
+
+        function ver_solicitudes_por_evento(evento){
+            var datos={
+              "evento": evento,
+              "usuario": $('#label_user').html(),
+            }
+            $.ajax({
+                url:   "ver_solicitudes_por_evento.php",
+                type:  'post',
+                data: datos,
+                success:  function (response) {
+                  var arr=response.split("$$$");
+                  $('#resultado_solicitudes').html(arr[0]);
+                  $('#espacio').show();
+                 // $('#tabla_resumen_solicitudes').DataTable();
+                  $('#tabla_resumen_solicitudes').DataTable({
+                    "searching": true,
+                    "language" : idioma_espaniol,
+                    //"lengthChange": false,
+                    //"ordering": false,
+                    "paging": false,
+                    //"scrollX": false,
+                    "destroy": true, 
+                   //  "sort": false,
+                    //"scrollX": true,
+                    //"scrollCollapse": false,4
+                    /*
+                    "columnDefs": [
+                        { "width": "3%", "targets": [-1,-2,-3] }
+                    ],
+                    */
+                    //"lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
+                   
+                 }); 
+                }
+              });
+          }
 }

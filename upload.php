@@ -2,6 +2,7 @@
 $nombre=$_POST["nombre"];
 $nombre=trim($nombre);
 $doc=$_POST["doc"];
+$nombre=utf8_decode($nombre);
 $output_dir = "archivos/".$nombre."/";
 
 if(!is_dir($output_dir)){

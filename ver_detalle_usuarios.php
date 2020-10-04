@@ -35,6 +35,7 @@ if ($result = $mysqli->query($sql)) {
                     	'pro'=>$row[9],
                     	'dis'=>$row[10],
                         'dire'=>$row[11],
+                        'estatus'=>$row[12],
                         'cat_cli'=>$row[13],
                         'cat_prov'=>$row[14],
                         'cat_usu'=>$row[15],
@@ -42,6 +43,7 @@ if ($result = $mysqli->query($sql)) {
                         'cat_fact'=>$row[17],
                         'jefe_directo'=>$row[18],
                         'pa'=>$row[19],
+                        
                     	'error'=>'nada',
                     	'sql'=>''
                     );

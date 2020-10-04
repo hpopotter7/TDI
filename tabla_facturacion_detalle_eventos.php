@@ -99,7 +99,7 @@ $descripcion=$row[5];
                       }
                       
                 }
-                $tbody=$tbody.$boton_factura."<a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
+                $tbody=$tbody.$boton_factura."<a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash' aria-hidden='true'></i></a><button id='".$row[0]."' class='btn btn-warning btn_transferir_factura' style='margin-left:.3em;margin-right:.3em'><i class='fa fa-exchange' aria-hidden='true'></i></button></td>";
                  
               }
               else{

@@ -30,7 +30,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
   <link rel="stylesheet" href="css/jquery.fancybox.css" />
   <link rel="stylesheet" href="css/animate.css"/>
-  <link rel="stylesheet" href="css/sweetalert2.css"/>  
+  <link rel="stylesheet" href="css/sweetalert2.css"/>
   <link rel="stylesheet" href="css/bootstrap.toogle.min_v001.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/bootstrap.min6.css">
@@ -38,7 +38,7 @@
   <link rel="stylesheet" href="css/estilos_menu_user.css"/>
   <link rel="stylesheet" href="css/jquery-ui_theme_green.css"/>
   <link rel="stylesheet" href="css/jquery-ui_green.css"/>
-  <link rel="stylesheet" href="css/bootstrap-multiselect.css"/>
+  <link rel="stylesheet" href="css/bootstrap-multiselect_001.css"/>
   <link rel="stylesheet" href="css/tooltipster.bundle.css" />
   <link rel="stylesheet" href="css/data_tables.css">
   <link rel="stylesheet" href="css/uploadfile.css">
@@ -50,6 +50,7 @@
   
   <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="css/chosen.css"/>
+  <link href="https://cdn.jsdelivr.net/sweetalert2/4.2.4/sweetalert2.min.css" rel="stylesheet"/>
 
   <script src="js/jquery-1.11.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
@@ -96,9 +97,9 @@
   <script src="js/chosen.jquery.js" ></script>
   <script src="js/Chart.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
-  
+
   <script src="js/funciones_v103.js"></script>
-  <script src="js/metodos_v2_0035.js"></script>
+  <script src="js/metodos_v2_0052.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -478,7 +479,9 @@ span.switch-label:after {
   -->
   <a id='btn_cerrar_bitacora' href="#" >
         <i class="fa fa-close fa-2x" style='color:black'></i>  
-          
+  </a>
+  <a id='btn_limpiar_bitacora' href="#" >
+  <i class="fa fa-trash-o fa-2x" aria-hidden="true" style='color:black'></i>
   </a>
    
   <section id='resultado_bitacora' style='width: 100%;
@@ -584,7 +587,6 @@ span.switch-label:after {
             </a>
             <div class="collapse" id="toggleDemo5" style="height: 0px;">
               <ul class="nav nav-list">
-                <li><a id='rep_eventos' href="#"><i class="fa fa-crown" aria-hidden="true"></i> Eventos</a></li>
                 <li><a id='rep_cat_clientes' href="#"><i class="fas fa-user-circle" aria-hidden="true"></i> Clientes</a></li>
                 <li><a id='rep_cat_proveedores' href="#"><i class="fas fa-building" aria-hidden="true"></i> Proveedores</a></li>
               </ul>
@@ -606,6 +608,7 @@ span.switch-label:after {
             </a>
             <div class="collapse" id="toggleDemo7" style="height: 0px;">
               <ul class="nav nav-list">
+                <li><a id='rep_eventos' href="#"><i class="fa fa-crown" aria-hidden="true"></i> Eventos</a></li>
                 <li><a id='btn_rep_historicos' href="#"><i class="fas fa-landmark"></i> Historicos</a></li>
                 <li><a id='btn_rep_pitch' href="#"><i class='fas fa-star-half-alt'></i> Pitch</a></li>
                 <li><a id='menu_buscar_odc' href="#"><i class='fas fa-chart-bar'></i> Gastos</a></li>
@@ -749,7 +752,9 @@ span.switch-label:after {
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <select name="c_jefe_directo" id="c_jefe_directo" class='form-control combo_usuarios' >
+                  <!--<select name="c_jefe_directo" id="c_jefe_directo" class='form-control combo_usuarios' multiple="multiple" >
+                  </select>-->
+                  <select data-placeholder="Seleccione al jefe directo" id="c_jefe_directo" class='form-control combo_usuarios' multiple='multiple'>
                   </select>
                 </div>
               </div>
@@ -793,15 +798,18 @@ span.switch-label:after {
             <div class="form-group col-md-2">
               <button id='btn_agregar_tarjeta' type="button" class="btn btn-success abajo"><i class="fa fa-plus-circle" aria-hidden="true"></i> Añadir</button>
             </div>
+            <div class="form-group col-md-2" id='label_estatus'>
+            </div>
+            <div class="form-group col-md-2">
+              <button id='btn_espejo' type="button" class="btn btn-primary btn-lg abajo"><i class="fa fa-clone" aria-hidden="true"></i> Espejo</button>
+            </div>
             <!--
             <div class="form-group col-md-3">
               <label for="name" class="cols-sm-2 control-label">Tarjeta Sodexo  <a id="btn_add_tarjeta" href="#"><i class='nota fa fa-plus-circle' style="margin-left: 5em;" >Añadir tarjeta</i></a></label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
-                  
-                  
-                  
+                                    
                   <select name='c_tarjeta_sodexo' class="form-control" id='c_tarjeta_sodexo'>
                   </select>
                 </div>
@@ -1313,7 +1321,6 @@ span.switch-label:after {
                <div class="col-md-6" style="border-right: 1px dashed black; min-height: 75px">
                 <h3 id='test'>Requeridos</h3>
                 <div class='row'>
-                  
                   <button id='span_file_csf' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Constancia de Situacion Fiscal</label><input id='file_csf' class='btn_archivos' name='file_csf' type="file" style='cursor: not-allowed' disabled >
@@ -1534,7 +1541,7 @@ span.switch-label:after {
           </div>     
           <div class="row">
             <div class="form-group col-md-6">
-              <label for="password" class="cols-sm-2 control-label">Ejecutivo de cuenta</label>
+              <label id='label_ejecutivo' class="cols-sm-2 control-label">Ejecutivo de cuenta</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i></span>
@@ -1917,26 +1924,21 @@ span.switch-label:after {
                <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <input type="text" id="txt_coordinador" class="form-control disabled" disabled='disabled' >
+                  <!--<input type="text" id="txt_coordinador" class="form-control disabled" disabled='disabled' >-->
+                  <select id="c_coordinador" name="c_coordinador" class="form-control" >
+                  </select>
                 </div>
               </div> 
             </div>
-            
           </div>
 
-          
-          
           <div class="row">
             <div class="form-group col-md-4">
-              <label for="username" class="cols-sm-2 control-label">Vo.Bo. Compras/RH</label>
+              <label class="cols-sm-2 control-label">Vo.Bo. Compras/RH</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <select name="txt_vobo_compras" id="txt_vobo_compras" class='form-control'>
-                    <option value="">Selecciona</option>
-                    <option value="ALEJANDRA PADILLA">ALEJANDRA PADILLA</option>
-                    <option value="FERNANDA CARRERA">FERNANDA CARRERA</option>
-                    <option value="MIGUEL POBLACION">MIGUEL POBLACION</option>
+                  <select name="txt_vobo_compras" id="txt_vobo_compras" class='form-control'>                    
                   </select>
                 </div>
               </div>
@@ -1946,35 +1948,23 @@ span.switch-label:after {
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <select  id="c_autorizo" name="c_autorizo" class="form-control" ><?php 
-                    include("conexion.php");
-                    if (mysqli_connect_errno()) {
-                        printf("Error de conexion: %s\n", mysqli_connect_error());
-                        exit();
-                    }
-                    $result = $mysqli->query("SET NAMES 'utf8'");
-                    $sql="SELECT Nombre FROM usuarios where Directivo='X' order by Nombre";
-                    if ($result = $mysqli->query($sql)) {
-                        $res='<option value="vacio">Directivo...</option>';
-                        while ($row = $result->fetch_row()) {
-                            $res=$res."<option value='".$row[0]."'>".$row[0]."</option>";
-                        }
-                        $result->close();
-                    }
-                    echo $res;
-                  ?></select>
+                  <select  id="c_autorizo" name="c_autorizo" class="form-control" >
+                  </select>
                 </div>
               </div>
             </div>
+            
             <div class="form-group col-md-4">
               <label for="username" class="cols-sm-2 control-label">Finanzas</label>
                <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <select  id="c_finanzas" name="c_finanzas" class="form-control disabled" disabled="disabled" ><option value="RITA VELEZ">RITA VELEZ </option></select>
+                  <select  id="c_finanzas" name="c_finanzas" class="form-control disabled" disabled="disabled" >
+                  </select>
                 </div>
               </div> 
             </div>
+            
           </div>  
 
           <div class="row">             
@@ -2149,7 +2139,7 @@ span.switch-label:after {
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
           <span id='alert_partida' class="bubble" title="Ingresa solo importe numérico">
-          <input id='txt_precio_unitario' name='txt_precio_unitario' type="number" class="form-control" placeholder="Precio" />
+          <input id='txt_precio_unitario' name='txt_precio_unitario' type="number" step="any" class="form-control" placeholder="Precio" />
         </span>
         </div>
       </div>
@@ -2333,9 +2323,14 @@ span.switch-label:after {
  <!-- Modal HTML embedded directly into document -->
 <div id="modal_notificacion" class="modal">
   <div contenteditable="false" id='mensaje_notificacion'>
-  
   </div>
-  
+</div>
+
+<div id="modal_cargando" class="modal">
+  <div contenteditable="false" id='modal_contenido'>
+  <div class="progress progress-striped active " style="width: 100%;height:30px;"><div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="height: 170px;font-size: 18px;padding: 5px;">Cargando...</div></div>
+ 
+  </div>
 </div>
 
 <a id="spnTop" href="#" class="btn btn-primary btn-lg pull-right back-to-top" role="button" title="Ir al cielo" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
@@ -2350,7 +2345,8 @@ span.switch-label:after {
 
 <!-- Link to open the modal -->
 
-  
+
+  <!-- Link to open the modal -->
   
 <footer class="page-footer font-small blue pt-4" style="z-index: 400px">   
     <!-- Copyright -->

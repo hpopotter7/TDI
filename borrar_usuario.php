@@ -7,12 +7,13 @@
 	}
 	$result = $mysqli->query("SET NAMES 'utf8'");
 
-		$sql="delete from usuarios where Nombre='".$nombre."'";
+		//$sql="delete from usuarios where Nombre='".$nombre."'";
+		$sql="update usuarios set Estatus='baja' where Nombre='".$nombre."'";
 		if ($mysqli->query($sql)) {
 		    echo "usuario eliminado".$sql;
 		}
 		else{
-			echo $sql.mysqli_error($mysqli);
+			echo mysqli_error($mysqli);
 		}
 
 	$mysqli->close();

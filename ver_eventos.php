@@ -6,8 +6,8 @@ include("conexion.php");
 //$mysqli = new mysqli("localhost", "tierrad9_admin", "Quick2215!", "tierrad9_admin");
 
 /* check connection */
-if (mysqli_connect_errno()) {
-    echo("Error: ", mysqli_connect_error());
+if (mysqli_connect_error()) {
+    echo "Error de conexion: %s\n", mysqli_connect_error();
     exit();
 }
 

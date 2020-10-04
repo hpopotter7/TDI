@@ -38,7 +38,7 @@ function inicio(){
                "scrollX": true,
                "destroy": true, 
                "sort": false,
-               "pageLength": 5,
+               "pageLength": 15,
                "language" : idioma_espaniol
            });            
        }

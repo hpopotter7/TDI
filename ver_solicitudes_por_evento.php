@@ -169,7 +169,7 @@ if ($result = $mysqli->query($sql)) {
           }
         }
         if($con>0){
-          $label_comprobante="<label id='".$clases."' class='btn btn-success btn_ver_comprobante '><i class='fa fa-eye' aria-hidden='true'></i></label>";
+          $label_comprobante="<label id='".$clases."' class='btn btn-success btn_ver_comprobante '><i class='fa fa-eye' aria-hidden='true'></i></label><button id='".$clases."~".$id_odc."' class='btn btn-danger btn_eliminar_comprobante' style='margin-left:2px' ><i class='fa fa-trash' aria-hidden='true'></i></button>";
         }
       }
       

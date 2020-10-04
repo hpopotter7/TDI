@@ -44,6 +44,23 @@ include("conexion.php");
 		else{
 			$respuesta= $sql."<br>".mysqli_error($mysqli);
 		}
+		if($respuesta=="registro correcto"){
+			$id=$rfc;
+			$sql="select max(id_proveedor) from proveedores";
+			if ($result = $mysqli->query($sql)) {
+				while ($row = $result->fetch_row()) {
+					$id=$row[0]; 
+					rename("proveedores/".$rfc, "proveedores/".$id);
+					$respuesta= "registro correcto";
+				}
+				$result->close();
+			}	      
+			else{
+				$respuesta="proveedores guardado - Error:".mysqli_error($mysqli);
+			  	$mysqli->close();
+			  	exit();
+			}
+		}
 		echo $respuesta;
 
 	$mysqli->close();

@@ -8,6 +8,7 @@
 	    echo "Error de conexion: %s\n", mysqli_connect_error();
 	    exit();
 	}
+	$array_bitacora=array();
 	$numero_evento="";
 	$result = $mysqli->query("SET NAMES 'utf8'");
 	$sql="SELECT Numero_evento FROM eventos where id_evento=".$evento;
@@ -23,9 +24,19 @@
 		$var=0;
 		
 		for ($i=0; $i < $tamaño-1; $i++) { 
+			$evento_anterior="";
+			$sql="SELECT evento FROM odc where id_odc=".$arr[$var];
+			if ($result = $mysqli->query($sql)) {
+					while ($row = $result->fetch_row()) {
+						$evento_anterior=$row[0];
+					}
+					$result->close();
+				}
+
 			$sql="UPDATE odc SET evento='".$numero_evento."' where id_odc=".$arr[$var];
 			if ($mysqli->query($sql)) {    
-			    $res="update correcto";
+				$res="update correcto";
+				array_push($array_bitacora, "insert into bitacora(Usuario, tabla_actualizar, valor_anterior, valor_nuevo, fecha_hora_registro) values('".$_COOKIE['user']."', 'Transferencia id_odc: ".$arr[$var]."', '".$evento_anterior."', '".$numero_evento."', NOW())");
 			}
 			else{
 				$res= $res.mysqli_error($mysqli)."--".$sql;
@@ -33,6 +44,10 @@
 			}
 			$var++;
 			
+		}
+		foreach($array_bitacora as $valor){
+			if ($mysqli->query($valor)) {    
+			}
 		}
 		$mysqli->close();
 		echo $res;

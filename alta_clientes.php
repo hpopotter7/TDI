@@ -40,6 +40,24 @@ include("conexion.php");
 		else{
 			$respuesta= $sql."<br>".mysqli_error($mysqli);
 		}
+
+		if($respuesta=="registro correcto"){
+			$id=$rfc;
+			$sql="select max(id_cliente) from clientes";
+			if ($result = $mysqli->query($sql)) {
+				while ($row = $result->fetch_row()) {
+					$id=$row[0]; 
+					rename("clientes/".$rfc, "clientes/".$id);
+					$respuesta= "registro correcto";
+				}
+				$result->close();
+			}	      
+			else{
+				$respuesta="cliente guardado - Error:".mysqli_error($mysqli);
+			  	$mysqli->close();
+			  	exit();
+			}
+		}
 		echo $respuesta;
 
 	$mysqli->close();

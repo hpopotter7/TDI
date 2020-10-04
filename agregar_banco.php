@@ -2,10 +2,6 @@
 $nombre=$_POST['nombre'];
 $nombre=strtoupper($nombre);
 include("conexion.php");
-	//$mysqli = new mysqli("localhost", "tierra_ideas", "adminadmin", "tierra_ideas");
-	
-	//$mysqli = new mysqli("localhost", "tierrad9_admin", "Quick2215!", "tierrad9_admin");
-	
 	if (mysqli_connect_error()) {
 	    echo "Error de conexion: %s\n", mysqli_connect_error();
 	    exit();
@@ -38,14 +34,7 @@ include("conexion.php");
 		else{ // si ya existe regresamos que ya fue ocupada
 			$respuesta="ya existe";
 		}
-		/*$sql="UPDATE odc set Factura='".$numero."', Fecha_hora_factura=NOW() where id_odc='".$id."'";
-		if ($mysqli->query($sql)) {
-		    $respuesta= "solicitud enviada";
-		}
-		else{
-			$respuesta= $sql."<br>".mysqli_error($mysqli);
-		}
-		*/
+		
 		echo $respuesta;
 
 	$mysqli->close();

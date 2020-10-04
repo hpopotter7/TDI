@@ -1,7 +1,11 @@
 <?php
 $nombre=$_POST["nombre"];
 $doc=$_POST["doc"];
-$output_dir = "archivos/".$nombre."/";
+$tipo=$_POST["tipo"];
+
+$output_dir = $tipo."/".$nombre."/";
+
+
 
 if(!is_dir($output_dir)){
 	mkdir($output_dir, 0777);

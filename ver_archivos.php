@@ -1,8 +1,10 @@
 <?php 
 $carpeta    = $_POST["carpeta"];
-$directorio = 'archivos/'.$carpeta."/";
+$tipo    = $_POST["tipo"];
+$carpeta=utf8_decode($carpeta);
+$directorio = $tipo.'/'.$carpeta."/";
 if (!file_exists($directorio)) {
-	echo "no";
+	echo "no".$directorio;
 }
 else{
 	$gestor_dir = opendir($directorio);

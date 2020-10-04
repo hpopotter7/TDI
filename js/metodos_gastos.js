@@ -31,27 +31,41 @@ function inicio() {
         }
     }
 
+    ver_eventos("0"); 
+
+    function ver_eventos(periodo){
+       
     $.ajax({
         url: "ver_eventos_reporte_gastos.php",
-        type: 'post',
-        async: false,
+        type: 'GET',
+        data: "periodo="+periodo,
         beforeSend: function () {
             $('#mensaje').show();
         },
         success: function (response) {
-
-            $('#c_eventos').html(response);
-            $("#c_eventos").chosen();
-            /*
-            $('#c_eventos').multipleSelect();
-            $('#c_eventos').multipleSelect('disable');   
-            */
+            console.log(response);
+            if(response.includes("Error")){
+                alert(response);
+            }
+            else{
+                $('#c_eventos').html(response);
+                $('#c_eventos').multiselect({
+                    enableCaseInsensitiveFiltering:false,
+                    enableClickableOptGroups: true,
+                    enableCollapsibleOptGroups: true,
+                    enableFiltering: true,
+                    includeSelectAllOption: false,
+                    collapseOptGroupsByDefault: true
+                });
+                
+            }
+            $('#mensaje').hide();
         },
         complete: function () {
-            $('#mensaje').hide();
-
+           // $('#mensaje').hide();
         },
     });
+}
 
     $.ajax({
         url: "ver_periodos.php",
@@ -61,59 +75,39 @@ function inicio() {
             $('#mensaje').show();
         },
         success: function (response) {
-
             $('#c_periodo').html(response);
             $("#c_periodo option[value='vacio']").remove();
             $("#c_periodo").chosen({ allow_single_deselect:false });
         },
         complete: function () {
-            $('#mensaje').hide();
+            //$('#mensaje').hide();
         },
     });
 
-
-    $.ajax({
-        url: "ver_proveedores_con_odc.php",
-        type: 'post',
-        async: false,
-        beforeSend: function () {
-            $('#mensaje').show();
-        },
-        success: function (response) {
-
-            $('#c_proveedores').html(response);
-            $("#c_proveedores option[value='vacio']").remove();
-            $("#c_proveedores").chosen();
-
-        },
-        complete: function () {
-            $('#mensaje').hide();
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            generate("error","Error: Revise la consola para mas detalles");
-        console.log(xhr.responseText);
-
-        console.log(thrownError);
-      }
-    });
-
-    $('#c_proveedores').on('change', function (evt, params) {
+/*
+    $('#c_clientes').on('change', function (evt, params) {
         generar_query();
     });
+    */
 
     $('#c_eventos').on('change', function (evt, params) {
-        generar_query();
+        //generar_query();
     });
 
     $('#c_periodo').on('change', function (evt, params) {
+       // $('#c_eventos').multiselect("destroy");
         var periodo=$('#c_periodo').val();
         if(periodo==null){
             generate('warning', "Debe seleccionar al menos un periodo");
             $('#c_periodo').val("2019").trigger('chosen:updated');
-        }
-        generar_query();
+        }        
+        
+            ver_eventos(periodo, "0");
+        
+        
+        
     });
-
+/*
     function generar_query() {
         $('#tabla').hide();
         var eventos_1="";
@@ -125,13 +119,13 @@ function inicio() {
             }
             eventos_1 = eventos_1.substring(0, eventos_1.length-1);
         }
-        var proveedores = $("#c_proveedores").val();
+        var proveedores = $("#c_clientes").val();
         if(proveedores!=null){
             var datos = {
-                "proveedores": proveedores
+                "clientes": proveedores
             };
             $.ajax({
-                url: "buscar_eventos_proveedores.php",
+                url: "buscar_eventos_clientes.php",
                 type: 'post',
                 data: datos,
                 async: false,
@@ -176,6 +170,7 @@ function inicio() {
         
         $('#area_query').val(sql);
     }
+    */
 
     function generate(type, text) {
         var n = noty({
@@ -192,8 +187,14 @@ function inicio() {
     }
     
     $('#btn_buscar').click(function () {
+        var eventos=$('#c_eventos').val();
+
+        if(eventos==""){
+            eventos="todos";
+        }
+
         var datos = {
-            "sql": $('#area_query').val(),
+            "eventos": eventos,
         };
 
         $.ajax({
@@ -236,5 +237,7 @@ function inicio() {
         
     });
 
-    generar_query();
+    
+
+    
 }

@@ -46,7 +46,8 @@
 		$vobo_compras="1";
 	}
 	
-
+		$project=trim($project);
+		$coordinador=trim($coordinador);
 		$sql="insert into odc (evento, tipo, fecha_solicitud, fecha_pago, cheque_por, letra, a_nombre, concepto, servicio, otros, tipo_pago, cfdi, metodo_pago, factura, fecha, usuario_registra, fecha_hora_registro, identificador, solicito, finanzas, autorizo, Forma_pago, no_cheque, Compras, Coordinador, Project, Tipo_tarjeta, No_Tarjeta, Importe_total, vobo_solicito, vobo_compras) values('".$evento."', '".$tipo."', NOW(), '".$f_pago."', '".$odc_cheque_por."', '".$letra."', '".$a_nombre."', '".$txt_concepto."', '".$txt_servicios."', '".$txt_otros."', '".$tipo_pago."', '".$cfdi."', '".$metodo_pago."', '".$txt_docto_soporte."', '".$odc_fecha."', '".$user."', NOW(), '".$titulo."', '".$SOLICITO."', '".$FINANZAS."', '".$DIRECTIVO."', '".$forma_pago."', '".$no_cheque."', '".$compras."', '".$coordinador."', '".$project."', '".$tipo_reembolso."', '".$num_tarjeta."', ".$odc_cheque_por.", '".$vobo_soicito."', '".$vobo_compras."')";
 		if ($mysqli->query($sql)) {
 		    
@@ -57,6 +58,23 @@
 		}
 
 		if($RES=="registro odc correcto"){
+			$id_odc="";
+			$sql="select max(id_odc) from odc";
+			if ($result = $mysqli->query($sql)) {
+				while ($row = $result->fetch_row()) {
+					$id_odc=$row[0];
+					
+				}
+				$result->close();
+			}    
+
+			$sql="insert into bitacora(Usuario, tabla_actualizar, valor_anterior, valor_nuevo, fecha_hora_registro) values('".$_COOKIE['user']."', 'Creacion ODC: ".$usuario."', 'Evento: ".$evento."', 'id_odc: ".$id_odc."', NOW())";
+			if ($mysqli->query($sql)) {
+				$res= "exito";
+			}
+			else{
+				$res= mysqli_error($mysqli);
+			}
 			
 			if ($tipo_reembolso=='TARJETA SODEXO' || $tipo_reembolso=='TARJETA DILIGO') {
 				$sql="insert into movimientos(id_solicitud, No_tarjeta, importe, Tipo_movimiento, Fecha_creacion) 

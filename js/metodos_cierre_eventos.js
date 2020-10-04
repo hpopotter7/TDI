@@ -81,8 +81,11 @@ function inicio(){
               $('#resultados').hide();
               $('#btn_cerrar_evento').hide();  
             }
+            else if(response.includes("pendientes por aprobar")){
+              swal("Advertencia", response, "warning");
+            }
             else {
-              swal("Error", "Ocurrio un error", "error");
+              swal("Error", response, "error");
             }       
           }
         });

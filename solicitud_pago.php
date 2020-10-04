@@ -3,6 +3,12 @@
 try {
 $id=$_GET['id'];
 
+function startsWith ($string, $startString) 
+{ 
+    $len = strlen($startString); 
+    return (substr($string, 0, $len) === $startString); 
+} 
+
 header("Content-Type: text/html;charset=utf-8");
 require('fpdf.php');
 date_default_timezone_set ("America/Mexico_City");
@@ -491,20 +497,14 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $starty=220;
     $pdf->SetXY($startx, $starty); 
 
-
-/*
-    echo $coordinador;
-    exit();
-*/
-
     // TODOS LOS NOMBRES ARRIBA Y LOS APELLIDOS ABAJO
     $arr=explode(" ", ($elaborado));
     $arr2=explode(" ", ($solicito));
-    $arr3=explode(" ", ($finanzas));
-    $arr4=explode(" ", ($autorizo));
+    $arr3=explode(" ", ($project));
+    $arr4=explode(" ", ($coordinador));
     $arr5=explode(" ", ($compras));
-    $arr6=explode(" ", ($coordinador));
-    $arr7=explode(" ", ($project));
+    $arr6=explode(" ", ($finanzas));
+    $arr7=explode(" ", ($autorizo));
 
     if($firma_elaborado==""){
         $firma_elaborado="sin";
@@ -530,21 +530,130 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     if($firma_coordinador==""){
         $firma_coordinador="sin";
     }
+    $A1_1=$arr[0];
+    $A1_2=$arr[1];
 
-    $pdf->MultiCell(42,5,utf8_decode($arr[0])."\n".utf8_decode($arr[1]),'B','C',true);
+    $A2_1=$arr2[0];
+    $A2_2=$arr2[1];
+
+    $A3_1=$arr3[0];
+    $A3_2=$arr3[1];
+
+    $A4_1=$arr4[0];
+    $A4_2=$arr4[1];
+
+    $A5_1=$arr5[0];
+    $A5_2=$arr5[1];
+
+    $A6_1=$arr6[0];
+    $A6_2=$arr6[1];
+
+    $A7_1=$arr7[0];
+    $A7_2=$arr7[1];
+    
+    if($arr2[0]=="PA"){
+        $A2_1="[PA] ".$arr2[1];
+        $A2_2=$arr2[2];
+    }
+    if($arr3[0]=="PA"){
+        $A3_1="[PA] ".$arr3[1];
+        $A3_2=$arr3[2];
+    }
+    if($arr4[0]=="PA"){
+        $A4_1="[PA] ".$arr4[1];
+        $A4_2=$arr4[2];
+    }
+    if($arr5[0]=="PA"){
+        $A5_1="[PA] ".$arr5[1];
+        $A5_2=$arr5[2];
+    }
+    if($arr6[0]=="PA"){
+        $A6_1="[PA] ".$arr6[1];
+        $A6_2=$arr6[2];
+    }
+    if($arr7[0]=="PA"){
+        $A7_1="[PA] ".$arr7[1];
+        $A7_2=$arr7[2];
+    }
+
+    if($elaborado=="JUAN CARLOS GARCIA"){
+        $A1_1="JUAN CARLOS";
+        $A1_2="GARCIA";
+    }
+    if($elaborado=="PA JUAN CARLOS GARCIA"){
+        $A1_1="[PA] JUAN";
+        $A1_2="CARLOS GARCIA";
+    }
+    if($solicito=="JUAN CARLOS GARCIA"){
+        $A2_1="JUAN CARLOS";
+        $A2_2="GARCIA";
+    }
+    if($solicito=="PA JUAN CARLOS GARCIA"){
+        $A2_1="[PA] JUAN";
+        $A2_2="CARLOS GARCIA";
+    }
+    if($project=="JUAN CARLOS GARCIA"){
+        $A3_1="JUAN CARLOS";
+        $A3_2="GARCIA";
+    }
+    if($project=="PA JUAN CARLOS GARCIA"){
+        $A3_1="[PA] JUAN";
+        $A3_2="CARLOS GARCIA";
+    }
+    if($coordinador=="JUAN CARLOS GARCIA"){
+        $A4_1="JUAN CARLOS";
+        $A4_2="GARCIA";
+    }
+    if($coordinador=="PA JUAN CARLOS GARCIA"){
+        $A4_1="[PA] JUAN";
+        $A4_2="CARLOS GARCIA";
+    }
+
+    if(startsWith($elaborado,"PA ") && $firma_elaborado!="sin"){
+        $firma_elaborado=substr($firma_elaborado,3,strlen($firma_elaborado));
+    }
+    if(startsWith($solicito,"PA ") && $firma_solicito!="sin"){
+        $firma_solicito=str_replace("PA ", "", $solicito);
+        $firma_solicito=str_replace(" ", "", $firma_solicito);
+    }
+    if(startsWith($project,"PA ") && $firma_project!="sin"){
+        $firma_project=str_replace("PA ", "", $project);
+        $firma_project=str_replace(" ", "", $firma_project);
+    }
+    if(startsWith($coordinador,"PA ") && $firma_coordinador!="sin"){
+        $firma_coordinador=str_replace("PA ", "", $coordinador);
+        $firma_coordinador=str_replace(" ", "", $firma_coordinador);
+    }
+    if(startsWith($compras,"PA ") && $firma_compras!="sin"){
+        $firma_compras=str_replace("PA ", "", $compras);
+        $firma_compras=str_replace(" ", "", $firma_compras);
+    }
+    if(startsWith($autorizo,"PA ") && $firma_director!="sin"){
+        $firma_director=str_replace("PA ", "", $autorizo);
+        $firma_director=str_replace(" ", "", $firma_director);
+    }
+    if(startsWith($finanzas,"PA ") && $firma_finanzas!="sin"){
+        $firma_finanzas=str_replace("PA ", "", $finanzas);
+        $firma_finanzas=str_replace(" ", "", $firma_finanzas);
+        
+    }
+
+    
+
+    $pdf->MultiCell(42,5,utf8_decode($A1_1)."\n".utf8_decode($A1_2),'B','C',true);
     $pdf->Image('firmas/'.$firma_elaborado.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,5,utf8_decode($arr2[0])."\n".utf8_decode($arr2[1]),'B','C',true);
+    $pdf->MultiCell(42,5,utf8_decode($A2_1)."\n".utf8_decode($A2_2),'B','C',true);
     $pdf->Image('firmas/'.$firma_solicito.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,5,utf8_decode($arr3[0])."\n".utf8_decode($arr3[1]),'B','C',true);
-    $pdf->Image('firmas/'.$firma_finanzas.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    $pdf->MultiCell(42,5,utf8_decode($A3_1)."\n".utf8_decode($A3_2),'B','C',true);
+    $pdf->Image('firmas/'.$firma_project.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,5,utf8_decode($arr4[0])."\n".utf8_decode($arr4[1]),'B','C',true);
-    $pdf->Image('firmas/'.$firma_director.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    $pdf->MultiCell(42,5,utf8_decode($A4_1)."\n".utf8_decode($A4_2),'B','C',true);
+    $pdf->Image('firmas/'.$firma_coordinador.'.png' , $startx ,$starty-5, 30 , 20,'png');
     //salto de linea
     $firma1=$starty;
     $pdf->Ln(1);
@@ -555,10 +664,10 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $pdf->Cell(42,6,utf8_decode("Solicitado por"),0,0,'C',false);
     
     $pdf->SetX(105);
-    $pdf->MultiCell(42,6,utf8_decode("Finanzas"),0,'C',false);
+    $pdf->MultiCell(42,6,utf8_decode("Ejecutivo de cuenta"),0,'C',false);
     $starty=$starty+11;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,6,utf8_decode("Dirección General"),0,'C',false);
+    $pdf->MultiCell(42,6,utf8_decode("Director de área"),0,'C',false);
     $firma2=$starty;
     
     //lina firms 2
@@ -567,47 +676,53 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $startx=10;
     $starty=245;
     $pdf->SetXY($startx, $starty); 
+    /*
     if(count($arr5)==1){
         $vacio=" ";
     }
     else{
         $vacio=$arr5[1];
     }
+    */
     
-    $pdf->MultiCell(42,5,utf8_decode($arr5[0])."\n".utf8_decode($vacio),'B','C',true);
+    $pdf->MultiCell(42,5,utf8_decode($A5_1)."\n".utf8_decode($A5_2),'B','C',true);
     if($compras!="NA"){
         $pdf->Image('firmas/'.$firma_compras.'.png' , $startx ,$starty-5, 30 , 20,'png');
     }
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $vacio="";
+    /*
     if(count($arr7)==1){
         $vacio=" ";
     }
     else{
         $vacio=$arr7[1];
     }
-    $pdf->MultiCell(42,5,utf8_decode($arr7[0])."\n".utf8_decode($vacio),'B','C',true);
-    $pdf->Image('firmas/'.$firma_project.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    */
+    $pdf->MultiCell(42,5,utf8_decode($A7_1)."\n".utf8_decode($A7_2),'B','C',true);
+    $pdf->Image('firmas/'.$firma_director.'.png' , $startx ,$starty-5,40 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $vacio="";
+    /*
     if(count($arr6)==1){
         $vacio=" ";
     }
     else{
         $vacio=$arr6[1];
     }
-    $pdf->MultiCell(58,5,utf8_decode($arr6[0])."\n".utf8_decode($vacio),'B','C',true);
-    $pdf->Image('firmas/'.$firma_coordinador.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    */
+    $pdf->MultiCell(42,5,utf8_decode($A6_1)."\n".utf8_decode($A6_2),'B','C',true);
+    $pdf->Image('firmas/'.$firma_finanzas.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $pdf->Ln(1);
     $pdf->SetFont('Gotham_M','',10);
     $pdf->SetX(10);
     $pdf->Cell(42,6,"Compras",0,0,'C',false);
-    $pdf->SetX(63);
-    $pdf->Cell(42,6,utf8_decode("Ejecutivo de cuenta"),0,'C',false);
-    $pdf->SetX(109);
-    $pdf->Cell(50,6,utf8_decode("Director/Coordinador de area"),0,0,'C',false);
+    $pdf->SetX(62);
+    $pdf->Cell(42,6,utf8_decode("Dirección General"),0,'C',false);
+    $pdf->SetX(100);
+    $pdf->Cell(52,6,utf8_decode("Finanzas"),0,0,'C',false);
     
     //salto de linea
         
