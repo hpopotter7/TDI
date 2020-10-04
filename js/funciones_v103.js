@@ -96,7 +96,15 @@ function validar_perfiles(response){
 		
 	}
 
-	
+	//reporte de facturacion
+	//$('#btn_rep_gastos').remove();
+	if(!response.eje.includes("Ejecutivo de cuenta")){
+		if(response.usuario!="ALAN SANDOVAL" || response.usuario!="SANDRA PEÑA" 
+		|| response.usuario!="FERNANDA CARRERA" || response.usuario!="ANDRES EMANUELLI"){
+		$('#btn_rep_gastos').hide();
+		$('#btn_rep_gastos').remove();
+	}
+
 
 
 function bienvenido(usuario){
