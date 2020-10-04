@@ -103,6 +103,7 @@ function validar_perfiles(response){
 		|| response.usuario!="FERNANDA CARRERA" || response.usuario!="ANDRES EMANUELLI"){
 		$('#btn_rep_gastos').hide();
 		$('#btn_rep_gastos').remove();
+		}
 	}
 
 
