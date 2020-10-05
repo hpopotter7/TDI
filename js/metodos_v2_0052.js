@@ -1916,6 +1916,7 @@ var parametros = {
       
 
         function ver_solicitudes_por_evento(evento){
+          $('#mensaje_demo').html('');
           var datos={
             "evento": evento,
             "usuario": $('#label_user').html(),
@@ -7052,11 +7053,22 @@ $('#c_user_solicita').change(function(){
     
   });
 
+  $("#mensaje_demo").delegate(".btn_ref", "click", function(){
+    var link=$(this).attr("id");
+      window.open(link,'_blank' // <- This is what makes it open in a new window.
+    );
+  });
+
+  $("#mensaje_demo").delegate(".btn_borrar_comp", "click", function(){
+    eliminar_comprobante();
+  });
+
   $("#resultado_solicitudes").delegate(".btn_eliminar_comprobante", "click", function(){
-    var id=$(this).attr("id");
-    var arr=id.split("~");
-    var nombre_archivo=arr[0];
-    var id_odc=arr[1];
+    
+    var valor_boton=$(this).attr("id");
+    var arreglo=valor_boton.split("~");
+    var id_odc=arreglo[1];
+
     var datos={
       "id_odc":id_odc,
     };
@@ -7066,55 +7078,109 @@ $('#c_user_solicita').change(function(){
         type: 'post',
         success: function(response){
           if(response.includes("MISMO")){
-            noty({
-              text        : '¿Confirma el borrado del comprobante de esta solicitud?<p><i style="background-color: red;">NOTA: Si el documento es eliminado, no hay forma de recuperarlo</i></p>',
-              width       : '400px',
-              type        : 'warning',
-              dismissQueue: false,
-              closeWith   : ['backdrop'],
-              //modal       : true,
-              theme       : 'metroui',
-              timeout     : false,
-              layout      : 'topCenter',
-               buttons: [
-                {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
-                        eliminar_comprobante(nombre_archivo, $noty);
-                  }
-                },
-                {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
-                   $noty.close();
-                  }
-                }
-               ]
-              });
+          var arreglo_archivos=arreglo[0].split("#");
+          var html="<h3 style='padding:4px; color:black; text-align:center;'><mark style='color:#000 !important;background-color:#ff0 !important;padding:0px !important;'><i>NOTA: Una vez eliminados los archivos no se podrán recuperar</i></mark></h3>";   
+          var evento="";
+                //listar los acrchivos a borrar 
+            for(var r=1;r<=arreglo_archivos.length-1;r++){
+              var name=arreglo_archivos[r].split("/");
+              var nombre=name[0]+"/"+name[1];
+              evento=name[0]; 
+
+              html=html+"<div class='row' style='background-color: #7d039c; padding:5px;'><button class='btn btn-primary btn_ref' id='comprobantes/"+arreglo_archivos[r]+"'>"+name[1]+" </button><button class='btn_borrar_comp btn btn-danger' id='"+nombre+"'><i class='fa fa-trash'></i></a></button></div>";
+            }
+            $('#mensaje_demo').html(html);
+
+            $("#modal_demo").modal({
+              fadeDuration: 100
+            });
           }
           else{
             generate("error", "Solo puede borrar el documento el usuario que lo registró: "+response);
           }
         }
       });
-  });
 
-  function eliminar_comprobante(nombre_archivo, noty){
+
+
+
+
+
+
+/*
+      var texto_boton="<i class='fa fa-times'></i>";
+      noty({
+        text        : html,
+        width       : '600px',
+        type        : 'information',
+        dismissQueue: false,
+        closeWith   : ['backdrop'],
+        //modal       : true,
+        theme       : 'metroui',
+        timeout     : false,
+        layout      : 'topCenter',
+        buttons: [
+          {addClass: 'btn btn-primary', text: texto_boton, onClick: function($noty) {
+            $noty.close();
+            }
+          }
+        ]
+        });
+  */
+
+
+/*
+    var nombre_archivo=arr[0];
+    var id_odc=id_solicitud;
     var datos={
-      "nombre_archivo":nombre_archivo,
+      "id_odc":id_odc,
     };
       $.ajax({
-        url: 'delete_comprobante.php', // point to server-side PHP script 
-        data: datos,                         
+        url: 'eliminar_comprobante.php', 
+        data: datos,
         type: 'post',
         success: function(response){
-          if(response.includes("Error")){
-            generate('error',"Ocurrio un eror: "+response);
+          if(response.includes("MISMO")){
+            
           }
           else{
-            ver_solicitudes_por_evento($('#c_mis_eventos').val());
-            noty.close();
-            generate('success',"El comprobante ha sido eliminado!");
+            generate("error", "Solo puede borrar el documento el usuario que lo registró: "+response);
           }
         }
       });
-  }
+      */
+
+  });
+
+  
+
+  function eliminar_comprobante(){
+    var nombre_archivo=$(".btn_borrar_comp").attr("id"); 
+    var arr_eventos=nombre_archivo.split("/");
+    var evento=$("#c_mis_eventos").val();
+    alert(evento);
+      var datos={
+        "nombre_archivo":nombre_archivo,
+      };
+        $.ajax({
+          url: 'delete_comprobante.php', // point to server-side PHP script 
+          data: datos,                         
+          type: 'post',
+          success: function(response){
+            if(response.includes("Error")){
+              generate("warning", "Ocurrio un error");
+            }
+            else{
+              generate("success", "El comprobante ha sido eliminado");
+              $('.close-modal ').click();
+              $('.close-modal ').trigger("click");
+              
+              ver_solicitudes_por_evento(evento);
+             // noty.close();
+            }
+          }
+        });
+    }
 
   $('#btn_espejo').on('click', function(){
     var usuario=$("#c_usuarios").val();

@@ -1,7 +1,8 @@
 <?php 
 // PHP program to delete a file named gfg.txt 
 // using unlike() function 
-$nombre=substr($_POST["nombre_archivo"], 1);
+//$nombre=substr($_POST["nombre_archivo"], 1);
+$nombre=$_POST["nombre_archivo"];
 $archivo="comprobantes/".$nombre;
 
 // Use unlink() function to delete a file 

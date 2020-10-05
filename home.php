@@ -51,6 +51,7 @@
   <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="css/chosen.css"/>
   <link href="https://cdn.jsdelivr.net/sweetalert2/4.2.4/sweetalert2.min.css" rel="stylesheet"/>
+  
 
   <script src="js/jquery-1.11.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
@@ -97,7 +98,7 @@
   <script src="js/chosen.jquery.js" ></script>
   <script src="js/Chart.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
-
+  
   <script src="js/funciones_v103.js"></script>
   <script src="js/metodos_v2_0052.js"></script>
   <script>
@@ -110,6 +111,9 @@
 } );
     $(document).on("ready",inicio);  
   </script> 
+  <script>
+  
+  </script>
   <style>
 .dropdown-submenu {
   position: relative;
@@ -2326,10 +2330,9 @@ span.switch-label:after {
   </div>
 </div>
 
-<div id="modal_cargando" class="modal">
-  <div contenteditable="false" id='modal_contenido'>
-  <div class="progress progress-striped active " style="width: 100%;height:30px;"><div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="height: 170px;font-size: 18px;padding: 5px;">Cargando...</div></div>
- 
+<div id="modal_demo" class="modal">
+  <div contenteditable="true" id='mensaje_demo'>
+   
   </div>
 </div>
 
