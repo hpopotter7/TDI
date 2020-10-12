@@ -3,6 +3,8 @@ function validar_perfiles(response){
 	$(".contenedor").fadeOut();
 	$(".contenedor").remove();
 	$('#menu_cerrar_evento').remove();
+	
+	
 	if(response.usuario=="ALAN SANDOVAL" || response.usuario=="SANDRA PEÑA"){
 		$('#btn_cancelar_evento').show();
 		$('#btn_modificar_evento').show();
@@ -33,6 +35,7 @@ function validar_perfiles(response){
 		$('#btn_cancelar_evento').remove();
 		$('#btn_cancelar_evento').hide();
 		$('#div_clientes_registrados').show();
+		$('#menu_calendario').remove();
 		
 	}
 	

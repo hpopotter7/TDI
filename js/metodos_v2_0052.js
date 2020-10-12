@@ -6726,6 +6726,14 @@ $("#menu_cerrar_evento").click(function (e) {
   $('#div_iframe').fadeIn();
 });
 
+$("#menu_calendario").click(function (e) { 
+  e.preventDefault();
+  limpiar_cortinas();
+  $("#div_cortina").animate({top: '0px'}, 1100);
+  $("#frame").attr("src", "calendar.html");
+  $('#div_iframe').fadeIn();
+});
+
 $(".btn_archivos").change(function(){
   var cliente=$('#c_clientes_alta').val();
   var nombre="";

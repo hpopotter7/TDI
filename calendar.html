@@ -34,6 +34,9 @@
  $(document).on("ready",inicio);  
 </script>
 <style>
+  body{
+    background-color: rgba(255, 255, 255, 0.29) !important;
+  }
   .rojo{
     background-color: crimson;
     
@@ -72,13 +75,16 @@
     <div class="row">
       <h3 style='width: 100%; text-align: center;'>Pagos proximos a vencer</h3>
     </div>
-    <div id='calendar'></div>
-    <span id='resultado_vencidos' style='position: fixed;border: 2px solid red;padding: .5em;left: 300px'>
-      
-    </span>
-    <span id='resultado_vigentes' style='position: fixed;border: 2px solid royalblue;padding: .5em;left:1000px;'>
-      Suma de vigente: $000,000.00
-    </span>
+    <div id='calendar' style='background-color: white !important;'></div>
+    
+  </div>
+  <div class="container">
+    <div class="row">
+      <div id='resultado_vencidos' class='col-md-6' style='flex:0 0 auto !important;width:30% !important;margin:auto;text-align:center;border: 2px solid red;padding: .5em;background-color:white;border-radius: 1em;'>
+      </div>
+      <div id='resultado_vigentes' class='col-md-6 pull-right' style='flex:0 0 auto !important;width:30% !important;margin:auto;text-align:center;border: 2px solid royalblue;padding: .5em;background-color:white;border-radius: 1em;'>
+      </div>
+    </div>
   </div>
   
 </body>
