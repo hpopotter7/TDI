@@ -1,4 +1,5 @@
 <?php 
+date_default_timezone_set ("America/Mexico_City");
 $anio=$_POST['anio'];
 $mes=$_POST['mes'];
 $dia=$_POST['dia'];
