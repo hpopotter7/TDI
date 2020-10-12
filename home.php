@@ -581,6 +581,7 @@ span.switch-label:after {
             <div class="collapse" id="toggleDemo4" style="height: 0px;">
               <ul class="nav nav-list">
                 <li><a id='menu_tarjetas' href="#"><i class="fas fa-credit-card" aria-hidden="true"></i> Tarjetas</a></li>
+                <li><a id='menu_calendario' href="#"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Calendario</a></li>
               </ul>
             </div>
           </li>
