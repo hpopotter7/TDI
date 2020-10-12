@@ -45,13 +45,27 @@ $factutacion=0;
     if($utilidad>0){
         $tipo="label-success";
     }
+
+    $porcentaje=0;
+if($facturacion>0){
+  $porcentaje=($utilidad*100)/$facturacion;
+}
+
+
+if($utilidad>0){
+  $porcentaje=round($porcentaje,2)."%";
+}
+if($utilidad<=0){
+  $porcentaje=round($porcentaje,2)."%";
+}
     
-    $resultado="<table class='table table-user-information table-sm'>
+    $resultado="<table class='table table-user-information'>
     <thead style='background-color: #455F87; color: white'>
       <tr>
         <th class='text-center'>Σ Egresos</th>
         <th class='text-center'>Σ Facturación</th>
         <th class='text-center'>Utilidad</th>
+        <th class='text-center'>Porcentaje</th>
       </tr>
     </thead>
     <tbody>
@@ -59,9 +73,49 @@ $factutacion=0;
         <td class='text-center'><h3><strong>".moneda($egresos)."</strong></h3></td>
         <td class='text-center'><h3><strong>".moneda($facturacion)."</strong></h3></td>
         <td class='text-center'><h3><strong class='label ".$tipo."'>".moneda($utilidad)."</strong></h3></td>
+        <td class='text-center'><h3><strong class='label ".$tipo."'>".$porcentaje."</strong></h3></td>
       </tr>
     </tbody>
     </table>";
 
-    echo $resultado;
+    if($utilidad>0){
+      $grafica="<table class='table table-dark' ><thead style='background-color: #455F87; color: white'>
+      <tr>
+      <th colspan='2' class='text-center'>Gráfica</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td colspan='2' class='text-center'>
+    <center><canvas id='pie' height='200' width='250'></canvas></center>
+    <script>
+    var ctx = document.getElementById('pie').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+          labels: ['Egresos', 'Utilidad'],
+          datasets: [{
+              data: [".$egresos.", ".$utilidad."],
+              backgroundColor: [
+                  'rgba(215,31,31,0.7)',
+                  'rgba(111,173,23,0.85)',
+              ],
+          }]
+      },
+      
+      options: {
+        legend: {
+          position: 'top'
+        },
+        responsive: false,
+        maintainAspectRatio: true,
+         
+      }
+    });
+    </script>
+    </td>
+    </tbody></table>";
+    }
+
+    echo $resultado.$grafica;
 ?>

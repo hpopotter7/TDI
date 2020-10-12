@@ -52,9 +52,11 @@ $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.
 
 
 if ($result = $mysqli->query($sql)) {
-     $resultado='<table class="table table-inverse" style="width:99%"><thead><tr><th>#</th><th>Elaborado</th>
-     <th>Solicita</th><th>Proveedor</th><th>Concepto</th><th>Importe</th><th>Devolución</th><th>Total</th><th>Factura</th><th>Descargar</th><th>Cheque</th><th>Pag</th><th>Comp</th><th>Tipo</th></tr></thead>';
-  	$contador=0;
+     $resultado='<table id="tabla_resumen_solicitudes" class="table table-inverse" style="width:99%;left: -80px !important;"><thead><tr><th>#</th><th>Elaborado</th>
+     <th>Solicita</th><th>Proveedor</th><th>Concepto</th><th>Importe</th><th>Dev</th><th>Total</th><th>Factura</th><th>Ver</th><th>Cheque</th><th>Pag</th><th>Comp</th><th>Tipo</th></tr></thead>';
+    
+     $contador=0;
+     $num=0;
     $disabled="";
     $tit="";
     $TITULO="";
@@ -62,6 +64,7 @@ if ($result = $mysqli->query($sql)) {
     $monto_factura=0;
     while ($row = $result->fetch_assoc()) {
       $contador++;
+      $num++;
       $a_nombre=$row['a_nombre'];
       $concepto=$row['concepto'];
       $cheque_por=$row['cheque_por'];
@@ -136,11 +139,42 @@ if ($result = $mysqli->query($sql)) {
       $total=$cheque_por-$Monto_devolucion;
       
       if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
-        $contador="<input type='checkbox' value='".$id_odc."' class='check_transfer'/>";
+        if($pagado=="si" || $comprobado=="si"){
+          $contador=$num;
+        }
+        else{
+          $contador=$num." <input type='checkbox' value='".$id_odc."' class='check_transfer'/>";
+        }
+      }
+
+      $label_comprobante="<label id='".$id_odc."#".$num_evento."' class='btn btn-success btn_subir_comprobante'><i class='fa fa-upload' aria-hidden='true'></i></label>";
+
+      $ruta = "comprobantes/".$num_evento;
+      $myfiles = scandir($ruta);
+      $array= Array();
+      $array_nombre= Array();
+      //$contador=0;
+      $clases="";
+      foreach($myfiles as $file){
+        $nombre=explode("-",$file);
+        array_push($array,$nombre[0]);
+        array_push($array_nombre,$file);
+      }
+      $con=0;
+      if(is_dir($ruta)){
+        for($r=0;$r<=count($array)-1;$r++){
+          if($array[$r]==$id_odc){
+            $con++;
+            $clases=$clases."#".$num_evento."/".$array_nombre[$r];
+          }
+        }
+        if($con>0){
+          $label_comprobante="<label id='".$clases."' class='btn btn-success btn_ver_comprobante '><i class='fa fa-eye' aria-hidden='true'></i></label><button id='".$clases."~".$id_odc."' class='btn btn-danger btn_eliminar_comprobante' style='margin-left:2px' ><i class='fa fa-trash' aria-hidden='true'></i></button>";
+        }
       }
       
       if($valida=="CXP" && ($_COOKIE['user']=="RITA VELEZ" || $_COOKIE['user']=="ANGEL RIVERA") ){  // SI TIENE PERMISO DE CXP
-        $resultado=$resultado."<tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td class='td_boton'><label id='".$id_odc."' class='btn btn_verde btn_success btn_factura'>".$Factura."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td>";
+        $resultado=$resultado."<tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td class='td_boton'><label id='".$id_odc."' class='btn btn_verde btn_success btn_factura'>".$Factura."</label><p style='margin-top: 3px;'>".$label_comprobante."</td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td>";
         if($identificador!="Pagado"){
           $resultado=$resultado."<td class='td_boton'><label id='".$id_odc."' class='btn btn_verde btn_success btn_cheque'>".$no_cheque."</label></td>";
         }
@@ -149,7 +183,7 @@ if ($result = $mysqli->query($sql)) {
         }
       }
       else{
-        $resultado=$resultado."<tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td class='td_boton'><label class='btn btn-success' disabled='disabled'>".$Factura."</label></td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td>";
+        $resultado=$resultado."<tr><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td class='td_boton'><label class='btn btn-success' disabled='disabled'>".$Factura."</label><p style='margin-top: 3px;'>".$label_comprobante."</td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td>";
         if($identificador!="Pagado"){
           $resultado=$resultado."<td class='td_boton'><label class='btn btn-success' disabled='disabled'>".$no_cheque."</label></td>";
         }
@@ -202,12 +236,12 @@ else{
 }
 
 if($suma_solicitudes==0){
-$resultado=$resultado."<div class='row col-md-12'><i>No hay solicitudes realizadas para este evento.</i></div><div class='row'></div><div class='clearfix row'></div>";
+$resultado=$resultado."<div class='row'></div><div class='clearfix row'></div><p><br>";
 }
 
 include('tabla_facturacion_detalle_eventos.php');
 
-$resultado=$resultado.$resultado2;
+$resultado=$resultado."<div class='row'></div><div class='clearfix row'></div><p><br>".$resultado2;
 
 echo $resultado;
 

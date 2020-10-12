@@ -563,12 +563,15 @@ cursor: not-allowed;
 }
 
 
-  #spnTop {
+  #spnTop, #spnDown {
     cursor: pointer;
     position: fixed;
     bottom: 20px;
     right: 20px;
     display:none;
+}
+#spnDown {
+    right: 80px;
 }
 .resp-container {
     position: relative;
@@ -585,7 +588,6 @@ cursor: not-allowed;
     height: 100%;
     border: 0;
 }
-
 
 /*
 #div_iframe {

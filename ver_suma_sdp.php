@@ -48,25 +48,23 @@ if ($result = $mysqli->query($sql)) {
 
 $total_15=($costo*$utilidad)/100;
 
-$res=$total_15-$suma;
-/*
-3576180.00
-938,046.47
-/*
 
-$porcentaje=$costo*.2;
-$costo=$costo-$porcentaje;
-if($suma<$costo){
-	$res="verde";
+
+$res=$total_15-$suma;
+
+
+$sql="SELECT Ejecutivo FROM eventos where id_evento=".$id;
+$ejecutivo="";
+if ($result = $mysqli->query($sql)) {
+    while ($row = $result->fetch_row()) {
+        $ejecutivo=$row[0];
+    }
+    $result->close();
 }
-else if($suma>=$costo && $suma<($costo+$porcentaje)){
-	$res="amarillo";
-}
-else if($suma>=($costo+$porcentaje)){
-	$res="rojo";
-}
-*/
-echo moneda($res);
+
+$res=$ejecutivo."&".moneda($res);
+
+echo $res;
 //echo $costo."#".$porcentaje."#".$suma;
 
 $mysqli->close();

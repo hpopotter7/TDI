@@ -23,7 +23,7 @@ if (mysqli_connect_errno()) {
 $result = $mysqli->query("SET NAMES 'utf8'");
 
 if($bandera=="MA. FERNANDA CARRERA HDZ"){ //ES DECIR SI ES CHEQUE
-    $sql="SELECT id_usuarios, Nombre FROM usuarios where email not like '%DILIGO%' order by Nombre asc";
+    $sql="SELECT id_usuarios, Nombre FROM usuarios where estatus='activo' and email not like '%DILIGO%' order by Nombre asc";
     if ($result = $mysqli->query($sql)) {
         echo '<option value="vacio">Selecciona un usuario...</option>';
         while ($row = $result->fetch_row()) {
@@ -40,7 +40,7 @@ if($bandera=="MA. FERNANDA CARRERA HDZ"){ //ES DECIR SI ES CHEQUE
     }
 }
 else if($bandera=="TARJETA SODEXO"){  // SI ES TARJETA SODEXO
-    $sql="SELECT t.id_tarjeta, t.No_tarjeta, u.Nombre, t.Usuario FROM tarjetas t left join usuarios u on u.id_usuarios=t.Usuario where t.Tipo='SODEXO' order by t.No_tarjeta asc";
+    $sql="SELECT t.id_tarjeta, t.No_tarjeta, u.Nombre, t.Usuario FROM tarjetas t left join usuarios u on u.id_usuarios=t.Usuario where t.Tipo='SODEXO'and u.estatus='activo' order by t.No_tarjeta asc";
     if ($result = $mysqli->query($sql)) {
         echo '<option value="vacio">Selecciona una tarjeta...</option>';
         while ($row = $result->fetch_row()) {
@@ -61,7 +61,7 @@ else if($bandera=="TARJETA SODEXO"){  // SI ES TARJETA SODEXO
     }
 }
 else if($bandera=="TARJETA DILIGO"){  // SI ES TARJETA DILIGO
-    $sql="SELECT t.id_tarjeta, t.No_tarjeta, u.Nombre, t.Usuario FROM tarjetas t left join usuarios u on u.id_usuarios=t.Usuario where t.Tipo='DILIGO'";
+    $sql="SELECT t.id_tarjeta, t.No_tarjeta, u.Nombre, t.Usuario FROM tarjetas t left join usuarios u on u.id_usuarios=t.Usuario where t.Tipo='DILIGO' and estatus='activo'";
     if ($result = $mysqli->query($sql)) {
         echo '<option value="vacio">Selecciona una tarjeta...</option>';
         while ($row = $result->fetch_row()) {

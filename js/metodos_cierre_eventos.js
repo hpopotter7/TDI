@@ -1,4 +1,5 @@
 function inicio(){
+
   $('#btn_cerrar_evento').hide();            
 
     var op_mis_eventos = {
@@ -23,7 +24,6 @@ function inicio(){
       };
       $("#c_eventos").easyAutocomplete(op_mis_eventos);
 
-
       function ver_solicitudes_por_evento(evento){
         var datos={
           "evento": evento,
@@ -41,40 +41,54 @@ function inicio(){
 
       $('#btn_cerrar_evento').click(function(){
         swal({
-          title: "¿Realmente deseas Cerrar este evento?",
-          text: "Una vez cerrado, los usuario no podran realizar solicitudes",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-            var evento=$("#c_eventos").val();
-            var datos={
-              "evento": evento,
-            }
-            $.ajax({
-              url:   "cerrar_evento.php",
-              type:  'post',
-              data: datos,
-              success:  function (response) {
-                if(response.includes("cerrado")){
-                  swal("El evento ha sido cerrado", {
-                    icon: "success",
-                  });
-                  $("#c_eventos").val('');
-                  $('#resultados').hide();
-                  $('#btn_cerrar_evento').hide();  
-                }
-                else {
-                  swal("Ocurrio un error"+response, {
-                    icon: "error",
-                  });
-                }       
-              }
-            });
-            
-          } 
+          title: "¿Deseas cerrar este evento?",
+          html: "<i style='font-size:.75em'>Una vez cerrado, los usuario no podran realizar solicitudes</i>" +
+              "<br>" +
+              '<button type="button" class="btn btn-success SwalBtn_normal customSwalBtn">' + 'Normal' + '</button>' +
+              '<button type="button" class="btn btn-warning SwalBtn_pitch customSwalBtn">' + 'Pitch' + '</button>' +
+              '<button type="button" class="btn btn-danger SwalBtn_cancel customSwalBtn">' + 'Cancelar' + '</button>' ,
+              type: "warning",
+          showCancelButton: false,
+          showConfirmButton: false
         });
       });
+
+    $(document).on('click', '.SwalBtn_normal', function() {
+      cierre_evento("CERRADO");
+    });
+    $(document).on('click', '.SwalBtn_pitch', function() {
+      cierre_evento("PITCH");
+    });
+    $(document).on('click', '.SwalBtn_cancel', function() {
+        swal.clickConfirm();
+    });
+
+      function cierre_evento(tipo){ 
+        var evento=$("#c_eventos").val();
+        var datos={
+          "evento": evento,
+          "tipo":tipo
+        }
+        $.ajax({
+          url:   "cerrar_evento.php",
+          type:  'post',
+          data: datos,
+          success:  function (response) {
+            swal.clickConfirm();
+            if(response.includes("cerrado")){
+              swal("Exito", "Se ha cerrado el evento.", "success");
+              $("#c_eventos").val('');
+              $('#resultados').hide();
+              $('#btn_cerrar_evento').hide();  
+            }
+            else if(response.includes("pendientes por aprobar")){
+              swal("Advertencia", response, "warning");
+            }
+            else {
+              swal("Error", response, "error");
+            }       
+          }
+        });
+
+      };
 }

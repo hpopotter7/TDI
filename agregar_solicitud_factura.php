@@ -21,10 +21,10 @@ $largo=$_POST['largo'];
 
 $id=explode('&', $evento);
 $id_evento=$id[0];
-$arr_descripcion=explode('#',$partidas_descripcion);
-$arr_pu=explode('#',$partidas_pu);
-$arr_iva=explode('#',$partidas_iva);
-$arr_total=explode('#',$partidas_total);
+$arr_descripcion=explode('§',$partidas_descripcion);
+$arr_pu=explode('§',$partidas_pu);
+$arr_iva=explode('§',$partidas_iva);
+$arr_total=explode('§',$partidas_total);
 
 $formatter = new NumberFormatter('es_MX', NumberFormatter::CURRENCY);
 /*
@@ -42,18 +42,19 @@ include("conexion.php");
 		$respuesta="nop";
 
 
-
+		$result = $mysqli->query("SET NAMES 'utf8'");
+		
 		$sql="INSERT INTO solicitud_factura (id_evento, Dias_credito, Num_pedido, Num_orden, Num_entrada, GR, correo1, correo2, correo3, correo4, correo5, Fecha_hora_registro, Usuario_registra, Observaciones, empresa_factura, Estatus) VALUES ('".$id_evento."', '".$dias_credito."', '".$num_pedido."', '".$num_orden."', '".$num_entrada."', '".$gr."', '".$correo1."', '".$correo2."', '".$correo3."', '".$correo4."', '".$correo5."', NOW(), '".$user_registra."', '".$observaciones."', '".$empresa_factura."', 'Activa')";
 		$result = $mysqli->query("SET NAMES 'utf8'");
 		if ($mysqli->query($sql)) {
 		    $respuesta= "solicitud agregada";
-		   
 		}
 		else{
 			$respuesta= $sql."<br>".mysqli_error($mysqli);
 		}
-		 $sql="SELECT MAX( id_solicitud ) FROM solicitud_factura";
-		    $id_max;
+
+		
+		 $sql="SELECT MAX(id_solicitud) FROM solicitud_factura";
 			if ($result = $mysqli->query($sql)) {
 				 while ($row = $result->fetch_row()) {
 					$id_max=$row[0];
@@ -61,12 +62,16 @@ include("conexion.php");
 			}
 			echo $largo;
 		    for($r=0;$r<=$largo;$r++){
+				$result = $mysqli->query("SET NAMES 'utf8'");
 	    		$sql="INSERT INTO partidas(descripcion, pu, iva, total, id_sol_factura) values('".$arr_descripcion[$r]."', '".$formatter->parseCurrency($arr_pu[$r], $curr)."', '".$formatter->parseCurrency($arr_iva[$r], $curr)."', '".$formatter->parseCurrency($arr_total[$r], $curr)."', '".$id_max."')";
 	    		
 	    		
 		    	if ($mysqli->query($sql)) {
 		    		$respuesta= "solicitud agregada";
-		    	}
+				}
+				else{
+					$respuesta= $sql."<br>".mysqli_error($mysqli);
+				}
 		    	
 			}
 			

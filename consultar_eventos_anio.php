@@ -1,12 +1,17 @@
 <?php
-
+$anio=$_POST['anio'];
 include("conexion.php");	
 	if (mysqli_connect_error()) {
 	    echo "Error de conexion: %s\n", mysqli_connect_error();
 	    exit();
     }
+    if($anio=="0"){
+     $sql="select Numero_evento, concat('[',Numero_evento,'] ', Nombre_evento) as evento from eventos where Numero_evento like '2020-%' or Numero_evento like '2019-%' order by id_evento";
+    }
+    else{
+      $sql="select Numero_evento, concat('[',Numero_evento,'] ', Nombre_evento) as evento from eventos where Numero_evento like '".$anio."-%' order by id_evento";
+    }
     
-    $sql="select Numero_evento, concat('[',Numero_evento,'] ', Nombre_evento) as evento from eventos where Numero_evento like '2020-%' order by id_evento";
     
     $result = $mysqli->query("SET NAMES 'utf8'"); 
     

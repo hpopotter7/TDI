@@ -14,7 +14,7 @@ include("conexion.php");
 		$respuesta="nop";
 			//obtener el cliente para agrupacion
 		$cliente="";
-		$sql5="SELECT a_nombre FROM odc where id_odc=".$id;
+		$sql5="SELECT a_nombre FROM odc where id_odc=".$id." and Cancelada='no'";
 		if ($result = $mysqli->query($sql5)) {
 		    while ($row = $result->fetch_row()) {
 		        $cliente=$row[0];

@@ -4,6 +4,8 @@
 	$sodexo=$_POST['txt_sodexo'];
 	$pass='tierraideas';
 	$email=$_POST['txt_email_usuario'];
+	$jefe_directo=$_POST['c_jefe_directo'];
+
 	$Xejecutivo=$_POST['Xejecutivo'];
 	$Xsolicitante=$_POST['Xsolicitante'];
 	$Xdigital=$_POST['Xdigital'];
@@ -34,7 +36,7 @@
 	}
 
 	if($existe==""){
-		$sql="insert into usuarios (Nombre, email, User, Pass, Ejecutivo, Solicitante, CXP, Digitalizacion, Productor, Disenio, Directivo, Estatus, cat_clientes, cat_prov, cat_usuarios, sodexo, cat_facturacion) values('".$nombre."', '".$email."', '".$user."', '".$pass."', '".$Xejecutivo."','".$Xsolicitante."','".$Xcxp."','".$Xdigital."','".$Xproductor."','".$Xdisenio."', '".$Xdirectivo."', 'activo', '".$XClientes."', '".$XProveedores."', '".$XUsuarios."', '".$sodexo."', '".$XFacturacion."')";
+		$sql="insert into usuarios (Nombre, email, User, Pass, Ejecutivo, Solicitante, CXP, Digitalizacion, Productor, Disenio, Directivo, Estatus, cat_clientes, cat_prov, cat_usuarios, sodexo, cat_facturacion, Jefe_Directo) values('".$nombre."', '".$email."', '".$user."', '".$pass."', '".$Xejecutivo."','".$Xsolicitante."','".$Xcxp."','".$Xdigital."','".$Xproductor."','".$Xdisenio."', '".$Xdirectivo."', 'activo', '".$XClientes."', '".$XProveedores."', '".$XUsuarios."', '".$sodexo."', '".$XFacturacion."', '".$jefe_directo."')";
 		if ($mysqli->query($sql)) {
 		    echo "registro correcto";
 		}

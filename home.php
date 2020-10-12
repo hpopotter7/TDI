@@ -29,27 +29,29 @@
   <meta http-equiv='pragma' content='no-cache'>
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
   <link rel="stylesheet" href="css/jquery.fancybox.css" />
-  
   <link rel="stylesheet" href="css/animate.css"/>
-  <link rel="stylesheet" href="css/sweetalert2.css"/>  
+  <link rel="stylesheet" href="css/sweetalert2.css"/>
   <link rel="stylesheet" href="css/bootstrap.toogle.min_v001.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
-  <link rel="stylesheet" href="css/bootstrap.min5.css">
+  <link rel="stylesheet" href="css/bootstrap.min6.css">
   <link rel="stylesheet" href="css/estilos_ver_0005.css"/>
   <link rel="stylesheet" href="css/estilos_menu_user.css"/>
   <link rel="stylesheet" href="css/jquery-ui_theme_green.css"/>
   <link rel="stylesheet" href="css/jquery-ui_green.css"/>
-  <link rel="stylesheet" href="css/bootstrap-multiselect.css"/>
+  <link rel="stylesheet" href="css/bootstrap-multiselect_001.css"/>
   <link rel="stylesheet" href="css/tooltipster.bundle.css" />
   <link rel="stylesheet" href="css/data_tables.css">
   <link rel="stylesheet" href="css/uploadfile.css">
   <link rel="stylesheet" href="css/jquery_combo_editable.css">
   <link rel="stylesheet" href="css/easy-autocomplete.css" />
-  <link rel="stylesheet" href="css/easy-autocomplete.themes.css""/>
+  <link rel="stylesheet" href="css/easy-autocomplete.themes.css"/>
   <link rel="stylesheet" href="css/jquery.modal.css"/>
   <link rel="stylesheet" href="css/menu.css"/>
+  
   <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="css/chosen.css"/>
+  <link href="https://cdn.jsdelivr.net/sweetalert2/4.2.4/sweetalert2.min.css" rel="stylesheet"/>
+  
 
   <script src="js/jquery-1.11.2.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
@@ -73,7 +75,7 @@
   <script src="js/dataTables.js"></script>
   <script src="js/jquery.formatCurrency.js"></script>
   <script src="js/tooltipster.bundle.js"></script>
-  <script src="js/funciones_v100.js"></script>
+  
   <script src="js/jquery.validate.min.js"></script>
   <script src="js/jquery.uploadfile.js"></script>
   <script src='js/DateTables.js'></script>
@@ -95,8 +97,10 @@
   <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   <script src="js/chosen.jquery.js" ></script>
   <script src="js/Chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
-  <script src="js/metodos_v2_0022.js"></script>
+  <script src="js/funciones_v103.js"></script>
+  <script src="js/metodos_v2_0052.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -107,6 +111,9 @@
 } );
     $(document).on("ready",inicio);  
   </script> 
+  <script>
+  
+  </script>
   <style>
 .dropdown-submenu {
   position: relative;
@@ -223,6 +230,194 @@ circle:nth-of-type(4) {
 }
 
   </style>
+  <style>
+    .anil_nepal{width:90%; display:block;}
+.switch {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 100px;
+    height: 30px;
+    padding: 3px;
+    margin: 0 10px 10px 0;
+    background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+    background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
+    border-radius: 18px;
+    box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    box-sizing: content-box;
+}
+label {
+    font-weight: inherit;
+}
+input[type=checkbox], input[type=radio] {
+    margin: 4px 0 0;
+
+    line-height: normal;
+      -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+
+.switch-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    box-sizing: content-box;
+}
+.switch-left-right .switch-input:checked ~ .switch-label {
+    background: inherit;
+}
+.switch-input:checked ~ .switch-label {
+    background: #E1B42B;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.switch-left-right .switch-label {
+    overflow: hidden;
+}
+.switch-label, .switch-handle {
+    transition: All 0.3s ease;
+    -webkit-transition: All 0.3s ease;
+    -moz-transition: All 0.3s ease;
+    -o-transition: All 0.3s ease;
+}
+.switch-label {
+    position: relative;
+    display: block;
+    height: inherit;
+    font-size: 10px;
+    text-transform: uppercase;
+    background: #eceeef;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+    box-sizing: content-box;
+}
+.switch-left-right .switch-input:checked ~ .switch-label:before {
+    opacity: 1;
+    left: 100px;
+}
+.switch-input:checked ~ .switch-label:before {
+    opacity: 0;
+}
+.switch-left-right .switch-label:before {
+    background: #eceeef;
+    text-align: left;
+    padding-left: 80px!important;
+}
+.switch-left-right .switch-label:before, .switch-left-right .switch-label:after {
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 11px 0 0 0;
+    text-indent: -12px;
+    border-radius: 20px;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+}
+.switch-label:before {
+    content: attr(data-off);
+    right: 11px;
+    color: #aaaaaa;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+
+span.switch-label:after {
+    content: attr(data-on);
+    left: 11px;
+    color: #FFFFFF;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+    position: absolute;
+  
+}
+
+.switch-label:before, .switch-label:after {
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    line-height: 1;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    -o-transition: inherit;
+    transition: inherit;
+    box-sizing: content-box;
+}
+
+.switch-left-right .switch-input:checked ~ .switch-label:after {
+    left: 0!important;
+    opacity: 1;
+    padding-left: 20px;
+}
+
+
+.switch-input:checked ~ .switch-label:after {
+    opacity: 1;
+}
+
+
+.switch-left-right .switch-label:after {
+    text-align: left;
+    text-indent: 9px;
+    background: #1aa516!important;
+    left: -100px!important;
+    opacity: 1;
+    width: 100%!important;
+ 
+}
+.switch-left-right .switch-label:before, .switch-left-right .switch-label:after {
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 11px 0 0 0;
+    text-indent: -12px;
+    border-radius: 20px;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+}
+.switch-input:checked ~ .switch-handle {
+    left: 74px;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+.switch-label, .switch-handle {
+    transition: All 0.3s ease;
+    -webkit-transition: All 0.3s ease;
+    -moz-transition: All 0.3s ease;
+    -o-transition: All 0.3s ease;
+}
+
+.switch-handle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+    background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+    border-radius: 100%;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.switch-handle:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -6px 0 0 -6px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+    background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+    border-radius: 6px;
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+}
+
+  </style>
 
 </head>
 <body>
@@ -288,7 +483,9 @@ circle:nth-of-type(4) {
   -->
   <a id='btn_cerrar_bitacora' href="#" >
         <i class="fa fa-close fa-2x" style='color:black'></i>  
-          
+  </a>
+  <a id='btn_limpiar_bitacora' href="#" >
+  <i class="fa fa-trash-o fa-2x" aria-hidden="true" style='color:black'></i>
   </a>
    
   <section id='resultado_bitacora' style='width: 100%;
@@ -359,13 +556,13 @@ circle:nth-of-type(4) {
               <li><a id='menu_solicitud_reembolso' href="#"><i class="fas fa-registered" aria-hidden="true"></i> Reembolso</a></li>
               <li><a id='menu_vobo' href="#"><i class="fas fa-thumbs-up" aria-hidden="true"></i> VoBo</a></li>
               <li><a id='menu_ver_formatos' href="#"><i class="fas fa-list-ul" aria-hidden="true"></i> Ver solicitudes</a></li>
-              <li><a id='menu_buscar_odc' href="#"><i class="fas fa-search" aria-hidden="true"></i> Buscar odc</a></li>
+              <!--<li><a id='menu_buscar_odc' href="#"><i class="fas fa-search" aria-hidden="true"></i> Buscar solicitudes</a></li>-->
             </ul>
           </div>
         </li>
         <li>
             <a href="#" data-toggle="collapse" data-target="#toggleDemo3" data-parent="#sidenav01" class="collapsed">
-            <span class="fas fa-swatchbook"></span>Catálogos <span class="caret pull-right"></span>
+            <span class="fas fa-swatchbook"></span> Catálogos <span class="caret pull-right"></span>
             </a>
             <div class="collapse" id="toggleDemo3" style="height: 0px;">
               <ul class="nav nav-list">
@@ -384,6 +581,7 @@ circle:nth-of-type(4) {
             <div class="collapse" id="toggleDemo4" style="height: 0px;">
               <ul class="nav nav-list">
                 <li><a id='menu_tarjetas' href="#"><i class="fas fa-credit-card" aria-hidden="true"></i> Tarjetas</a></li>
+                <li><a id='menu_calendario' href="#"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Calendario</a></li>
               </ul>
             </div>
           </li>
@@ -394,7 +592,6 @@ circle:nth-of-type(4) {
             </a>
             <div class="collapse" id="toggleDemo5" style="height: 0px;">
               <ul class="nav nav-list">
-                <li><a id='rep_eventos' href="#"><i class="fa fa-crown" aria-hidden="true"></i> Eventos</a></li>
                 <li><a id='rep_cat_clientes' href="#"><i class="fas fa-user-circle" aria-hidden="true"></i> Clientes</a></li>
                 <li><a id='rep_cat_proveedores' href="#"><i class="fas fa-building" aria-hidden="true"></i> Proveedores</a></li>
               </ul>
@@ -416,9 +613,11 @@ circle:nth-of-type(4) {
             </a>
             <div class="collapse" id="toggleDemo7" style="height: 0px;">
               <ul class="nav nav-list">
-                <li><a id='btn_rep_eventos' href="#">Eventos</a></li>
-                <li><a id='btn_rep_gastos' href="#">Gastos</a></li>
-                <li><a href="#">Facturacion</a></li>
+                <li><a id='rep_eventos' href="#"><i class="fa fa-crown" aria-hidden="true"></i> Eventos</a></li>
+                <li><a id='btn_rep_historicos' href="#"><i class="fas fa-landmark"></i> Historicos</a></li>
+                <li><a id='btn_rep_pitch' href="#"><i class='fas fa-star-half-alt'></i> Pitch</a></li>
+                <li><a id='menu_buscar_odc' href="#"><i class='fas fa-chart-bar'></i> Gastos</a></li>
+                <li><a id='btn_rep_gastos' href="#"><i class='fas fa-search-dollar'></i> Facturacion</a></li>
                 <li><a href="#">Modulo de ventas</a></li>
               </ul>
             </div>
@@ -544,7 +743,7 @@ circle:nth-of-type(4) {
             </div>
         </div>
         <div class="row">
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-4">
               <label for="name" class="cols-sm-2 control-label">Username</label>
               <div class="cols-sm-10">
                 <div class="input-group">
@@ -553,6 +752,27 @@ circle:nth-of-type(4) {
                 </div>
               </div>
             </div>
+            <div class="form-group col-md-4">
+              <label for="name" class="cols-sm-2 control-label">Jefe Directo</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  <!--<select name="c_jefe_directo" id="c_jefe_directo" class='form-control combo_usuarios' multiple="multiple" >
+                  </select>-->
+                  <select data-placeholder="Seleccione al jefe directo" id="c_jefe_directo" class='form-control combo_usuarios' multiple='multiple'>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="" class="cols-sm-2 control-label">Ausente</label>
+              <div class="anil_nepal">
+                <label class="switch switch-left-right">
+                  <input class="switch-input" type="checkbox" id='check_pa' value='PA'>
+                  <span class="switch-label" data-on="On" data-off="Off"></span> <span class="switch-handle"></span> </label>
+              </div>
+            </div>
+            
             <div class="form-group col-md-2">
               <label for="" class="cols-sm-2 control-label">Contraseña</label>
               <div class="cols-sm-10">
@@ -583,15 +803,18 @@ circle:nth-of-type(4) {
             <div class="form-group col-md-2">
               <button id='btn_agregar_tarjeta' type="button" class="btn btn-success abajo"><i class="fa fa-plus-circle" aria-hidden="true"></i> Añadir</button>
             </div>
+            <div class="form-group col-md-2" id='label_estatus'>
+            </div>
+            <div class="form-group col-md-2">
+              <button id='btn_espejo' type="button" class="btn btn-primary btn-lg abajo"><i class="fa fa-clone" aria-hidden="true"></i> Espejo</button>
+            </div>
             <!--
             <div class="form-group col-md-3">
               <label for="name" class="cols-sm-2 control-label">Tarjeta Sodexo  <a id="btn_add_tarjeta" href="#"><i class='nota fa fa-plus-circle' style="margin-left: 5em;" >Añadir tarjeta</i></a></label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
-                  
-                  
-                  
+                                    
                   <select name='c_tarjeta_sodexo' class="form-control" id='c_tarjeta_sodexo'>
                   </select>
                 </div>
@@ -650,7 +873,7 @@ circle:nth-of-type(4) {
                       </label>
                       <label>
                         <input type="checkbox" id='check_dir' name="Xdirectivo" class="tipo_pago fa fa-o fa-2x" value="X">
-                        <span class="label_check ">Directivo</span>
+                        <span class="label_check ">Directivo de área</span>
                       </label>
                     </div>
               </div>
@@ -1103,12 +1326,11 @@ circle:nth-of-type(4) {
                <div class="col-md-6" style="border-right: 1px dashed black; min-height: 75px">
                 <h3 id='test'>Requeridos</h3>
                 <div class='row'>
-                  
                   <button id='span_file_csf' class="btn btn-default form-control" disabled>
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Constancia de Situacion Fiscal</label><input id='file_csf' class='btn_archivos' name='file_csf' type="file" style='cursor: not-allowed' disabled >
                   </button>
-                 
+                  <div class="progress pro_csf"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">Subiendo archivo...</span></div></div>
                 </div>
                 <div class="clearfix"></div>
                 <div class='row'>
@@ -1116,6 +1338,7 @@ circle:nth-of-type(4) {
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Identificación INE</label><input id='file_ine' class='btn_archivos' type="file" style='cursor: not-allowed' disabled >
                   </button>
+                  <div class="progress pro_ine"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">Subiendo archivo...</span></div></div>
                 </div>
                  
                  <div class="clearfix"></div>
@@ -1124,6 +1347,7 @@ circle:nth-of-type(4) {
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Estado de cuenta</label><input id='file_edo' class='btn_archivos' type="file" style='cursor: not-allowed' disabled >
                   </button>
+                  <div class="progress pro_edo"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">Subiendo archivo...</span></div></div>
                 </div>
                  <div class="clearfix"></div>
                 <div class='row'>
@@ -1131,6 +1355,7 @@ circle:nth-of-type(4) {
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Comprobante de domicilio</label><input id='file_comp' class='btn_archivos' type="file" style='cursor: not-allowed' disabled >
                   </button>
+                  <div class="progress pro_comp"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">Subiendo archivo...</span></div></div>
                 </div>
                 <div class="clearfix"></div>
                 <div class='row'>
@@ -1138,6 +1363,7 @@ circle:nth-of-type(4) {
                     <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                       <label>Acta Constitutiva</label> <input id='file_acta'type="file" class='btn_archivos' style='cursor: not-allowed' disabled >
                   </button>
+                  <div class="progress pro_acta"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">Subiendo archivo...</span></div></div>
                 </div>
                
                </div>
@@ -1267,11 +1493,12 @@ circle:nth-of-type(4) {
               </div>
             </div>
             <div class="form-group col-md-6">
+            <span class="bubble" title="Solo el nombre del evento (SIN Cliente)">
               <label for="email" class="cols-sm-2 control-label">Nombre del evento</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
-                  <span class="bubble" title="Solo el nombre del evento (SIN Cliente)">
+                  
                   <input id='txt_nombre_evento' name='txt_nombre_evento' type="text" class="form-control" placeholder="Nombre del evento"/>
                 </div>
               </div>
@@ -1319,11 +1546,11 @@ circle:nth-of-type(4) {
           </div>     
           <div class="row">
             <div class="form-group col-md-6">
-              <label for="password" class="cols-sm-2 control-label">Ejecutivo de cuenta</label>
+              <label id='label_ejecutivo' class="cols-sm-2 control-label">Ejecutivo de cuenta</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i></span>
-                  <select name="c_ejecutivos" id="c_ejecutivos" class='form-control' multiple="multiple">
+                  <select name="c_ejecutivos" id="c_ejecutivos" class='form-control'>
                   </select>
                 </div>
               </div>
@@ -1459,7 +1686,7 @@ circle:nth-of-type(4) {
             </div>
             <div class="form-group col-md-2 ">
             
-            <h2><span class="bubble" title="Monto máximo para solicitar"><label id='label_maximo_odc' class='label label-success abajo' tittle='Monto ma'></label></h2>
+            <h2><span class="bubble" title="Monto máximo para solicitar"><label id='label_maximo_odc' class='label label-success abajo' title='Monto máximo para solicitar'></label></h2>
             </div>
             <div class="form-group col-md-1">
               <div class="checkbox">
@@ -1676,49 +1903,75 @@ circle:nth-of-type(4) {
               </div>
             </div>
           </div>
+
           <div class="row">
-            
-            
             <div class="form-group col-md-4">
-              <label for="username" class="cols-sm-2 control-label">Vo.Bo. Compras/RH</label>
+              <label for="username" class="cols-sm-2 control-label">Solicitante</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <select name="txt_vobo_compras" id="txt_vobo_compras" class='form-control'>
-                    <option value="na">NA</option>
-                    <option value="MIGUEL POBLACION">MIGUEL POBLACION</option>
+                  <select  id="c_user_solicita" name="c_user_solicita" class="form-control" ></select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="username" class="cols-sm-2 control-label">Ejecutivo de cuenta</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  <!-- <input type="text" id="txt_project" class="form-control disabled" disabled='disabled' > -->
+                  <select name="txt_project" id="txt_project" class='form-control'></select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="username" class="cols-sm-2 control-label">Director de área</label>
+               <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  <!--<input type="text" id="txt_coordinador" class="form-control disabled" disabled='disabled' >-->
+                  <select id="c_coordinador" name="c_coordinador" class="form-control" >
+                  </select>
+                </div>
+              </div> 
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label class="cols-sm-2 control-label">Vo.Bo. Compras/RH</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  <select name="txt_vobo_compras" id="txt_vobo_compras" class='form-control'>                    
                   </select>
                 </div>
               </div>
             </div>
             <div class="form-group col-md-4">
-              <label for="username" class="cols-sm-2 control-label">Directivo/Coordinador</label>
+              <label for="username" class="cols-sm-2 control-label">Dirección</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <select id='txt_coordinador' class='form-control'>
-                  <option value="ANUAR AMADO">ANUAR AMADO</option>
-                  <option value="MIGUEL POBLACION">MIGUEL POBLACIÓN</option>
-                  <option value="OMAR SUCILLA">OMAR SUCILLA</option>
-                  <option value="FERNANDA CARRERA">FERNANDA CARRERA</option>
-                  <option value="ANDRES EMANUELLI">ANDRES EMANUELLI</option>
-                  <option value="ERICKA MINERA">ERICKA MINERA</option>
-                  <option value="JUAN CARLOS GARCIA">JUAN CARLOS GARCIA</option>
+                  <select  id="c_autorizo" name="c_autorizo" class="form-control" >
                   </select>
                 </div>
               </div>
             </div>
+            
             <div class="form-group col-md-4">
-              <label for="username" class="cols-sm-2 control-label">Project Manager</label>
-              <div class="cols-sm-10">
+              <label for="username" class="cols-sm-2 control-label">Finanzas</label>
+               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <input type="text" id="txt_project" class="form-control">
+                  <select  id="c_finanzas" name="c_finanzas" class="form-control disabled" disabled="disabled" >
+                  </select>
                 </div>
-              </div>
+              </div> 
             </div>
-          
-          </div>          
+            
+          </div>  
+
           <div class="row">             
             <div class="margen row col-md-offset-2 col-md-4">
               <button type="button" id="enviar_odc" class="btn_verde btn btn-lg btn-primary pull-right"><i class="fa fa-envelope-o " aria-hidden="true"></i> Enviar solicitud</button>
@@ -1728,7 +1981,7 @@ circle:nth-of-type(4) {
             </div>
           </div>
           <div class="row"> 
-            <label for="">_</label>
+            
           </div>
         </form> 
             
@@ -1891,7 +2144,7 @@ circle:nth-of-type(4) {
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
           <span id='alert_partida' class="bubble" title="Ingresa solo importe numérico">
-          <input id='txt_precio_unitario' name='txt_precio_unitario' type="number" class="form-control" placeholder="Precio" />
+          <input id='txt_precio_unitario' name='txt_precio_unitario' type="number" step="any" class="form-control" placeholder="Precio" />
         </span>
         </div>
       </div>
@@ -2048,23 +2301,13 @@ circle:nth-of-type(4) {
 
  
  <div id='d-none' class="d-none hidden">
-    <div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_user_solicita" name="c_user_solicita" class="form-control" ></select></div></div><hr><div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_finanzas" name="c_finanzas" class="form-control" ><option value="vacio">Finanzas...</option><option value="FERNANDA CARRERA">FERNANDA CARRERA</option><option value="RITA VELEZ">RITA VELEZ </option></select></div></div><hr><div class="cols-sm-10"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span><select  id="c_autorizo" name="c_autorizo" class="form-control" ><?php 
-      include("conexion.php");
-      if (mysqli_connect_errno()) {
-          printf("Error de conexion: %s\n", mysqli_connect_error());
-          exit();
-      }
-      $result = $mysqli->query("SET NAMES 'utf8'");
-      $sql="SELECT Nombre FROM usuarios where Directivo='X' order by Nombre";
-      if ($result = $mysqli->query($sql)) {
-          $res='<option value="vacio">Directivo...</option>';
-          while ($row = $result->fetch_row()) {
-              $res=$res."<option value='".$row[0]."'>".$row[0]."</option>";
-          }
-          $result->close();
-      }
-      echo $res;
-     ?></select></div></div>
+   
+  </div>
+
+  <div id='div_factura' class="d-none hidden">
+    
+    <input type="file" id='btn_factura' class="btn btn-info">
+    
   </div>
 
   <!-- DIV OCULTO EVENTOS TRANSFERIR 
@@ -2084,18 +2327,30 @@ circle:nth-of-type(4) {
 
  <!-- Modal HTML embedded directly into document -->
 <div id="modal_notificacion" class="modal">
-  <div contenteditable="true" id='mensaje_notificacion'>
-  
+  <div contenteditable="false" id='mensaje_notificacion'>
   </div>
-  
 </div>
 
-<a id="spnTop" href="#" class="btn btn-primary btn-lg pull-right back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+<div id="modal_demo" class="modal">
+  <div contenteditable="true" id='mensaje_demo'>
+   
+  </div>
+</div>
+
+<a id="spnTop" href="#" class="btn btn-primary btn-lg pull-right back-to-top" role="button" title="Ir al cielo" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+
+<a id="spnDown" href="#" class="btn btn-primary btn-lg pull-right back-to-top" role="button" title="Ir abajo" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-down"></span></a>
+
+<!--
+<a href="#" id='spnDown' class="btn btn-primary btn-lg pull-right back-to-top" style="position: fixed;bottom: 20px;right: 80px;"><span class="glyphicon glyphicon-chevron-down"></span></a>
+
+                  -->
 
 
 <!-- Link to open the modal -->
 
-  
+
+  <!-- Link to open the modal -->
   
 <footer class="page-footer font-small blue pt-4" style="z-index: 400px">   
     <!-- Copyright -->

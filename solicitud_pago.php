@@ -3,6 +3,12 @@
 try {
 $id=$_GET['id'];
 
+function startsWith ($string, $startString) 
+{ 
+    $len = strlen($startString); 
+    return (substr($string, 0, $len) === $startString); 
+} 
+
 header("Content-Type: text/html;charset=utf-8");
 require('fpdf.php');
 date_default_timezone_set ("America/Mexico_City");
@@ -73,16 +79,17 @@ if(strpos($CLIENTE, '&')){
     $CLIENTE=$arr[1];
 }
 
-    $sql="SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.factura, DATE_FORMAT(o.fecha, '%d/%m/%Y'),  CONCAT('".$ID2."', ' ".$CLIENTE." - ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, o.tipo, o.tipo_pago, DATE_FORMAT(e.inicio_evento ,'%d/%m/%Y'), DATE_FORMAT(e.fin_evento,'%d/%m/%Y'), o.otros, o.cfdi, o.metodo_pago, c.metodo_pago, c.nombre_contacto, c.correo_contacto, c.sucursal, c.Numero_cliente, o.solicito, o.finanzas, o.usuario_registra, o.autorizo, o.Forma_pago, o.identificador, o.no_cheque, o.Compras, o.Coordinador, o.Project, o.Tipo_tarjeta, o.No_tarjeta, o.vobo_coordinador FROM odc o LEFT JOIN proveedores c on o.a_nombre=c.Razon_Social left join eventos e on o.evento=e.Numero_evento where o.id_odc=".$id;
+    $sql="SELECT o.a_nombre, o.concepto, o.servicio, o.cheque_por, o.letra, DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y'), DATE_FORMAT(o.fecha_pago, '%d/%m/%Y'), o.factura, DATE_FORMAT(o.fecha, '%d/%m/%Y'),  CONCAT('".$ID2."', ' ".$CLIENTE." - ', e.Nombre_evento), c.cuenta, c.clabe, c.banco, o.tipo, o.tipo_pago, DATE_FORMAT(e.inicio_evento ,'%d/%m/%Y'), DATE_FORMAT(e.fin_evento,'%d/%m/%Y'), o.otros, o.cfdi, o.metodo_pago, c.metodo_pago, c.nombre_contacto, c.correo_contacto, c.sucursal, c.Numero_cliente, o.solicito, o.finanzas, o.usuario_registra, o.autorizo, o.Forma_pago, o.identificador, o.no_cheque, o.Compras, o.Coordinador, o.Project, o.Tipo_tarjeta, o.No_tarjeta, o.vobo_coordinador, o.vobo_finanzas, o.vobo_compras, o.vobo_direccion, o.vobo_project, o.vobo_solicito FROM odc o LEFT JOIN proveedores c on o.a_nombre=c.Razon_Social left join eventos e on o.evento=e.Numero_evento where o.id_odc=".$id;
 
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
-        $firma_1="sin";
-        $firma_2="sin";
-        $firma_3="sin";
-        $firma_4="sin";
-        $firma_5="sin";
-        $firma_6="sin";
+        $firma_elaborado="sin";
+        $firma_solicito="sin";
+        $firma_project="sin";
+        $firma_director="sin";
+        $firma_compras="sin";
+        $firma_coordinador="sin";
+        $firma_finanzas="sin";
         
         $a_nombre = $row[0];                
         $concepto = $row[1];
@@ -116,20 +123,66 @@ if ($result = $mysqli->query($sql)) {
         $FORMA_DE_PAGO=$row[29];
         $identificador=$row[30];
         $no_cheque=$row[31];
-        $compras=$row[32];
+        $compras=strtoupper($row[32]);
         $coordinador=$row[33];
         $project=$row[34];
         $tipo_tarjeta=$row[35];
         $numero_tarjeta=$row[36];
         $firma_coordinador=$row[37];
-        
+        $firma_finanzas=$row[38];
+        $firma_compras=$row[39];
+        $firma_director=$row[40];
+        $firma_project=$row[41];
+        $firma_solicito=$row[42];
+        $firma_elaborado=str_replace(" ", "", $elaborado);
+        $contador_firmas=0;
         if($firma_coordinador==1){
             $firma_coordinador=str_replace(" ", "", $coordinador);
+            $contador_firmas++;
         }
         else{
             $firma_coordinador="sin";
         }
-        
+        if($firma_finanzas==1){
+            $firma_finanzas=str_replace(" ", "", $finanzas);
+            $contador_firmas++;
+        }
+        else{
+            $firma_finanzas="sin";
+        }
+        if($firma_compras==1){
+            $firma_compras=str_replace(" ", "", $compras);
+            $contador_firmas++;
+        }
+        else if($firma_compras==0 && $compras=="NA"){
+            $firma_compras="NA";
+            $contador_firmas++;
+        }
+        else{
+            $firma_compras="sin";
+        }
+        if($firma_director==1){
+            $firma_director=str_replace(" ", "", $autorizo);
+            $contador_firmas++;
+        }
+        else{
+            $firma_director="sin";
+        }
+        if($firma_project==1){
+            $firma_project=str_replace(" ", "", $project);
+            $contador_firmas++;
+        }
+        else{
+            $firma_project="sin";
+        }  
+        if($firma_solicito==1){
+            $firma_solicito=str_replace(" ", "", $solicito);
+            $contador_firmas++;
+        }
+        else{
+            $firma_solicito="sin";
+        }        
+            $firma_2=str_replace(" ", "", $elaborado);  
 
     }
 
@@ -145,7 +198,6 @@ if(strlen($evento)>55){
         $evento=substr($evento, 0,55);
     }
 
-    
 //Convert the Total Price to a number with (.) for thousands, and (,) for decimals.
 //$total = number_format($total,',','.','.');
 
@@ -181,12 +233,12 @@ else if($tipo_tarjeta=="CHEQUE" || $tipo_tarjeta=="MA. FERNANDA CARRERA HDZ"){
     // Gotham bold 15
     $pdf->SetFont('Gotham','',25);
     // Movernos a la derecha
-
+    
     // Título
     //$pdf->SetFillColor(193,220,80);
     $pdf->SetFillColor(255,230,153);
     $pdf->SetTextColor(155,155,155);
-    $pdf->Cell(0,1,utf8_decode('Solicitud de '.$identificador),0,0,'C',false);
+    $pdf->Cell(0,1,utf8_decode('Solicitud de '.$identificador.$vobo),0,0,'C',false);
     $pdf->SetTextColor(0,0,0);
     $pdf->Ln(5);
     $pdf->SetFont('Gotham','',12);
@@ -445,35 +497,163 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $starty=220;
     $pdf->SetXY($startx, $starty); 
 
-
-/*
-    echo $coordinador;
-    exit();
-*/
-
     // TODOS LOS NOMBRES ARRIBA Y LOS APELLIDOS ABAJO
     $arr=explode(" ", ($elaborado));
     $arr2=explode(" ", ($solicito));
-    $arr3=explode(" ", ($finanzas));
-    $arr4=explode(" ", ($autorizo));
+    $arr3=explode(" ", ($project));
+    $arr4=explode(" ", ($coordinador));
     $arr5=explode(" ", ($compras));
-    $arr6=explode(" ", ($coordinador));
-    $arr7=explode(" ", ($project));
+    $arr6=explode(" ", ($finanzas));
+    $arr7=explode(" ", ($autorizo));
 
-    $pdf->MultiCell(42,5,utf8_decode($arr[0])."\n".utf8_decode($arr[1]),'B','C',true);
-    $pdf->Image('firmas/'.$firma_1.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    if($firma_elaborado==""){
+        $firma_elaborado="sin";
+    }
+    if($firma_solicito==""){
+        $firma_solicito="sin";
+    }
+    if($firma_finanzas==""){
+        $firma_finanzas="sin";
+    }
+    if($firma_elaborado==""){
+        $firma_elaborado="sin";
+    }
+    if($firma_director==""){
+        $firma_director="sin";
+    }
+    if($firma_compras==""){
+        $firma_compras="sin";
+    }
+    if($firma_project==""){
+        $firma_project="sin";
+    }
+    if($firma_coordinador==""){
+        $firma_coordinador="sin";
+    }
+    $A1_1=$arr[0];
+    $A1_2=$arr[1];
+
+    $A2_1=$arr2[0];
+    $A2_2=$arr2[1];
+
+    $A3_1=$arr3[0];
+    $A3_2=$arr3[1];
+
+    $A4_1=$arr4[0];
+    $A4_2=$arr4[1];
+
+    $A5_1=$arr5[0];
+    $A5_2=$arr5[1];
+
+    $A6_1=$arr6[0];
+    $A6_2=$arr6[1];
+
+    $A7_1=$arr7[0];
+    $A7_2=$arr7[1];
+    
+    if($arr2[0]=="PA"){
+        $A2_1="[PA] ".$arr2[1];
+        $A2_2=$arr2[2];
+    }
+    if($arr3[0]=="PA"){
+        $A3_1="[PA] ".$arr3[1];
+        $A3_2=$arr3[2];
+    }
+    if($arr4[0]=="PA"){
+        $A4_1="[PA] ".$arr4[1];
+        $A4_2=$arr4[2];
+    }
+    if($arr5[0]=="PA"){
+        $A5_1="[PA] ".$arr5[1];
+        $A5_2=$arr5[2];
+    }
+    if($arr6[0]=="PA"){
+        $A6_1="[PA] ".$arr6[1];
+        $A6_2=$arr6[2];
+    }
+    if($arr7[0]=="PA"){
+        $A7_1="[PA] ".$arr7[1];
+        $A7_2=$arr7[2];
+    }
+
+    if($elaborado=="JUAN CARLOS GARCIA"){
+        $A1_1="JUAN CARLOS";
+        $A1_2="GARCIA";
+    }
+    if($elaborado=="PA JUAN CARLOS GARCIA"){
+        $A1_1="[PA] JUAN";
+        $A1_2="CARLOS GARCIA";
+    }
+    if($solicito=="JUAN CARLOS GARCIA"){
+        $A2_1="JUAN CARLOS";
+        $A2_2="GARCIA";
+    }
+    if($solicito=="PA JUAN CARLOS GARCIA"){
+        $A2_1="[PA] JUAN";
+        $A2_2="CARLOS GARCIA";
+    }
+    if($project=="JUAN CARLOS GARCIA"){
+        $A3_1="JUAN CARLOS";
+        $A3_2="GARCIA";
+    }
+    if($project=="PA JUAN CARLOS GARCIA"){
+        $A3_1="[PA] JUAN";
+        $A3_2="CARLOS GARCIA";
+    }
+    if($coordinador=="JUAN CARLOS GARCIA"){
+        $A4_1="JUAN CARLOS";
+        $A4_2="GARCIA";
+    }
+    if($coordinador=="PA JUAN CARLOS GARCIA"){
+        $A4_1="[PA] JUAN";
+        $A4_2="CARLOS GARCIA";
+    }
+
+    if(startsWith($elaborado,"PA ") && $firma_elaborado!="sin"){
+        $firma_elaborado=substr($firma_elaborado,3,strlen($firma_elaborado));
+    }
+    if(startsWith($solicito,"PA ") && $firma_solicito!="sin"){
+        $firma_solicito=str_replace("PA ", "", $solicito);
+        $firma_solicito=str_replace(" ", "", $firma_solicito);
+    }
+    if(startsWith($project,"PA ") && $firma_project!="sin"){
+        $firma_project=str_replace("PA ", "", $project);
+        $firma_project=str_replace(" ", "", $firma_project);
+    }
+    if(startsWith($coordinador,"PA ") && $firma_coordinador!="sin"){
+        $firma_coordinador=str_replace("PA ", "", $coordinador);
+        $firma_coordinador=str_replace(" ", "", $firma_coordinador);
+    }
+    if(startsWith($compras,"PA ") && $firma_compras!="sin"){
+        $firma_compras=str_replace("PA ", "", $compras);
+        $firma_compras=str_replace(" ", "", $firma_compras);
+    }
+    if(startsWith($autorizo,"PA ") && $firma_director!="sin"){
+        $firma_director=str_replace("PA ", "", $autorizo);
+        $firma_director=str_replace(" ", "", $firma_director);
+    }
+    if(startsWith($finanzas,"PA ") && $firma_finanzas!="sin"){
+        $firma_finanzas=str_replace("PA ", "", $finanzas);
+        $firma_finanzas=str_replace(" ", "", $firma_finanzas);
+        
+    }
+
+    
+
+    $pdf->MultiCell(42,5,utf8_decode($A1_1)."\n".utf8_decode($A1_2),'B','C',true);
+    $pdf->Image('firmas/'.$firma_elaborado.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,5,utf8_decode($arr2[0])."\n".utf8_decode($arr2[1]),'B','C',true);
-    $pdf->Image('firmas/'.$firma_2.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    $pdf->MultiCell(42,5,utf8_decode($A2_1)."\n".utf8_decode($A2_2),'B','C',true);
+    $pdf->Image('firmas/'.$firma_solicito.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,5,utf8_decode($arr3[0])."\n".utf8_decode($arr3[1]),'B','C',true);
-    $pdf->Image('firmas/'.$firma_3.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    $pdf->MultiCell(42,5,utf8_decode($A3_1)."\n".utf8_decode($A3_2),'B','C',true);
+    $pdf->Image('firmas/'.$firma_project.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,5,utf8_decode($arr4[0])."\n".utf8_decode($arr4[1]),'B','C',true);
-    $pdf->Image('firmas/'.$firma_4.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    $pdf->MultiCell(42,5,utf8_decode($A4_1)."\n".utf8_decode($A4_2),'B','C',true);
+    $pdf->Image('firmas/'.$firma_coordinador.'.png' , $startx ,$starty-5, 30 , 20,'png');
     //salto de linea
     $firma1=$starty;
     $pdf->Ln(1);
@@ -484,10 +664,10 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $pdf->Cell(42,6,utf8_decode("Solicitado por"),0,0,'C',false);
     
     $pdf->SetX(105);
-    $pdf->MultiCell(42,6,utf8_decode("Finanzas"),0,'C',false);
+    $pdf->MultiCell(42,6,utf8_decode("Ejecutivo de cuenta"),0,'C',false);
     $starty=$starty+11;
     $pdf->SetXY($startx, $starty); 
-    $pdf->MultiCell(42,6,utf8_decode("Dirección General"),0,'C',false);
+    $pdf->MultiCell(42,6,utf8_decode("Director de área"),0,'C',false);
     $firma2=$starty;
     
     //lina firms 2
@@ -496,50 +676,56 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $startx=10;
     $starty=245;
     $pdf->SetXY($startx, $starty); 
+    /*
     if(count($arr5)==1){
         $vacio=" ";
     }
     else{
         $vacio=$arr5[1];
     }
+    */
     
-    $pdf->MultiCell(42,5,utf8_decode($arr5[0])."\n".utf8_decode($vacio),'B','C',true);
-    $pdf->Image('firmas/'.$firma_5.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    $pdf->MultiCell(42,5,utf8_decode($A5_1)."\n".utf8_decode($A5_2),'B','C',true);
+    if($compras!="NA"){
+        $pdf->Image('firmas/'.$firma_compras.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    }
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $vacio="";
+    /*
     if(count($arr7)==1){
         $vacio=" ";
     }
     else{
         $vacio=$arr7[1];
     }
-    $pdf->MultiCell(42,5,utf8_decode($arr7[0])."\n".utf8_decode($vacio),'B','C',true);
-    $pdf->Image('firmas/'.$firma_6.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    */
+    $pdf->MultiCell(42,5,utf8_decode($A7_1)."\n".utf8_decode($A7_2),'B','C',true);
+    $pdf->Image('firmas/'.$firma_director.'.png' , $startx ,$starty-5,40 , 20,'png');
     $startx=$startx+47.5;
     $pdf->SetXY($startx, $starty); 
     $vacio="";
+    /*
     if(count($arr6)==1){
         $vacio=" ";
     }
     else{
         $vacio=$arr6[1];
     }
-    $pdf->MultiCell(58,5,utf8_decode($arr6[0])."\n".utf8_decode($vacio),'B','C',true);
-    $pdf->Image('firmas/'.$firma_coordinador.'.png' , $startx ,$starty-5, 30 , 20,'png');
+    */
+    $pdf->MultiCell(42,5,utf8_decode($A6_1)."\n".utf8_decode($A6_2),'B','C',true);
+    $pdf->Image('firmas/'.$firma_finanzas.'.png' , $startx ,$starty-5, 30 , 20,'png');
     $pdf->Ln(1);
     $pdf->SetFont('Gotham_M','',10);
     $pdf->SetX(10);
     $pdf->Cell(42,6,"Compras",0,0,'C',false);
-    $pdf->SetX(63);
-    $pdf->Cell(42,6,utf8_decode("Project Manager"),0,'C',false);
-    $pdf->SetX(109);
-    $pdf->Cell(50,6,utf8_decode("Director/Coordinador de area"),0,0,'C',false);
+    $pdf->SetX(62);
+    $pdf->Cell(42,6,utf8_decode("Dirección General"),0,'C',false);
+    $pdf->SetX(100);
+    $pdf->Cell(52,6,utf8_decode("Finanzas"),0,0,'C',false);
     
     //salto de linea
-    
-    
-    
+        
     
  //salto de linea
     $pdf->Ln(13);
@@ -547,9 +733,10 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $pdf->SetX(13);
     // Número de página
     $pdf->Cell(183,5,utf8_decode('Fecha impresión: ').$d."/".$m."/".$y,0,0,'R', false);
-
-
-$pdf->Output('I',$evento.".pdf",true); // I se abre en esa pagaina el pdf; D descarga
+    if($contador_firmas<6){
+        $pdf->Image('img/invalida.png' , 0 ,0, 200 , 320,'png');
+    }
+    $pdf->Output('I',$evento.".pdf",false); // I se abre en esa pagaina el pdf; D descarga
 ob_end_flush();
 } catch (Exception $e) {
     echo 'Excepción capturada: ',  $e->getMessage(), "\n";

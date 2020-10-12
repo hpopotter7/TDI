@@ -18,7 +18,13 @@
         }
 
         if($resultado=="actualizado"){
-            $resultado="completo#".$id;
+			$sql="insert into bitacora(Usuario, tabla_actualizar, valor_anterior, valor_nuevo, fecha_hora_registro) values('".$_COOKIE['user']."', 'Update Vobo id_odc: ".$id."', '".$tipo."', '0=>1', NOW())";
+			if ($mysqli->query($sql)) {
+				$resultado="completo#".$id;
+			}
+			else{
+				$resultado= mysqli_error($mysqli);
+			}
         }
         echo $resultado;
 	$mysqli->close();

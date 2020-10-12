@@ -18,6 +18,10 @@ span.multiselect-native-select select {
     top: 30px
 }
 
+.multiselect-container .disabled a label{
+    color: red;
+}
+
 .multiselect-container {
     position: absolute;
     list-style-type: none;

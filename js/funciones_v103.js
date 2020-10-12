@@ -2,29 +2,27 @@ function validar_perfiles(response){
 	bienvenido(response.usuario); 
 	$(".contenedor").fadeOut();
 	$(".contenedor").remove();
-	$('#menu_cerrar_evento').hide();
+	$('#menu_cerrar_evento').remove();
 	if(response.usuario=="ALAN SANDOVAL" || response.usuario=="SANDRA PEÑA"){
 		$('#btn_cancelar_evento').show();
 		$('#btn_modificar_evento').show();
 		$('#guardar_cliente').show();
 		$('#check_pendientes2').show();
 		$('#menu_prealta').show();
-		$('#menu_cerrar_evento').show();
+		$('#toggleDemo ul').append("<li><a id='menu_cerrar_evento' href='#'><i class='fas fa-clipboard-check' aria-hidden='true'></i> Cerrar evento</a></li>");
 		//agregar al combo clientes de eventos los centros de costos
 		//agregar_centros_costos();
 	}
+	
 	else if(response.usuario=="MIGUEL POBLACION"){
 		$('#guardar_cliente').show();
-		
 		$('#menu_bloqueo_prov').hide();
 		$('#menu_bloqueo_prov').remove();
 		$('#menu_prealta').hide();
 		$('#menu_prealta').remove();
 	}
 	else{
-		$('#menu_cerrar_evento').hide();
 		$('#menu_prealta').parent().remove();
-		$('#menu_cerrar_evento').parent().remove();
 		$('#menu_prealta').hide();
 		$('#menu_bloqueo_prov').parent().remove();
 		$('#menu_bloqueo_prov').hide();
@@ -35,7 +33,7 @@ function validar_perfiles(response){
 		$('#btn_cancelar_evento').remove();
 		$('#btn_cancelar_evento').hide();
 		$('#div_clientes_registrados').show();
-		$('.combo_clientes option[value="248&GASTO"]', ).remove();
+		
 	}
 	
 	if(response.cat_cli==""){
@@ -67,17 +65,15 @@ function validar_perfiles(response){
 	//CXP
 	
 	if(response.cxc==""){
-		$('#menu_cerrar_evento').hide();
 		$('#btn_menu_cxc').hide();
 		$('#btn_menu_cxc').remove();
 	}
 	else{
-		$('#menu_cerrar_evento').show();
 		$('#btn_menu_cxc').show();
 	}
 	//Ejecutivo de cuenta
 	
-	if(response.eje=="Ejecutivo de cuenta" || response.dire=="Directivo"){
+	if(response.eje=="Ejecutivo de cuenta" || response.dire=="Directivo" || response.sol=="Solicitante"){
 		$('#menu_modificar_evento').show();
 		$('#menu_crear_evento').show();
 	}
@@ -99,6 +95,17 @@ function validar_perfiles(response){
 		$('#solicitud_facturas').show();
 		
 	}
+
+	//reporte de facturacion
+	//$('#btn_rep_gastos').remove();
+	if(!response.eje.includes("Ejecutivo de cuenta")){
+		if(response.usuario!="ALAN SANDOVAL" || response.usuario!="SANDRA PEÑA" 
+		|| response.usuario!="FERNANDA CARRERA" || response.usuario!="ANDRES EMANUELLI"){
+		$('#btn_rep_gastos').hide();
+		$('#btn_rep_gastos').remove();
+		}
+	}
+
 
 
 function bienvenido(usuario){

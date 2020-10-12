@@ -71,6 +71,12 @@ if ($result = $mysqli->query($sql)) {
         if($estatus=="ABIERTO"){
             $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$CLIENTE.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$EJE.'</td><td>'.$DISE.'</td><td>'.$pro.'</td><td>'.$money.'</td></tr>';
         }
+        else if($estatus=="CERRADO"){
+            $res=$res.'<tr style="background-color: #BBD32A;color: black;"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$CLIENTE.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$EJE.'</td><td>'.$DISE.'</td><td>'.$pro.'</td><td>'.$money.'</td></tr>';
+        }
+        else if($estatus=="PITCH"){
+            $res=$res.'<tr style="background-color: #fbd257;color: black;"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$CLIENTE.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$EJE.'</td><td>'.$DISE.'</td><td>'.$pro.'</td><td>'.$money.'</td></tr>';
+        }
         else{
             $res=$res.'<tr style="
     background-color: #C1C1C1;color: #c50404;"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$CLIENTE.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$EJE.'</td><td>'.$DISE.'</td><td>'.$pro.'</td><td>'.$money.'</td></tr>';

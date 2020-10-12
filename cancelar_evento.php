@@ -26,22 +26,32 @@ $sql="SELECT id_evento from eventos where Numero_evento='".$id_evento."'";
 			echo $sql.mysqli_error($mysqli);
 		}
 
+		
 
-		$sql="SELECT * from odc where evento='".$id_evento."' where Cancelada='no' ";		
+
+		$sql="SELECT count(evento) from odc where evento='".$id_evento."' and Cancelada='no' ";	
+		$ordenes=0;	
 		if ($result = $mysqli->query($sql)) {
 		    while ($row = $result->fetch_row()) {
-		        $ordenes=$ordenes+1;
+				$ordenes=$row[0];
+				
 		    }
 		    $result->close();
 		}
 		else{
 			echo $sql.mysqli_error($mysqli);
 		}
+
+		
 		
 		if ($ordenes>0) {		    
-		    echo "Existen pagos";
+			echo "Existen pagos";
+			$mysqli->close();
 		    exit();
 		}
+
+		
+
 		else{
 			$sql="UPDATE eventos SET Estatus='CANCELADO' where id_evento='".$ID."'";
 			$result = $mysqli->query("SET NAMES 'utf8'");

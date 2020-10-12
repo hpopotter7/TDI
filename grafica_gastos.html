@@ -13,10 +13,12 @@
   <link rel="stylesheet" href="css/animate.css"/>
   <link rel="stylesheet" href="css/sweetalert2.css"/>  
   <link rel="stylesheet" href="css/jquery-ui.css">
-  <link rel="stylesheet" href="css/bootstrap.min5.css">
+  <link rel="stylesheet" href="css/bootstrap.min6.css">
   <link rel="stylesheet" href="css/estilos_ver_0005.css"/>
+  <link rel="stylesheet" href="css/bootstrap-multiselect_001.css"/>
   <link rel="stylesheet" href="css/chosen.css"/>
-  <link rel="stylesheet" href="css/buttons.dataTables.min.css"/>
+  
+  
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
   
@@ -33,15 +35,21 @@
   <script src="js/animate.js"></script>
   <script src="js/noty/packaged/jquery.noty.packaged.js"></script>
   <script src="js/jquery.mousewheel.pack.js"></script> 
+  <script src="js/bootstrap-multiselect.js"></script>
   <script src="js/DateTables.js" ></script>
   <script src="js/chosen.jquery.js" ></script>
   <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+  
   <script src="js/dataTables.buttons.min.js"></script>
   <script src="js/buttons.flash.min.js"></script>
   <script src="js/jszip.min.js"></script>
+  <script src="js/pdfmake.min.js"></script>
+  <script src="js/vfs_fonts.js"></script>
   <script src="js/buttons.html5.min.js"></script>
   <script src="js/buttons.print.min.js"></script>
+  <script src="js/jspdf.min.js"></script>
+  <script src="js/jquery.modal.js"></script>
   
   <script src="js/metodos_gastos.js"></script>
     <script>
@@ -50,36 +58,12 @@
 
 </head>
 <body style='background-color: rgba(255,2552,255,0) !important;background:none !important;'>
-    <div class="row">
-        <div class="container">
+        <div class="container" style="margin-left: 30px !important">
             
-            <h2>Reporte de gastos</h2>
-            <h3 id='mensaje'>Cargando elementos <i class="fa fa-spinner fa-spin"></i></h3>
+            <h2>Reporte de facturación</h2>
+            <h3 id='mensaje'>Cargando eventos <i class="fa fa-spinner fa-spin"></i></h3>
             <br>
             <h3>Filtros</h3>
-            <div class="row">
-
-            <div class="form-group col-md-6 ">
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><!--<input id='check_eventos' type="checkbox" data-size="sm" data-toggle="toggle" data-onstyle="primary" data-offstyle="danger" data-on="Si" data-off="No"> --><i class="fas fa-star" aria-hidden="true">  Eventos</i></span>
-                        <!--<input type="text" id='c_eventos_demo' class="form-comtrol">-->
-                        <select data-placeholder="(Si se deja vacio se debe entender que son TODOS)" id="c_eventos" class='form-control' multiple="multiple"></select>
-                        
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group col-md-6 ">
-                <div class="cols-sm-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><!-- <input id='check_proveedores' type="checkbox" data-size="sm" data-toggle="toggle" data-onstyle="primary" data-offstyle="danger" data-on="Si" data-off="No"> --><i class="fas fa-user-circle" aria-hidden="true"> Proveedor</i></span>
-                        <select data-placeholder="(Si se deja vacio se debe entender que son TODOS)" id="c_proveedores" class='form-control' multiple='multiple'></select>
-                    </div>
-                </div>
-            </div>
-            
-            </div>
             <div class='row'>
                 <div class="form-group col-md-6 ">
                     <div class="cols-sm-10">
@@ -104,6 +88,29 @@
                 </div>
                 -->
             </div>
+            <!-- <div class="row">
+                <div class="form-group col-md-12 ">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><input id='check_clientes' type="checkbox" data-size="sm" data-toggle="toggle" data-onstyle="primary" data-offstyle="danger" data-on="Si" data-off="No"><i class="fas fa-user-circle" aria-hidden="true"> Cliente</i></span>
+                            <select data-placeholder="(Si se deja vacio se debe entender que son TODOS)" id="c_clientes" class='form-control' multiple='multiple'></select>
+                        </div>
+                    </div>
+                </div> 
+            </div> -->
+            <div class="row">
+            <div class="form-group col-md-12 ">
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><!--<input id='check_eventos' type="checkbox" data-size="sm" data-toggle="toggle" data-onstyle="primary" data-offstyle="danger" data-on="Si" data-off="No"> --><i class="fas fa-star" aria-hidden="true">  Eventos</i></span>
+                        <!--<input type="text" id='c_eventos_demo' class="form-comtrol">-->
+                        <select data-placeholder="(Si se deja vacio se debe entender que son TODOS)" id="c_eventos" class='form-control' multiple="multiple"></select>
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+            
             <!--
             <div class="row">
                 <div class="form-group col-md-4 ">
@@ -153,7 +160,7 @@
             </div>
             
         </div>
-    </div>
+    
 </body>
 </html>
 

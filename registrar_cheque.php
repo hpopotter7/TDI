@@ -10,7 +10,7 @@ include("conexion.php");
 	}
 		$respuesta="nop";
 
-		$sql="SELECT no_cheque from odc where no_cheque='".$numero."'";
+		$sql="SELECT no_cheque from odc where no_cheque='".$numero."' AND Cancelada='no'";
 		$pagada="";
 		$result = $mysqli->query($sql);
 		if (! $result){
