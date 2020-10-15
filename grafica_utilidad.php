@@ -8,7 +8,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 $nombre_evento="";
-
+$error="";
 $result = $mysqli->query("SET NAMES 'utf8'"); 
 $sql="SELECT sum(Importe_total) from odc where evento='".$evento."' and Cancelada='no'";
 $egresos=0;
@@ -18,8 +18,9 @@ if ($result = $mysqli->query($sql)) {
     }
 }
 else{
-    $resultado="<br>".mysqli_error($mysqli);
+    $error="Error:<br>".mysqli_error($mysqli);
 }
+
 
 $sql="SELECT id_evento, Nombre_evento from eventos where Numero_evento='".$evento."'";
 if ($result = $mysqli->query($sql)) {
@@ -29,7 +30,7 @@ if ($result = $mysqli->query($sql)) {
     }
 }
 else{
-    $resultado="<br>".mysqli_error($mysqli);
+    $error="Error:<br>".mysqli_error($mysqli);
 }
 
 
@@ -41,8 +42,9 @@ if ($result = $mysqli->query($sql)) {
     }
 }
 else{
-    $resultado="<br>".mysqli_error($mysqli);
+    $error="Error:<br>".mysqli_error($mysqli);
 }
+
 $solicitudes=substr($solicitudes, 0, (strlen($solicitudes)-1));
 $sql="SELECT sum(total) from partidas where id_sol_factura in(".$solicitudes.")";
 $solicitudes="";
@@ -52,17 +54,29 @@ if ($result = $mysqli->query($sql)) {
     }
 }
 else{
-    $resultado="<br>".mysqli_error($mysqli);
+    $error="Error:<br>".mysqli_error($mysqli);
 }
-
 
 $utilidad=0;
 $utilidad=($facturacion)-($egresos);
 if($utilidad<0){
     $utilidad="NA";
 }
-$resultado=$egresos."#".$utilidad."|Utilidad: ".$evento." - ".$nombre_evento;
-echo $resultado;
+
+
+$return = Array('egresos'=>$egresos,
+                'utilidad'=>$utilidad,
+                'numero_evento'=>$evento,
+                'nombre_evento'=>$nombre_evento,
+                'error'=>$error,
+                );
+
+
+
+//$resultado=$egresos."#".$utilidad."|Utilidad: ".$evento." - ".$nombre_evento;
+
+
+echo json_encode($return);
 $mysqli->close();
 
 ?>

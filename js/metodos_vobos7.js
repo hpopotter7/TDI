@@ -185,18 +185,25 @@ function inicio(){
           url: "grafica_utilidad.php",
           type:  'post',
           data: datos,
+          dataType: "json",
           success: function(data){
-            if(data.includes("NA")){
+            console.log(data);
+            var util=data.utilidad;
+            var ERROR=data.error;
+            if(util=="NA"){
               generate("warning", "No se puede representar una gráfica de una utilidad negativa");
             }
-            else if(data.includes("#")){
-              console.log(data);
-              var arr=data.split("|");
-                $( "#pie" ).attr('title',arr[1]);
-                grafica(arr[0]);
+            else if(!ERROR.includes("Error:")){              
+              //var arr=data.split("|");
+              var nombre="Utilidad: "+data.numero_evento+" - "+data.nombre_evento;
+              var valores=data.egresos+"#"+data.utilidad;
+              $( "#pie" ).attr('title',nombre);
+              $( ".ui-dialog-title" ).html(nombre);
+                
+                grafica(valores);
               }
               else{
-                console.log(arr[0]);
+                console.log(ERROR);
                 generate("warning", "No se puede representar la gráfica");
               }
               
