@@ -15,7 +15,7 @@ $result = $mysqli->query("SET NAMES 'utf8'");
 $respuesta="";
 
 $cliente="";
-$sql="SELECT Razon_Social, Nombre_comercial, rfc FROM clientes where id_cliente=".$id;
+$sql="SELECT Razon_Social, Nombre_comercial, rfc FROM clientes where Razon_Social='".$id."'";
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         $respuesta=$respuesta.'<div class="col-md-12" style="border-radius: 16px;">
@@ -25,7 +25,7 @@ if ($result = $mysqli->query($sql)) {
                           <p>'.$row[1].'</p>
                           <p>'.$row[2].'</p>
                           ';
-        $cliente=$id."&".$row[0];
+        $cliente=$row[0];
     }
 
     /* free result set */
