@@ -35,6 +35,7 @@ if ($result = $mysqli->query($sql)) {
             'extension'=>$row[16],
             'celular'=>$row[17],
             'cobertura'=>"",
+            'cuenta'=>"",
             'error'=>'nada',
             'sql'=>''
         	);

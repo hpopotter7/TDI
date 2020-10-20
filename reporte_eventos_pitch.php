@@ -37,7 +37,8 @@ $sql = "SELECT Numero_evento, Nombre_evento, Cliente, Ejecutivo, id_evento  FROM
 $result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
      while ($row = $result->fetch_row()) {
-
+        $CLIENTE=$row[2];
+        /*
         $arr_cliente=explode('&', $row[2]);
         $CLIENTE=$arr_cliente[1];
         if($arr_cliente[2]!=""){
@@ -46,7 +47,7 @@ if ($result = $mysqli->query($sql)) {
         if($arr_cliente[3]!=""){
             $CLIENTE=$CLIENTE."&".$arr_cliente[3];
         }
-
+        */
         array_push($arr_clientes,$CLIENTE);
        
         $ARR_EJECUTIVO=explode(",",$row[3]);

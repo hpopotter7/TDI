@@ -1,6 +1,6 @@
 <?php 
-    $like=$_GET["like"];
-	$anio=$_GET["anio"];
+    
+	$anio=$_POST["anio"];
 	$resultado="";
 
 	if($anio=="0"){
@@ -17,31 +17,20 @@
 	}
 	
 	$result = $mysqli->query("SET NAMES 'utf8'");
-	$sql="SELECT e.id_evento, e.Numero_evento, e.Nombre_evento, e.Cliente, c.id_cliente, c.Razon_Social FROM eventos e, clientes c where e.Cliente=CONCAT(c.id_cliente,'&',c.Razon_Social) and e.Estatus='ABIERTO' ".$anio." order by c.Razon_Social, e.Numero_evento";
+	$sql="SELECT id_evento, Numero_evento, nombre_evento, Cliente FROM eventos WHERE Estatus='ABIERTO' ".$anio." order by cliente, Numero_evento";
 	if ($result = $mysqli->query($sql)) {
 		while ($row = $result->fetch_row()) {	
-			$clien=explode("&",$row[3]);
-			$name_cliente=$clien[1];
-			if(count($clien)==3){
-					$name_cliente=$clien[1]."&".$clien[2];
-				
-			}
-			if(count($clien)==4){
-					$name_cliente=$clien[1]."&".$clien[2]."&".$clien[3];;
-				
-			}		
-            $return = Array('name'=>"[".$row[1]."] ".$name_cliente." - ".$row[2],
-                            'id'=>$row[0]
-                            );
-            $array[]=$return;
+			$name_cliente=$row[3];
+			$res=$res."<option value='".$row[1]."'>[".$row[1]."] ".$name_cliente." - ".$row[2]."</option>";
+            
 		}
 		$result->close();
 	}
 	else{
-		$return = Array('name'=>mysqli_error($mysqli));
-        $array[]=$return;
+		$res =mysqli_error($mysqli);
+        
 	}
-	echo json_encode($array);
+	echo $res;
 	
 	$mysqli->close();
 	

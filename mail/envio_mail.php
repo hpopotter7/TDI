@@ -25,7 +25,7 @@ switch($asunto){
 	//$mail->addAddress('sandrap@tierradeideas.mx', 'Sandra Peña');
 	$to = 'sandrap@tierradeideas.mx';
 	$body='<html>
-		<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+		<head><meta http-equiv="Content-Type" content="text/html; charset=utf8">
 			<title></title>
 			<link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
 		</head>
@@ -48,6 +48,7 @@ switch($asunto){
 	$to = 'mich@tierradeideas.mx';
 	$body='<html>
 		<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8">
 			<title></title>
 			<link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
 		</head>
@@ -68,6 +69,7 @@ switch($asunto){
 	$to = 'sandrap@tierradeideas.mx';
 	$body='<html>
 		<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8">
 			<title></title>
 			<link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
 		</head>
@@ -145,6 +147,7 @@ switch($asunto){
 		$to = $to.', sandrap@tierradeideas.mx, fcarrera@tierradeideas.mx, andresemanuelli@tierradeideas.mx';
 		$body='<html>
 		<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8">
 			<title></title>
 			<link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
 		</head>
@@ -267,6 +270,7 @@ switch($asunto){
 			$tipo_letra="'Baloo Chettan 2'";
 		$body='<html>
 		<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8">
 			<title></title>
 			<meta charset="utf-8">
 			<link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
@@ -318,7 +322,7 @@ $headers = "From: ERP@Tierradeideas.mx\r\n";
 //$headers .= "CC: susan@example.com\r\n";
 $headers .= "Bcc: alaneduardosandoval@yahoo.com\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+$headers .= "Content-Type: text/html; charset=UTF-8";
 
 if($copia!=""){
 	$headers .= $copia;
