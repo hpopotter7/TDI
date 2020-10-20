@@ -27,7 +27,8 @@ $sql = "SELECT Numero_evento, Nombre_evento, Cliente, DATE_FORMAT(Inicio_evento,
 $result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
      while ($row = $result->fetch_row()) {
-
+        $CLIENTE=$row[2];
+        /*
         $arr_cliente=explode('&', $row[2]);
         $CLIENTE=$arr_cliente[1];
         if($arr_cliente[2]!=""){
@@ -36,6 +37,7 @@ if ($result = $mysqli->query($sql)) {
         if($arr_cliente[3]!=""){
             $CLIENTE=$CLIENTE."&".$arr_cliente[3];
         }
+        */
         $money="Revisar monto de facturacion";
         if($row[10]=="NA"){
             $money="Revisar monto de facturacion";

@@ -42,6 +42,7 @@ include("conexion.php");
   $columnas=Array();
   $razon_social_old="";
   $datos="";
+  $CLIENTE="";
   $sql="SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'admini27_erp' AND TABLE_NAME = '".$tipo."'";
     if ($result = $mysqli->query($sql)) {
         while ($row = $result->fetch_row()) {
@@ -53,7 +54,23 @@ include("conexion.php");
 			echo "Error:".mysqli_error($mysqli);
 			$mysqli->close();
 			exit();
-		}
+    }
+    
+    $sql="select Razon_social from clientes WHERE id_cliente=".$id;
+    if ($result = $mysqli->query($sql)) {
+      while ($row = $result->fetch_row()) {        
+          $CLIENTE=$row[0];
+        }
+          $result->close();
+      }	      
+      else{
+        echo "Error:".mysqli_error($mysqli);
+        $mysqli->close();
+        exit();
+      }
+
+
+
    
     if($tipo==="clientes"){
       $sql="select * from clientes WHERE id_cliente=".$id;
@@ -61,6 +78,8 @@ include("conexion.php");
     else{
       $sql="select * from proveedores WHERE id_proveedor=".$id;
     }
+
+
       if ($result = $mysqli->query($sql)) {
           while ($row = $result->fetch_row()) {
             for($r=0;$r<=count($columnas)-1;$r++){
@@ -88,8 +107,6 @@ include("conexion.php");
       $sql="UPDATE ".$tipo." SET Numero_cliente='".$LETRA."-0".$id."' , Razon_Social='".strtoupper($cliente)."', Nombre_comercial='".$nombre_comercial."', Calle='".strtoupper($calle)."', num_ext='".$ext."', num_int='".$int."', colonia='".strtoupper($colonia)."', cp='".$cp."', estado='".$estado."', municipio='".strtoupper($municipio)."', telefono='".$tel."', metodo_pago='".$metodo."', rfc='".$rfc."', digitos='".$digitos."', nombre_contacto='".strtoupper($nombre_contacto)."', correo_contacto='".strtoupper($correo_contacto)."', Usuario_autoriza='".$usuario_solicita."', cuenta='".$cuenta."', clabe='".$clabe."', banco='".$banco."', sucursal='".$sucursal."', uso_cfdi='".$uso_cfdi."', Descripcion='".$descripcion."', extension='".$extension."', celular='".$celular."', Cobertura='".$cobertura."' WHERE ".$ID."=".$id;
     }
 
-    
-
 		if ($mysqli->query($sql)) {
 		    $respuesta= "cliente actualizado";
 		}
@@ -107,17 +124,16 @@ include("conexion.php");
 				$respuesta= mysqli_error($mysqli);
 			}
     }
-    /*
+    
     if($respuesta==="cliente actualizado"){
-      $nombre_cliente=$id."&".utf8_decode(strtoupper($cliente));
-      rename("archivos/".$razon_social_old, "archivos/".utf8_decode(strtoupper($cliente)));
-      $sql="update eventos set Cliente='".$nombre_cliente."' where Cliente like '".$id."%' ";
+      $nombre_cliente=strtoupper($cliente);
+      $sql="update eventos set Cliente='".$nombre_cliente."' where Cliente='".$CLIENTE."'";
       if ($mysqli->query($sql)) {
-		    $respuesta= "cliente actualizado";
+        //$respuesta= "ERROR: ".$sql;
+        $respuesta= "cliente actualizado";
 		}
     }
-    */
-    $bandera_descargar="DESCARGAR";
+    
 
     $mysqli->close();
     

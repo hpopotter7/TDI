@@ -14,11 +14,13 @@ if ($result = $mysqli->query("SELECT id_cliente, Razon_Social FROM clientes wher
     while ($row = $result->fetch_row()) {
         if($row[1]=="GASTO"){
             if($_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="ALAN SANDOVAL"){
-                $res=$res."<option value='".$row[0]."&".$row[1]."'>".$row[1]."</option>";
+               // $res=$res."<option value='".$row[0]."&".$row[1]."'>".$row[1]."</option>";
+                $res=$res."<option value='".$row[1]."'>".$row[1]."</option>";
             }
         }
         else{
-            $res=$res."<option value='".$row[0]."&".$row[1]."'>".$row[1]."</option>";
+            //$res=$res."<option value='".$row[0]."&".$row[1]."'>".$row[1]."</option>";
+            $res=$res."<option value='".$row[1]."'>".$row[1]."</option>";
         }
         
     }

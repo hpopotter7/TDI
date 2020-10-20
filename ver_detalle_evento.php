@@ -10,6 +10,7 @@ if (mysqli_connect_errno()) {
 /* Select queries return a resultset */
 $result = $mysqli->query("SET NAMES 'utf8'");
 $sql="";
+/*
 if(substr($id,0,1)==="["){
     $arr=explode("]",$id);
     $ID=str_replace("[", "", $arr[0]);
@@ -30,6 +31,8 @@ else{
     //echo $sql.mysqli_error($mysqli);
    exit();
 }
+*/
+
 if ($result = $mysqli->query("SELECT * FROM eventos where id_evento=".$id)) {
 
     /* fetch object array */

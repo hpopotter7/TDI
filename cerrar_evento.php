@@ -22,7 +22,7 @@
 				 $solicitudes++;
 				 $pagado=$row[0];
 				 $comprobado=$row[1];
-				 if($pagado=="si" || $comprobado=="si"){
+				 if($pagado=="no" || $comprobado=="no"){
 					$comodin="checks";
 				 	break;
 				 }
@@ -33,6 +33,14 @@
 			$mysqli->close();
 			exit();
 		}
+
+		if($comodin=="checks" && $tipo=="CERRADO"){
+			echo "Este evento aún cuenta con solicitudes pendientes por aprobar";
+			$mysqli->close();
+			exit();
+		}
+
+		
 
 		$sql="select No_Factura, Estatus_Factura from solicitud_factura where id_evento=(select id_evento from eventos where Numero_evento='".$evento."') and estatus='Activa'";
 		$comodin="";
@@ -54,13 +62,8 @@
 		}
 
 
-
-		if($comodin=="checks" && $tipo=="CERRADO"){
-			echo "Este evento aún cuenta con solicitudes pendientes por aprobar";
-			$mysqli->close();
-			exit();
-		}
-		else if($comodin=="facturas" && $tipo=="CERRADO"){
+		
+		if($comodin=="facturas" && $tipo=="CERRADO"){
 			echo "Este evento tiene facturas pendientes por revisar";
 			$mysqli->close();
 			exit();
