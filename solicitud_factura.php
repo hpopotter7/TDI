@@ -37,8 +37,10 @@ if($id==0){
 if ($result = $mysqli->query($sql)) {
     
     while ($row = $result->fetch_row()) {
-        $arr_cliente=explode("&",$row[1]); // posicion 0=>id cliente, pos 1=> Nombre cliente
+        //$arr_cliente=explode("&",$row[1]); // posicion 0=>id cliente, pos 1=> Nombre cliente
+        
         $id_evento = $row[0];
+        $cliente=$row[1];
         $dias_credito = $row[2];
         $num_pedido = $row[3];
         $num_orden = $row[4];
@@ -68,7 +70,7 @@ else{
 }
 
 //otra consulta para datos de cliente
-$sql="SELECT Razon_Social, rfc, Calle, num_ext, num_int, colonia, municipio, estado, cp, uso_cfdi from clientes where id_cliente=".$arr_cliente[0];
+$sql="SELECT Razon_Social, rfc, Calle, num_ext, num_int, colonia, municipio, estado, cp, uso_cfdi from clientes where Razon_Social='".$cliente."'";
 
 if ($result = $mysqli->query($sql)) {
     
@@ -173,7 +175,7 @@ $pdf->SetAutoPageBreak(true, 4);
     $pdf->Cell(40,7,utf8_decode('Nombre de cliente:'),1,0,'C',true);
     $pdf->SetX(50);
     $pdf->SetFont('Gotham_M','',8);
-    $pdf->Cell(150,7,utf8_decode($arr_cliente[1]),1,0,'C',false);
+    $pdf->Cell(150,7,utf8_decode($cliente),1,0,'C',false);
     $pdf->Ln(7);
     $pdf->SetFont('Gotham','',10);
     $pdf->SetX(10);

@@ -81,15 +81,16 @@ if ($result = $mysqli->query($sql)) {
       $evento=$row['evento'];
       $nombre_evento=$row['Nombre_evento'];
       $fecha=$row['fecha'];
-      $CLIENTE=$row['Cliente'];
+      $cliente=$row['Cliente'];
       $importe="<td>".moneda($cheque_por)."</td>";
-      $Factura="";
-      $cliente="";
+      $Factura="";      
+/*
       $arr=explode("&",$CLIENTE);
       for($r=1;$r<=count($arr)-1;$r++){
         $cliente=$cliente.$arr[$r]."&";
       }
       $cliente=substr($cliente, 0, (strlen($cliente)-1));
+*/
       $NOMBRE_EVENTO_COMPLETO=$evento."  [<i>".$cliente."</i> - ".$nombre_evento."]";
         
     

@@ -1,6 +1,7 @@
 <?php 
 	$evento=$_POST["evento"];
-	include("conexion.php");
+  include("conexion.php");
+  
     $arr=explode("]",$evento);
     $evento=str_replace("[", "", $arr[0]);
 
@@ -12,7 +13,8 @@
 	if (mysqli_connect_errno()) {
 	    echo("Error: ".mysqli_connect_error());
 	    exit();
-	}
+  }
+  
     $result = $mysqli->query("SET NAMES 'utf8'");
 	$sql="SELECT suma from ODC_ABIERTOS where evento='".$evento."'";
 $egresos=0;

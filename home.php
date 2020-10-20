@@ -100,7 +100,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v103.js"></script>
-  <script src="js/metodos_v2_0052.js"></script>
+  <script src="js/metodos_v2_0054.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -669,11 +669,11 @@ span.switch-label:after {
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
-                  <!--
+                  
                   <select name="c_mis_eventos" id="c_mis_eventos" class='form-control' placeholder='Ingresa un evento'>
                   </select>
-                  -->
-                  <input type="text" name="c_mis_eventos" id="c_mis_eventos" class="form-control" placeholder='Ingresa un evento' pattern="" title="">
+                  
+                  <!--<input type="text" name="c_mis_eventos" id="c_mis_eventos" class="form-control" placeholder='Ingresa un evento' pattern="" title="">-->
                 </div>
               </div>
             </div>
@@ -1447,10 +1447,10 @@ span.switch-label:after {
               <div class="cols-sm-10">
                 <div id="step1" class="input-group" data-step="1" data-intro='Al escribir se buscaran los primeros 15 eventos que coincidan '  data-disable-interaction="1">
                   <span class="input-group-addon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
-                  <!--
+                  
                   <select name="c_eventos_creados" id="c_eventos_creados" class='form-control' placeholder='Ingresa un evento' >
-                  </select>-->
-                  <input type="text" name="c_eventos_creados" id="c_eventos_creados" class="form-control" placeholder='Ingresa un evento' pattern="" title="">
+                  </select>
+                 <!--  <input type="text" name="c_eventos_creados" id="c_eventos_creados" class="form-control" placeholder='Ingresa un evento' pattern="" title=""> -->
                 </div>
               </div>
             </div>
@@ -1659,7 +1659,7 @@ span.switch-label:after {
             
           </div>
           <div class='row'>
-            <div class="col-md-12">_</div>
+            <div class="col-md-12"></div>
           </div>
         </form>      
       </div>
@@ -1676,11 +1676,11 @@ span.switch-label:after {
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
-                  <!--
+                  
                   <select name="" id="c_numero_evento" class='form-control' >
                   </select>
-                  -->
-                  <input type="text" name="c_numero_evento" id="c_numero_evento" class="form-control" placeholder='Ingresa un evento' pattern="" title="">
+                  <!--
+                  <input type="text" name="c_numero_evento" id="c_numero_evento" class="form-control" placeholder='Ingresa un evento' pattern="" title="">-->
                 </div>
               </div>
             </div>
@@ -1994,11 +1994,11 @@ span.switch-label:after {
       <legend><h2>Solicitud de modificación de evento</h2></legend>      
          <div class="row col-md-9">
           <label class="cols-sm-2 control-label">Evento</label>
-          <!--
+          
             <select name="c_eventos_modificar" id="c_eventos_modificar" class="form-control" placeholder='Ingresa un evento'>
             </select>
-          -->
-          <input type="text" name="c_eventos_modificar" id="c_eventos_modificar" class="form-control" placeholder='Ingresa un evento' pattern="" title="">
+          
+          <!--<input type="text" name="c_eventos_modificar" id="c_eventos_modificar" class="form-control" placeholder='Ingresa un evento' pattern="" title="">-->
          </div>
          <div class="row col-md-11">
           <textarea id="area_modificaciones" class="form-control margen" rows="5" placeholder="Ingrese la solicitud de la modificación"></textarea>

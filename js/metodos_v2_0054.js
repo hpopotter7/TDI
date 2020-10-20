@@ -1250,7 +1250,7 @@ var parametros = {
             ver_usuarios_combos("Digitalizacion");
             ver_usuarios_combos("Productor");
             ver_usuarios_combos("Disenio");
-           
+            llenar_eventos_combo("0");
            /*
            $("#div_cortina").animate({top: '0px'}, 1100); 
            $('#div_usuarios').fadeOut();
@@ -1279,7 +1279,7 @@ var parametros = {
             limpiar_cortinas();
             $("#div_cortina").animate({top: '0px'}, 1100);
             $('#div_modificar_evento').fadeIn();
-            
+            llenar_combo_eventos_modificar("0");
            /*
            ver_eventos($('#c_eventos_modificar'));
            $("#div_cortina").animate({top: '0px'}, 1100); 
@@ -1355,6 +1355,8 @@ var parametros = {
             ver_proveedores();
             var valores='<option value="03 TRANSFERENCIA ELECTRONICA DE FONDOS">03 TRANSFERENCIA ELECTRONICA DE FONDOS</option>';
              $('#c_forma_de_pago').html(valores);
+             llenar_combo_solicitudes("0");
+             
         });
 
         $('#menu_solicitud_viaticos').click(function(e){
@@ -1393,6 +1395,7 @@ var parametros = {
            $('#txt_nota').val('El cheque saldrá a nombre de Ma. Fernanda Carrera');
            var valores='<option value="02 CHEQUE NOMINATIVO"> 02 CHEQUE NOMINATIVO</option>';
              $('#c_forma_de_pago').html(valores);
+             llenar_combo_solicitudes("0");
         });
 
         $('#menu_solicitud_reembolso').click(function(e){
@@ -1432,6 +1435,7 @@ var parametros = {
            $('#div_mensaje').fadeIn();
            var valores='<option value="02 CHEQUE NOMINATIVO"> 02 CHEQUE NOMINATIVO</option>';
            $('#c_forma_de_pago').html(valores);
+           llenar_combo_solicitudes("0");
            
         });
         /*
@@ -1616,6 +1620,7 @@ var parametros = {
            $("#div_cortina").animate({top: '0px'}, 1100);
            $('#div_formatos').fadeIn();
            ids_odc="";
+           llenar_eventos_ver_solicitudes("0");
            //ver_mis_eventos();
         });
 
@@ -3409,7 +3414,7 @@ var parametros = {
        generate('warning', "Debe seleccionar un evento y escribir alguna modificación");
     }
     else{
-      var evento=$('#c_eventos_modificar').val();
+      var evento=$('#c_eventos_modificar option:selected').text();
       var usuario=$('#input_oculto').val();
       var datos={
           "evento": evento,
@@ -6054,14 +6059,14 @@ var options = {
     },
   };
     $("#c_colonia").easyAutocomplete(colonias);
-
+/*
     var op_eventos = {
       url: function(phrase) {
-        var usuario=$("#input_oculto").val();
-        return "buscar_evento.php?usuario="+usuario+"&like="+phrase+"&anio=0";
+        
+        return "buscar_evento.php?like="+phrase+"&anio=0";
       },
       getValue: function(element) {
-        
+        console.log(element);
         return element.name;
       },
       theme: "plate-dark",
@@ -6078,7 +6083,59 @@ var options = {
       
     };
       $("#c_eventos_creados").easyAutocomplete(op_eventos);
+      */
 
+      function llenar_eventos_combo(anio){
+      var datos={
+        "anio":anio,
+      };
+      $.ajax({
+          url:   "buscar_evento.php",
+          type:  'post',
+          data: datos,
+          async:false,
+          success:  function (response) {
+            console.log(response);
+            response="<option value='0'></option>"+response;
+          $('#c_eventos_creados').html(response);
+          $('#c_eventos_creados').chosen({allow_single_deselect: true,width: '100%'}); 
+          $('#c_eventos_creados').trigger("chosen:updated");
+          },
+        }); 
+      }
+
+    $("#c_eventos_creados").chosen().change(function(){
+      var evento=$(this).val();
+      ver_detalle_eventos(evento);
+      
+    } );
+
+    function llenar_eventos_ver_solicitudes(anio){
+      var datos={
+        "anio":anio,
+      };
+      $.ajax({
+          url:   "buscar_evento.php",
+          type:  'post',
+          data: datos,
+          async:false,
+          success:  function (response) {
+            console.log(response);
+            response="<option value='0'></option>"+response;
+          $('#c_mis_eventos').html(response);
+          $('#c_mis_eventos').chosen({allow_single_deselect: true,width: '100%'}); 
+          $('#c_mis_eventos').trigger("chosen:updated");
+          },
+        }); 
+      }
+
+      $("#c_mis_eventos").chosen().change(function(){
+        var valor=$(this).val();
+        ver_solicitudes_por_evento(valor);
+      });
+
+
+/*
       var op_eventos_modificar = {
         url: function(phrase) {
           var usuario=$("#input_oculto").val();
@@ -6099,7 +6156,29 @@ var options = {
         
       };
       $("#c_eventos_modificar").easyAutocomplete(op_eventos_modificar);
+      */
+     function llenar_combo_eventos_modificar(anio){
+      var datos={
+        "anio":anio,
+      };
+      $.ajax({
+          url:   "buscar_evento.php",
+          type:  'post',
+          data: datos,
+          async:false,
+          success:  function (response) {
+            console.log(response);
+            response="<option value='0'></option>"+response;
+          $('#c_eventos_modificar').html(response);
+          $('#c_eventos_modificar').chosen({allow_single_deselect: true,width: '100%'}); 
+          $('#c_eventos_modificar').trigger("chosen:updated");
+          },
+        }); 
+      }
 
+      
+
+/*
       var op_eventos_solicitudes = {
         url: function(phrase) {
           var usuario=$("#input_oculto").val();
@@ -6124,8 +6203,32 @@ var options = {
         
       };
       $("#c_numero_evento").easyAutocomplete(op_eventos_solicitudes);
+      */
+     function llenar_combo_solicitudes(anio){
+      var datos={
+        "anio":anio,
+      };
+      $.ajax({
+          url:   "buscar_evento.php",
+          type:  'post',
+          data: datos,
+          async:false,
+          success:  function (response) {
+            console.log(response);
+            response="<option value='0'></option>"+response;
+          $('#c_numero_evento').html(response);
+          $('#c_numero_evento').chosen({allow_single_deselect: true,width: '100%'}); 
+          $('#c_numero_evento').trigger("chosen:updated");
+          },
+        }); 
+      }
 
-     
+      $("#c_numero_evento").chosen().change(function(){
+        var valor=$(this).val();
+        ver_suma_sdp(valor);
+      });
+
+     /*
       var op_mis_eventos = {
         url: function(phrase) {
           var usuario=$("#input_oculto").val();
@@ -6150,7 +6253,7 @@ var options = {
         
       };
       $("#c_mis_eventos").easyAutocomplete(op_mis_eventos);
-
+*/
 
 
 /* NO BORRRAR, SE USARA EN UN FUTOURO CON EL INPUT DE AUTOCOMPLETE/////////
@@ -6876,10 +6979,10 @@ $('#c_user_solicita').change(function(){
          $('#c_coordinador').html(opciones);
       }
     });
-    var evento=$('#c_numero_evento').val();
+    var evento=$('#c_numero_evento option:selected').text();
     var datos={
       "evento":evento,
-    };
+    };    
     $.ajax({
       url:   'buscar_project.php',
       type:  'post',

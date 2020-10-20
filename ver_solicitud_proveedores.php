@@ -44,7 +44,7 @@ if ($result = $mysqli->query($sql)) {
             $var="  <i>[".$row[3]."]</i>";
         }
         */
-        $resultado=$resultado."<option value='".$row[0]."&".$row[1]."'>".$nom."</option>";
+        $resultado=$resultado."<option value='".$row[0]."'>".$nom."</option>";
     }
 
     /* free result set */

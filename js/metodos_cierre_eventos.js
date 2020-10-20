@@ -1,7 +1,7 @@
 function inicio(){
 
   $('#btn_cerrar_evento').hide();            
-
+/*
     var op_mis_eventos = {
         url: function(phrase) {
           return "buscar_eventos_abiertos.php?like="+phrase+"&anio=0";
@@ -23,6 +23,32 @@ function inicio(){
         
       };
       $("#c_eventos").easyAutocomplete(op_mis_eventos);
+      */
+     llenar_eventos_combo("0");
+     function llenar_eventos_combo(anio){
+      var datos={
+        "anio":anio,
+      };
+      $.ajax({
+          url:   "buscar_eventos_abiertos.php",
+          type:  'post',
+          data: datos,
+          async:false,
+          success:  function (response) {
+            console.log(response);
+            response="<option value='0'></option>"+response;
+          $('#c_eventos').html(response);
+          $('#c_eventos').chosen({allow_single_deselect: true,width: '100%'}); 
+          $('#c_eventos').trigger("chosen:updated");
+          },
+        }); 
+      }
+
+    $("#c_eventos").chosen().change(function(){
+      var evento=$('#c_eventos option:selected').text();
+      ver_solicitudes_por_evento(evento);
+      
+    } );
 
       function ver_solicitudes_por_evento(evento){
         var datos={
@@ -33,6 +59,7 @@ function inicio(){
             type:  'post',
             data: datos,
             success:  function (response) {
+              console.log(response);
               $('#resultados').html(response);  
               $('#btn_cerrar_evento').show();            
             }
