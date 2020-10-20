@@ -6979,10 +6979,10 @@ $('#c_user_solicita').change(function(){
          $('#c_coordinador').html(opciones);
       }
     });
-    var evento=$('#c_numero_evento').val();
+    var evento=$('#c_numero_evento option:selected').text();
     var datos={
       "evento":evento,
-    };
+    };    
     $.ajax({
       url:   'buscar_project.php',
       type:  'post',
