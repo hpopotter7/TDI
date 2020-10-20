@@ -2762,8 +2762,8 @@ var parametros = {
                           else if(titulo.includes("bolso")){
                             titulo="Reembolso";
                           }
-                          var evento=$('#c_numero_evento').val();
-                          var nombre_evento=$('#c_numero_evento option:selected').text();
+                          //var evento=$('#c_numero_evento').val();
+                          var evento=$('#c_numero_evento option:selected').text();
                           var tipo="";
                           if( $('#check_tipo_sol').is(':checked')){
                             tipo="Normal";

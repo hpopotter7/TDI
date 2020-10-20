@@ -100,7 +100,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v103.js"></script>
-  <script src="js/metodos_v2_0054.js"></script>
+  <script src="js/metodos_v2_0055.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
