@@ -54,16 +54,17 @@ for($r=0;$r<=count($clientes)-1;$r++){
     }
 }
 
-$res="<table class='table'><thead><tr><th>Cliente</th><th>Importe total</th><th>Consultar</th></tr></thead><tbody>";
-
+$res="<thead><tr><th>Cliente</th><th>Importe total</th><th>Consultar</th></tr></thead><tbody>";
+$importe_total=0;
 for ($i=0; $i < count($clientes) ; $i++) { 
  
-    $res=$res."<tr><td>".$clientes[$i]." - ".$arrelgo_querys[$i]."</td><td>".moneda($arrelgo_totales[$i])."</td>
+    $res=$res."<tr id='tr_".$clientes[$i]."' class='tr'><td>".$clientes[$i]."</td><td>".moneda($arrelgo_totales[$i])."</td>
     <td><button id='".$clientes[$i]."' class='btn btn-info btn_detalle'>Ver detalle</td></tr>";
+    $importe_total=$importe_total+$arrelgo_totales[$i];
 }
 
     
-$res=$res."</tbody></table>";
+$res=$res."</tbody><tfoot><tr style='background-color:rgba(181,197,114,1)'><th style='text-align:right'>IMPORTE TOTAL:</th><th><strong><h3><label class='label label-primary'>".moneda($importe_total)."</label></h3></strong></th><th></th></tr></tfoot>";
 echo $res;
 
 $mysqli->close();
