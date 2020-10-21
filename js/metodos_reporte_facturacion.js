@@ -1,4 +1,6 @@
 function inicio(){
+
+    
     var idioma_espaniol = {
            "sProcessing":     "Procesando...",
            "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -28,6 +30,7 @@ function inicio(){
        type : 'POST',
        url  : 'reporte_facturas_pendientes.php',
        success :  function(response){
+           $(".fa-spin").hide();
            $('#reporte_facturacion').html(response); 
            $('#reporte_facturacion').DataTable({
                dom: 'Bfrtip',
@@ -39,19 +42,30 @@ function inicio(){
                "destroy": true, 
                "sort": false,
                "language" : idioma_espaniol
-           });            
+           });   
+           
        }
        }); 
 
-
-       $('#reporte_facturacion').delegate('.btn_detalle', 'click', function(){
-           var cliente=$(this).attr('id');           
-            $(".tr").css({"background-color": "white"});
-           $(this).parent().parent().css({"background-color": "rgba(208,208,208,1)"});
-           ver_detalle_cliente(cliente);
+       $('#reporte_facturacion').delegate('.btn_evento', 'click', function(){
+           var evento=$(this).attr('id');
+           alert(evento);
        });
 
-       function ver_detalle_cliente(cliente){
+
+       $('#reporte_facturacion').delegate('.btn_detalle', 'click', function(){
+            $(".td_ocultar").hide();
+           var cliente=$(this).attr('id');  
+           var arr=cliente.split("#");
+           var contador=arr[0];
+           cliente=arr[1];
+           $(".tr").css({"background-color": "white"});
+           $(this).parent().parent().css({"background-color": "rgba(208,208,208,1)"});
+           $('#subtitulo').html(cliente);
+           ver_detalle_cliente(cliente, contador);
+       });
+
+       function ver_detalle_cliente(cliente, contador){
            var datos={
              "cliente": cliente,
            }
@@ -60,29 +74,12 @@ function inicio(){
                type:  'post',
                data: datos,
                success:  function (response) {
-                 $('#tabla_detalle_body').html(response);
-                // $('#tabla_resumen_solicitudes').DataTable();
-                /*
-                 $('#tabla_detalle').DataTable({
-                   "searching": true,
-                   "language" : idioma_espaniol,
-                   //"lengthChange": false,
-                   //"ordering": false,
-                   "paging": false,
-                   //"scrollX": false,
-                   "destroy": true, 
-                  //  "sort": false,
-                   //"scrollX": true,
-                   //"scrollCollapse": false,4
-                   /*
-                   "columnDefs": [
-                       { "width": "3%", "targets": [-1,-2,-3] }
-                   ],
-                   
-                   //"lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
-                  
-                }); 
-                */
+                   var fila=$('#td_'+contador);
+                   fila.show();
+                 //$('#tabla_detalle_body').html(response);
+                 fila.html(response);
+               
+                
                }
              });
          }

@@ -599,11 +599,21 @@ span.switch-label:after {
           </li>
           <li>
             <a id='btn_menu_facturacion' href="#" data-toggle="collapse" data-target="#toggleDemo6" data-parent="#sidenav01" class="collapsed">
-            <span class="fas fa-hand-holding-usd"></span> Facturación <span class="caret pull-right"></span>
+            <span class="fas fa-file-invoice-dollar"></span> Facturación <span class="caret pull-right"></span>
             </a>
             <div class="collapse" id="toggleDemo6" style="height: 0px;">
               <ul class="nav nav-list">
                 <li><a id='solicitud_facturas' href="#"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i> Nueva solicitud</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a id='btn_menu_fac_pendiente' href="#" data-toggle="collapse" data-target="#toggleDemo8" data-parent="#sidenav01" class="collapsed">
+            <span class="fas fa-hand-holding-usd"></span> CxC <span class="caret pull-right"></span>
+            </a>
+            <div class="collapse" id="toggleDemo8" style="height: 0px;">
+              <ul class="nav nav-list">
+                <li><a id='menu_facturacion_pendiente' href="#"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i> Facturación x cobrar</a></li>
               </ul>
             </div>
           </li>
