@@ -26,7 +26,7 @@ function inicio(){
 
     $.ajax({
        type : 'POST',
-       url  : 'reporte_demo.php',
+       url  : 'reporte_facturas_pendientes.php',
        success :  function(response){
            $('#reporte_facturacion').html(response); 
            $('#reporte_facturacion').DataTable({
@@ -56,13 +56,14 @@ function inicio(){
              "cliente": cliente,
            }
            $.ajax({
-               url:   "ver_detalle_cliente.php",
+               url:   "ver_detalle_facturas_cliente.php",
                type:  'post',
                data: datos,
                success:  function (response) {
-                 $('#resultado').html(response);
+                 $('#tabla_detalle_body').html(response);
                 // $('#tabla_resumen_solicitudes').DataTable();
-                 $('#resultado').DataTable({
+                /*
+                 $('#tabla_detalle').DataTable({
                    "searching": true,
                    "language" : idioma_espaniol,
                    //"lengthChange": false,
@@ -77,10 +78,11 @@ function inicio(){
                    "columnDefs": [
                        { "width": "3%", "targets": [-1,-2,-3] }
                    ],
-                   */
+                   
                    //"lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
                   
                 }); 
+                */
                }
              });
          }

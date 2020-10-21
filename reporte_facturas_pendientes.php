@@ -12,7 +12,7 @@ if ($mysqli->connect_error) {
 $result = $mysqli->query("SET NAMES 'utf8'");
   $sql="select DISTINCT(e.cliente) from solicitud_factura s, eventos e 
   where s.id_evento=e.id_evento    
-  and s.Estatus='Activa' and s.Estatus_Factura!='PAGADO' order by e.cliente asc";
+  and s.Estatus='Activa' and s.Estatus_Factura='POR COBRAR' order by e.cliente asc";
 
 $clientes=array();
 if ($result = $mysqli->query($sql)) {
@@ -37,7 +37,7 @@ else{
 $arrelgo_totales=Array();
 $arrelgo_querys=Array();
 for($r=0;$r<=count($clientes)-1;$r++){
-    $sql="select e.cliente, sum(p.total) from solicitud_factura s left join partidas p on s.id_solicitud=p.id_sol_factura INNER join eventos e on s.id_evento=e.id_evento and s.Estatus='Activa' and s.Estatus_Factura!='PAGADO' and e.cliente='".$clientes[$r]."' group by e.cliente";
+    $sql="select e.cliente, sum(p.total) from solicitud_factura s left join partidas p on s.id_solicitud=p.id_sol_factura INNER join eventos e on s.id_evento=e.id_evento and s.Estatus='Activa' and s.Estatus_Factura='POR COBRAR' and e.cliente='".$clientes[$r]."' group by e.cliente";
     $total=-10;
     array_push($arrelgo_querys,$sql);
     if ($result = $mysqli->query($sql)) {
@@ -64,7 +64,7 @@ for ($i=0; $i < count($clientes) ; $i++) {
 }
 
     
-$res=$res."</tbody><tfoot><tr style='background-color:rgba(181,197,114,1)'><th style='text-align:right'>IMPORTE TOTAL:</th><th><strong><h3><label class='label label-primary'>".moneda($importe_total)."</label></h3></strong></th><th></th></tr></tfoot>";
+$res=$res."</tbody><tfoot><tr style='background-color:rgba(181,197,114,1)'><th style='text-align:right'>IMPORTE TOTAL:</th><th><strong><h3 style='margin:0px;margin-bottom:10px;'><label class='label label-primary'>".moneda($importe_total)."</label></h3></strong></th><th></th></tr></tfoot>";
 echo $res;
 
 $mysqli->close();
