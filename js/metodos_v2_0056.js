@@ -5247,6 +5247,7 @@ function llenar_transfer_eventos(){
       type:  'post',
       data: datos,
       success:  function (response) {
+        
          $('#c_transfer').html(response);
       }
     });
