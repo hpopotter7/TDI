@@ -109,6 +109,14 @@ function validar_perfiles(response){
 		}
 	}
 
+	if(response.usuario=="ALAN SANDOVAL" || response.usuario=="SANDRA PEÑA" || response.usuario=="FERNANDA CARRERA"){
+
+	}
+	else{
+		$('#btn_menu_fac_pendiente').remove();
+	}
+	
+
 
 
 function bienvenido(usuario){
