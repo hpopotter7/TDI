@@ -1616,6 +1616,8 @@ var parametros = {
            $('#div_reporte_clientes').fadeOut();
            $('#div_reporte_proveedores').fadeOut();
            */
+           $('#resultado_solicitudes').html();
+           $('#resultado_solicitudes').hide();
            limpiar_cortinas();
            $("#div_cortina").animate({top: '0px'}, 1100);
            $('#div_formatos').fadeIn();
@@ -1921,6 +1923,7 @@ var parametros = {
       
 
         function ver_solicitudes_por_evento(evento){
+          $('#resultado_solicitudes').html('');
           $('#mensaje_demo').html('');
           var datos={
             "evento": evento,
@@ -1933,6 +1936,7 @@ var parametros = {
               success:  function (response) {
                 var arr=response.split("$$$");
                 $('#resultado_solicitudes').html(arr[0]);
+                $('#resultado_solicitudes').fadeIn();
                 $('#espacio').show();
                // $('#tabla_resumen_solicitudes').DataTable();
                 $('#tabla_resumen_solicitudes').DataTable({
@@ -6121,11 +6125,14 @@ var options = {
           data: datos,
           async:false,
           success:  function (response) {
-            console.log(response);
             response="<option value='0'></option>"+response;
           $('#c_mis_eventos').html(response);
           $('#c_mis_eventos').chosen({allow_single_deselect: true,width: '100%'}); 
           $('#c_mis_eventos').trigger("chosen:updated");
+          var seleccion=$("#c_mis_eventos").val();
+          if(seleccion!='0'){
+            ver_solicitudes_por_evento(seleccion);
+          }
           },
         }); 
       }

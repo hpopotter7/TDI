@@ -89,7 +89,7 @@ if ($result = $mysqli->query($sql)) {
         $num_factura=$row['No_Factura'];
         $total=$row['Total'];
         $descripcion=$row['Descripcion'];
-        $tabla=$tabla."<tr><td><button id='".$numero_evento."' class='btn btn-success btn_evento'>[".$numero_evento."]</button> - ".$nombre_evento."</td><td>".$num_factura."</td><td>".$id_solicitud."</td><td>".$descripcion."</td><td>".$fecha."</td><td>".moneda($total)."</td></tr>";
+        $tabla=$tabla."<tr><td><button id='".$id_evento."' class='btn btn-success btn_evento'>[".$numero_evento."]</button> - ".$nombre_evento."</td><td>".$num_factura."</td><td>".$id_solicitud."</td><td>".$descripcion."</td><td>".$fecha."</td><td>".moneda($total)."</td></tr>";
         $suma_total=$suma_total+$total;
     }
         $result->close();

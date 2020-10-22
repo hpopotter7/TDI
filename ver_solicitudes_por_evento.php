@@ -3,7 +3,7 @@
  $usuario=$_POST['usuario'];
  $tbody="";
  $total_facturas=0;
-
+ setcookie("evento", "", time() - 3600);
 function moneda($value) {
   return '$' . number_format($value, 2);
 }

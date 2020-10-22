@@ -48,8 +48,31 @@ function inicio(){
        }); 
 
        $('#reporte_facturacion').delegate('.btn_evento', 'click', function(){
-           var evento=$(this).attr('id');
-           alert(evento);
+           var id_evento=$(this).attr('id');
+
+           var datos={
+            "id_evento": id_evento,
+          }
+          $.ajax({
+              url:   "guardar_cookie.php",
+              type:  'post',
+              data: datos,
+              success:  function (response) {
+              }
+            });
+           
+           window.setTimeout(function(){
+            window.parent.$('#menu_ver_formatos').click();
+          }, 1000);
+           
+           /*
+           window.parent.$("#div_cortina").animate({top: '0px'}, 1100);
+           window.parent.$('#div_formatos').fadeIn();
+           alert(id_evento);
+           window.parent.$('#c_mis_eventos').val(id_evento);
+           window.parent.$('#c_mis_eventos').trigger("chosen:updated");
+           */
+           
        });
 
 
@@ -64,6 +87,7 @@ function inicio(){
            $('#subtitulo').html(cliente);
            ver_detalle_cliente(cliente, contador);
        });
+
 
        function ver_detalle_cliente(cliente, contador){
            var datos={

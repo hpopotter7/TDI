@@ -57,7 +57,15 @@
 				
 			}
 			*/
-            $resultado=$resultado."<option value='".$row[0]."'>[".$row[1]."] ".$row[3]." - ".$row[2]."</option>";
+			$cookie="";
+			if(isset($_COOKIE['evento'])){
+				$cookie=$_COOKIE['evento'];
+			}
+			$selected="";
+			if($row[0]==$cookie){
+				$selected="selected";
+			}
+            $resultado=$resultado."<option value='".$row[0]."' ".$selected.">[".$row[1]."] ".$row[3]." - ".$row[2]."</option>";
             /*$return = Array('name'=>"[".$row[1]."] ".$$row[3]." - ".$row[2],
                             'id'=>$row[0]
                             );
