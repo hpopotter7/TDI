@@ -7288,9 +7288,9 @@ $('#c_user_solicita').change(function(){
 
   function eliminar_comprobante(){
     var nombre_archivo=$(".btn_borrar_comp").attr("id"); 
-    var arr_eventos=nombre_archivo.split("/");
+    //var arr_eventos=nombre_archivo.split("/");
     var evento=$("#c_mis_eventos").val();
-    alert(evento);
+    
       var datos={
         "nombre_archivo":nombre_archivo,
       };
@@ -7300,7 +7300,7 @@ $('#c_user_solicita').change(function(){
           type: 'post',
           success: function(response){
             if(response.includes("Error")){
-              generate("warning", "Ocurrio un error");
+              generate("warning", "Ocurrio un error"+response);
             }
             else{
               generate("success", "El comprobante ha sido eliminado");
