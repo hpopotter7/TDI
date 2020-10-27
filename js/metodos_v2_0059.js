@@ -1950,6 +1950,11 @@ var parametros = {
                  //  "sort": false,
                   //"scrollX": true,
                   //"scrollCollapse": false,4
+                  dom: 'Bfrtip',
+                  buttons: [
+                      'excel'
+                      //'excel', 'pdf',
+                  ]
                   /*
                   "columnDefs": [
                       { "width": "3%", "targets": [-1,-2,-3] }

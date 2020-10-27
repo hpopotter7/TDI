@@ -40,6 +40,18 @@ if(substr($evento,0,1)==="["){
     }
 }
 
+else{
+  $sql="select id_evento, Facturacion from eventos where id_evento='".$evento."'";
+    if ($result = $mysqli->query($sql)) {
+        while ($row = $result->fetch_row()) {
+            $evento=$row[0];
+            $facturacion=$row[1];
+        }
+        $result->close();
+    }
+}
+
+
 $num_evento="";
 $sql3="select Numero_evento from eventos where id_evento=".$evento;
 if ($result = $mysqli->query($sql3)) {
