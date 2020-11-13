@@ -91,7 +91,7 @@ function inicio(){
     });
 
       function cierre_evento(tipo){ 
-        var evento=$("#c_eventos").val();
+        var evento=$('#c_eventos option:selected').text();
         var datos={
           "evento": evento,
           "tipo":tipo

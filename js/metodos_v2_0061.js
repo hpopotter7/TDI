@@ -4454,7 +4454,7 @@ function validarInput() {
             layout      : 'topCenter',
              buttons: [
               {addClass: 'btn btn-success', text: 'Si', onClick: function($noty) {
-                var id_evento=$('#c_eventos_creados').val();
+                var id_evento=$("#c_eventos_creados option:selected" ).text();
                   var datos={
                     "id_evento": id_evento,
                   };
@@ -7080,8 +7080,8 @@ $('#c_user_solicita').change(function(){
             else{
               var inp = document.getElementById('btn_comprobante');
               var contador=inp.files.length;
-              if(contador>5){
-                generate("warning","Solo se pueden subir máximo 5 documentos");
+              if(contador>10){
+                generate("warning","Solo se pueden subir máximo 10 documentos");
               }
               else{
                 for (var i = 0; i < inp.files.length; ++i) {
