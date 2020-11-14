@@ -922,6 +922,7 @@ var parametros = {
           $('#c_jefe_directo').trigger('chosen:updated');
           $('#autoship_option').val('').trigger('chosen:updated');
           $("#label_estatus").html("");
+          $('#respuesta_tarjetas').html("");
          }
 
         
@@ -5949,18 +5950,22 @@ $('#btn_desc_zip').click(function(){
 //llenar combo tarjetas
 function llenar_combo_tarjetas(){
   var usuario=$('#c_usuarios').val();
-  var datos={
-    "usuario": usuario,
-  };
-  $.ajax({
-    url:   'ver_tarjetas_registradas.php',
-    type:  'post',
-    data:  datos,
-    success:  function (response) {
-      
-      $('#respuesta_tarjetas').html(response);
-    }
-  });
+  if(usuario!="vacio"){
+    var datos={
+      "usuario": usuario,
+    };
+    $.ajax({
+      url:   'ver_tarjetas_registradas.php',
+      type:  'post',
+      data:  datos,
+      success:  function (response) {
+        $('#respuesta_tarjetas').html(response);
+      }
+    });
+  }
+  else{
+    limpiar();
+  }
 }
 
 
@@ -6384,9 +6389,56 @@ $("#txt_evento_demo").easyAutocomplete(options2);
                   
                 }
               },
-              {addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
+              {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
                   $noty.close();
                  
+                }
+              }
+            ]
+          });
+  });
+
+
+  $('#respuesta_tarjetas').delegate('.btn_estatus_tarjeta', 'click', function(e){
+    var texto=$(this).html();
+    var estatus="activar";
+    if(texto=="Activa"){
+      estatus="bloquear"
+    }
+    e.preventDefault();
+    var id=$(this).attr('id');
+      noty({
+            text: '¿Deseas '+estatus+' la tarjeta?',
+            type        : 'warning',
+            dismissQueue: false,
+            theme       : 'metroui',
+            layout      : 'topCenter',  //bottomLeft
+            buttons: [
+              {addClass: 'btn btn-success', text: 'Si', onClick: function($noty) {                    
+                    var parametros={
+                      "id": id,
+                      "estatus": estatus
+                    }
+                     $.ajax({
+                        url:   "estatus_tarjeta.php",
+                        type:  'post',
+                        data: parametros,
+                        success:  function (response) {
+                          if(response.includes("exito")){
+                            $noty.close();
+                            generate("success","La tarjeta ha sido actualizada!!");
+                            llenar_combo_tarjetas();
+                          }
+                          else{
+                            $noty.close();
+                            generate('error', "Ocurrio un error: "+response);
+                          }
+                        }
+                      });
+                }
+              },
+              {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
+                  $noty.close();
                 }
               }
             ]
@@ -6412,7 +6464,7 @@ $("#txt_evento_demo").easyAutocomplete(options2);
         success:  function (response) {
             noty({
                 text        : "Selecciona un usuario de BBVA BANCOMER<p>"+response,
-                width       : '650px',
+                width       : '850px',
                 type        : 'warning',
                 dismissQueue: false,
                 closeWith   : ['backdrop'],

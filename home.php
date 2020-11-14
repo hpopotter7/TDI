@@ -100,7 +100,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v104.js"></script>
-  <script src="js/metodos_v2_0061.js"></script>
+  <script src="js/metodos_v2_0062.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -839,6 +839,7 @@ span.switch-label:after {
               <tr>
                 <th>Banco</th>
                 <th># Tarjeta</th>
+                <th>Estatus</th>
                 <th>Acción</th>
               </tr>
             </thead>
