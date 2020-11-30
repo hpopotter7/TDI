@@ -136,6 +136,7 @@ if ($result = $mysqli->query($sql)) {
         $firma_solicito=$row[42];
         $firma_elaborado=str_replace(" ", "", $elaborado);
         $contador_firmas=0;
+        
         if($firma_coordinador==1){
             $firma_coordinador=str_replace(" ", "", $coordinador);
             $contador_firmas++;
@@ -143,6 +144,8 @@ if ($result = $mysqli->query($sql)) {
         else{
             $firma_coordinador="sin";
         }
+        
+        
         if($firma_finanzas==1){
             $firma_finanzas=str_replace(" ", "", $finanzas);
             $contador_firmas++;
@@ -497,6 +500,8 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     $starty=220;
     $pdf->SetXY($startx, $starty); 
 
+    
+
     // TODOS LOS NOMBRES ARRIBA Y LOS APELLIDOS ABAJO
     $arr=explode(" ", ($elaborado));
     $arr2=explode(" ", ($solicito));
@@ -576,6 +581,8 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
         $A7_2=$arr7[2];
     }
 
+    
+
     if($elaborado=="JUAN CARLOS GARCIA"){
         $A1_1="JUAN CARLOS";
         $A1_2="GARCIA";
@@ -600,6 +607,7 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
         $A3_1="[PA] JUAN";
         $A3_2="CARLOS GARCIA";
     }
+    
     if($coordinador=="JUAN CARLOS GARCIA"){
         $A4_1="JUAN CARLOS";
         $A4_2="GARCIA";
@@ -608,6 +616,10 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
         $A4_1="[PA] JUAN";
         $A4_2="CARLOS GARCIA";
     }
+
+    
+    $firma_coordinador=str_replace(" ", "", $firma_coordinador);
+
 
     if(startsWith($elaborado,"PA ") && $firma_elaborado!="sin"){
         $firma_elaborado=substr($firma_elaborado,3,strlen($firma_elaborado));
@@ -637,6 +649,8 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
         $firma_finanzas=str_replace(" ", "", $firma_finanzas);
         
     }
+
+    $firma_coordinador=str_replace(" ", "%20", $firma_coordinador);
 
     
 

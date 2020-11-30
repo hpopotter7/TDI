@@ -1069,7 +1069,7 @@ $.noty.layouts.topCenter = {
                 top          : 20,
                 left         : 0,
                 position     : 'fixed',
-                width        : '450px',
+                width        : '600px',
                 height       : 'auto',
                 margin       : 0,
                 padding      : 0,
@@ -1089,7 +1089,7 @@ $.noty.layouts.topCenter = {
     },
     css      : {
         display: 'none',
-        width  : '450px'
+        width  : '600px'
     },
     addClass : ''
 };

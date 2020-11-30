@@ -589,6 +589,14 @@ cursor: not-allowed;
     border: 0;
 }
 
+.btn-morado{
+	background-color: #b66bae;
+	color: #fff;
+}
+.btn-morado:hover{
+	background-color: #9c4e95;
+}
+
 /*
 #div_iframe {
 	position: relative;

@@ -75,6 +75,11 @@ function validar_perfiles(response){
 		$('#btn_menu_cxc').show();
 	}
 	//Ejecutivo de cuenta
+
+	if(response.eje=="X" || response.eje=="Ejecutivo de cuenta"){
+		
+	}
+	
 	
 	if(response.eje=="Ejecutivo de cuenta" || response.dire=="Directivo" || response.sol=="Solicitante"){
 		$('#menu_modificar_evento').show();
@@ -137,7 +142,11 @@ function bienvenido(usuario){
                 progressBar : false,
                 maxVisible  : 5,
                 timeout     : [3200],
-                
-            });
+			});
+			
 }
+
+
+
+
 }

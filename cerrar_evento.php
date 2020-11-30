@@ -13,9 +13,10 @@
 		$arr=explode("]",$evento);
 		$evento=str_replace("[", "", $arr[0]);
 
-		$sql="select pagado, comprobado from odc where evento='".$evento."'";
+		$sql="select pagado, comprobado, id_odc from odc where evento='".$evento."' and cancelada='no'";
 		$comodin="";
 		$solicitudes=0;
+		$SOLS="";
 		if ($result = $mysqli->query($sql)) {
 			$cont=0;
 			 while ($row = $result->fetch_row()) {
@@ -24,6 +25,7 @@
 				 $comprobado=$row[1];
 				 if($pagado=="no" || $comprobado=="no"){
 					$comodin="checks";
+					$SOLS=$row[2];
 				 	break;
 				 }
 			 }
@@ -35,7 +37,7 @@
 		}
 
 		if($comodin=="checks" && $tipo=="CERRADO"){
-			echo "Este evento aún cuenta con solicitudes pendientes por aprobar";
+			echo "Este evento aún cuenta con solicitudes pendientes por aprobar. ID".$SOLS;
 			$mysqli->close();
 			exit();
 		}
