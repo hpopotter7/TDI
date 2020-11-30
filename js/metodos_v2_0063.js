@@ -376,7 +376,11 @@ ver_perfil();
                         $('#tipo_perfil').append("</ul>");
                         //validar perfiles
                         validar_perfiles(response); 
-                    
+                       
+                        if(response.eje.includes("cuenta")){
+                          
+                          $('#btn_sin_factura').click();
+                        }
                   }
             });
   }
@@ -1601,22 +1605,6 @@ var parametros = {
 
           $('#menu_ver_formatos').click(function(e){
            e.preventDefault();
-           /*
-           $("#div_cortina").animate({top: '0px'}, 1100); 
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_odc').fadeOut();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeIn();
-           $('#div_solicitudes').fadeOut();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
            $('#resultado_solicitudes').html();
            $('#resultado_solicitudes').hide();
            limpiar_cortinas();
@@ -1935,6 +1923,9 @@ var parametros = {
               type:  'post',
               data: datos,
               success:  function (response) {
+                $('#resultado_solicitudes_sin_factura').html();
+                $('#resultado_solicitudes_sin_factura').hide();
+                $('#resultado_solicitudes').show();
                 var arr=response.split("$$$");
                 $('#resultado_solicitudes').html(arr[0]);
                 $('#resultado_solicitudes').fadeIn();
@@ -7457,5 +7448,67 @@ $('#c_user_solicita').change(function(){
 
   }
 
+  $('#btn_sin_factura').click(function(){
+    $('#resultado_solicitudes_sin_factura').show();
+    $('#resultado_solicitudes').hide();
+    ver_eventos_sin_factura();
+  });
+
+  function ver_eventos_sin_factura(){
+    
+    $.ajax({
+          url:   'ver_eventos_pendientes.php',
+          type:  'post',
+          success:  function (response) {
+        console.log(response);
+        if(response.includes("Eventos aperturados con SDP -SIN FACTURAR-")){
+          $('#resultado_solicitudes').html();
+          $('#resultado_solicitudes').hide();
+          limpiar_cortinas();
+          $("#div_cortina").animate({top: '0px'}, 1100);
+          $('#div_formatos').fadeIn();
+          ids_odc="";
+          llenar_eventos_ver_solicitudes("0");
+          $('#resultado_solicitudes_sin_factura').html(response);
+          /*noty({
+            text        : response,
+            type        : 'information',
+            dismissQueue: true,
+            layout      : 'topCenter',  //bottomLeft
+            animation: {
+               open: 'animated fadeInDownBig',
+              close: 'animated flipOutX',
+              easing:'swing',
+              speed: 500
+            },
+            closeWith   : ['button'],
+            css      : {
+              width  : '810px'
+            },
+            theme       : 'relax',
+            progressBar : false,
+            maxVisible  : 5,
+            //timeout     : [3200],
+          });
+          */
+        }
+        else{
+          $('#resultado_solicitudes_sin_factura').html();
+          $('#resultado_solicitudes_sin_factura').hide();
+        }
+        
+          }
+        });
+  }
+
+  
+    $("#resultado_solicitudes_sin_factura").delegate(".btn_evento_pendiente", "click", function(e) {
+    e.preventDefault();
+    var id=$(this).attr('id');
+    $('#c_mis_eventos').val(id);
+    $('#c_mis_eventos').trigger("chosen:updated");
+    $('#resultado_solicitudes_sin_factura').show();
+    ver_solicitudes_por_evento(id);
+  });
 
 }

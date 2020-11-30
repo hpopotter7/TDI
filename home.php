@@ -100,7 +100,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v104.js"></script>
-  <script src="js/metodos_v2_0062.js"></script>
+  <script src="js/metodos_v2_0063.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -679,7 +679,6 @@ span.switch-label:after {
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
-                  
                   <select name="c_mis_eventos" id="c_mis_eventos" class='form-control' placeholder='Ingresa un evento'>
                   </select>
                   
@@ -687,7 +686,10 @@ span.switch-label:after {
                 </div>
               </div>
             </div>
-            <div class="form-group col-md-2">                              
+            <div class="form-group col-md-1">                              
+                  <button type="button" id='btn_sin_factura' class="abajo btn btn-info"><i class="fas fa-exclamation" aria-hidden="true"></i> Sin factura</button>
+            </div>
+            <div class="form-group col-md-1">                              
                   <button type="button" id='btn_transferir' class="abajo btn btn-info boton_descarga"><i class="fas fa-exchange" aria-hidden="true"></i> Transferir</button>
             </div>
             <div class="form-group col-md-1">                              
@@ -704,6 +706,7 @@ span.switch-label:after {
               </div>
             </div>
         </div>
+        <div class="row" id='resultado_solicitudes_sin_factura'></div>
         <div class="row" id='resultado_solicitudes'> 
         <!---style="position: relative;
     overflow: auto;
