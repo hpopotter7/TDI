@@ -9,7 +9,7 @@ function asmoneda($value) {
   return '$' . number_format($value, 2);
 }
 
-$sql="select o.id_odc, o.evento, e.Nombre_evento, e.Cliente, o.Project, o.Importe_total from odc o join eventos e on o.evento=e.Numero_evento where and (o.evento like '2019-%' or o.evento like '2020-%')";
+$result = $mysqli->query("SET NAMES 'utf8'");
 $arr_eventos=array();
 $arr_ids=array();
 $arr_nombres=array();
@@ -33,21 +33,15 @@ $res='<thead>
             <th>Ejecutivo</th>
         </tr>
     </thead><tbody>';
-$sql = "SELECT Numero_evento, Nombre_evento, Cliente, Ejecutivo, id_evento  FROM eventos where Estatus='PITCH' order by Numero_evento ";
-$result = $mysqli->query("SET NAMES 'utf8'");
+$sql = "SELECT Numero_evento, Nombre_evento, Cliente, Ejecutivo, id_evento  FROM eventos where Estatus='PITCH' and (Ejecutivo like '%".$_COOKIE['user']."%') order by Numero_evento ";
+
+if($_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="FERNANDA CARRERA" || $_COOKIE['user']=="ANDRES EMANUELLI" || $_COOKIE['user']=="ALAN SANDOVAL"){
+    $sql = "SELECT Numero_evento, Nombre_evento, Cliente, Ejecutivo, id_evento  FROM eventos where Estatus='PITCH' order by Numero_evento ";
+}
+
 if ($result = $mysqli->query($sql)) {
      while ($row = $result->fetch_row()) {
         $CLIENTE=$row[2];
-        /*
-        $arr_cliente=explode('&', $row[2]);
-        $CLIENTE=$arr_cliente[1];
-        if($arr_cliente[2]!=""){
-            $CLIENTE=$CLIENTE."&".$arr_cliente[2];
-        }
-        if($arr_cliente[3]!=""){
-            $CLIENTE=$CLIENTE."&".$arr_cliente[3];
-        }
-        */
         array_push($arr_clientes,$CLIENTE);
        
         $ARR_EJECUTIVO=explode(",",$row[3]);
@@ -59,39 +53,7 @@ if ($result = $mysqli->query($sql)) {
 
         array_push($arr_ejecutivos,$EJE);
         array_push($arr_nombres,$row[1]);
-        /*
-        $sql2="select sum(importe_total) from odc where Cancelada='no' and  evento='".$row[0]."'";
-        //$sql2="select s.id_evento, sum(p.total) from solicitud_factura s, partidas p where s.id_solicitud=p.id_sol_factura and Estatus='Activa' and s.id_evento='".$row[4]."' GROUP by s.id_evento" ;
-        if ($result2 = $mysqli2->query($sql2)) {
-            while ($row2 = $result2->fetch_row()) {
-                $res=$res.'<tr><td><button id="'.$row[12].'" class="btn btn-info ver_solicitudes">'.$row[0].'</button></td><td>'.$row[1].'</td><td>'.$CLIENTE.'</td><td><h4><label class="label label-primary">'.asmoneda($row2[0]).'</label></h4></td>';
-            }
-
-        }
-        
-        $sql2="select s.id_evento, sum(p.total) from solicitud_factura s, partidas p where s.id_solicitud=p.id_sol_factura and Estatus='Activa' and s.id_evento='".$row[4]."' GROUP by s.id_evento" ;
-        
-        if ($result2 = $mysqli2->query($sql2)) {
-            while ($row2 = $result2->fetch_row()) {
-                $res=$res.'<td><h4><label class="label label-primary">'.asmoneda($row2[1]).'</label></h4></td>';
-            }
-
-        }
-        /*
-        $sql2="select s.id_evento, sum(p.total) from solicitud_factura s, partidas p where s.id_solicitud=p.id_sol_factura and Estatus='Activa' and s.id_evento='".$row[4]."' GROUP by s.id_evento" ;
-        if ($result1 = $mysqli2->query($sql2)) {
-            while ($row2 = $result2->fetch_row()) {
-                $res=$res.$row2[0];
-            }
-
-        }
-        else{
-            echo $sql2.mysqli_error($mysqli);
-            exit();
-		}
-        
-        */
-            
+       
         array_push($arr_eventos,$row[0]);
         array_push($arr_ids,$row[4]);
     }

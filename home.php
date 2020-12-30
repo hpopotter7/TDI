@@ -99,8 +99,8 @@
   <script src="js/Chart.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
-  <script src="js/funciones_v104.js"></script>
-  <script src="js/metodos_v2_0063.js"></script>
+  <script src="js/funciones_v107.js"></script>
+  <script src="js/metodos_v2_0067.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -674,7 +674,7 @@ span.switch-label:after {
       <div class="main-login main-center-descargas"> 
       <legend><h2>Solicitudes</h2></legend>
        <div class="row">
-            <div class="form-group col-md-9">
+            <div class="form-group col-md-10">
               <label for="name" class="cols-sm-2 control-label">Eventos</label>
               <div class="cols-sm-10">
                 <div class="input-group">
@@ -686,8 +686,30 @@ span.switch-label:after {
                 </div>
               </div>
             </div>
-            <div class="form-group col-md-1">                              
+            <div class="form-group col-md-2"> 
+             <div class="btn-group">
+                <button type="button" class="abajo btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    Acciones <span class="caret"></span>
+                </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-plus-title btn btn-primary">
+                        Acciones
+                        <b class="pull-right glyphicon glyphicon-chevron-up"></b>
+                    </li>
+                    <li><a href="#" id='btn_sin_factura'><i class="fas fa-exclamation" aria-hidden="true"> Eventos sin factura</i></a></li>
+                    <li><a href="#" id='btn_fact_pendientes'><i class="fas fa-exclamation" aria-hidden="true"> Facturas pendientes</i></a></li>
+                    <li><a href="#" id='btn_transferir'><i class="fa fa-exchange" aria-hidden="true"> Transferir</i></a></li>
+                    <li><a href="#" id='btn_borrar_sdp'><i class="fas fa-trash" aria-hidden="true"> Borrar</i></a></li>
+                    <li><a href="#" id='btn_odcs_pendientes'><i class="fas fa-exclamation" aria-hidden="true"> Odc's pendientes</i></a></li>
+                  </ul>
+              </div>
+            </div>
+              <!--
+            <div class="form-group col-md-2">                              
                   <button type="button" id='btn_sin_factura' class="abajo btn btn-info"><i class="fas fa-exclamation" aria-hidden="true"></i> Sin factura</button>
+            </div>
+            <div class="form-group col-md-2">                              
+                  <button type="button" id='btn_fact_pendientes' class="abajo btn btn-info"><i class="fas fa-exclamation" aria-hidden="true"></i> Pendientes</button>
             </div>
             <div class="form-group col-md-1">                              
                   <button type="button" id='btn_transferir' class="abajo btn btn-info boton_descarga"><i class="fas fa-exchange" aria-hidden="true"></i> Transferir</button>
@@ -695,6 +717,7 @@ span.switch-label:after {
             <div class="form-group col-md-1">                              
                   <button type="button" id='btn_borrar_sdp' class="abajo btn btn-danger boton_descarga"><i class="fas fa-trash" aria-hidden="true"></i> Borrar</button>
             </div>
+            -->
             <div id="div_mis_solicitudes" class="form-group col-md-6">
               <label for="name" class="cols-sm-2 control-label">Solicitudes</label>
               <div class="cols-sm-10">

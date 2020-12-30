@@ -62,7 +62,7 @@ else if($bandera=="TARJETA SODEXO"){  // SI ES TARJETA SODEXO
     }
 }
 else if($bandera=="TARJETA DILIGO"){  // SI ES TARJETA DILIGO
-    $sql="SELECT t.id_tarjeta, t.No_tarjeta, u.Nombre, t.Usuario FROM tarjetas t left join usuarios u on u.id_usuarios=t.Usuario where t.Tipo='DILIGO' and estatus='activo'";
+    $sql="SELECT t.id_tarjeta, t.No_tarjeta, u.Nombre, t.Usuario FROM tarjetas t left join usuarios u on u.id_usuarios=t.Usuario where t.Tipo='DILIGO' and u.estatus='activo'";
     if ($result = $mysqli->query($sql)) {
         echo '<option value="vacio">Selecciona una tarjeta...</option>';
         while ($row = $result->fetch_row()) {

@@ -378,9 +378,16 @@ ver_perfil();
                         validar_perfiles(response); 
                        
                         if(response.eje.includes("cuenta")){
-                          
                           $('#btn_sin_factura').click();
                         }
+                        if(response.usuario.includes("SANDRA PEÑA")){
+                          ver_facturas_pendientes();
+                        }
+                        
+                        if(response.cxc.includes("Cuentas por pagar")){
+                          $('#btn_odcs_pendientes').click();
+                        }
+
                   }
             });
   }
@@ -5254,7 +5261,8 @@ function llenar_transfer_eventos(){
     });
 }
 
-$('#btn_transferir').click(function(){
+$('#btn_transferir').click(function(e){
+  e.preventDefault();
   noty({
                     text        : $('#prueba').html(),
                     width       : '650px',
@@ -5372,7 +5380,8 @@ $('#btn_bloquear').click(function(){
 
 });
 
-$('#btn_borrar_sdp').click(function(){
+$('#btn_borrar_sdp').click(function(e){
+  e.preventDefault();
       noty({
         text        : "Ingresa un motivo de borrado<p><input class='form-control' id='motivo' type='text'>",
         width       : '650px',
@@ -7448,10 +7457,12 @@ $('#c_user_solicita').change(function(){
 
   }
 
-  $('#btn_sin_factura').click(function(){
-    $('#resultado_solicitudes_sin_factura').show();
+  $('#btn_sin_factura').click(function(e){
+    e.preventDefault();
+    $('#resultado_solicitudes_sin_factura').html("<p>Buscando <img src='img/puntos.gif'>");
     $('#resultado_solicitudes').hide();
     ver_eventos_sin_factura();
+    
   });
 
   function ver_eventos_sin_factura(){
@@ -7461,7 +7472,7 @@ $('#c_user_solicita').change(function(){
           type:  'post',
           success:  function (response) {
         console.log(response);
-        if(response.includes("Eventos aperturados con SDP -SIN FACTURAR-")){
+        if(response.includes("Eventos")){
           $('#resultado_solicitudes').html();
           $('#resultado_solicitudes').hide();
           limpiar_cortinas();
@@ -7470,27 +7481,6 @@ $('#c_user_solicita').change(function(){
           ids_odc="";
           llenar_eventos_ver_solicitudes("0");
           $('#resultado_solicitudes_sin_factura').html(response);
-          /*noty({
-            text        : response,
-            type        : 'information',
-            dismissQueue: true,
-            layout      : 'topCenter',  //bottomLeft
-            animation: {
-               open: 'animated fadeInDownBig',
-              close: 'animated flipOutX',
-              easing:'swing',
-              speed: 500
-            },
-            closeWith   : ['button'],
-            css      : {
-              width  : '810px'
-            },
-            theme       : 'relax',
-            progressBar : false,
-            maxVisible  : 5,
-            //timeout     : [3200],
-          });
-          */
         }
         else{
           $('#resultado_solicitudes_sin_factura').html();
@@ -7501,14 +7491,85 @@ $('#c_user_solicita').change(function(){
         });
   }
 
-  
     $("#resultado_solicitudes_sin_factura").delegate(".btn_evento_pendiente", "click", function(e) {
     e.preventDefault();
     var id=$(this).attr('id');
     $('#c_mis_eventos').val(id);
     $('#c_mis_eventos').trigger("chosen:updated");
     $('#resultado_solicitudes_sin_factura').show();
-    ver_solicitudes_por_evento(id);
+    ver_solicitudes_por_evento(id);  
   });
+
+
+  $('#btn_fact_pendientes').click(function(e){
+    e.preventDefault();
+    $('#resultado_solicitudes_sin_factura').html("<p>Buscando <img src='img/puntos.gif'>");
+    $('#resultado_solicitudes').hide();
+    ver_facturas_pendientes();
+    
+  });
+
+  function ver_facturas_pendientes(){
+    $('#resultado_solicitudes_sin_factura').show();
+    $('#resultado_solicitudes').hide();
+    llenar_eventos_ver_solicitudes("0");
+    $.ajax({
+      url:   'ver_facturas_pendientes.php',
+      type:  'post',
+      success:  function (response) {
+      console.log(response);
+      if(response.includes("Eventos")){
+        $('#resultado_solicitudes').html();
+        $('#resultado_solicitudes').hide();
+        limpiar_cortinas();
+        $("#div_cortina").animate({top: '0px'}, 1100);
+        $('#div_formatos').fadeIn();
+        ids_odc="";
+       // llenar_eventos_ver_solicitudes("0");
+        $('#resultado_solicitudes_sin_factura').html(response);
+        $('#resultado_solicitudes_sin_factura').show();
+      }
+      else{
+        $('#resultado_solicitudes_sin_factura').html();
+        $('#resultado_solicitudes_sin_factura').hide();
+      }
+      }
+    });
+  }
+
+  $('#btn_odcs_pendientes').click(function(e){
+    e.preventDefault();
+    $('#resultado_solicitudes_sin_factura').html("<p>Buscando <img src='img/puntos.gif'>");
+    $('#resultado_solicitudes').hide();
+    ver_odcs_pendientes();
+  });
+
+  function ver_odcs_pendientes(){
+    $('#resultado_solicitudes_sin_factura').show();
+    $('#resultado_solicitudes').hide();
+    llenar_eventos_ver_solicitudes("0");
+    $.ajax({
+      url:   'ver_odcs_pendientes.php',
+      type:  'post',
+      success:  function (response) {
+      console.log(response);
+      if(response.includes("Eventos")){
+        $('#resultado_solicitudes').html();
+        $('#resultado_solicitudes').hide();
+        limpiar_cortinas();
+        $("#div_cortina").animate({top: '0px'}, 1100);
+        $('#div_formatos').fadeIn();
+        ids_odc="";
+       // llenar_eventos_ver_solicitudes("0");
+        $('#resultado_solicitudes_sin_factura').html(response);
+        $('#resultado_solicitudes_sin_factura').show();
+      }
+      else{
+        $('#resultado_solicitudes_sin_factura').html();
+        $('#resultado_solicitudes_sin_factura').hide();
+      }
+      }
+    });
+  }
 
 }

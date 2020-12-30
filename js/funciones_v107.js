@@ -5,6 +5,7 @@ function validar_perfiles(response){
 	$('#menu_cerrar_evento').remove();
 	
 	
+	
 	if(response.usuario=="ALAN SANDOVAL" || response.usuario=="SANDRA PEÑA"){
 		$('#btn_cancelar_evento').show();
 		$('#btn_modificar_evento').show();
@@ -12,6 +13,8 @@ function validar_perfiles(response){
 		$('#check_pendientes2').show();
 		$('#menu_prealta').show();
 		$('#toggleDemo ul').append("<li><a id='menu_cerrar_evento' href='#'><i class='fas fa-clipboard-check' aria-hidden='true'></i> Cerrar evento</a></li>");
+		$('#btn_sin_factura').hide();
+		
 		//agregar al combo clientes de eventos los centros de costos
 		//agregar_centros_costos();
 	}
@@ -22,6 +25,7 @@ function validar_perfiles(response){
 		$('#menu_bloqueo_prov').remove();
 		$('#menu_prealta').hide();
 		$('#menu_prealta').remove();
+		$('#menu_calendario').remove();
 	}
 	else{
 		$('#menu_prealta').parent().remove();
@@ -35,8 +39,8 @@ function validar_perfiles(response){
 		$('#btn_cancelar_evento').remove();
 		$('#btn_cancelar_evento').hide();
 		$('#div_clientes_registrados').show();
-		$('#menu_calendario').remove();
-		
+		$('#menu_calendario').hide();
+		$('#btn_fact_pendientes').remove();
 	}
 	
 	if(response.cat_cli==""){
@@ -66,18 +70,33 @@ function validar_perfiles(response){
 	}
 	
 	//CXP
+
+	if(response.usuario=="RITA VELEZ"){
+		
+	}
+	else{
+		$('#btn_odcs_pendientes').hide();
+		$('#btn_odcs_pendientes').remove();
+	}
 	
 	if(response.cxc==""){
 		$('#btn_menu_cxc').hide();
 		$('#btn_menu_cxc').remove();
+		
 	}
 	else{
 		$('#btn_menu_cxc').show();
+		$('#menu_calendario').hide();
 	}
 	//Ejecutivo de cuenta
 
 	if(response.eje=="X" || response.eje=="Ejecutivo de cuenta"){
 		
+	}
+	else{
+		$('#btn_sin_factura').remove();
+		$('#btn_rep_historicos').hide();
+		$('#btn_rep_pitch').hide();
 	}
 	
 	
@@ -112,10 +131,13 @@ function validar_perfiles(response){
 		$('#btn_rep_gastos').hide();
 		$('#btn_rep_gastos').remove();
 		}
+		
 	}
+	
 
 	if(response.usuario=="ALAN SANDOVAL" || response.usuario=="SANDRA PEÑA" || response.usuario=="FERNANDA CARRERA"){
-
+		$('#btn_menu_cxc').show();
+		$('#menu_calendario').show();
 	}
 	else{
 		$('#btn_menu_fac_pendiente').remove();
