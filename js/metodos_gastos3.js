@@ -34,7 +34,8 @@ function inicio() {
     ver_eventos("0"); 
 
     function ver_eventos(periodo){
-       
+        $('#c_eventos').html("");
+        
     $.ajax({
         url: "ver_eventos_reporte_gastos.php",
         type: 'GET',
@@ -57,6 +58,8 @@ function inicio() {
                     includeSelectAllOption: false,
                     collapseOptGroupsByDefault: true
                 });
+                $('#c_eventos').multiselect('selectAll', true);
+                
                 
             }
             $('#mensaje').hide();
@@ -101,76 +104,14 @@ function inicio() {
             generate('warning', "Debe seleccionar al menos un periodo");
             $('#c_periodo').val("2019").trigger('chosen:updated');
         }        
-        
-            ver_eventos(periodo, "0");
-        
-        
+        $('#c_eventos').multiselect('destroy');
+            ver_eventos(periodo);
         
     });
-/*
-    function generar_query() {
-        $('#tabla').hide();
-        var eventos_1="";
-        var eventos_proveedores="";
-        var arr = $("#c_eventos").val();
-        if(arr!=null){
-            for (var r = 0; r <= arr.length - 1; r++) {
-                eventos_1 = eventos_1 + "'" + arr[r] + "',";
-            }
-            eventos_1 = eventos_1.substring(0, eventos_1.length-1);
-        }
-        var proveedores = $("#c_clientes").val();
-        if(proveedores!=null){
-            var datos = {
-                "clientes": proveedores
-            };
-            $.ajax({
-                url: "buscar_eventos_clientes.php",
-                type: 'post',
-                data: datos,
-                async: false,
-                success: function (response) {
-
-                    eventos_proveedores = eventos_proveedores + response;
-
-                }
-            });
-        }
-        if(eventos_1==""){
-            eventos=eventos_proveedores;
-        }
-        else if(eventos_proveedores==""){
-            eventos=eventos_1;
-        }
-        else{
-            eventos=eventos_1+","+eventos_proveedores;
-        }
-        eventos=eventos.trim();
 
 
+   
 
-
-        var sql = "";
-        if (eventos == "") {
-            sql = "todos";
-        }
-        else {
-            sql = eventos;
-        }
-
-        var arr = $("#c_periodo").val();
-        var periodo="";
-            if(arr.length==1){
-                periodo=" and (Numero_evento like '"+arr[0]+"-%')";
-            } 
-            else{
-                periodo=" and (Numero_evento like '"+arr[0]+"-%' or Numero_evento like '"+arr[1]+"-%')";
-            }       
-        sql=sql+"~"+periodo;
-        
-        $('#area_query').val(sql);
-    }
-    */
 
     function generate(type, text) {
         var n = noty({
@@ -185,16 +126,24 @@ function inicio() {
         });
         return n;
     }
+
+    
     
     $('#btn_buscar').click(function () {
+        var periodo=$('#c_periodo').val();
         var eventos=$('#c_eventos').val();
-
-        if(eventos==""){
+        
+        if(eventos=="" || eventos==null){
             eventos="todos";
         }
-
+        var periodo="";
+        $("#c_periodo :selected").each(function() {
+            periodo=periodo+$(this).attr('value')+",";
+          });
+        
         var datos = {
             "eventos": eventos,
+            "periodo":periodo,
         };
 
         $.ajax({

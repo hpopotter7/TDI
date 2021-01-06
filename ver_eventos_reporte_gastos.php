@@ -21,35 +21,32 @@
 	$usuario=$_COOKIE["user"];
 
 	if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA" || $usuario=="FERNANDA CARRERA" || $usuario=="ANDRES EMANUELLI"){
-		$sql="SELECT e.id_evento, e.Numero_evento, e.Nombre_evento, e.Cliente, c.id_cliente, c.Razon_Social FROM eventos e, clientes c where e.Cliente=CONCAT(c.id_cliente,'&',c.Razon_Social) and e.Estatus!='CANCELADO' ".$and." order by c.Razon_Social, e.Numero_evento";
+		$sql="SELECT e.id_evento, e.Numero_evento, e.Nombre_evento, e.Cliente FROM eventos e where e.Estatus!='CANCELADO' ".$and." order by e.cliente, e.Numero_evento";
 	}
 	else{
-		$sql="SELECT e.id_evento, e.Numero_evento, e.Nombre_evento, e.Cliente, c.id_cliente, c.Razon_Social FROM eventos e, clientes c where e.Cliente=CONCAT(c.id_cliente,'&',c.Razon_Social) and e.Estatus!='CANCELADO' ".$and." and e.Ejecutivo like '%".$usuario."%' order by c.Razon_Social, e.Numero_evento";	
+		$sql="SELECT e.id_evento, e.Numero_evento, e.Nombre_evento, e.Cliente FROM eventos e where e.Estatus!='CANCELADO' ".$and." and e.Ejecutivo like '%".$usuario."%' order by e.Cliente, e.Numero_evento";	
 	}
 	
-	$resultado=$sql;
-
+	//$resultado=$sql;
 
 	if ($result = $mysqli->query($sql)) {
 		while ($row = $result->fetch_row()) {
-			$clien=explode("&",$row[3]);
-			$id_cliente=$clien[0];
-			if($comodin!=$id_cliente){
-				$sql2="select Razon_Social from clientes where id_cliente=".$id_cliente;
+			//$clien=explode("&",$row[3]);
+			$cliente=$row[3];
+			if($comodin!=$cliente){
+				/*$sql2="select Razon_Social from clientes where id_cliente=".$id_cliente;
 				$result2 = $mysqli2->query("SET NAMES 'utf8'");	
 				if ($result2 = $mysqli2->query($sql2)) {
 					while ($row2 = $result2->fetch_row()) {
 						$name_cliente=$row2[0];
-						$resultado=$resultado.'<optgroup label="'.$row2[0].'">';
-						//$resultado=$resultado.'<optgroup label="'.htmlspecialchars( $row2[0] ).'">';
-					}
-					$result2->close();
-				}
-				$comodin=$id_cliente;
+						*/
+						$resultado=$resultado.'<optgroup label="'.$cliente.'">';
+						//$resultado=$resultado.'<optgroup label="'.htmlspecialchars( $row2[0] ).'">';				
+				$comodin=$cliente;
 				//$resultado=$resultado."<optgroup label=".$name_cliente.$sql2.">";
 			}
 			
-			$resultado=$resultado."<option value='".$row[1]."'>[".$row[1]."] ".$name_cliente." - ".$row[2]."</option>";
+			$resultado=$resultado."<option value='".$row[1]."'>[".$row[1]."] ".$cliente." - ".$row[2]."</option>";
 		}
 		$result->close();
 	}
