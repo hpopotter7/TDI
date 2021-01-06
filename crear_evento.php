@@ -1,5 +1,6 @@
 <?php 
-	$anio=$_POST["anio"];
+	//$anio=$_POST["anio"];
+	$anio="2021";
 	$numero_evento=$_POST['txt_numero_evento'];
 	$nombre_evento=$_POST['txt_nombre_evento'];
 	$inicio_evento=$_POST['txt_fecha_inicio_evento'];

@@ -5,7 +5,7 @@
 	$resultado="";
 
 	if($anio=="0"){
-		$anio="and (Numero_evento like '%2020-%' or Numero_evento like '%2019-%') ";
+		$anio="and (Numero_evento like '%2021-%' or Numero_evento like '%2020-%' or Numero_evento like '%2019-%') ";
 	}
 	else{
 		$anio="and Numero_evento like '%2020%'";
