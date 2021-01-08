@@ -14,7 +14,7 @@ $array= Array();
 $array_nombres= Array();
 foreach($myfiles as $file){
   array_push($array_nombres,$file);
-  $nombre=explode("-",$file);
+  $nombre=explode(".",$file);
   array_push($array,$nombre[0]);
   $concatenados=$concatenados.".".$nombre[0];
 }
@@ -82,6 +82,13 @@ $descripcion=$row[5];
                 </select></td>
                 <td class='text-center'><h4><span class='label label-primary'>".moneda($row[1])."</span></h4></td>
               ";
+              $menu="<div class='dropdown'>
+              <button onclick='myFunction()' class='dropbtn'><i class='fas fa-caret-down aria-hidden='true'></i> Opciones</button>
+              <div id='myDropdown' class='dropdown-content'>
+              <a href='".$ref1."' target='_blank'><button id='".$evento."#".$array[$r]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button> Ver archivo</a>
+                <a href='#'><button class='btn btn-danger'><i class='fas fa-file-excel' aria-hidden='true'></i> Borrar archivo</button></a>
+              </div>
+            </div>";
               if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
                 if($descripcion=="Carga inicial"){
                   $tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-ban' aria-hidden='true'></i></label>";
@@ -95,7 +102,14 @@ $descripcion=$row[5];
 
                 for($r=0;$r<=count($array)-1;$r++){
                       if($array[$r]==$no_factura){
-                        $boton_factura="<a href='".$ruta."/".$array_nombres[$r]."' target='_blank'><button id='".$evento."#".$array[$r]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button></a>";
+                        $boton_factura="<div class='dropdown'>
+                        <button onclick='myFunction()' class='dropbtn btn btn-primary'><i class='dropbtn fas fa-file-pdf' aria-hidden='true'></i></button>
+                        <div id='myDropdown' class='dropdown-content'>
+                        <a href='".$ruta."/".$array_nombres[$r]."' target='_blank'><button id='".$evento."#".$array[$r]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i> Ver archivo</button></a>
+                          <a href='#'><button id='".$ruta."/".$array_nombres[$r]."' class='btn btn-danger btn_borrar_factura'><i class='fas fa-file-excel' aria-hidden='true'></i> Borrar archivo</button></a>
+                        </div>
+                      </div>
+                      ";
                       }
                       
                 }

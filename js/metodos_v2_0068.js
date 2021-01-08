@@ -6972,7 +6972,6 @@ $(".btn_archivos").change(function(){
     else{
       subir_factura(arr[0],arr[1]);        
     }
-    
 });
 
 function subir_factura(evento, nombre){
@@ -7025,6 +7024,57 @@ function subir_factura(evento, nombre){
       }
      ]
     }); 
+}
+
+$("#resultado_solicitudes").delegate(".btn_borrar_factura", "click", function(e) {
+  e.preventDefault();
+  var nombre=$(this).attr("id");
+  //alert(id);
+  noty({
+    text        : "¿Desea borrar el documento?",
+    width       : '650px',
+    type        : 'warning',
+    dismissQueue: false,
+    closeWith   : ['button'],
+    theme       : 'metroui',
+    timeout     : false,
+    layout      : 'topCenter',
+     callbacks: {
+      afterShow: function() { },
+    },
+     buttons: [
+      {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
+        borrar_factura(nombre, $noty);           
+        }
+      },
+           {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
+         $noty.close();
+        }
+      }
+     ]
+  });
+});
+
+function borrar_factura(archivo, noty){
+  var datos={
+    "archivo":archivo,
+  };
+  $.ajax({
+    url:   'borrar_factura.php',
+    type:  'post',
+    data: datos,
+    success:  function (response) {
+      if(response.includes("borrado")){
+        generate('success', 'El documento ha sido eliminado!');
+        var evento = $("#c_mis_eventos").val();
+        ver_solicitudes_por_evento(evento);
+        noty.close();
+      }
+      else{
+        generate("Error","Ocurrio un error al eliminar el documento");
+      }
+    }
+  });
 }
 
 $('#c_user_solicita').change(function(){
