@@ -89,7 +89,7 @@ function moneda($value) {
             }
             $SUMA=$facturacion_pendiente+$facturacion_pagada;
             array_push($vec2,"<td>".moneda($facturacion_pendiente)."</td><td>".moneda($facturacion_pagada)."</td><td>".moneda($SUMA)."</td>");
-            array_push($vec_facturacion,$facturacion);
+            array_push($vec_facturacion,$SUMA);
             $result->close();
         }
         else{

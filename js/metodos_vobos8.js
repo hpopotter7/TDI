@@ -64,7 +64,7 @@ function inicio(){
       else{
        x="0";
       }
-      vobo_solicitudes(id, x, tipo,);
+      vobo_solicitudes(id, x, tipo);
     });
 
     function vobo_solicitudes(id, x, tipo){
