@@ -11,7 +11,7 @@ function moneda($value) {
 
 $result = $mysqli->query("SET NAMES 'utf8'"); 
 
-$sql="select evento, importe_total, concepto, usuario_registra, a_nombre from odc where fecha_pago='".$fecha."'";
+$sql="select evento, importe_total, concepto, usuario_registra, a_nombre from odc where fecha_pago='".$fecha."' and cancelada='no' and pagado='no'";
 $resultado='<html>
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">

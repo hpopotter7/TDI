@@ -26,6 +26,7 @@ function inicio() {
       dia="0"+dia;
     }
     fecha=anio+"-"+mes+"-"+dia;
+    
 
     function suma_egresos(anio, mes, dia){
       var datos = {
@@ -40,8 +41,9 @@ function inicio() {
         async: true,
         success:  function (response) {
           var arr=response.split("#");
-            $('#resultado_vencidos').html(arr[0]);
-            $('#resultado_vigentes').html(arr[1]);
+            $('#resultado_vencidos_atrasada').html(arr[0]);
+            $('#resultado_vencidos').html(arr[1]);
+            $('#resultado_vigentes').html(arr[2]);
         }
       });
     }
@@ -178,6 +180,9 @@ function inicio() {
                           // do the original command
                           calendar.prev();
                           mes--;
+                          if(mes==0){
+                            mes=12
+                          }
                           if(mes==mes_actual){
                             dia=new Date().getDate();
                           }
@@ -190,7 +195,8 @@ function inicio() {
                             }
                             
                             
-                          }                   
+                          }   
+                          
                           suma_egresos(anio,mes,dia);
                           //calendar.fullCalendar( 'refresh' );
                           // do something after
@@ -205,6 +211,9 @@ function inicio() {
                           // do the original command
                           calendar.next();
                           mes++;
+                          if(mes==13){
+                            mes=1;
+                          }
                           if(mes==mes_actual){
                             dia=new Date().getDate();
                           }

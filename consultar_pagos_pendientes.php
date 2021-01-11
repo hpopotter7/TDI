@@ -14,7 +14,8 @@ function moneda($value) {
 
 $result = $mysqli->query("SET NAMES 'utf8'"); 
 
-$sql="select sum(importe_total) as title, count(importe_total) as count, fecha_pago from odc where DATE_FORMAT(fecha_pago, '%Y')='".$anio."' and pagado='no' group by fecha_pago ORDER BY fecha_pago ASC";
+$sql="select sum(importe_total) as title, count(importe_total) as count, fecha_pago from odc where pagado='no' and cancelada='no' group by fecha_pago ORDER BY fecha_pago ASC";
+//$sql="select sum(importe_total) as title, count(importe_total) as count, fecha_pago from odc where DATE_FORMAT(fecha_pago, '%Y')='".$anio."' and pagado='no' group by fecha_pago ORDER BY fecha_pago ASC";
 /*
 $dbdata = array();
 		while ( $row = $result->fetch_assoc())  {
@@ -34,6 +35,7 @@ while ( $row = $result->fetch_assoc())  {
     );
     
 }
+
 
 echo json_encode($data);
 $mysqli->close();
