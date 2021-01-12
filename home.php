@@ -100,7 +100,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v107.js"></script>
-  <script src="js/metodos_v2_0068.js"></script>
+  <script src="js/metodos_v2_0069.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -676,6 +676,7 @@ span.switch-label:after {
             <div class="collapse" id="toggleDemo8" style="height: 0px;">
               <ul class="nav nav-list">
                 <li><a id='menu_facturacion_pendiente' href="#"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i> Facturación x cobrar</a></li>
+                <li><a id='menu_facturacion_calendario' href="#"><i class="fas fa-calendar" aria-hidden="true"></i> Calendario</a></li>
               </ul>
             </div>
           </li>

@@ -29,9 +29,8 @@ function moneda($value) {
   $ultimo_mes_anterior=date("Y-m-t", strtotime($fecha_mes_anterior));
 
 
-
 $result = $mysqli->query("SET NAMES 'utf8'"); 
-$sql0="select sum(importe_total) from odc where pagado='no' and fecha_pago<='".$ultimo_mes_anterior."' and cancelada='no'";
+$sql0="select sum(p.importe_total) from solicitud_factura s, TOTAL_PARTIDAS_X_SOLCITUD p where s.id_solicitud=p.id_solicitud and s.Estatus='Activa' and s.Estatus_factura='POR COBRAR' and DATE_ADD(DATE_FORMAT(s.Fecha_Hora_registro, '%Y-%m-%d'), INTERVAL s.dias_credito DAY)<='".$ultimo_mes_anterior."'";
 
 if ($result = $mysqli->query($sql0)) {
     while ($row = $result->fetch_row()) {
@@ -43,7 +42,7 @@ else{
 }
 
 
-$sql1="select sum(importe_total) from odc where fecha_pago>='".$anio."-".$mes."-01' and fecha_pago<='".$anio."-".$mes."-".$dia."' and pagado='no' and cancelada='no'";
+$sql1="select sum(p.importe_total) from solicitud_factura s, TOTAL_PARTIDAS_X_SOLCITUD p where s.id_solicitud=p.id_solicitud and s.Estatus='Activa' and s.Estatus_factura='POR COBRAR' and DATE_ADD(DATE_FORMAT(s.Fecha_Hora_registro, '%Y-%m-%d'), INTERVAL s.dias_credito DAY)>='".$anio."-".$mes."-01' and DATE_ADD(DATE_FORMAT(s.Fecha_Hora_registro, '%Y-%m-%d'), INTERVAL s.dias_credito DAY)<='".$anio."-".$mes."-".$dia."'";
 
 if ($result = $mysqli->query($sql1)) {
     while ($row = $result->fetch_row()) {
@@ -57,8 +56,10 @@ else{
 
 $sql="select sum(importe_total) from odc where fecha_pago>'".$anio."-".$mes."-".$dia."' and fecha_pago<='".$ultimo."' and pagado='no' and cancelada='no' ";
 
+$sql="select sum(p.importe_total) from solicitud_factura s, TOTAL_PARTIDAS_X_SOLCITUD p where s.id_solicitud=p.id_solicitud and s.Estatus='Activa' and s.Estatus_factura='POR COBRAR' and DATE_ADD(DATE_FORMAT(s.Fecha_Hora_registro, '%Y-%m-%d'), INTERVAL s.dias_credito DAY)>'".$anio."-".$mes."-".$dia."' and DATE_ADD(DATE_FORMAT(s.Fecha_Hora_registro, '%Y-%m-%d'), INTERVAL s.dias_credito DAY)<='".$ultimo."'";
+
 if($mes<$mes_actual){
-    $sql="select sum(importe_total) from odc where fecha_pago>'".$anio."-".$mes."-".$dia."' and fecha_pago<='".$ultimo."' and pagado='no' and cancelada='no'";
+    $sql="select sum(p.importe_total) from solicitud_factura s, TOTAL_PARTIDAS_X_SOLCITUD p where s.id_solicitud=p.id_solicitud and s.Estatus='Activa' and s.Estatus_factura='POR COBRAR' and DATE_ADD(DATE_FORMAT(s.Fecha_Hora_registro, '%Y-%m-%d'), INTERVAL s.dias_credito DAY)>'".$anio."-".$mes."-".$dia."' and DATE_ADD(DATE_FORMAT(s.Fecha_Hora_registro, '%Y-%m-%d'), INTERVAL s.dias_credito DAY)<='".$ultimo."'";
 }
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {

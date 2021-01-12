@@ -6885,6 +6885,14 @@ $("#menu_facturacion_pendiente").click(function (e) {
   $('#div_iframe').fadeIn();
 });
 
+$("#menu_facturacion_calendario").click(function (e) { 
+  e.preventDefault();
+  limpiar_cortinas();
+  $("#div_cortina").animate({top: '0px'}, 1100);
+  $("#frame").attr("src", "calendar_facturacion.html");
+  $('#div_iframe').fadeIn();
+});
+
 $('#toggleDemo').delegate("#menu_cerrar_evento", 'click', function(e){
   e.preventDefault();
   limpiar_cortinas();

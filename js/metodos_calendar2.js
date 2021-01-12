@@ -44,6 +44,7 @@ function inicio() {
             $('#resultado_vencidos_atrasada').html(arr[0]);
             $('#resultado_vencidos').html(arr[1]);
             $('#resultado_vigentes').html(arr[2]);
+            $('#resultado_vencidos_total').html(arr[3]);
         }
       });
     }
