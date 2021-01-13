@@ -12,11 +12,22 @@ $ruta = "facturas/".$evento;
 $myfiles = scandir($ruta);
 $array= Array();
 $array_nombres= Array();
+
 foreach($myfiles as $file){
-  array_push($array_nombres,$file);
-  $nombre=explode(".",$file);
-  array_push($array,$nombre[0]);
-  $concatenados=$concatenados.".".$nombre[0];
+  if(!is_dir($ruta."/".$file)){
+    array_push($array_nombres,$file);
+    /*
+    $arr_nombre=explode(".",$file);
+    $nombre="";
+    for($y=0;$y<=count($arr_nombre)-1;$y++){
+      $nombre=$nombre.$arr_nombre[$y].".";
+    }
+    $nombre=substr($nombre, 0, -1);
+    */
+    $nombre=str_replace(".pdf","",$file);
+      array_push($array,$nombre);
+    $concatenados=$concatenados.".".$nombre;
+  }
 }
 
 $sql2="SELECT p.id_sol_factura, ROUND(sum(p.total),2), s.Estatus, s.No_factura, s.Estatus_Factura, ANY_VALUE(p.descripcion) from partidas p, solicitud_factura s where s.id_evento=".$evento." and p.id_sol_factura=s.id_solicitud and s.Estatus='Activa' group by p.id_sol_factura order by s.No_Factura asc";
@@ -66,7 +77,7 @@ $descripcion=$row[5];
                 }
       $tbody=$tbody."
                 </td>
-                <td class='text-center'>";
+                <td class='text-center' style='width: 25%;'>";
                 if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
                   $tbody=$tbody."<select id='c_".$row[0]."' class='form-control c_estatus_factura'>";
                 }
@@ -82,13 +93,15 @@ $descripcion=$row[5];
                 </select></td>
                 <td class='text-center'><h4><span class='label label-primary'>".moneda($row[1])."</span></h4></td>
               ";
+              /*
               $menu="<div class='dropdown'>
               <button onclick='myFunction()' class='dropbtn'><i class='fas fa-caret-down aria-hidden='true'></i> Opciones</button>
               <div id='myDropdown' class='dropdown-content'>
-              <a href='".$ref1."' target='_blank'><button id='".$evento."#".$array[$r]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button> Ver archivo</a>
+              <a href='".$ref1."' target='_blank'><button id='".$evento."#".$array[$r]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button> Ver archivo ".$ref1."</a>
                 <a href='#'><button class='btn btn-danger'><i class='fas fa-file-excel' aria-hidden='true'></i> Borrar archivo</button></a>
               </div>
             </div>";
+            */
               if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
                 if($descripcion=="Carga inicial"){
                   $tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-ban' aria-hidden='true'></i></label>";
@@ -100,20 +113,28 @@ $descripcion=$row[5];
 
                 $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-cloud-upload ' aria-hidden='true'></i></button>";
 
-                for($r=0;$r<=count($array)-1;$r++){
-                      if($array[$r]==$no_factura){
+                for($t=0;$t<=count($array)-1;$t++){
+                  if($array[$t]==$no_factura){
+                  $referencia=$array_nombres[$t];
+                  /*
                         $boton_factura="<div class='dropdown'>
                         <button onclick='myFunction()' class='dropbtn btn btn-primary'><i class='dropbtn fas fa-file-pdf' aria-hidden='true'></i></button>
                         <div id='myDropdown' class='dropdown-content'>
-                        <a href='".$ruta."/".$array_nombres[$r]."' target='_blank'><button id='".$evento."#".$array[$r]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i> Ver archivo</button></a>
-                          <a href='#'><button id='".$ruta."/".$array_nombres[$r]."' class='btn btn-danger btn_borrar_factura'><i class='fas fa-file-excel' aria-hidden='true'></i> Borrar archivo</button></a>
+                        <a href='".$ruta."/".$referencia."' target='_blank'><button id='".$evento."#".$array[$t]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i> Ver archivo</button></a>
+                          <a href='#'><button id='".$ruta."/".$referencia."' class='btn btn-danger btn_borrar_factura'><i class='fas fa-file-excel' aria-hidden='true'></i> Borrar archivo</button></a>
                         </div>
                       </div>
+                      */
+
+                      $boton_factura="<a href='".$ruta."/".$referencia."' target='_blank'><button id='".$evento."#".$array[$t]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button></a>
+                      <a href='#' title='Borrar archivo'><button id='".$ruta."/".$referencia."' class='btn btn-danger btn_borrar_factura'><i class='fas fa-file-excel' aria-hidden='true'></i></button></a>
                       ";
+                      
                       }
                       
+                      
                 }
-                $tbody=$tbody.$boton_factura."<a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash' aria-hidden='true'></i></a><button id='".$row[0]."' class='btn btn-warning btn_transferir_factura' style='margin-left:.3em;margin-right:.3em'><i class='fa fa-exchange' aria-hidden='true'></i></button></td>";
+                $tbody=$tbody.$boton_factura."<button id='".$row[0]."' class='btn btn-primary btn_transferir_factura' style='margin-left:.3em;margin-right:.3em'><i class='fa fa-exchange' aria-hidden='true'></i></button><a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
                  
               }
               else{
@@ -309,7 +330,7 @@ $resultado2=$resultado2."<div class='row col-md-5'></table>
                       <tr>
                         <th class='text-center'>#</th>
                         <th class='text-center'>Factura</th>
-                        <th class='text-center'>Estatus</th>
+                        <th class='text-center' style='width: 25%;' >Estatus</th>
                         <th class='text-center'>Monto</th>
                         <th class='text-center'>descargar</th>
                       </tr>
