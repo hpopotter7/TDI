@@ -3872,7 +3872,7 @@ function validarInput() {
           ],
              "scrollX": true,
              "destroy": true, 
-              "sort": true,
+              "sort": false,
               "pageLength": 15,
              "language" : idioma_espaniol
           });            

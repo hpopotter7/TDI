@@ -100,7 +100,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v107.js"></script>
-  <script src="js/metodos_v2_0069.js"></script>
+  <script src="js/metodos_v2_0070.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -2360,9 +2360,17 @@ span.switch-label:after {
  <!--div reporte eventos-->
  
   <div id='div_reporte_eventos' class="container">
-    <div class="row main">
+    <div class="row" style="width: 125%;">
       <div class="row" class='titulo_reporte'><legend><h2>Reporte de Eventos</h2></legend></div>
-      <table id='reporte_eventos' class="display nowrap dataTable" style="width:100%">
+      <p></p>
+          <div class="row">
+            <label class='label' style='font-size:1.4em;border:1px solid #111;color:black'> ABIERTOS</label>
+            <label class='label' style='font-size:1.4em;background:#BBD32A;color:black'> CERRADOS</label>
+            <label class='label' style='font-size:1.4em;background:#fbd257;color:black'> PITCH</label>
+            <label class='label' style='font-size:1.4em;background-color: #C1C1C1;color:#c50404'> CANCELADOS</label>
+          </div>
+          <p></p>
+      <table id='reporte_eventos' class="display nowrap dataTable" style="width:130%">
         
       </table>
     </div>
