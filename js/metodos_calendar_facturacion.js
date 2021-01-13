@@ -46,6 +46,9 @@ function inicio() {
                 $('#resultado_vencidos').html(arr[1]);
                 $('#resultado_vigentes').html(arr[2]);
                 $('#resultado_vencidos_total').html(arr[3]);
+                $('#resultado_mes1').html(arr[4]);
+                $('#resultado_mes2').html(arr[5]);
+                $('#resultado_mes3').html(arr[6]);
             }
           });
           
