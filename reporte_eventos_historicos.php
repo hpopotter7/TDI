@@ -8,7 +8,7 @@ if (mysqli_connect_errno()) {
 function asmoneda($value) {
   return '$' . number_format($value, 2);
 }
-
+ini_set('max_execution_time', 0);
 $result = $mysqli->query("SET NAMES 'utf8'");
 $arr_eventos=array();
 $arr_ids=array();

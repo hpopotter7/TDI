@@ -100,7 +100,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v107.js"></script>
-  <script src="js/metodos_v2_0070.js"></script>
+  <script src="js/metodos_v2_0071.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -2369,7 +2369,9 @@ span.switch-label:after {
             <label class='label' style='font-size:1.4em;background:#fbd257;color:black'> PITCH</label>
             <label class='label' style='font-size:1.4em;background-color: #C1C1C1;color:#c50404'> CANCELADOS</label>
           </div>
+          <br>
           <p></p>
+          <h4 id='rep_eventos_loader'>Consultando... <img src="img/dots_loader.gif"></h4>
       <table id='reporte_eventos' class="display nowrap dataTable" style="width:130%">
         
       </table>

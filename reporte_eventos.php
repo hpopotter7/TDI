@@ -74,7 +74,11 @@ if ($result = $mysqli->query($sql)) {
             $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$CLIENTE.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$EJE.'</td><td>'.$DISE.'</td><td>'.$pro.'</td><td>'.$money.'</td></tr>';
         }
         else if($estatus=="CERRADO"){
-            $res=$res.'<tr style="background-color: #BBD32A;color: black;"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$CLIENTE.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$EJE.'</td><td>'.$DISE.'</td><td>'.$pro.'</td><td>'.$money.'</td></tr>';
+            $candado="";
+            if($_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="SANDRA PEÑA"){
+                $candado='<i id="'.$row[0].'" class="fa fa-lock btn_revivir" style="cursor:pointer;color:#8e07ab" aria-hidden="true"></i>';
+            }
+            $res=$res.'<tr style="background-color: #BBD32A;color: black;"><td>'.$row[0].' '.$candado.' </td><td>'.$row[1].'</td><td>'.$CLIENTE.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$EJE.'</td><td>'.$DISE.'</td><td>'.$pro.'</td><td>'.$money.'</td></tr>';
         }
         else if($estatus=="PITCH"){
             $res=$res.'<tr style="background-color: #fbd257;color: black;"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$CLIENTE.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$EJE.'</td><td>'.$DISE.'</td><td>'.$pro.'</td><td>'.$money.'</td></tr>';

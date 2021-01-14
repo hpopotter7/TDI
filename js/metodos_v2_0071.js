@@ -3837,22 +3837,6 @@ function validarInput() {
        $('#form_alta_proveedores').hide();
        $('#div_area_descripcion').hide();
        $('#div_tipo_persona').hide();
-
-       /*
-       $('#div_nuevo_evento').fadeOut();       
-       $('#div_usuarios').fadeOut();
-       $('#div_alta_cliente').fadeOut();
-       $('#div_odc').fadeOut();
-       $('#div_alta_proveedores').fadeOut();
-       $('#div_formatos').fadeOut();
-       $('#div_solicitudes').fadeOut();      
-       $('#div_modificar_evento').fadeOut();
-       $('#div_cerrar_evento').fadeOut();
-       $('#div_solicitud_factura').fadeOut();
-      $('#div_reporte_eventos').fadeIn();
-      $('#div_reporte_clientes').fadeOut();
-      $('#div_reporte_proveedores').fadeOut();
-      */
       limpiar_cortinas();
            $("#div_cortina").animate({top: '0px'}, 1100);
            $('#div_reporte_eventos').fadeIn();
@@ -3861,7 +3845,13 @@ function validarInput() {
     $.ajax({
     type : 'POST',
     url  : 'reporte_eventos.php',
+    beforeSend: function(){
+      $('#rep_eventos_loader').show();
+      $('#reporte_eventos').hide();
+     },
       success :  function(response){
+        $('#rep_eventos_loader').hide();
+        $('#reporte_eventos').show();
         $('#reporte_eventos').html(response); 
          
         $('#reporte_eventos').DataTable({
@@ -7629,5 +7619,47 @@ $('#c_user_solicita').change(function(){
       }
     });
   }
+
+  
+  $("#reporte_eventos").delegate(".btn_revivir", "click", function() {
+    var numero_evento=$(this).attr("id");
+    noty({
+      text: '¿Realmente deseas revivir el evento '+numero_evento+'?',
+      type        : 'warning',
+      dismissQueue: false,
+      theme       : 'metroui',
+      layout      : 'topCenter',  //bottomLeft
+      buttons: [
+        {addClass: 'btn btn-success', text: 'Si, revivir', onClick: function($noty) {
+              var parametros={
+                "numero_evento": numero_evento
+              }
+               $.ajax({
+                  url:   "revivir_evento.php",
+                  type:  'post',
+                  data: parametros,
+                  success:  function (response) {
+                    if(response.includes("evento abierto")){
+                      $noty.close();
+                      generate("success","El evento ha sido abierto!!");
+                      $('#rep_eventos').click();
+                    }
+                    else{
+                      $noty.close();
+                      console.log(response);
+                      generate('error', "Ocurrio un error en el proceso. Vea la consola para más detalles");
+                    }
+                  }
+                });
+          }
+        },
+        {addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
+            $noty.close();
+           
+          }
+        }
+      ]
+    });
+  });
 
 }
