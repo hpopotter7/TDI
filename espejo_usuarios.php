@@ -37,11 +37,35 @@ $sql="update eventos set solicita=REPLACE(solicita, '".$usuario_origen."', '".$u
            echo $respuesta;
            exit();
         }
-
-        
-
         
         if($bandera==="ejecutivo"){
+
+            //==primero se guardan todos los eventos en la bitacora==
+            //Se seleccionan los eventos del ejecutivo origen
+            $array_eventos=array();
+            $sql="select Numero_evento from eventos where Estatus='ABIERTO' and Ejecutivo=',".$usuario_origen."'";
+            if ($result = $mysqli->query($sql)) {
+                while ($row = $result->fetch_row()) {
+                        array_push($array_eventos,$row[0]);
+                }   
+                $result->close();
+            }
+            $eventos="";
+            foreach($array_eventos as $valor){
+                $eventos=$eventos.$valor."/";
+            }
+            echo "Eventos: ".$eventos;
+            foreach($array_eventos as $valor){
+                $sql="insert into bitacora(Usuario, tabla_actualizar, valor_anterior, valor_nuevo, fecha_hora_registro) values('".$_COOKIE['user']."', 'Espejo Ejecutivos', 'Ejecutivo nuevo:".$usuario_destino.";Ejecutivo anterior: ".$usuario_origen."', 'Evento: ".$valor."', NOW())";
+                if ($mysqli->query($sql)) {
+                    $res= "exito";
+                }
+                else{
+                    $res= mysqli_error($mysqli);
+                }
+            }
+
+
             $sql="update eventos set Ejecutivo=',".$usuario_destino."' where Estatus='ABIERTO' and Ejecutivo=',".$usuario_origen."'";
             if (!$mysqli->query($sql)) {
                 $respuesta= "Error al actualizar los eventos: ".mysqli_error($mysqli);
