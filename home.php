@@ -100,7 +100,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v107.js"></script>
-  <script src="js/metodos_v2_0071.js"></script>
+  <script src="js/metodos_v2_0072.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -2073,15 +2073,15 @@ span.switch-label:after {
           </div>  
 
           <div class="row">             
-            <div class="margen row col-md-offset-2 col-md-4">
+            <div id='div_enviar_odc' class="margen row col-md-offset-2 col-md-4">
               <button type="button" id="enviar_odc" class="btn_verde btn btn-lg btn-primary pull-right"><i class="fa fa-envelope-o " aria-hidden="true"></i> Enviar solicitud</button>
             </div>
              <div class="margen row col-md-2">
               <button type="button" id="limpiar_odc" class="btn btn-lg btn-info pull-right"><i class="i_espacio fa fa-eraser" aria-hidden="true"></i>Limpiar</button>
             </div>
           </div>
-          <div class="row"> 
-            
+          <div class="row col-md-12" style="margin:auto;text-align:center"> 
+          <h3><span id='mensaje_vencido' class='alert alert-danger' role='alert' style='display:none'>Este evento ya esta vencido, no es posible hacer solicitudes</span></h3>
           </div>
         </form> 
             

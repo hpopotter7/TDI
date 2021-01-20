@@ -49,6 +49,7 @@ function inicio() {
                 $('#resultado_mes1').html(arr[4]);
                 $('#resultado_mes2').html(arr[5]);
                 $('#resultado_mes3').html(arr[6]);
+                $('#resultado_total').html(arr[7]);
             }
           });
           
