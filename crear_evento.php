@@ -11,9 +11,6 @@
 	$disenio=$_POST['c_disenio'];
 	$produccion=$_POST['c_produccion'];
 	$facturacion=$_POST['txt_facturacion'];
-	//$solicita=$_POST['c_solicitantes'];
-	//$ejecutivo=$_POST['c_ejecutivos'];
-	//$digital=$_POST['c_digital'];
 	$tipo=$_POST['check_estatus_facturacion'];
 	$comentarios=$_POST['area_comentarios'];
 	$usuario_registra=$_POST['usuario_registra'];

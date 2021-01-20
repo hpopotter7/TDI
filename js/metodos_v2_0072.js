@@ -2409,8 +2409,13 @@ var parametros = {
         });
 
         $('#enviar_odc').click(function(){
-
-          enviar_solicitud_SDP();
+          var id_evento=$('#c_numero_evento').val();
+          if(!ver_caducidad_evento(id_evento)){
+            generate("warning", "Este evento ya esta vencido, no es posible hacer solicitudes");
+          }
+          else{
+            enviar_solicitud_SDP();
+          }         
             
         });
 
@@ -6234,7 +6239,32 @@ var options = {
       $("#c_numero_evento").chosen().change(function(){
         var valor=$(this).val();
         ver_suma_sdp(valor);
+        if(!ver_caducidad_evento(valor)){
+          generate("warning", "Este evento ya esta vencido, no es posible hacer solicitudes");
+        }         
       });
+
+         
+
+      function ver_caducidad_evento(valor){
+        var respuesta=true;
+        var datos={"valor":valor};
+        $.ajax({
+          url:   'eventos_vencidos.php',
+          type:  'post',
+          data: datos,
+          async: false,
+          success:  function (response) {
+            respuesta=false;
+            /*
+            if(response.includes("vencido")){
+              generate("warning", "Este evento ya esta vencido, no es posible hacer solicitudes");
+            }    
+            */
+          }
+        });
+        return respuesta
+      }
 
      /*
       var op_mis_eventos = {
