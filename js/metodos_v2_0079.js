@@ -1,6 +1,7 @@
 function inicio(){
 
   
+  
   var bandera_menu=false;
   $('#resultado_bitacora').hide();
  
@@ -1914,16 +1915,16 @@ var parametros = {
           acta=false;
           ver_archivos('ca', "");
         }
-       
 
-      
-
-        function ver_solicitudes_por_evento(evento){
+        function ver_solicitudes_por_evento(evento, filtro){
           $('#resultado_solicitudes').html('');
           $('#mensaje_demo').html('');
+          if(filtro=="todos"){
+            $('#c_filtro_solicitudes').val("0");
+          }
           var datos={
             "evento": evento,
-            "usuario": $('#label_user').html(),
+            "filtro":filtro,
           }
           $.ajax({
               url:   "ver_solicitudes_por_evento.php",
@@ -1937,16 +1938,18 @@ var parametros = {
                 $('#resultado_solicitudes').html(arr[0]);
                 $('#resultado_solicitudes').fadeIn();
                 $('#espacio').show();
+                $('#div_filtro_solicitudes').show();
+                
                // $('#tabla_resumen_solicitudes').DataTable();
                 $('#tabla_resumen_solicitudes').DataTable({
                   "searching": true,
                   "language" : idioma_espaniol,
                   //"lengthChange": false,
-                  //"ordering": false,
+                  "ordering": true,
                   "paging": false,
                   //"scrollX": false,
                   "destroy": true, 
-                 //  "sort": false,
+                  "sort": true,
                   //"scrollX": true,
                   //"scrollCollapse": false,4
                   dom: 'Bfrtip',
@@ -1964,6 +1967,7 @@ var parametros = {
                }); 
               }
             });
+            
         }
 
         
@@ -2076,9 +2080,9 @@ var parametros = {
                                 } else {
                                     resolve();
                                      if(response.includes("factura registrada")){
-                                      ver_solicitudes_por_evento(evento);
+                                      ver_solicitudes_por_evento(evento,"todos");
                                         setTimeout(function() {
-                                          ver_solicitudes_por_evento(evento);
+                                          ver_solicitudes_por_evento(evento,"todos");
                                              swal({
                                                 type: 'success',
                                                 title: 'Listo',
@@ -2087,9 +2091,9 @@ var parametros = {
                                             }, 200)
                                         }
                                         else if(response.includes("ya existe")){
-                                      ver_solicitudes_por_evento(evento);
+                                          ver_solicitudes_por_evento(evento,"todos");
                                         setTimeout(function() {
-                                          ver_solicitudes_por_evento(evento);
+                                          ver_solicitudes_por_evento(evento,"todos");
                                              swal({
                                                 type: 'warning',
                                                 title: 'Advertencia',
@@ -2142,7 +2146,7 @@ var parametros = {
                     
                     generate('error',"Ocurrio un error. Vea la consola para mas detalles");
                   }
-                  ver_solicitudes_por_evento(evento)
+                  ver_solicitudes_por_evento(evento, "todos");
                 }
               });
            }
@@ -2180,7 +2184,7 @@ var parametros = {
                     
                     generate('error',"Ocurrio un error. "+response);
                   }
-                  ver_solicitudes_por_evento(evento)
+                  ver_solicitudes_por_evento(evento, "todos");
                 }
               });
            }
@@ -2208,31 +2212,6 @@ var parametros = {
 
         ////////////////////FIN/7/////////////
       
-
-
-        /*
-       $('#c_mis_solicitudes').change(function(){
-        if($('#c_mis_solicitudes').val()=="vacio"){
-          $('#btn_descargar').fadeOut();
-        }
-        else{
-          $('#btn_descargar').fadeIn();
-        }
-        });
-*/
-/*
-        $('#c_mis_eventos').change(function(){
-          var evento=$('#c_mis_eventos').val();
-          var usuario=$('#label_user').html();
-          if(evento=="vacio"){
-          }
-          else{
-            //ver_mis_solicitudes();
-            ver_solicitudes_por_evento(evento);
-            //$('#div_mis_solicitudes').fadeIn();
-          }
-        });
-        */
 
 
         $('#c_clientes_alta').change(function(){
@@ -3849,7 +3828,7 @@ function validarInput() {
     
     $.ajax({
     type : 'POST',
-    url  : 'reporte_eventos.php',
+    url  : 'reporte_eventos.php',    
     beforeSend: function(){
       $('#rep_eventos_loader').show();
       $('#reporte_eventos').hide();
@@ -3985,7 +3964,7 @@ function validarInput() {
                 success:  function (response) {
                     if (response.includes("factura agregada")) {
                       var evento=$('#c_mis_eventos').val();
-                      ver_solicitudes_por_evento(evento);
+                      ver_solicitudes_por_evento(evento, "todos");
                       swal({
                         type: 'success',
                         title: 'Correcto',
@@ -4046,7 +4025,7 @@ function validarInput() {
                                }
                                 else if(response.includes("factura agregada")){
                                    setTimeout(function() {
-                                    ver_solicitudes_por_evento($('#c_mis_eventos').val());
+                                    ver_solicitudes_por_evento($('#c_mis_eventos').val(), "todos");
                                         swal({
                                            type: 'success',
                                            title: 'Listo',
@@ -4117,9 +4096,9 @@ function validarInput() {
                                     resolve();
                                      if(response.includes("cheque registrado")){
                                        
-                                      ver_solicitudes_por_evento(evento);
+                                      ver_solicitudes_por_evento(evento, "todos");
                                         setTimeout(function() {
-                                          ver_solicitudes_por_evento(evento);
+                                          ver_solicitudes_por_evento(evento, "todos");
                                              swal({
                                                 type: 'success',
                                                 title: 'Listo',
@@ -4301,13 +4280,39 @@ function validarInput() {
     url  : 'reporte_clientes.php',
       success :  function(response){
         $('#reporte_clientes').html(response);  
-        
+        /*
         $('#reporte_clientes').DataTable({
              "scrollX": true,
              "destroy": true, 
               "sort": false,
              "language" : idioma_espaniol
-          });            
+          });   
+          */
+          $('#reporte_clientes').DataTable({
+            "searching": true,
+            "language" : idioma_espaniol,
+            "pageLength": 25,
+            //"lengthChange": false,
+            //"ordering": true,
+            //"paging": false,
+            //"scrollX": false,
+            "destroy": true, 
+            "sort": false,
+            "scrollX": true,
+            //"scrollCollapse": false,4
+            dom: 'Bfrtip',
+            buttons: [
+                'excel'
+                //'excel', 'pdf',
+            ]
+            /*
+            "columnDefs": [
+                { "width": "3%", "targets": [-1,-2,-3] }
+            ],
+            */
+            //"lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
+           
+         });         
       }
     });
   });
@@ -4379,6 +4384,7 @@ function validarInput() {
     url  : 'reporte_proveedores.php',
       success :  function(response){
         $('#reporte_proveedores').html(response);  
+        $('#reporte_proveedores tbody tr td').css("padding:5px");
         $('#reporte_proveedores').DataTable({
                   dom: 'Bfrtip',
                 buttons: [
@@ -4388,6 +4394,7 @@ function validarInput() {
              "scrollX": true,
              "destroy": true, 
               "sort": false,
+              "pageLength": 25,
              "language" : idioma_espaniol
           });            
       }
@@ -5306,11 +5313,12 @@ $('#btn_transferir').click(function(e){
           url:   'transferir_odc.php',
           type:  'post',
           success:  function (response) {
+            console.log("transerir odc:"+response);
             if(response.includes("correcto")){
               generate("success", "La transferencia ha sido realizada!");
               n.close();
               var ev=$('#c_mis_eventos').val();
-              ver_solicitudes_por_evento(ev);
+              ver_solicitudes_por_evento(ev,"todos");
             }
             else{
               generate("error", "Error: "+response);
@@ -5423,7 +5431,7 @@ $('#btn_borrar_sdp').click(function(e){
             if(response.includes("cancelado")){
               generate("success", "La solicitud ha sido cancelada!!");
               var evento=$('#c_mis_eventos').val();
-              ver_solicitudes_por_evento(evento);
+              ver_solicitudes_por_evento(evento,"todos");
               noty.close();
             }
             else{
@@ -5555,7 +5563,7 @@ function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
             if(response.includes("devolucion exitosa")){
               generate("success", "La devolucion se ha realizado correctamente!!");
               var evento=$('#c_mis_eventos').val();
-              ver_solicitudes_por_evento(evento);
+              ver_solicitudes_por_evento(evento,"todos");
               noty.close();
             }
             else{
@@ -5803,7 +5811,7 @@ function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
                 generate("success", "La solicitud ha sido transferida!!");
               }
               var evento=$('#c_mis_eventos').val();
-              ver_solicitudes_por_evento(evento);
+              ver_solicitudes_por_evento(evento,"todos");
               noty.close();
             }
             else{
@@ -5862,7 +5870,7 @@ function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
             if(response.includes("cancelada")){
               generate("success", "La solicitud ha sido cancelada!!");
               var evento=$('#c_mis_eventos').val();
-              ver_solicitudes_por_evento(evento);
+              ver_solicitudes_por_evento(evento,"todos");
               noty.close();
             }
             else{
@@ -6136,7 +6144,7 @@ var options = {
           $('#c_mis_eventos').trigger("chosen:updated");
           var seleccion=$("#c_mis_eventos").val();
           if(seleccion!='0'){
-            ver_solicitudes_por_evento(seleccion);
+            ver_solicitudes_por_evento(seleccion,"todos");
           }
           },
         }); 
@@ -6144,7 +6152,7 @@ var options = {
 
       $("#c_mis_eventos").chosen().change(function(){
         var valor=$(this).val();
-        ver_solicitudes_por_evento(valor);
+        ver_solicitudes_por_evento(valor,"todos");
       });
 
 
@@ -6255,77 +6263,14 @@ var options = {
           data: datos,
           async: false,
           success:  function (response) {
-            respuesta=false;
-            /*
+            console.log(response);
             if(response.includes("vencido")){
-              generate("warning", "Este evento ya esta vencido, no es posible hacer solicitudes");
-            }    
-            */
+              respuesta=false;
+            }
           }
         });
         return respuesta
       }
-
-     /*
-      var op_mis_eventos = {
-        url: function(phrase) {
-          var usuario=$("#input_oculto").val();
-          return "buscar_evento.php?usuario="+usuario+"&like="+phrase+"&anio=0";
-        },
-        getValue: function(element) {
-          
-          return element.name;
-        },
-        theme: "plate-dark",
-        list: {
-          maxNumberOfElements: 20,
-          match: {
-            enabled: true
-          },
-          onClickEvent: function() {
-            var evento = $("#c_mis_eventos").getSelectedItemData().name;
-            ver_solicitudes_por_evento(evento);
-            ids_odc="";
-        },
-        },
-        
-      };
-      $("#c_mis_eventos").easyAutocomplete(op_mis_eventos);
-*/
-
-
-/* NO BORRRAR, SE USARA EN UN FUTOURO CON EL INPUT DE AUTOCOMPLETE/////////
-  var options2 = {
-    url: function(phrase) {
-      return "ver_nombre_evento.php";
-    },
-    getValue: function(element) {
-      return element.name;
-    },
-    ajaxSettings: {
-      dataType: "json",
-      method: "POST",
-      data: {
-        dataType: "json"
-      }
-    },
-    preparePostData: function(data) {
-      var usuario=$('#label_user').html();
-      var evento=$("#txt_evento_demo").val()
-      var parametro=usuario+"#"+evento;
-      data.phrase = parametro ;
-      return data;
-    },
-    requestDelay: 10,
-    list: {
-      match: {
-        enabled: true
-      }
-    },
-    theme: "plate-dark"
-  };
-$("#txt_evento_demo").easyAutocomplete(options2);
-	*/
   
 
   $('#btn_agregar_tarjeta').click(function(){
@@ -6909,7 +6854,7 @@ $("#menu_facturacion_calendario").click(function (e) {
   e.preventDefault();
   limpiar_cortinas();
   $("#div_cortina").animate({top: '0px'}, 1100);
-  $("#frame").attr("src", "calendar_facturacion.html");
+  $("#frame").attr("src", "calendar_facturacion2.html");
   $('#div_iframe').fadeIn();
 });
 
@@ -6934,7 +6879,7 @@ $("#menu_calendario").click(function (e) {
   e.preventDefault();
   limpiar_cortinas();
   $("#div_cortina").animate({top: '0px'}, 1100);
-  $("#frame").attr("src", "calendar.html");
+  $("#frame").attr("src", "calendar2.html");
   $('#div_iframe').fadeIn();
 });
 
@@ -6980,7 +6925,7 @@ $(".btn_archivos").change(function(){
       break;
     }
     if($('#c_clientes_alta').val()!="vacio"){
-      limpiar_cliente();
+      //limpiar_cliente();
       ver_archivos('ca', "");
     }
     else{
@@ -7037,7 +6982,7 @@ function subir_factura(evento, nombre){
                   }
                   else{
                     var evento = $("#c_mis_eventos").val();
-                    ver_solicitudes_por_evento(evento);
+                    ver_solicitudes_por_evento(evento,"todos");
                     generate('success',response);
                   }
                   $noty.close();
@@ -7095,7 +7040,7 @@ function borrar_factura(archivo, noty){
       if(response.includes("borrado")){
         generate('success', 'El documento ha sido eliminado!');
         var evento = $("#c_mis_eventos").val();
-        ver_solicitudes_por_evento(evento);
+        ver_solicitudes_por_evento(evento,"todos");
         noty.close();
       }
       else{
@@ -7234,7 +7179,7 @@ $('#c_user_solicita').change(function(){
                         }
                         else{
                           var evento = $("#c_mis_eventos").val();
-                          ver_solicitudes_por_evento(evento);
+                          ver_solicitudes_por_evento(evento,"todos");
                           generate('success',response);
                         }
                         $noty.close();
@@ -7437,7 +7382,7 @@ $('#c_user_solicita').change(function(){
               $('.close-modal ').click();
               $('.close-modal ').trigger("click");
               
-              ver_solicitudes_por_evento(evento);
+              ver_solicitudes_por_evento(evento,"todos");
              // noty.close();
             }
           }
@@ -7575,7 +7520,7 @@ $('#c_user_solicita').change(function(){
     $('#c_mis_eventos').val(id);
     $('#c_mis_eventos').trigger("chosen:updated");
     $('#resultado_solicitudes_sin_factura').show();
-    ver_solicitudes_por_evento(id);  
+    ver_solicitudes_por_evento(id,"todos");  
   });
 
 
@@ -7690,6 +7635,20 @@ $('#c_user_solicita').change(function(){
         }
       ]
     });
+  });
+
+  $('#c_filtro_solicitudes').change(function(){
+    var valor=$(this).val();
+    var id=$('#c_mis_eventos').val();
+    if(valor=="0"){
+      ver_solicitudes_por_evento(id,"todos");
+    }
+    else if(valor=="Pagados"){
+      ver_solicitudes_por_evento(id,"pagados");
+    }
+    else if(valor=="Comprobados"){
+      ver_solicitudes_por_evento(id,"comprobados");
+    }
   });
 
 }

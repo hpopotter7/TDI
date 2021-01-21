@@ -100,7 +100,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v107.js"></script>
-  <script src="js/metodos_v2_0072.js"></script>
+  <script src="js/metodos_v2_0079.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -682,7 +682,7 @@ span.switch-label:after {
           </li>
           <li>
             <a href="#" data-toggle="collapse" data-target="#toggleDemo7" data-parent="#sidenav01" class="collapsed">
-            <span class="fas fa-chart-bar"></span> Reportes <span class="caret pull-right"></span>
+            <span class="fas fa-table"></span> Reportes <span class="caret pull-right"></span>
             </a>
             <div class="collapse" id="toggleDemo7" style="height: 0px;">
               <ul class="nav nav-list">
@@ -765,6 +765,18 @@ span.switch-label:after {
                     <li><a href="#" id='btn_borrar_sdp'><i class="fas fa-trash" aria-hidden="true"> Borrar</i></a></li>
                     <li><a href="#" id='btn_odcs_pendientes'><i class="fas fa-exclamation" aria-hidden="true"> Odc's pendientes</i></a></li>
                   </ul>
+              </div>
+            </div>
+            <div id="div_filtro_solicitudes" class="form-group col-md-3" style='display:none'>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-filter" aria-hidden="true"></i></span>
+                  <select name="c_filtro_solicitudes" id="c_filtro_solicitudes" class='form-control' >
+                  <option value='0'>Todos</option>
+                  <option value='Pagados'>No pagados</option>
+                  <option value='Comprobados'>No comprobados</option>
+                  </select>
+                </div>
               </div>
             </div>
               <!--

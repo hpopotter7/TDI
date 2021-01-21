@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
+<link href='packages/core/main.css' rel='stylesheet' />
+<link href='packages/bootstrap/main.css' rel='stylesheet' />
+<link href='packages/timegrid/main.css' rel='stylesheet' />
+<link href='packages/daygrid/main.css' rel='stylesheet' />
+<link href='packages/list/main.css' rel='stylesheet' />
+<link href='css/estilos_calendar.css' rel='stylesheet' />
+<link href=" https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/dark-hive/jquery-ui.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+
+  
+<script src='packages/core/main.js'></script>
+<script src='packages/interaction/main.js'></script>
+<script src='packages/bootstrap/main.js'></script>
+<script src='packages/daygrid/main.js'></script>
+<script src='packages/timegrid/main.js'></script>
+<script src='packages/list/main.js'></script>
+<script src='js/theme-chooser.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src='packages/locales/es.js'></script>
+<script src="js/metodos_calendar_facturacion2.js"></script>
+
+
+
+<script>
+ $(document).on("ready",inicio);  
+</script>
+<style>
+  body{
+    background-color: rgba(255, 255, 255, 0.29) !important;
+  }
+  .rojo{
+    background-color: crimson;
+    
+  }
+  .fancybox-slide--iframe .fancybox-content {
+	width  : 900px;
+	height : 600px;
+	max-width  : 80%;
+	max-height : 80%;
+	margin: 0;
+  background: #191919;
+}
+</style>
+</head>
+<body>
+  <div id='top' style="display: none;">
+    <div class='left'>
+      <div id='theme-system-selector' class='selector'>
+        Theme System:
+        <select>
+          <option value='bootstrap' selected>Bootstrap 4</option>
+        </select>
+      </div>
+      <div data-theme-system="bootstrap" class='selector' style='display:none'>
+        Theme Name:
+        <select>
+          <option value='minty' selected>Minty</option>
+        </select>
+      </div>
+      <span id='loading' style='display:none'>loading theme...</span>
+    </div>
+    <div class='clear'></div>
+    
+  </div>
+  <div class="container">
+    <div class="row">
+      <h3 style='width: 100%; text-align: center;'>Facturas próximas a vencer</h3>
+    </div>
+    <div id='calendar' style='background-color: white !important;'></div>
+    
+  </div>
+  <div class="container">
+    <div class="row">
+      <div id='resultado_vencidos_atrasada' class='col-md-4' style='flex:0 0 auto !important;width:30% !important;margin:auto;text-align:center;border: 2px solid red;padding: .5em;background-color:white;border-radius: 1em;'>
+      </div>
+      <div id='resultado_vencidos' class='col-md-4 pull-right' style='flex:0 0 auto !important;width:30% !important;margin:auto;text-align:center;border: 2px solid rgb(236, 164, 55);padding: .5em;background-color:white;border-radius: 1em;'>
+      </div>
+      <div id='resultado_vigentes' class='col-md-4 pull-right' style='flex:0 0 auto !important;width:30% !important;margin:auto;text-align:center;border: 2px solid royalblue;padding: .5em;background-color:white;border-radius: 1em;'>
+      </div>
+    </div>
+    <div class="row">
+      <table style='width: 100%;'>
+        <tr>
+          <td style='width: 30%;'></td>
+          <td style='width: 30%;'><div id='resultado_vencidos_total' style='width:91% !important;margin:10px auto;text-align:center;border: 2px solid red;padding: .5em;background-color:rgb(235, 83, 83);border-radius: 1em;color:white'>
+          </div></td>
+          <td style='width: 30%;'><div id="resultado_mes1" style="width:91% !important;margin:10px auto;text-align:center;border: 2px solid royalblue;padding: .5em;background-color:white;border-radius: 1em;" class="col-md-12"></div></td>
+        </tr>
+      </table>
+    </div>
+    <div class="row">
+      <table style='width: 100%;'>
+        <tr>
+          <td style='width: 30%;'></td>
+          <td style='width: 30%;'></td>
+          <td style='width: 30%;'><div id="resultado_mes2" style="width:91% !important;margin:10px auto;text-align:center;border: 2px solid royalblue;padding: .5em;background-color:white;border-radius: 1em;" class="col-md-12"></div></td>
+        </tr>
+      </table>
+    </div>
+    <div class="row">
+      <table style='width: 100%;'>
+        <tr>
+          <td style='width: 30%;'></td>
+          <td style='width: 30%;'></td>
+          <td style='width: 30%;'><div id="resultado_mes3" style="width:91% !important;margin:10px auto;text-align:center;border: 2px solid royalblue;padding: .5em;background-color:white;border-radius: 1em;" class="col-md-12"></div></td>
+        </tr>
+      </table>
+    </div>
+    <div class="row">
+      <table style='width: 100%;'>
+        <tr>
+          <td style='width: 30%;'></td>
+          <td style='width: 30%;'></td>
+          <td style='width: 30%;'><div id="resultado_total" style="width:91% !important;margin:10px auto;text-align:center;border: 2px solid royalblue;padding: .5em;background-color:white;border-radius: 1em;" class="col-md-12"></div></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+</body>
+</html>

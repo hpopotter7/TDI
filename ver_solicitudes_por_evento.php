@@ -1,6 +1,7 @@
 <?php 
  $evento=$_POST['evento'];
- $usuario=$_POST['usuario'];
+ $usuario=$_COOKIE['user'];
+ $filtro=$_POST['filtro'];
  $tbody="";
  $total_facturas=0;
  setcookie("evento", "", time() - 3600);
@@ -60,7 +61,17 @@ if ($result = $mysqli->query($sql3)) {
   }
 }
 
-$sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra, o.Monto_devolucion, DATE_FORMAT(o.Fecha_devolucion, '%d-%m-%Y') as 'Fecha_dev', o.Motivo_devolucion, o.Banco_devolucion, o.Tipo_tarjeta, o.No_Tarjeta, o.Importe_total FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.Cancelada='no' order by o.id_odc desc";
+if($filtro=="todos"){
+  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra, o.Monto_devolucion, DATE_FORMAT(o.Fecha_devolucion, '%d-%m-%Y') as 'Fecha_dev', o.Motivo_devolucion, o.Banco_devolucion, o.Tipo_tarjeta, o.No_Tarjeta, o.Importe_total FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.Cancelada='no' order by o.id_odc desc";
+}
+
+else if($filtro=="pagados"){
+  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra, o.Monto_devolucion, DATE_FORMAT(o.Fecha_devolucion, '%d-%m-%Y') as 'Fecha_dev', o.Motivo_devolucion, o.Banco_devolucion, o.Tipo_tarjeta, o.No_Tarjeta, o.Importe_total FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.pagado='no' and o.Cancelada='no' order by o.id_odc desc";
+}
+
+else if($filtro=="comprobados"){
+  $sql="SELECT o.a_nombre, o.concepto, o.cheque_por, o.id_odc, e.Nombre_evento, o.Factura, o.pagado, o.comprobado, o.solicito, o.identificador, e.Facturacion, o.no_cheque, o.usuario_registra, o.Monto_devolucion, DATE_FORMAT(o.Fecha_devolucion, '%d-%m-%Y') as 'Fecha_dev', o.Motivo_devolucion, o.Banco_devolucion, o.Tipo_tarjeta, o.No_Tarjeta, o.Importe_total FROM odc o, eventos e where o.evento= e.Numero_evento and o.evento='".$num_evento."' and o.comprobado='no' and o.Cancelada='no' order by o.id_odc desc";
+}
 
 
 if ($result = $mysqli->query($sql)) {

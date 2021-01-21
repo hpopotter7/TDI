@@ -7,7 +7,7 @@ if (mysqli_connect_errno()) {
 }
 
 $result = $mysqli->query("SET NAMES 'utf8'"); 
-$sql="select municipio, estado from  codigos_postales where CP='".$cp."' ";
+$sql="select municipio, estado from codigos_postales where CP='".$cp."' ";
 $res="";
 if ($result = $mysqli->query($sql)) {
    $cont=0;
