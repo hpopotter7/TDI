@@ -1,0 +1,164 @@
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(comprobantes/2020-040,comprobantes/2020-040): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(comprobantes/2020-040): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(comprobantes/2020-040,comprobantes/2020-040): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(comprobantes/2020-040): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(comprobantes/2020-040,comprobantes/2020-040): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(comprobantes/2020-040): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(comprobantes/2020-040,comprobantes/2020-040): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(comprobantes/2020-040): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(facturas/824,facturas/824): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(facturas/824): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:13:17 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605,comprobantes/2019-605): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(comprobantes/2019-605): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(facturas/606,facturas/606): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(facturas/606): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:27:22 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 02:27:32 UTC] PHP Warning:  scandir(comprobantes/2019-607,comprobantes/2019-607): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:32 UTC] PHP Warning:  scandir(comprobantes/2019-607): failed to open dir: No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:32 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 176
+[22-Jan-2021 02:27:32 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\ver_solicitudes_por_evento.php on line 181
+[22-Jan-2021 02:27:32 UTC] PHP Warning:  scandir(facturas/608,facturas/608): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:27:32 UTC] PHP Warning:  scandir(facturas/608): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:27:32 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:27:32 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 02:28:13 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:28:13 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:28:13 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:28:13 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 02:34:13 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:34:13 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:34:13 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:34:13 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 02:37:15 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:37:15 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:37:15 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:37:15 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 02:48:44 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:48:44 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:48:44 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:48:44 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 02:53:44 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:53:44 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:53:44 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:53:44 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 02:55:56 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:55:56 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:55:56 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:55:56 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 02:56:43 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:56:43 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:56:43 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:56:43 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 02:59:41 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:59:41 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:59:41 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 02:59:41 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 03:07:51 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 03:07:51 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 03:07:51 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 03:07:51 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 03:11:06 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 03:11:06 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 03:11:06 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 03:11:06 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 06:20:59 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:20:59 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:20:59 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:20:59 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 06:21:39 UTC] PHP Warning:  scandir(facturas/1078,facturas/1078): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:39 UTC] PHP Warning:  scandir(facturas/1078): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:39 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:39 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 06:21:41 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:41 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:41 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:41 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 06:21:46 UTC] PHP Warning:  scandir(facturas/1069,facturas/1069): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:46 UTC] PHP Warning:  scandir(facturas/1069): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:46 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:46 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 06:21:49 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:49 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:49 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:21:49 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 06:29:28 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:29:28 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:29:28 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:29:28 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 06:30:19 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:30:19 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:30:19 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:30:19 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 06:30:47 UTC] PHP Warning:  scandir(facturas/1069,facturas/1069): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:30:47 UTC] PHP Warning:  scandir(facturas/1069): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:30:47 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:30:47 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 06:30:50 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:30:50 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:30:50 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:30:50 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 06:33:04 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:33:04 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:33:04 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:33:04 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16
+[22-Jan-2021 06:36:06 UTC] PHP Warning:  scandir(facturas/1084,facturas/1084): El sistema no puede encontrar el archivo especificado. (code: 2) in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:36:06 UTC] PHP Warning:  scandir(facturas/1084): failed to open dir: No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:36:06 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 12
+[22-Jan-2021 06:36:06 UTC] PHP Warning:  Invalid argument supplied for foreach() in C:\AppServ\www\tdi\tabla_facturacion_detalle_eventos.php on line 16

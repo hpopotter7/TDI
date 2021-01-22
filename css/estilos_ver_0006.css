@@ -508,6 +508,9 @@ legend.scheduler-border {
     text-align: left !important;
     color: black;
 }
+.noty_modal{
+	width: 100% !important;
+}
 
 .files_clientes{
 	margin-bottom: 0;

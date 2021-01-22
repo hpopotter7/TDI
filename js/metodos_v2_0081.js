@@ -1,4 +1,6 @@
 function inicio(){
+
+  
   var bandera_menu=false;
   $('#resultado_bitacora').hide();
  
@@ -1018,10 +1020,7 @@ var parametros = {
             layout      : 'topCenter',  //bottomLeft
             buttons: [
               {addClass: 'btn btn-success', text: 'Si, eliminar', onClick: function($noty) {
-                  // this = button element
-                  // $noty = $noty element
                   //console.log($noty.$bar.find('input#example').val());
-                  //ajax borrar user
                     var nombre=$('#c_usuarios').val();
                     var parametros={
                       "nombre": nombre
@@ -1044,15 +1043,10 @@ var parametros = {
                           }
                         }
                       });
-
-
-                  //
-                  
                 }
               },
               {addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
                   $noty.close();
-                 
                 }
               }
             ]
@@ -1866,9 +1860,51 @@ var parametros = {
               var arr=$(this).attr('id').split("_");
               var estatus=$(this).val();
               var id=arr[1];
+              var fecha_pago="";
+              if(estatus=="PAGADO"){
+                noty({
+                  type        : 'warning',
+                  layout      : 'center',
+                  theme       : 'metroui',
+                  progressBar : true,
+                  maxVisible  : 10,
+                  closeWith: ['button'],
+                  modal: "true",
+                  //timeout     : [10000],
+                  text: 'Ingresa la fecha de pago: <input type="date" class="form-control" id="txt_fecha_pago">',
+                  buttons: [
+                    {addClass: 'btn btn-primary', text: 'Aceptar', onClick: function($noty) {
+                        var fecha_pago=($noty.$bar.find('input#txt_fecha_pago').val());
+                          if(fecha_pago==null || fecha_pago==""){
+                            generate("warning","La fecha de pago esta vacia");                            
+                          }
+                          else{
+                            actualizar_estatus_factura(id, estatus,fecha_pago);
+                            $noty.close();
+                          }
+                        }
+                    },
+                    /*
+                    {addClass: 'btn btn-danger', text: 'Cance', onClick: function($noty) {
+                        $noty.close();
+                        //noty({text: 'You clicked "Cancel" button', type: 'error'});
+                      }
+                    }
+                    */
+                  ]
+                });
+              }
+              else{
+                
+                actualizar_estatus_factura(id, estatus,fecha_pago);
+              }              
+            });
+
+            function actualizar_estatus_factura(id,estatus,fecha_pago){
               var datos={
                 "id":id,
-                "estatus":estatus
+                "estatus":estatus,
+                "fecha_pago":fecha_pago,
               }
               $.ajax({
                 url:   'modificar_estatus_factura.php',
@@ -1887,7 +1923,8 @@ var parametros = {
                     }
                 }
               });
-            });
+
+            }
 
            $("#resultado_solicitudes").delegate(".btn_factura", "click", function() {
             var id=$(this).attr('id');
@@ -2593,20 +2630,7 @@ var parametros = {
                 var VAL=ver_suma_sdp(evento);
                 var maximo=$('#label_maximo_odc').asNumber({ parseType: 'Float' });
                 if(odc_cheque_por<maximo){
-                  /*
-                  ver_personas();
-                  noty({
-                  text        : $('#d-none').html(),
-                  width       : '400px',
-                  type        : 'warning',
-                  dismissQueue: false,
-                  closeWith   : ['button'],
-                  theme       : 'metroui',
-                  timeout     : false,
-                  layout      : 'topCenter',
-                   buttons: [
-                    {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
-                      */
+                  
                           if(titulo.includes("pago")){
                             titulo="Pago";
                           }
@@ -2674,17 +2698,7 @@ var parametros = {
                                 }
                               }
                             });
-                            //$noty.close();
-                          /*        
-                      }
-                    },
-                    {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
-                       $noty.close();
-                      }
-                    }
-                   ]
-                  });
-                  */
+                           
                 }
                 
                 else{
@@ -7549,5 +7563,6 @@ $('#c_user_solicita').change(function(){
       }
     });
   }
+  
 
 }

@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="css/bootstrap.toogle.min_v001.css" >
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/bootstrap.min6.css">
-  <link rel="stylesheet" href="css/estilos_ver_0005.css"/>
+  <link rel="stylesheet" href="css/estilos_ver_0006.css"/>
   <link rel="stylesheet" href="css/estilos_menu_user.css"/>
   <link rel="stylesheet" href="css/jquery-ui_theme_green.css"/>
   <link rel="stylesheet" href="css/jquery-ui_green.css"/>
@@ -100,7 +100,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v108.js"></script>
-  <script src="js/metodos_v2_0080.js"></script>
+  <script src="js/metodos_v2_0081.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
