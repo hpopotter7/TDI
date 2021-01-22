@@ -99,8 +99,8 @@
   <script src="js/Chart.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
-  <script src="js/funciones_v107.js"></script>
-  <script src="js/metodos_v2_0079.js"></script>
+  <script src="js/funciones_v108.js"></script>
+  <script src="js/metodos_v2_0080.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -1746,9 +1746,16 @@ span.switch-label:after {
                 <div class="input-group">
                   <input id='check_estatus_facturacion' name='check_estatus_facturacion' type="checkbox" data-toggle="toggle" data-height="50"  data-width="100" data-onstyle="success" data-on="Total" data-off="Aprox" data-offstyle="warning">
                 </div>
-                
               </div>
             </div> 
+            <div class="form-group col-md-2" id='div_candado'>
+              <label for="confirm" class="cols-sm-2 control-label"></label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                <button type="button" id='btn_bloquear_evento' class="btn btn-danger" data-toggle="button" aria-pressed="false" autocomplete="off" style='padding:12px'><i class="fas fa-lock"></i> Bloqueado</button>
+                </div>
+              </div>
+            </div>  
           </div>
             
           </div>

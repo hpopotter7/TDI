@@ -141,6 +141,7 @@ function validar_perfiles(response){
 	}
 	else{
 		$('#btn_menu_fac_pendiente').remove();
+		$('#div_candado').remove();
 	}
 	
 

@@ -10,28 +10,6 @@ if (mysqli_connect_errno()) {
 /* Select queries return a resultset */
 $result = $mysqli->query("SET NAMES 'utf8'");
 $sql="";
-/*
-if(substr($id,0,1)==="["){
-    $arr=explode("]",$id);
-    $ID=str_replace("[", "", $arr[0]);
-    $sql="select id_evento from eventos where Numero_evento='".$ID."'";
-    
-    if ($result = $mysqli->query($sql)) {
-        while ($row = $result->fetch_row()) {
-            $id=$row[0];
-        }
-        $result->close();
-    }
-}
-else{
-    $result->close();
-     $return = Array('error'=>mysqli_error($mysqli).$sql);
-    $res=$res.json_encode($return)."\n";
-    echo $res;
-    //echo $sql.mysqli_error($mysqli);
-   exit();
-}
-*/
 
 if ($result = $mysqli->query("SELECT * FROM eventos where id_evento=".$id)) {
 
@@ -52,7 +30,8 @@ if ($result = $mysqli->query("SELECT * FROM eventos where id_evento=".$id)) {
                     	'Comentarios'=>$row['Comentarios'],
                         'Ejecutivo'=>$row['Ejecutivo'],
                         'Digital'=>$row['Digital'],
-                        'Video'=>$row['Video']
+                        'Video'=>$row['Video'],
+                        'Candado'=>$row['Candado']
         	);
     }
 

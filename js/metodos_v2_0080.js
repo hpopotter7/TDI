@@ -1,7 +1,4 @@
 function inicio(){
-
-  
-  
   var bandera_menu=false;
   $('#resultado_bitacora').hide();
  
@@ -12,7 +9,6 @@ $(".collapsed").click(function(e){
 $('#nav_verde').mouseover(function(){
   if(bandera_menu==false){
       $('#sidenav01').css("left","0px");
-      
       bandera_menu=true;
   }
 });
@@ -20,14 +16,11 @@ $('#nav_verde').mouseover(function(){
   $(".navbar").mouseleave(function(){
     if(bandera_menu==true){
       $('#sidenav01').css("left","-250px");
-      
       bandera_menu=false;
   }
   });
 
   $('.progress').hide();
-  
-  
   ver_personas();
 
   var contador_tiempo=-1;
@@ -1196,8 +1189,6 @@ var parametros = {
               success:  function (response) {
                 
                 if(response.includes("creado correctamente")){
-                  
-                  
                   $('#form_nuevo_evento')[0].reset();
                   $('#c_ejecutivos').multiselect("deselectAll", false).multiselect("refresh");
                   $('#c_produccion').multiselect("deselectAll", false).multiselect("refresh");
@@ -1219,41 +1210,6 @@ var parametros = {
           }
         });
 
-        //menu de whats
-       /* $(".item_menu").click(function(){
-          if(bandera_click){
-            ver_notificaciones();
-          }
-            else{
-              if(bandera_activo=="no"){
-              ver_notificaciones2();
-              }
-          }
-          
-        });
-
-        function ver_notificaciones(){ // si se abre por primera vez
-          //ajax para revisar mensajes para mi sin leer
-          if(true){ 
-            $('#notificaciones').fadeIn();
-            $("#notificaciones").addClass('animated slideInRight');
-            bandera_click=false;
-            bandera_activo="si";
-          }
-        }
-        function ver_notificaciones2(){ //si previamente ya se abrio
-          //ajax para revisar mensajes para mi sin leer
-          if(true){ 
-            $('#notificaciones').hide();
-            $("#notificaciones").removeClass('slideOutRight'); 
-              setTimeout(function(){
-                $('#notificaciones').fadeIn();
-                $("#notificaciones").addClass('slideInRight');
-              },1);  
-          }
-        }
-        */
-
         $('#menu_crear_evento').click(function(e){
           
            e.preventDefault();
@@ -1264,22 +1220,6 @@ var parametros = {
             ver_usuarios_combos("Productor");
             ver_usuarios_combos("Disenio");
             llenar_eventos_combo("0");
-           /*
-           $("#div_cortina").animate({top: '0px'}, 1100); 
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_odc').fadeOut();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_nuevo_evento').fadeIn();   
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-*/
             limpiar_cortinas();
             $("#div_cortina").animate({top: '0px'}, 1100);
             $('#div_nuevo_evento').fadeIn();
@@ -1293,65 +1233,14 @@ var parametros = {
             $("#div_cortina").animate({top: '0px'}, 1100);
             $('#div_modificar_evento').fadeIn();
             llenar_combo_eventos_modificar("0");
-           /*
-           ver_eventos($('#c_eventos_modificar'));
-           $("#div_cortina").animate({top: '0px'}, 1100); 
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_odc').fadeOut();
-           $('#div_nuevo_evento').fadeOut();           
-           $('#div_modificar_evento').fadeIn();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
         });
 
         $('#menu_cerrar_evento').click(function(e){
            e.preventDefault();
-           /*
-           $("#div_cortina").animate({top: '0px'}, 1100); 
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_odc').fadeOut();
-           $('#div_nuevo_evento').fadeOut();           
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeIn();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
         });        
 
         $('#menu_solicitud_odc').click(function(e){ 
           e.preventDefault();  
-          
-          /*
-           $("#div_sodexo").hide();
-           $("#div_cortina").animate({top: '0px'}, 1100);           
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_odc').fadeIn();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();            
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-*/
             limpiar_cortinas();
             $("#div_cortina").animate({top: '0px'}, 1100);
             $('#div_odc').fadeIn();
@@ -1374,23 +1263,7 @@ var parametros = {
 
         $('#menu_solicitud_viaticos').click(function(e){
           e.preventDefault();
-          /*
-           $("#div_sodexo").show();
-           $("#div_cortina").animate({top: '0px'}, 1100); 
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_odc').fadeIn();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
+         
            limpiar_cortinas();
             $("#div_cortina").animate({top: '0px'}, 1100);
             $('#div_odc').fadeIn();
@@ -1413,23 +1286,6 @@ var parametros = {
 
         $('#menu_solicitud_reembolso').click(function(e){
           e.preventDefault();
-          /*
-           $("#div_sodexo").show();
-          $("#div_cortina").animate({top: '0px'}, 1100); 
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_odc').fadeIn();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
            limpiar_cortinas();
             $("#div_cortina").animate({top: '0px'}, 1100);
             $('#div_odc').fadeIn();
@@ -1451,13 +1307,7 @@ var parametros = {
            llenar_combo_solicitudes("0");
            
         });
-        /*
-        menu_solicitud_odc' href
-        menu_solicitud_viaticos'
-        menu_solicitud_reembolso
-        menu_solicutid_cliente' 
-        menu_solicitud_prov' hre
-        */
+
         
         function ver_bancos(){
             $.ajax({
@@ -2409,7 +2259,7 @@ var parametros = {
                 data: datos,
                 dataType: "json",
                 success:  function (response) {
-                  console.log(response);
+                  $('#div_candado').show();
                   //$('#btn_modificar_evento').show();
                   $('#btn_crear_evento').hide();
                   $('#txt_numero_evento').val(response.Numero_evento);
@@ -2579,6 +2429,18 @@ var parametros = {
                   }
                   else{
                     $('#check_estatus_facturacion').bootstrapToggle('off')
+                  }
+                  if (response.Candado=="DESBLOQUEADO") {
+                    $('#btn_bloquear_evento').html('<i class="fas fa-lock-open"></i> Desbloqueado');
+                    $('#btn_bloquear_evento').removeClass("btn-danger");
+                    $('#btn_bloquear_evento').addClass("btn-success");
+                    candado="DESBLOQUEADO";
+                  }
+                  else{
+                    $('#btn_bloquear_evento').html('<i class="fas fa-lock"></i> Bloqueado');
+                    $('#btn_bloquear_evento').removeClass("btn-success");
+                    $('#btn_bloquear_evento').addClass("btn-danger");
+                    candado="BLOQUEADO";
                   }
                   if(response.Comentarios=="NINGUNO"){
                     $('#area_comentarios').val("");
@@ -3507,13 +3369,13 @@ var parametros = {
         $('#c_video').multiselect("deselectAll", false).multiselect("refresh");
         $('#c_solicitantes').multiselect("deselectAll", false).multiselect("refresh");        
         $('#check_anio_evento').bootstrapToggle('off');
+        $('#div_candado').hide();
       }
 
        $('.moneda').blur(function(){
         if(!$(this).val().includes('$')){
             $('.moneda').formatCurrency();
         }
-        
        });
 
        function evitar_rfc_duplicado(){
@@ -6251,7 +6113,6 @@ var options = {
           generate("warning", "Este evento ya esta vencido, no es posible hacer solicitudes");
         }         
       });
-
          
 
       function ver_caducidad_evento(valor){
@@ -6269,7 +6130,7 @@ var options = {
             }
           }
         });
-        return respuesta
+        return respuesta;
       }
   
 
@@ -7650,5 +7511,43 @@ $('#c_user_solicita').change(function(){
       ver_solicitudes_por_evento(id,"comprobados");
     }
   });
+
+  $('#btn_bloquear_evento').on("click",function(){
+    var candado="";
+    if ($(this).hasClass("active")==false) {
+      $(this).html('<i class="fas fa-lock-open"></i> Desbloqueado');
+      $(this).removeClass("btn-danger");
+      $(this).addClass("btn-success");
+      candado="DESBLOQUEADO";
+    }
+    else{
+      $(this).html('<i class="fas fa-lock"></i> Bloqueado');
+      $(this).removeClass("btn-success");
+      $(this).addClass("btn-danger");
+      candado="BLOQUEADO";
+    }
+    actualizar_candado(candado);
+  });
+
+  function actualizar_candado(valor){
+    var id_evento=$('#c_eventos_creados').val();
+    var datos={
+      "id_evento":id_evento,
+      "candado":valor,
+  };
+    $.ajax({
+      url:   'actualizar_candado.php',
+      type:  'post',
+      data: datos,
+      success:  function (response) {
+      if(!response.includes("exito")){
+        generate("warning",response);
+      }
+      else{
+        generate("success","El evento se ha actualizado");
+      }
+      }
+    });
+  }
 
 }
