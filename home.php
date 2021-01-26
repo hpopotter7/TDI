@@ -99,8 +99,8 @@
   <script src="js/Chart.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
-  <script src="js/funciones_v108.js"></script>
-  <script src="js/metodos_v2_0081.js"></script>
+  <script src="js/funciones_v109.js"></script>
+  <script src="js/metodos_v2_0086.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -479,6 +479,39 @@ span.switch-label:after {
     box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
 }
 
+
+.panel.with-nav-tabs .panel-heading{
+    padding: 5px 5px 0 5px;
+}
+.panel.with-nav-tabs .nav-tabs{
+	border-bottom: none;
+}
+.panel.with-nav-tabs .nav-justified{
+	margin-bottom: -1px;
+}
+/*** PANEL DANGER ***/
+.with-nav-tabs.panel-danger .nav-tabs > li > a,
+.with-nav-tabs.panel-danger .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-danger .nav-tabs > li > a:focus {
+	color: #fff;
+}
+.with-nav-tabs.panel-danger .nav-tabs > .open > a,
+.with-nav-tabs.panel-danger .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-danger .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-danger .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-danger .nav-tabs > li > a:focus {
+	color: #a94442;
+	background-color: #ebccd1;
+	border-color: transparent;
+}
+.with-nav-tabs.panel-danger .nav-tabs > li.active > a,
+.with-nav-tabs.panel-danger .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-danger .nav-tabs > li.active > a:focus {
+	color: #a94442;
+	background-color: #fff;
+	border-color: #ebccd1;
+	border-bottom-color: transparent;
+}
   </style>
 
 </head>
@@ -759,11 +792,11 @@ span.switch-label:after {
                         Acciones
                         <b class="pull-right glyphicon glyphicon-chevron-up"></b>
                     </li>
-                    <li><a href="#" id='btn_sin_factura'><i class="fas fa-exclamation" aria-hidden="true"> Eventos sin factura</i></a></li>
-                    <li><a href="#" id='btn_fact_pendientes'><i class="fas fa-exclamation" aria-hidden="true"> Facturas pendientes</i></a></li>
+                    <li><a href="#" id='btn_sin_factura' class='btn_pendientes'><i class="fas fa-exclamation-circle" aria-hidden="true"> Eventos pendientes</i></a></li>
+                    <!--<li><a href="#" id='btn_fact_pendientes'><i class="fas fa-exclamation" aria-hidden="true"> Facturas pendientes</i></a></li>-->
                     <li><a href="#" id='btn_transferir'><i class="fa fa-exchange" aria-hidden="true"> Transferir</i></a></li>
                     <li><a href="#" id='btn_borrar_sdp'><i class="fas fa-trash" aria-hidden="true"> Borrar</i></a></li>
-                    <li><a href="#" id='btn_odcs_pendientes'><i class="fas fa-exclamation" aria-hidden="true"> Odc's pendientes</i></a></li>
+                    <!--<li><a href="#" id='btn_odcs_pendientes'><i class="fas fa-exclamation" aria-hidden="true"> Odc's pendientes</i></a></li>-->
                   </ul>
               </div>
             </div>
@@ -804,7 +837,53 @@ span.switch-label:after {
               </div>
             </div>
         </div>
-        <div class="row" id='resultado_solicitudes_sin_factura'></div>
+        <!--
+        <div class="row" id='resultado_solicitudes_sin_factura'>
+        <table class="table table-striped table-inverse table-hover">
+            <thead>
+              <tr>
+                <th>Eventos con factura sin número</th>
+                <th>Eventos con factura sin estatus</th>
+                <th>Eventos con SDP -SIN FACTURAR-</th>
+                <th>Eventos pendientes por Cerrar</th>
+              </tr>
+            </thead>
+            <tbody id='respuesta_pendientes'>
+              
+            </tbody>
+          </table>
+        </div>
+        -->
+        <div class="row" id='div_panel'>
+    	    <div class="col-md-12">
+            <div class="row" id='loading_pendientes'></div>
+            <div class="panel with-nav-tabs panel-danger">
+                <div class="panel-heading">
+                        <ul class="nav nav-tabs">
+                            <li id='tab_1' class="active"><a href="#tab1default" class='btn btn-danger' data-toggle="tab">Eventos con factura sin número</a></li>
+                            <li id='tab_2'><a href="#tab2default" class='btn btn-danger' data-toggle="tab">Eventos con factura sin estatus</a></li>
+                            <li id='tab_3'><a href="#tab3default" class='btn btn-danger' data-toggle="tab">Eventos con egresos sin facturar</a></li>
+                            <li id='tab_4'><a href="#tab4default" class='btn btn-danger' data-toggle="tab">Eventos pendientes por Cerrar</a></li>
+                            <li id='tab_5'><a href="#tab5default" class='btn btn-danger' data-toggle="tab">Eventos con solicitudes sin pagar</a></li>
+                            <li id='tab_6'><a href="#tab6default" class='btn btn-danger' data-toggle="tab">Eventos con solicitudes sin comprobar</a></li>
+                            
+                        </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab1default"></div>
+                        <div class="tab-pane fade" id="tab2default"></div>
+                        <div class="tab-pane fade" id="tab3default"></div>
+                        <div class="tab-pane fade" id="tab4default"></div>
+                        <div class="tab-pane fade" id="tab5default"></div>
+                        <div class="tab-pane fade" id="tab6default"></div>
+                    </div>
+                </div>
+            </div>
+          </div>
+	      </div>
+
+
         <div class="row" id='resultado_solicitudes'> 
         <!---style="position: relative;
     overflow: auto;
