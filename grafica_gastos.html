@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="css/sweetalert2.css"/>  
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/bootstrap.min6.css">
-  <link rel="stylesheet" href="css/estilos_ver_0005.css"/>
+  <link rel="stylesheet" href="css/estilos_ver_0006.css"/>
   <link rel="stylesheet" href="css/bootstrap-multiselect_001.css"/>
   <link rel="stylesheet" href="css/chosen.css"/>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">

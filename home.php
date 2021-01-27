@@ -699,6 +699,7 @@ span.switch-label:after {
             <div class="collapse" id="toggleDemo6" style="height: 0px;">
               <ul class="nav nav-list">
                 <li><a id='solicitud_facturas' href="#"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i> Nueva solicitud</a></li>
+                <li><a id='reporte_facturacion' href="#"><i class="fas fa-chart-line" aria-hidden="true"></i> Reportes</a></li>
               </ul>
             </div>
           </li>
