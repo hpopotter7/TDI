@@ -270,7 +270,7 @@ function ver_grafica(){
           ],
           
           tooltip: {
-            shared: true
+            shared: false
           },
           
           legend: {
