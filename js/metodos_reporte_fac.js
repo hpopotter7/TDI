@@ -1,5 +1,7 @@
 function inicio(){
 
+  $('.ocultar').hide();
+
     var idioma_espaniol = {
         "sProcessing":     "Procesando...",
         "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -30,11 +32,14 @@ function inicio(){
     buttons: [
         'excel', 'pdf'
     ],
-    "scrollX": true,
-    "destroy": true, 
-    "sort": true,
-    "paging": true,
-    "language" : idioma_espaniol
+    "destroy": true,
+          "scrollY":        "500px",
+          "scrollX":        true,
+          "scrollCollapse": true,
+          "paging":         false,
+          "columnDefs": [
+            { "width": "8%", "targets": [0,3,4,5,6]}
+          ],
 });  
 
 var table2 = $('#Tabla_Fac_vs_Cob').DataTable({
@@ -75,13 +80,15 @@ var table2 = $('#Tabla_Fac_vs_Cob').DataTable({
                 },
                 'excel'
             ],
-            
-            "scrollX": true,
-            "destroy": true, 
-            "sort": true,
-            "paging": true,
-            "language" : idioma_espaniol
-        });
+          "destroy": true,
+          "scrollY":        "500px",
+          "scrollX":        true,
+          "scrollCollapse": true,
+          "paging":         false,
+          "columnDefs": [
+            { "width": "8%", "targets": [0,3,4,5,6]}
+          ],
+          });
        },
        error: function( jqXHR, textStatus, errorThrown ) {
            alert("Error: "+jqXHR.responseText+ " - "+textStatus);
@@ -131,15 +138,23 @@ var table2 = $('#Tabla_Fac_vs_Cob').DataTable({
     $('#c_reporte').change(function(){
         var reporte=$('#c_reporte').val();
         switch(reporte){
+          case "":
+                $('.ocultar').hide();
+                break;
             case "Fac_x_mes":
                 $('#div_reporte1').show();
                 $('#div_reporte2').hide();
                 $('.mes').show();
+                $('#div_boton').show();
+                $('#mes').show();
+                $('#anio').show();
                 break;
             case "Fac_vs_Cob":
                 $('#div_reporte1').hide();
                 $('#div_reporte2').show();
                 $('.mes').hide();
+                $('#div_boton').show();
+                $('#anio').show();
                 break;
             default:
                 alert("No esta configurado el reporte");
@@ -203,7 +218,20 @@ function ver_grafica(){
         Highcharts.setOptions({
           lang: {
             thousandsSep: ","
-          }
+          },chart: {
+            backgroundColor: {
+                linearGradient: [0, 0, 500, 500],
+                stops: [
+                    [0, 'rgb(255, 255, 255)'],
+                    [1, 'rgb(240, 240, 255)']
+                ]
+            },
+            borderWidth: 2,
+            plotBackgroundColor: 'rgba(255,255,255, .9)',
+            plotShadow: true,
+            plotBorderWidth: 1,
+            plotAreaHeight: 700
+        }
         });
        
         Highcharts.chart("chart", {
@@ -218,7 +246,8 @@ function ver_grafica(){
               categories: data[0],
               labels: {
                 rotation: -45
-              }
+              },
+              //tickInterval: 50
             }
           ],
           yAxis: [
@@ -226,18 +255,20 @@ function ver_grafica(){
               // first yaxis
               labels: {
                 formatter: function() {
-                    return '$ '+ (this.value);
+                    return ((this.value)/1000000)+" M";
                 }
             },
               title: {
                 text: "Facturacion"
-              }
+              },
+              tickInterval: 4000000
             },
             {
               // secondary yaxis
               labels: {
                 formatter: function() {
-                    return '$ '+ (this.value);
+                    //return '$ '+ (this.value);
+                    return ((this.value)/1000000)+" M";
                 }
             },
               title: {
@@ -246,6 +277,7 @@ function ver_grafica(){
               min: 0,
               opposite: true
             }
+            
           ],
           series: [
             {
@@ -261,11 +293,12 @@ function ver_grafica(){
               name: "Cobranza",
               color: "#FF404E",
               type: "spline",
+              //type: "column",
               data: data[2],
               tooltip: {
                 valuePrefix: "$ "
               },
-              yAxis: 1
+              //yAxis: 1
             }
           ],
           

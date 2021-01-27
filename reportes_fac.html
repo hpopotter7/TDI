@@ -71,6 +71,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-chart-line" aria-hidden="true"></i> Tipo de reporte</span>
                             <select name="c_reporte" id="c_reporte" class="form-control">
+                                <option value="">Selecciona un reporte...</option>
                                 <option value="Fac_x_mes">Facturación por mes</option>
                                 <option value="Co_x_mes">Cobranza por mes</option>
                                 <option value="Fac_x_año">Facturación por año</option>
@@ -83,7 +84,7 @@
                     </div>
             </div>
             <div class="row">
-                <div class="form-group col-md-2 ">
+                <div id='anio' class="form-group col-md-2 anio ocultar">
                     <div class="cols-md-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i> Año</span>
@@ -95,7 +96,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group col-md-2 mes">
+                <div id='mes' class="form-group col-md-2 mes ocultar">
                     <div class="cols-md-12">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i> Mes</span>
@@ -116,17 +117,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div id='div_boton' class="col-md-3 ocultar">
                         <button id='btn_generar_reporte' type="button" class="btn btn-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Generar</button>
                         <i class="fas fa-spinner fa-spin" style='display: none;'></i>
                         
                 </div>
             </div>
-            <div class="row" id="div_reporte1">
+            <div class="row ocultar" id="div_reporte1">
                 <table id="tabla_reporte" class="display" style="width:100%">
                     <thead>
                         <tr>
-                            <th># Factura</th>
+                            <th>Factura</th>
                             <th>Cliente</th>
                             <th>Descripción</th>
                             <th>Subtotal</th>
@@ -139,7 +140,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row" id='div_reporte2'>
+            <div class="row ocultar" id='div_reporte2'>
                 <div class="col-md-6" >
                     <table id="Tabla_Fac_vs_Cob" class="display" style="width:100%">
                         <thead>
@@ -154,7 +155,7 @@
                     </table>
                 </div>
                 <div class="col-md-6" >
-                    <div id="chart"></div>
+                    <div id="chart" style="width:100%; min-height:600px;margin-top: 15px ;padding-top: 15px;"></div>
                 </div>
             </div>
         </div>
