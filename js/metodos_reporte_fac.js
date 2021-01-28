@@ -53,7 +53,24 @@ var table2 = $('#Tabla_Fac_vs_Cob').DataTable({
     "paging": false,
     "searching": false,
     "language" : idioma_espaniol
-});    
+}); 
+
+var table3 = $('#tabla_cliente').DataTable({
+  dom: 'Bfrtip',
+  buttons: [
+      'excel', 'pdf'
+  ],
+  "scrollX": true,
+  "destroy": true, 
+  "sort": false,
+  "paging": true,
+  "pageLength": 15,
+  "searching": false,
+  "language" : idioma_espaniol,
+  "columnDefs": [
+    { "width": "25%", "targets": [1]}
+  ],
+}); 
 
 
     function generar_reporte(mes, anio){
@@ -125,7 +142,7 @@ var table2 = $('#Tabla_Fac_vs_Cob').DataTable({
             "paging": false,
             "language" : idioma_espaniol
         });
-        ver_grafica();
+        ver_grafica(table2, "chart");
         
        },
        error: function( jqXHR, textStatus, errorThrown ) {
@@ -135,6 +152,51 @@ var table2 = $('#Tabla_Fac_vs_Cob').DataTable({
        }); 
     }
 
+    function generar_reporte_cliente(anio){
+      $('#tabla_cliente').html("");
+       table3.destroy();
+       var datos={
+           "anio":anio,
+      };
+       $.ajax({
+       type : 'POST',
+       url  : 'reporte_fac_cliente.php',
+       data: datos,
+       success :  function(response){
+         console.log(response);
+          $(".fa-spin").hide();
+          $('#tabla_cliente').html(response);            
+          table3 = $('#tabla_cliente').DataTable({
+           dom: 'Bfrtip',
+           buttons: [
+               {
+                   extend: 'pdfHtml5',
+                   orientation: 'landscape',
+                   pageSize: 'LEGAL'
+               },
+               'excel'
+           ],
+           "searching": false,
+           "scrollX": true,
+           "destroy": true, 
+           "sort": false,
+           "paging": true,
+           "pageLength": 15,
+           "language" : idioma_espaniol,
+           "columnDefs": [
+            { "width": "25%", "targets": [1]}
+          ],
+       });
+       ver_grafica_barra("chart_cliente");
+       
+      },
+      error: function( jqXHR, textStatus, errorThrown ) {
+          console.log(jqXHR);
+          alert("Error: "+jqXHR.responseText+ " - "+textStatus);
+      }
+      }); 
+   }
+
     $('#c_reporte').change(function(){
         var reporte=$('#c_reporte').val();
         switch(reporte){
@@ -142,20 +204,25 @@ var table2 = $('#Tabla_Fac_vs_Cob').DataTable({
                 $('.ocultar').hide();
                 break;
             case "Fac_x_mes":
+              $('.ocultar').hide();
                 $('#div_reporte1').show();
-                $('#div_reporte2').hide();
                 $('.mes').show();
                 $('#div_boton').show();
                 $('#mes').show();
                 $('#anio').show();
                 break;
             case "Fac_vs_Cob":
-                $('#div_reporte1').hide();
+              $('.ocultar').hide();
                 $('#div_reporte2').show();
-                $('.mes').hide();
                 $('#div_boton').show();
                 $('#anio').show();
                 break;
+                case "Cli_anio":
+                  $('.ocultar').hide();
+                  $('#div_reporte_cliente').show();
+                  $('#div_boton').show();
+                  $('#anio').show();
+                  break;
             default:
                 alert("No esta configurado el reporte");
         }
@@ -176,22 +243,23 @@ var table2 = $('#Tabla_Fac_vs_Cob').DataTable({
                 generar_reporte_fac_vs_cob(anio);
                 //ver_grafica();
                 break;
+            case "Cli_anio":
+                var anio=$('#c_anio').val();
+                generar_reporte_cliente(anio);
+                break;
             default:
                 alert("No esta configurado el reporte");
         }
     });
 
 
-function ver_grafica(){
-    
-    const tableData = getTableData(table2);
+function ver_grafica(tabla, canvas){
+    const tableData = getTableData(tabla);
     console.log(tableData);
     var anio=$('#c_anio').val();
-    createHighcharts(tableData, anio);
+    createHighcharts(tableData, anio, canvas);
     //setTableEvents(table);
 }
-
-
     function getTableData(table) {
         const dataArray = [],
           countryArray = [],
@@ -214,7 +282,7 @@ function ver_grafica(){
         return dataArray;
       }
 
-    function createHighcharts(data, anio) {
+    function createHighcharts(data, anio, canvas) {
         Highcharts.setOptions({
           lang: {
             thousandsSep: ","
@@ -234,7 +302,7 @@ function ver_grafica(){
         }
         });
        
-        Highcharts.chart("chart", {
+        Highcharts.chart(canvas, {
           title: {
             text: "Reporte de Facturación"
           },
@@ -321,5 +389,106 @@ function ver_grafica(){
         });
       }
 
+      function ver_grafica_barra(canvas){
+        var tableData = getTableData2(table3);
+        var anio=$('#c_anio').val();
+        createHighcharts_barra(tableData, anio, canvas);
+        //setTableEvents(table);
+    }
+    function getTableData2(table) {
+      var dataArray = [];
+      var countryArray = [];
+     
+      // loop table rows
+      table.rows({ search: "applied" }).every(function() {
+        var data = this.data();
+        countryArray.push(data[0]);
+        var fac=data[1].replace("$","");
+        
+        //populationArray.push(parseFloat(fac.replace(/\,/g, "")));
+        var feed = {name: data[0], y: parseFloat(fac.replace(/\,/g, ""))};
+        dataArray.push(feed);
+      });
+     
+      // store all data in dataArray
+      
+      //var feed = {name: countryArray[0], y: populationArray[0]};
+      //dataArray.push(feed);
+      
+
+      //dataArray.push(countryArray, populationArray);
+      console.log(dataArray);
+      return dataArray;
+    }
+
+    function createHighcharts_barra(datos, anio, canvas) {
+      Highcharts.setOptions({
+        colors: Highcharts.getOptions().colors.map(function(color) {
+          return {
+              radialGradient: {
+                  cx: 0.5,
+                  cy: 0.3,
+                  r: 0.7
+              },
+              stops: [
+                  [0, color],
+                  [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+              ]
+          };
+        })
+      });
+     
+      var chart_pie=Highcharts.chart(canvas, {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+        },
+        title: {
+          text: "Reporte de Facturación"
+        },
+        subtitle: {
+          text: "Facturación por Cliente "+anio
+        },
+        series: [
+          {
+            name: "Monto",
+            data: datos,
+            tooltip: {
+              valuePrefix: "$ "
+            }
+          },
+        ],
+        
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                  enabled: true,
+                  format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                  connectorColor: 'silver'
+              }
+          }
+        }, 
+        legend: {
+          backgroundColor: "#ececec",
+          shadow: true
+        },
+        credits: {
+          enabled: false
+        },
+        noData: {
+          style: {
+            fontSize: "16px"
+          }
+        }
+      });
+      chart_pie.redraw();
+    }
 
 }

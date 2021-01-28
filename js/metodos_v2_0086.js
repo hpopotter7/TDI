@@ -1,15 +1,4 @@
 function inicio(){
-/*
-  $(".wrapper1").scroll(function(){
-    $(".wrapper2")
-        .scrollLeft($(".wrapper1").scrollLeft());
-});
-$(".wrapper2").scroll(function(){
-    $(".wrapper1")
-        .scrollLeft($(".wrapper2").scrollLeft());
-});
-*/
-
   
   var bandera_menu=false;
   $('#resultado_bitacora').hide();
@@ -382,14 +371,13 @@ ver_perfil();
                         $('#tipo_perfil').append("</ul>");
                         //validar perfiles
                         validar_perfiles(response); 
-                       
-                        if(response.eje.includes("cuenta")){
-                          $('#btn_sin_factura').click();
-                        }
                         if(response.usuario.includes("SANDRA PEÑA")){
                           $('#btn_sin_factura').click();
                         }
-                        if(response.cxc.includes("Cuentas por pagar")){
+                        else if(response.eje.includes("cuenta")){
+                          $('#btn_sin_factura').click();
+                        }
+                        else if(response.cxc.includes("Cuentas por pagar")){
                           $('#btn_sin_factura').click();
                         }
 
@@ -7384,6 +7372,9 @@ $('#c_user_solicita').change(function(){
 
   $('#btn_sin_factura').click(function(e){
     e.preventDefault();
+    ver_panel_tab();
+  });
+  function ver_panel_tab(){
     limpiar_cortinas();
     $("#div_cortina").animate({top: '0px'}, 1100);
     $('#div_formatos').fadeIn();
@@ -7401,6 +7392,7 @@ $('#c_user_solicita').change(function(){
       success:  function (response) {
         $('#loading_pendientes').html("");
         $('.with-nav-tabs').show();
+        $('#div_panel').show();
         
         if(response.includes("ADMIN")){
           ver_facturas_pendientes();
@@ -7436,7 +7428,7 @@ $('#c_user_solicita').change(function(){
         }
       }
     });
-  });
+  }
 
   function ver_facturas_pendientes(){
     $('#resultado_solicitudes').hide();
@@ -7445,7 +7437,18 @@ $('#c_user_solicita').change(function(){
       url:   'ver_facturas_pendientes.php',
       type:  'post',
       success:  function (response) {
-      $('#tab1default').html(response);
+      $('#tabla_fac_sin_numero_body').html(response);
+      $('#tabla_fac_sin_numero').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'pdf'
+        ],
+        "destroy": true,
+              "scrollX":        false,
+              "scrollCollapse": false,
+              "paging":         false,
+              "language" : idioma_espaniol,
+      });
       }
     });
   }
@@ -7457,7 +7460,18 @@ $('#c_user_solicita').change(function(){
       url:   'ver_pendientes_sin_estatus.php',
       type:  'post',
       success:  function (response) {
-      $('#tab2default').html(response);
+      $('#tabla_fac_sin_estatus_body').html(response);
+      $('#tabla_fac_sin_estatus').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'pdf'
+        ],
+        "destroy": true,
+              "scrollX":        false,
+              "scrollCollapse": false,
+              "paging":         false,
+              "language" : idioma_espaniol,
+      });
       }
     });
   }
@@ -7469,19 +7483,41 @@ $('#c_user_solicita').change(function(){
       url:   'ver_egresos_sin_facturar.php',
       type:  'post',
       success:  function (response) {
-      $('#tab3default').html(response);
+      $('#tabla_xyz_body').html(response);
+      $('#tabla_xyz').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'pdf'
+        ],
+        "destroy": true,
+              "scrollX":        false,
+              "scrollCollapse": false,
+              "paging":         false,
+              "language" : idioma_espaniol,
+      });
       }
     });
   }
 
-  function ver_eventos_sin_cerrar(){    
+  function ver_eventos_sin_cerrar(){   
     $('#resultado_solicitudes').hide();
     llenar_eventos_ver_solicitudes("0");
     $.ajax({
       url:   'ver_eventos_sin_cerrar.php',
       type:  'post',
       success:  function (response) {
-      $('#tab4default').html(response);
+        $('#tabla_sin_cerrar_body').html(response);
+        $('#tabla_sin_cerrar').DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+              'pdf'
+          ],
+          "destroy": true,
+                "scrollX":        false,
+                "scrollCollapse": false,
+                "paging":         false,
+                "language" : idioma_espaniol,
+        });
       }
     });
   }

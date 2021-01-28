@@ -72,7 +72,7 @@
   <script src="js/notification_html.js"></script>
   <script src="js/jquery.fancybox.js"></script>
   <script src="js/jquery.mousewheel.pack.js"></script>
-  <script src="js/dataTables.js"></script>
+  
   <script src="js/jquery.formatCurrency.js"></script>
   <script src="js/tooltipster.bundle.js"></script>
   
@@ -83,6 +83,7 @@
   <script src="js/jquery_combo_editable.js"></script>
   <script src="js/autocomplete.js"></script>
   
+  
   <script src="js/dataTables.buttons.min.js"></script>
   <script src="js/buttons.flash.min.js"></script>
   <script src="js/jszip.min.js"></script>
@@ -91,6 +92,7 @@
   <script src="js/buttons.html5.min.js"></script>
   <script src="js/buttons.print.min.js"></script>
   <script src="js/jspdf.min.js"></script>
+
   <script src="js/jquery.easy-autocomplete.js"></script>
   <script src="js/audio.min.js"></script>
   <script src="js/jquery.modal.js"></script>
@@ -872,10 +874,30 @@ span.switch-label:after {
                 </div>
                 <div class="panel-body">
                     <div class="tab-content">
-                        <div class="tab-pane fade in active" id="tab1default"></div>
-                        <div class="tab-pane fade" id="tab2default"></div>
-                        <div class="tab-pane fade" id="tab3default"></div>
-                        <div class="tab-pane fade" id="tab4default"></div>
+                        <div class="tab-pane fade in active" id="tab1default">
+                          <table class='table display' id='tabla_fac_sin_numero' style='width:100%'>
+                            <thead><tr><th>Eventos con factura sin número</th></tr></thead>
+                            <tbody id='tabla_fac_sin_numero_body'></tbody>
+                          </table>
+                        </div>
+                        <div class="tab-pane fade" id="tab2default">
+                          <table class='table display' id='tabla_fac_sin_estatus' style='width:100%'>
+                            <thead><tr><th>Eventos con factura sin estatus</th></tr></thead>
+                            <tbody id='tabla_fac_sin_estatus_body'></tbody>
+                          </table>
+                        </div>
+                        <div class="tab-pane fade" id="tab3default">
+                          <table class='table display' id='tabla_xyz' style='width:100%'>
+                            <thead><tr><th>Evento con egresos sin factura</th></tr></thead>
+                            <tbody id='tabla_xyz_body'></tbody>
+                          </table>
+                        </div>
+                        <div class="tab-pane fade" id="tab4default">
+                          <table class='table display' id='tabla_sin_cerrar' style='width:100%'>
+                            <thead><tr><th>Evento sin cerrar</th></tr></thead>
+                            <tbody id='tabla_sin_cerrar_body'></tbody>
+                          </table>
+                        </div>
                         <div class="tab-pane fade" id="tab5default"></div>
                         <div class="tab-pane fade" id="tab6default"></div>
                     </div>
