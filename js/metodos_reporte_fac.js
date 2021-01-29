@@ -72,6 +72,64 @@ var table3 = $('#tabla_cliente').DataTable({
   ],
 }); 
 
+var table4 = $('#tabla_cob_x_mes').DataTable({
+  dom: 'Bfrtip',
+  buttons: [
+      'excel', 'pdf'
+  ],
+  "scrollX": true,
+  "destroy": true, 
+  "sort": false,
+  "paging": true,
+  "pageLength": 15,
+  "searching": false,
+  "language" : idioma_espaniol,
+  "columnDefs": [
+    { "width": "25%", "targets": [1]}
+  ],
+});
+
+  function generar_reporte_cob_x_mes(mes, anio){
+    $('#tabla_cob_x_mes_body').html("");
+    table4.destroy();
+    var datos={
+        "mes":mes,
+        "anio":anio
+  };
+    $.ajax({
+    type : 'POST',
+    url  : 'reporte_cobranza_mes.php',
+    data: datos,
+    success :  function(response){
+      $(".fa-spin").hide();
+      $('#tabla_cob_x_mes_body').html(response);   
+              
+      table4 = $('#tabla_cob_x_mes').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            },
+            'excel'
+        ],
+      "destroy": true,
+      "scrollY":        "500px",
+      "scrollX":        true,
+      "scrollCollapse": true,
+      "paging":         false,
+      "language" : idioma_espaniol,
+      "columnDefs": [
+        { "width": "8%", "targets": [0,1,,4,5,6]}
+      ],
+      });
+  },
+  error: function( jqXHR, textStatus, errorThrown ) {
+      alert("Error: "+jqXHR.responseText+ " - "+textStatus);
+  }
+  }); 
+}
 
     function generar_reporte(mes, anio){
         $('#tabla_reporte_body').html("");
@@ -102,6 +160,7 @@ var table3 = $('#tabla_cliente').DataTable({
           "scrollX":        true,
           "scrollCollapse": true,
           "paging":         false,
+          "language" : idioma_espaniol,
           "columnDefs": [
             { "width": "8%", "targets": [0,3,4,5,6]}
           ],
@@ -163,7 +222,6 @@ var table3 = $('#tabla_cliente').DataTable({
        url  : 'reporte_fac_cliente.php',
        data: datos,
        success :  function(response){
-         console.log(response);
           $(".fa-spin").hide();
           $('#tabla_cliente').html(response);            
           table3 = $('#tabla_cliente').DataTable({
@@ -205,11 +263,25 @@ var table3 = $('#tabla_cliente').DataTable({
                 break;
             case "Fac_x_mes":
               $('.ocultar').hide();
+              $('#div_reporte1').show();
+              $('.mes').show();
+              $('#div_boton').show();
+              $('#mes').show();
+              $('#anio').show();
+              break;
+            case "Fac_x_anio":
+              $('.ocultar').hide();
                 $('#div_reporte1').show();
-                $('.mes').show();
                 $('#div_boton').show();
-                $('#mes').show();
                 $('#anio').show();
+                break;
+            case "Cob_x_mes":
+              $('.ocultar').hide();
+              $('#div_reporte3').show();
+              $('.mes').show();
+              $('#div_boton').show();
+              $('#mes').show();
+              $('#anio').show();
                 break;
             case "Fac_vs_Cob":
               $('.ocultar').hide();
@@ -217,7 +289,7 @@ var table3 = $('#tabla_cliente').DataTable({
                 $('#div_boton').show();
                 $('#anio').show();
                 break;
-                case "Cli_anio":
+            case "Cli_anio":
                   $('.ocultar').hide();
                   $('#div_reporte_cliente').show();
                   $('#div_boton').show();
@@ -238,13 +310,23 @@ var table3 = $('#tabla_cliente').DataTable({
                 var anio=$('#c_anio').val();
                 generar_reporte(mes, anio);
                 break;
+            case "Fac_x_anio":
+                var mes="0";
+                var anio=$('#c_anio').val();
+                generar_reporte(mes, anio);
+                break;
+            case "Cob_x_mes":
+                var mes=$('#c_mes').val();
+                var anio=$('#c_anio').val();
+                generar_reporte_cob_x_mes(mes, anio);
+                break;
             case "Fac_vs_Cob":
                 var anio=$('#c_anio').val();
                 generar_reporte_fac_vs_cob(anio);
-                //ver_grafica();
                 break;
             case "Cli_anio":
                 var anio=$('#c_anio').val();
+                $('#chart_cliente').html("");
                 generar_reporte_cliente(anio);
                 break;
             default:
@@ -405,40 +487,32 @@ function ver_grafica(tabla, canvas){
         countryArray.push(data[0]);
         var fac=data[1].replace("$","");
         
-        //populationArray.push(parseFloat(fac.replace(/\,/g, "")));
         var feed = {name: data[0], y: parseFloat(fac.replace(/\,/g, ""))};
         dataArray.push(feed);
       });
-     
-      // store all data in dataArray
-      
-      //var feed = {name: countryArray[0], y: populationArray[0]};
-      //dataArray.push(feed);
-      
-
-      //dataArray.push(countryArray, populationArray);
-      console.log(dataArray);
       return dataArray;
     }
 
     function createHighcharts_barra(datos, anio, canvas) {
+      /*
       Highcharts.setOptions({
-        colors: Highcharts.getOptions().colors.map(function(color) {
-          return {
-              radialGradient: {
-                  cx: 0.5,
-                  cy: 0.3,
-                  r: 0.7
-              },
-              stops: [
-                  [0, color],
-                  [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
-              ]
-          };
+        colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+            return {
+                radialGradient: {
+                    cx: 0.5,
+                    cy: 0.3,
+                    r: 0.7
+                },
+                stops: [
+                    [0, color],
+                    [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+                ]
+            };
         })
-      });
+    });;
+    */
      
-      var chart_pie=Highcharts.chart(canvas, {
+      Highcharts.chart(canvas, {
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: null,
@@ -487,8 +561,8 @@ function ver_grafica(tabla, canvas){
             fontSize: "16px"
           }
         }
-      });
-      chart_pie.redraw();
+      }).redraw();
+      
     }
 
 }

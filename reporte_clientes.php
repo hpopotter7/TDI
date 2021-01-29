@@ -8,16 +8,16 @@ function asmoneda($value) {
   return '$' . number_format($value, 2);
 }
 
-$res='<thead>
-        <tr>
-            <th>Razon Social</th>
-            <th>Nombre comercial</th>
-            <th>RFC</th>
-            <th>Contacto</th>
-            <th>Teléfono</th>
-            <th>Correo de contacto</th>
-        </tr>
-    </thead><tbody>';
+$res=' <thead>
+<tr>
+    <th>Razon Social</th>
+    <th>Nombre comercial</th>
+    <th>RFC</th>
+    <th>Contacto</th>
+    <th>Teléfono</th>
+    <th>Correo de contacto</th>
+</tr>
+</thead><tbody>';
 $sql = "SELECT Razon_Social, Nombre_comercial, rfc, Nombre_contacto, Telefono, Correo_contacto FROM clientes where Numero_cliente!='0' and Estatus='activo' order by Razon_Social ASC";
 $result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
@@ -28,9 +28,9 @@ if ($result = $mysqli->query($sql)) {
     }
     $result->close();
 }
-$res=$res.'</tbody>';
+
 //echo json_encode($data);
-echo $res;
+echo $res."</tbody>";
 $mysqli->close();
 
 ?>

@@ -40,7 +40,8 @@
   <link rel="stylesheet" href="css/jquery-ui_green.css"/>
   <link rel="stylesheet" href="css/bootstrap-multiselect_001.css"/>
   <link rel="stylesheet" href="css/tooltipster.bundle.css" />
-  <link rel="stylesheet" href="css/data_tables.css">
+  /<!--<link rel="stylesheet" href="css/data_tables.css">-->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="css/uploadfile.css">
   <link rel="stylesheet" href="css/jquery_combo_editable.css">
   <link rel="stylesheet" href="css/easy-autocomplete.css" />
@@ -53,7 +54,8 @@
   <link href="https://cdn.jsdelivr.net/sweetalert2/4.2.4/sweetalert2.min.css" rel="stylesheet"/>
   
 
-  <script src="js/jquery-1.11.2.js"></script>
+  <!--<script src="js/jquery-1.11.2.js"></script>-->
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <script src="js/jquery-ui-v1.11.4.js"></script>
   <script src="js/moment.js"></script>
   <script src="js/jquery-ui.js"></script>
@@ -72,13 +74,13 @@
   <script src="js/notification_html.js"></script>
   <script src="js/jquery.fancybox.js"></script>
   <script src="js/jquery.mousewheel.pack.js"></script>
-  
+  <!--<script src='js/dateTables.js'></script>-->
   <script src="js/jquery.formatCurrency.js"></script>
   <script src="js/tooltipster.bundle.js"></script>
-  
+  <script src='js/DateTables.js'></script>
   <script src="js/jquery.validate.min.js"></script>
   <script src="js/jquery.uploadfile.js"></script>
-  <script src='js/DateTables.js'></script>
+  
   <script src="js/accounting.js"></script>
   <script src="js/jquery_combo_editable.js"></script>
   <script src="js/autocomplete.js"></script>
@@ -101,8 +103,8 @@
   <script src="js/Chart.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
-  <script src="js/funciones_v109.js"></script>
-  <script src="js/metodos_v2_0086.js"></script>
+  <script src="js/funciones_v110.js"></script>
+  <script src="js/metodos_v2_0090.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -701,7 +703,9 @@ span.switch-label:after {
             <div class="collapse" id="toggleDemo6" style="height: 0px;">
               <ul class="nav nav-list">
                 <li><a id='solicitud_facturas' href="#"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i> Nueva solicitud</a></li>
+                <!--
                 <li><a id='reporte_facturacion' href="#"><i class="fas fa-chart-line" aria-hidden="true"></i> Reportes</a></li>
+                -->
               </ul>
             </div>
           </li>
@@ -713,6 +717,7 @@ span.switch-label:after {
               <ul class="nav nav-list">
                 <li><a id='menu_facturacion_pendiente' href="#"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i> Facturación x cobrar</a></li>
                 <li><a id='menu_facturacion_calendario' href="#"><i class="fas fa-calendar" aria-hidden="true"></i> Calendario</a></li>
+                <li><a id='reporte_facturacion' href="#"><i class="fas fa-chart-line" aria-hidden="true"></i> Reportes</a></li>
               </ul>
             </div>
           </li>
@@ -725,6 +730,7 @@ span.switch-label:after {
                 <li><a id='rep_eventos' href="#"><i class="fa fa-crown" aria-hidden="true"></i> Eventos</a></li>
                 <li><a id='btn_rep_historicos' href="#"><i class="fas fa-landmark"></i> Historicos</a></li>
                 <li><a id='btn_rep_pitch' href="#"><i class='fas fa-star-half-alt'></i> Pitch</a></li>
+                <li><a id='btn_rep_cancelados' href="#"><i class='fas fa-window-close'></i> Cancelados</a></li>
                 <li><a id='menu_buscar_odc' href="#"><i class='fas fa-chart-bar'></i> Gastos</a></li>
                 <li><a id='btn_rep_gastos' href="#"><i class='fas fa-search-dollar'></i> Facturacion</a></li>
                 <li><a href="#">Modulo de ventas</a></li>
@@ -2498,15 +2504,14 @@ span.switch-label:after {
       </table>
     </div>
   </div>
-  <div id='div_reporte_clientes' class="container">
-    <div class="row main">
+  <div id='div_reporte_clientes' class='container' style='width:80% !important;margin:auto !important;'>
+    <div class="row">
       <div class="row" class='titulo_reporte'><legend><h2>Reporte de Clientes</h2></legend></div>
-      <table id='reporte_clientes' class="display nowrap dataTable" style="width:100%">
-        
+      <table id='reporte_clientes' class="table display" style="width:100%">
       </table>
     </div>
   </div>
-  <div id='div_reporte_proveedores' class="container">
+  <div id='div_reporte_proveedores' class='container' style='width:80% !important;margin:auto !important;'>
     <div class="row main">
       <div class="row" class='titulo_reporte'><legend><h2>Reporte de Proveedores</h2></legend></div>
       <table id='reporte_proveedores' class="display nowrap dataTable" style="width:100%">

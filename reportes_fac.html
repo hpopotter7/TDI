@@ -73,8 +73,8 @@
                             <select name="c_reporte" id="c_reporte" class="form-control">
                                 <option value="">Selecciona un reporte...</option>
                                 <option value="Fac_x_mes">Facturación por mes</option>
-                                <option value="Co_x_mes">Cobranza por mes</option>
-                                <option value="Fac_x_año">Facturación por año</option>
+                                <option value="Cob_x_mes">Cobranza por mes</option>
+                                <option value="Fac_x_anio">Facturación por año</option>
                                 <option value="Fac_vs_Cob">Facturación vs Cobranza (Totales)</option>
                                 <option value="Cli_anio">Total Cliente por año</option>
                             </select>
@@ -128,7 +128,7 @@
                         <tr>
                             <th>Factura</th>
                             <th>Cliente</th>
-                            <th>Descripción</th>
+                            <th>Concepto</th>
                             <th>Subtotal</th>
                             <th>IVA</th>
                             <th>Total</th>
@@ -136,6 +136,23 @@
                         </tr>
                     </thead>
                     <tbody id='tabla_reporte_body'>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row ocultar" id="div_reporte3">
+                <table id="tabla_cob_x_mes" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Factura</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Concepto</th>
+                            <th>Subtotal</th>
+                            <th>IVA</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id='tabla_cob_x_mes_body'>
                     </tbody>
                 </table>
             </div>
@@ -157,6 +174,7 @@
                     <div id="chart" style="width:100%; min-height:600px;margin-top: 15px ;padding-top: 15px;"></div>
                 </div>
             </div>
+           
             <div class="row ocultar" id='div_reporte_cliente'>
                 <div class="col-md-5" >
                     <table id="tabla_cliente" class="display" style="width:100%">

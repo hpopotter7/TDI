@@ -1,6 +1,6 @@
 <?php 
     
-$user=$_COOKIE["user"];
+$user=$_COOKIE['user'];
 $res="";
 include("conexion.php");
 

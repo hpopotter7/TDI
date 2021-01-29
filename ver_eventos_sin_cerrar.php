@@ -21,22 +21,26 @@ if ($result = $mysqli->query($sql)) {
         $respuesta=$respuesta."<tr>";
         $nombre_evento="[".$row[0]."] - ".$row[1];
         if($bandera_ejecutivo){
+            
             if($row[4]<$row[3]){
                 $respuesta=$respuesta."<td><a id='".$row[5]."' class='btn btn-danger btn_evento_pendiente' href='#' title='".$row[2]."'>".$nombre_evento."</a></td>";
             }
             else{
-                $respuesta=$respuesta."<td style='padding-bottom:3px;'><a id='".$row[5]."' class='btn btn-success btn_evento_pendiente' href='#' title='".$row[2]."'>".$nombre_evento."</a></td>";
+                $respuesta=$respuesta."<td><a id='".$row[5]."' class='btn btn-success btn_evento_pendiente' href='#' title='".$row[2]."'>".$nombre_evento."</a></td>";
             }
+            
         }
         else{
+            
             if($row[4]<$row[3]){
-                $respuesta=$respuesta."<td'><a id='".$row[5]."' class='btn btn-danger btn_evento_pendiente' href='#' title='".$row[2]."'>".$nombre_evento." <b><i>(".$row[6].")</i></b></a></td>";
+                $respuesta=$respuesta."<td><a id='".$row[5]."' class='btn btn-danger btn_evento_pendiente' href='#' title='".$row[2]."'>".$nombre_evento." <b><i>(".$row[6].")</i></b></a></td>";
             }
             else{
                 $respuesta=$respuesta."<td><a id='".$row[5]."' class='btn btn-success btn_evento_pendiente' href='#' title='".$row[2]."'>".$nombre_evento." <b><i>(".$row[6].")</i></b></a></td>";
             }
+            
         }
-        $respuesta=$respuesta."</tr>";    	
+        $respuesta=$respuesta."</tr>";
     }
     $result->close();
 }
