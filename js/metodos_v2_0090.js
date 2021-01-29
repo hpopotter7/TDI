@@ -1,16 +1,30 @@
 function inicio(){
-/*
-  $(".wrapper1").scroll(function(){
-    $(".wrapper2")
-        .scrollLeft($(".wrapper1").scrollLeft());
-});
-$(".wrapper2").scroll(function(){
-    $(".wrapper1")
-        .scrollLeft($(".wrapper2").scrollLeft());
-});
-*/
-
   
+  var idioma_espaniol = {
+    "sProcessing":     "Procesando...",
+    "sLengthMenu":     "Mostrar _MENU_ registros",
+    "sZeroRecords":    "No se encontraron resultados",
+    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+    "sInfoPostFix":    "",
+    "sSearch":         "Buscar:",
+    "sUrl":            "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Cargando...",
+    "oPaginate": {
+        "sFirst":    "Primero",
+        "sLast":     "Último",
+        "sNext":     "Siguiente",
+        "sPrevious": "Anterior"
+    },
+    "oAria": {
+        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
+    }
+
   var bandera_menu=false;
   $('#resultado_bitacora').hide();
  
@@ -382,14 +396,13 @@ ver_perfil();
                         $('#tipo_perfil').append("</ul>");
                         //validar perfiles
                         validar_perfiles(response); 
-                       
-                        if(response.eje.includes("cuenta")){
-                          $('#btn_sin_factura').click();
-                        }
                         if(response.usuario.includes("SANDRA PEÑA")){
                           $('#btn_sin_factura').click();
                         }
-                        if(response.cxc.includes("Cuentas por pagar")){
+                        else if(response.eje.includes("cuenta")){
+                          $('#btn_sin_factura').click();
+                        }
+                        else if(response.cxc.includes("Cuentas por pagar")){
                           $('#btn_sin_factura').click();
                         }
 
@@ -1361,23 +1374,6 @@ var parametros = {
            
            
            
-           //$('#fieldset_documentos').hide();
-           //$('#enviar_solicitud_cliente').hide();
-           /*
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeIn();
-           $('#div_odc').fadeOut();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
 
            limpiar_cortinas();
             $("#div_cortina").animate({top: '0px'}, 1100);
@@ -1417,22 +1413,6 @@ var parametros = {
           e.preventDefault();
           limpiar_cliente();
           
-           /*
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeIn();
-           $('#div_odc').fadeOut();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
 
            limpiar_cortinas();
            $("#div_cortina").animate({top: '0px'}, 1100);
@@ -1485,23 +1465,7 @@ var parametros = {
            limpiar_cortinas();
            $("#div_cortina").animate({top: '0px'}, 1100);
            $('#div_usuarios').fadeIn();
-           /*
-           $('#borrar_usuario').fadeOut();
-           $("#div_cortina").animate({top: '0px'}, 1100); 
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeIn();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_odc').fadeOut();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
+          
 
            ver_usuarios_registrados();
            llenar_combo_tarjetas();
@@ -1509,22 +1473,7 @@ var parametros = {
 
           $('#clientes').click(function(e){
            e.preventDefault();
-           /*
-           $("#div_cortina").animate({top: '0px'}, 1100); 
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeIn();
-           $('#div_odc').fadeOut();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
+          
            limpiar_cortinas();
            $("#div_cortina").animate({top: '0px'}, 1100);
            $('#div_alta_cliente').fadeIn();
@@ -1532,22 +1481,7 @@ var parametros = {
 
           $('#proveedores').click(function(e){
            e.preventDefault();
-           /*
-           $("#div_cortina").animate({top: '0px'}, 1100); 
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_odc').fadeOut();
-           $('#div_alta_proveedores').fadeIn();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
+           
            limpiar_cortinas();
            $("#div_cortina").animate({top: '0px'}, 1100);
            $('#div_alta_proveedores').fadeIn();
@@ -1555,22 +1489,7 @@ var parametros = {
 
            $('#solicitudes').click(function(e){
            e.preventDefault();
-           /*
-           $("#div_cortina").animate({top: '0px'}, 1100); 
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_odc').fadeOut();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeIn();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
+           
            limpiar_cortinas();
            $("#div_cortina").animate({top: '0px'}, 1100);
            $('#div_solicitudes').fadeIn();
@@ -3535,22 +3454,7 @@ function validarInput() {
   $('#solicitud_facturas').click(function(e){
     e.preventDefault();
           ver_clientes();
-          /*
-           $("#div_cortina").animate({top: '0px'}, 1100); 
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_odc').fadeOut();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeIn();
-           $('#div_reporte_eventos').fadeOut();
-           $('#div_reporte_clientes').fadeOut();
-           $('#div_reporte_proveedores').fadeOut();
-           */
+         
            limpiar_cortinas();
            $("#div_cortina").animate({top: '0px'}, 1100);
            $('#div_solicitud_factura').fadeIn();
@@ -4122,6 +4026,7 @@ function validarInput() {
       }
 
     });
+    
 
     $('#rep_cat_clientes').click(function(e){
        e.preventDefault();
@@ -4141,93 +4046,34 @@ function validarInput() {
        $('#div_tipo_persona').hide();
        $('#div_area_descripcion').hide();
 
-/*
-       $('#div_nuevo_evento').fadeOut();       
-       $('#div_usuarios').fadeOut();
-       $('#div_alta_cliente').fadeOut();
-       $('#div_odc').fadeOut();
-       $('#div_alta_proveedores').fadeOut();
-       $('#div_formatos').fadeOut();
-       $('#div_solicitudes').fadeOut();
-       $('#div_modificar_evento').fadeOut();
-       $('#div_cerrar_evento').fadeOut();
-       $('#div_solicitud_factura').fadeOut();
-       $('#div_reporte_eventos').fadeOut();
-       $('#div_reporte_clientes').fadeIn();
-       $('#div_reporte_proveedores').fadeOut();
-       
-       */
        limpiar_cortinas();
            $("#div_cortina").animate({top: '0px'}, 1100);
            $('#div_reporte_clientes').fadeIn();
     
-    $.ajax({
-    type : 'POST',
-    url  : 'reporte_clientes.php',
-      success :  function(response){
-        $('#reporte_clientes').html(response);  
-        /*
-        $('#reporte_clientes').DataTable({
-             "scrollX": true,
-             "destroy": true, 
-              "sort": false,
-             "language" : idioma_espaniol
-          });   
-          */
-          $('#reporte_clientes').DataTable({
-            "searching": true,
-            "language" : idioma_espaniol,
-            "pageLength": 25,
-            //"lengthChange": false,
-            //"ordering": true,
-            //"paging": false,
-            //"scrollX": false,
-            "destroy": true, 
-            "sort": false,
-            "scrollX": true,
-            //"scrollCollapse": false,4
-            dom: 'Bfrtip',
-            buttons: [
-                'excel'
-                //'excel', 'pdf',
-            ]
-            /*
-            "columnDefs": [
-                { "width": "3%", "targets": [-1,-2,-3] }
-            ],
-            */
-            //"lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
-           
-         });         
-      }
-    });
+           $.ajax({
+            type : 'POST',
+            url  : 'reporte_clientes.php',
+              success :  function(response){
+                $('#reporte_clientes').html(response);  
+                $('#reporte_clientes tbody tr td').css("padding:5px");
+                $('#reporte_clientes').DataTable({
+                          dom: 'Bfrtip',
+                        buttons: [
+                            //'copy', 'csv', 'excel', 'pdf', 'print'
+                            'excel'
+                        ],
+                     "scrollX": true,
+                     "destroy": true, 
+                      "sort": false,
+                      "pageLength": 25,
+                     "language" : idioma_espaniol
+                  });            
+              }
+            });
   });
   
   
-    var idioma_espaniol = {
-      "sProcessing":     "Procesando...",
-      "sLengthMenu":     "Mostrar _MENU_ registros",
-      "sZeroRecords":    "No se encontraron resultados",
-      "sEmptyTable":     "Ningún dato disponible en esta tabla",
-      "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-      "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-      "sInfoPostFix":    "",
-      "sSearch":         "Buscar:",
-      "sUrl":            "",
-      "sInfoThousands":  ",",
-      "sLoadingRecords": "Cargando...",
-      "oPaginate": {
-          "sFirst":    "Primero",
-          "sLast":     "Último",
-          "sNext":     "Siguiente",
-          "sPrevious": "Anterior"
-      },
-      "oAria": {
-          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-      }
-      }
+  
 
       $('#rep_cat_proveedores').click(function(e){
         e.preventDefault();
@@ -4245,22 +4091,6 @@ function validarInput() {
            $('#form_alta_proveedores').hide();
            $('#div_area_descripcion').hide();
            $('#div_tipo_persona').hide();
-
-           /*
-           $('#div_nuevo_evento').fadeOut();       
-           $('#div_usuarios').fadeOut();
-           $('#div_alta_cliente').fadeOut();
-           $('#div_odc').fadeOut();
-           $('#div_alta_proveedores').fadeOut();
-           $('#div_formatos').fadeOut();
-           $('#div_solicitudes').fadeOut();
-           $('#div_modificar_evento').fadeOut();
-           $('#div_cerrar_evento').fadeOut();
-           $('#div_solicitud_factura').fadeOut();
-          $('#div_reporte_eventos').fadeOut();
-          $('#div_reporte_clientes').fadeOut();
-          $('#div_reporte_proveedores').fadeIn();
-          */
           limpiar_cortinas();
            $("#div_cortina").animate({top: '0px'}, 1100);
            $('#div_reporte_proveedores').fadeIn();          
@@ -6696,6 +6526,13 @@ $("#btn_rep_pitch").click(function (e) {
   $("#frame").attr("src", "eventos_pitch.html");
   $('#div_iframe').fadeIn();
 });
+$("#btn_rep_cancelados").click(function (e) { 
+  e.preventDefault();
+  limpiar_cortinas();
+  $("#div_cortina").animate({top: '0px'}, 1100);
+  $("#frame").attr("src", "eventos_cancelados.html");
+  $('#div_iframe').fadeIn();
+});
 $("#btn_rep_historicos").click(function (e) { 
   e.preventDefault();
   limpiar_cortinas();
@@ -6767,6 +6604,14 @@ $("#menu_calendario").click(function (e) {
   limpiar_cortinas();
   $("#div_cortina").animate({top: '0px'}, 1100);
   $("#frame").attr("src", "calendar2.html");
+  $('#div_iframe').fadeIn();
+});
+
+$("#reporte_facturacion").click(function (e) { 
+  e.preventDefault();
+  limpiar_cortinas();
+  $("#div_cortina").animate({top: '0px'}, 1100);
+  $("#frame").attr("src", "reportes_fac.html");
   $('#div_iframe').fadeIn();
 });
 
@@ -7376,6 +7221,9 @@ $('#c_user_solicita').change(function(){
 
   $('#btn_sin_factura').click(function(e){
     e.preventDefault();
+    ver_panel_tab();
+  });
+  function ver_panel_tab(){
     limpiar_cortinas();
     $("#div_cortina").animate({top: '0px'}, 1100);
     $('#div_formatos').fadeIn();
@@ -7393,6 +7241,7 @@ $('#c_user_solicita').change(function(){
       success:  function (response) {
         $('#loading_pendientes').html("");
         $('.with-nav-tabs').show();
+        $('#div_panel').show();
         
         if(response.includes("ADMIN")){
           ver_facturas_pendientes();
@@ -7428,7 +7277,7 @@ $('#c_user_solicita').change(function(){
         }
       }
     });
-  });
+  }
 
   function ver_facturas_pendientes(){
     $('#resultado_solicitudes').hide();
@@ -7437,7 +7286,18 @@ $('#c_user_solicita').change(function(){
       url:   'ver_facturas_pendientes.php',
       type:  'post',
       success:  function (response) {
-      $('#tab1default').html(response);
+      $('#tabla_fac_sin_numero_body').html(response);
+      $('#tabla_fac_sin_numero').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'pdf'
+        ],
+        "scrollX":        false,
+        "scrollCollapse": false,
+        "paging":         false,
+        "sort":           false,
+        "language" : idioma_espaniol,
+      });
       }
     });
   }
@@ -7449,7 +7309,18 @@ $('#c_user_solicita').change(function(){
       url:   'ver_pendientes_sin_estatus.php',
       type:  'post',
       success:  function (response) {
-      $('#tab2default').html(response);
+      $('#tabla_fac_sin_estatus_body').html(response);
+      $('#tabla_fac_sin_estatus').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'pdf'
+        ],
+        "scrollX":        false,
+        "scrollCollapse": false,
+        "paging":         false,
+        "sort":           false,
+        "language" : idioma_espaniol,
+      });
       }
     });
   }
@@ -7461,19 +7332,43 @@ $('#c_user_solicita').change(function(){
       url:   'ver_egresos_sin_facturar.php',
       type:  'post',
       success:  function (response) {
-      $('#tab3default').html(response);
+      $('#tabla_xyz_body').html(response);
+      $('#tabla_xyz').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'pdf'
+        ],
+        "destroy":        true,
+        "scrollX":        false,
+        "scrollCollapse": false,
+        "paging":         false,
+        "sort":           false,
+        "language" : idioma_espaniol,
+      });
       }
     });
   }
 
-  function ver_eventos_sin_cerrar(){    
+  function ver_eventos_sin_cerrar(){   
     $('#resultado_solicitudes').hide();
     llenar_eventos_ver_solicitudes("0");
     $.ajax({
       url:   'ver_eventos_sin_cerrar.php',
       type:  'post',
       success:  function (response) {
-      $('#tab4default').html(response);
+        $('#tabla_sin_cerrar_body').html(response);
+        $('#tabla_sin_cerrar').DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+              'pdf'
+          ],
+          "destroy":        true,
+          "scrollX":        false,
+          "scrollCollapse": false,
+          "paging":         false,
+          "sort":           false,
+          "language" : idioma_espaniol,
+        });
       }
     });
   }

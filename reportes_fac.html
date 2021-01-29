@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>ERP Tierra de ideas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="stylesheet" href="css/jquery.fancybox.css" />
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/animate.css"/>
+  <link rel="stylesheet" href="css/sweetalert2.css"/>  
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/bootstrap.min6.css">
+  <link rel="stylesheet" href="css/estilos_ver_0006.css"/>
+  <link rel="stylesheet" href="css/bootstrap-multiselect_001.css"/>
+  <link rel="stylesheet" href="css/chosen.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="js/jquery-ui-v1.11.4.js"></script>
+  <script src="js/moment.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/sweetalert2.min.js"></script>
+  <script src="js/animate.js"></script>
+  <script src="js/noty/packaged/jquery.noty.packaged.js"></script>
+  <script src="js/jquery.mousewheel.pack.js"></script> 
+  <script src="js/bootstrap-multiselect.js"></script>
+  <script src="js/DateTables.js" ></script>
+  <script src="js/chosen.jquery.js" ></script>
+  <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+  
+  <script src="js/dataTables.buttons.min.js"></script>
+  <script src="js/buttons.flash.min.js"></script>
+  <script src="js/jszip.min.js"></script>
+  <script src="js/pdfmake.min.js"></script>
+  <script src="js/vfs_fonts.js"></script>
+  <script src="js/buttons.html5.min.js"></script>
+  <script src="js/buttons.print.min.js"></script>
+  <script src="js/jspdf.min.js"></script>
+  <script src="js/jquery.modal.js"></script>
+  <!--<script src="https://code.highcharts.com/highcharts.src.js"></script>-->
+  <script src="js/highcharts.js"></script>
+  <!--<script src="https://code.highcharts.com/modules/series-label.js"></script>-->
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+  <script src="js/metodos_reporte_fac.js"></script>
+  <script>
+      $(document).on("ready",inicio); 
+  </script>
+
+</head>
+<body style='background-color: rgba(255,2552,255,0) !important;background:none !important;'>
+   
+    <div class="row">
+        <div class="container" style='width: 85%;'> 
+            <h2><i class="fas fa-hand-holding-usd"></i> Reportes de facturación</h2>
+            <hr>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <div class="cols-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-chart-line" aria-hidden="true"></i> Tipo de reporte</span>
+                            <select name="c_reporte" id="c_reporte" class="form-control">
+                                <option value="">Selecciona un reporte...</option>
+                                <option value="Fac_x_mes">Facturación por mes</option>
+                                <option value="Cob_x_mes">Cobranza por mes</option>
+                                <option value="Fac_x_anio">Facturación por año</option>
+                                <option value="Fac_vs_Cob">Facturación vs Cobranza (Totales)</option>
+                                <option value="Cli_anio">Total Cliente por año</option>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+            <div class="row">
+                <div id='anio' class="form-group col-md-2 anio ocultar">
+                    <div class="cols-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i> Año</span>
+                            <select name="c_anio" id="c_anio" class="form-control">
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id='mes' class="form-group col-md-2 mes ocultar">
+                    <div class="cols-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i> Mes</span>
+                            <select name="c_mes" id="c_mes" class="form-control">
+                                <option value="01">Enero</option>
+                                <option value="02">Febrero</option>
+                                <option value="03">Marzo</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Mayo</option>
+                                <option value="06">Junio</option>
+                                <option value="07">Julio</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id='div_boton' class="col-md-3 ocultar">
+                        <button id='btn_generar_reporte' type="button" class="btn btn-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Generar</button>
+                        <i class="fas fa-spinner fa-spin" style='display: none;'></i>
+                        
+                </div>
+            </div>
+            <div class="row ocultar" id="div_reporte1">
+                <table id="tabla_reporte" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Factura</th>
+                            <th>Cliente</th>
+                            <th>Concepto</th>
+                            <th>Subtotal</th>
+                            <th>IVA</th>
+                            <th>Total</th>
+                            <th>Estatus</th>
+                        </tr>
+                    </thead>
+                    <tbody id='tabla_reporte_body'>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row ocultar" id="div_reporte3">
+                <table id="tabla_cob_x_mes" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Factura</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Concepto</th>
+                            <th>Subtotal</th>
+                            <th>IVA</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id='tabla_cob_x_mes_body'>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row ocultar" id='div_reporte2'>
+                <div class="col-md-6" >
+                    <table id="Tabla_Fac_vs_Cob" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Mes</th>
+                                <th>Facturacion</th>
+                                <th>Cobranza</th>
+                            </tr>
+                        </thead>
+                        <tbody id='Tabla_Fac_vs_Cob_body'>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6" >
+                    <div id="chart" style="width:100%; min-height:600px;margin-top: 15px ;padding-top: 15px;"></div>
+                </div>
+            </div>
+           
+            <div class="row ocultar" id='div_reporte_cliente'>
+                <div class="col-md-5" >
+                    <table id="tabla_cliente" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody id='tabla_cliente_body'>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-7" >
+                    <div id="chart_cliente" style="width:100%; min-height:600px;margin-top: 15px ;padding-top: 15px;"></div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>    
+</body>
+</html>
+
+
+

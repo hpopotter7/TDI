@@ -158,7 +158,7 @@ else{
     $res1= "Error: ".mysqli_error($mysqli);
 }
 
-$total_azules=$res_mes1+$res_mes2+$res_mes3;
+$total_azules=$res2+$res_mes1+$res_mes2+$res_mes3;
 
 
 $resultado="<strong>Facturación vencida: ".moneda($res0)."</strong>";

@@ -4,6 +4,7 @@ function validar_perfiles(response){
 	$(".contenedor").remove();
 	$('#menu_cerrar_evento').remove();
 	$('#btn_sin_factura').hide();
+	$('#reporte_facturacion').hide();
 	
 	
 	if(response.usuario=="ALAN SANDOVAL" || response.usuario=="SANDRA PEÑA"){
@@ -14,6 +15,7 @@ function validar_perfiles(response){
 		$('#menu_prealta').show();
 		$('#toggleDemo ul').append("<li><a id='menu_cerrar_evento' href='#'><i class='fas fa-clipboard-check' aria-hidden='true'></i> Cerrar evento</a></li>");
 		$('#btn_sin_factura').show();
+		$('#reporte_facturacion').show();
 		
 		//agregar al combo clientes de eventos los centros de costos
 		//agregar_centros_costos();
@@ -42,6 +44,8 @@ function validar_perfiles(response){
 		$('#menu_calendario').hide();
 		$('#btn_fact_pendientes').remove();
 		$('.btn_pendientes').hide();
+		$('#reporte_facturacion').hide();
+		$('#reporte_facturacion').remove();
 	}
 	
 	if(response.cat_cli==""){

@@ -149,7 +149,7 @@ else{
     $res3= "Error: ".mysqli_error($mysqli);
 }
 
-$total_azules=$res_mes1+$res_mes2+$res_mes3;
+$total_azules=$res2+$res_mes1+$res_mes2+$res_mes3;
 
 $resultado="<strong>Pagos atrasados: ".moneda($res0)."</strong>";
 $resultado=$resultado."#<strong>Pagos vencidos (".ver_mes($mes)."): ".moneda($res1)."</strong>";

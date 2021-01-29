@@ -9,7 +9,7 @@
   <meta http-equiv='pragma' content='no-cache'>
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
   <link rel="stylesheet" href="css/jquery.fancybox.css" />
-  
+  <link rel="stylesheet" href="css/font-awesome.css">
   <link rel="stylesheet" href="css/animate.css"/>
   <link rel="stylesheet" href="css/sweetalert2.css"/>  
   <link rel="stylesheet" href="css/jquery-ui.css">
@@ -21,7 +21,6 @@
   
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
   
   <script
   src="https://code.jquery.com/jquery-2.2.4.js"
@@ -47,9 +46,8 @@
   <script src="js/buttons.print.min.js"></script>
   <script src="js/jspdf.min.js"></script>
   <script src="js/jquery.modal.js"></script>
-  <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
-
-  <script src="js/metodos_reporte_facturacion.js"></script>
+  
+  <script src="js/metodos_cancelados.js"></script>
   <script>
       $(document).on("ready",inicio); 
   </script>
@@ -58,21 +56,22 @@
 <body style='background-color: rgba(255,2552,255,0) !important;background:none !important;'>
    
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-10">
             <div id='div_reporte_eventos'>
-                  <div class="col-md-12" class='titulo_reporte'><legend><h2><i class="fas fa-hand-holding-usd"></i> CxC - Reporte de facturas pendientes por cobrar <i class="fas fa-spinner fa-spin"></i></h2></legend></div>
-                  <hr>
+                  <div class="col-md-12" class='titulo_reporte'><legend><h2>Reporte de eventos CANCELADOS</h2></legend></div>
                   <div class="clearfix">
                     <p><br></p>
                     </div>
                     <p><br></p>
-                  <table id='reporte_facturacion' class="table dataTable">
+                  <table id='reporte_eventos' class="table display nowrap dataTable" style="width:100%">
                   </table>
               </div>
         </div>
     </div>
-    
-    
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1" id='resultado_solicitudes'>
+      </div>
+    </div>
 </body>
 </html>
 
