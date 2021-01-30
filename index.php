@@ -46,6 +46,37 @@
   <script src="js/sweetalert2.min.js"></script>
   <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   
+  <style>
+    .fixed-btn{
+  position: fixed;
+  /*bottom: 10%;*/
+  top:7%;
+  left:47%;
+  background: #649919;
+  width: 80px;
+  height: 80px;
+  line-height: 45px;
+  text-align: center;
+  border-radius: 63px;
+  box-shadow: 4px 4px 4px #0a78aa;
+  cursor: pointer;
+}
+
+.fixed-btn p{
+  text-transform: uppercase;
+  font-family: arial;
+  font-weight: 900;
+  color: #fff;
+  padding-top:20px;
+}
+.fixed-btn p:hover{
+  color:#fff;
+}
+
+.fixed-btn:active{
+  box-shadow: 0  0;
+}
+  </style>
   
   <body>
  
@@ -115,7 +146,9 @@ if($bandera==4){
       
     }
     ?>
-
+<div class="fixed-btn">
+    <p><a href="https://administraciontierradeideas.mx/soporte/login" target="_blank"><i class="fas fa-headset fa-3x" aria-hidden="true"></i></a></p>
+  </div>
   
 <footer class="page-footer font-small blue pt-4" style="z-index: 400px">   
     <!-- Copyright -->

@@ -516,6 +516,8 @@ span.switch-label:after {
 	border-color: #ebccd1;
 	border-bottom-color: transparent;
 }
+
+
   </style>
 
 </head>
@@ -632,6 +634,9 @@ span.switch-label:after {
         </ul class="nav navbar-nav">
       <ul class="nav navbar-nav cambio_rapido" id="sidenav01">
         <hr>
+        <li>
+          <a href="https://administraciontierradeideas.mx/soporte/login" target='_blank'><i class="fas fa-headset"></i> Soporte</a>
+        </li>
         <li>
           <a href="#" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed">
             <i class="fas fa-star "></i> Eventos <span class="caret pull-right"></span>
