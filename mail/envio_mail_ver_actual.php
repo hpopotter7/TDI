@@ -1,18 +1,8 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-require 'vendor/PHPMailer/src/Exception.php';
-require 'vendor/PHPMailer/src/PHPMailer.php';
-require 'vendor/PHPMailer/src/SMTP.php';
-
-// Load Composer's autoloader
-require 'vendor/autoload.php';
 
 date_default_timezone_set('America/Mexico_City');
 
-//logica del correo==
+//$rfc=$_POST['rfc'];
 $asunto=$_POST['asunto'];
 $evento=$_POST['evento'];
 $usuario=$_POST['usuario'];
@@ -32,6 +22,7 @@ $body="";
 switch($asunto){
     case "Solicitud de modificación":
         $asunto="Solicitud de modificacion";
+	//$mail->addAddress('sandrap@tierradeideas.mx', 'Sandra Peña');
 	$to = 'sandrap@tierradeideas.mx';
 	$body='<html>
 		<head><meta http-equiv="Content-Type" content="text/html; charset=utf8">
@@ -53,6 +44,7 @@ switch($asunto){
 		';
 	break;
 	case "Solicitud de proveedor":
+	//$mail->addAddress('mich@tierradeideas.mx', 'MIGUEL POBLACION');
 	$to = 'mich@tierradeideas.mx';
 	$body='<html>
 		<head>
@@ -73,6 +65,7 @@ switch($asunto){
 		';
 	break;
 	case "Solicitud de cliente":
+	//$mail->addAddress('sandrap@tierradeideas.mx', 'Sandra Peña');
 	$to = 'sandrap@tierradeideas.mx';
 	$body='<html>
 		<head>
@@ -93,6 +86,17 @@ switch($asunto){
 		';
 	break;
 	case "Notificacion de limite":
+		
+		// $mail->addAddress('sandrap@tierradeideas.mx', 'Sandra Peña');
+		// $mail->AddCC('fcarrera@tierradeideas.mx', 'Fernanda Carrera');
+		// $mail->AddCC('andresemanuelli@tierradeideas.mx', 'Andres Emanuelli');
+		/*
+		include("../conexion.php");
+		if (mysqli_connect_errno()) {
+			printf("Error de conexion: %s\n", mysqli_connect_error());
+			exit();
+		}
+		*/
 		$result = $mysqli->query("SET NAMES 'utf8'");
 		$arr=explode("]",$evento);
     	$ID=str_replace("[", "", $arr[0]);
@@ -293,7 +297,13 @@ switch($asunto){
 	
 
 }
-
+/*
+include("../conexion.php");
+if (mysqli_connect_error()) {
+	echo "Error de conexion: %s\n", mysqli_connect_error();
+	exit();
+}
+*/
 $result = $mysqli->query("SET NAMES 'utf8'");
 $link='<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">';
 
@@ -307,33 +317,26 @@ else{
 	$respuesta= $sql."<br>".mysqli_error($mysqli);
 }
 
-if($asunto!="VoBo para solicitud de compra"){
+$headers = "From: erp@administraciontierradeideas.mx\r\n";
+//$headers .= "Reply-To: ". strip_tags($_POST['req-email']) . "\r\n";
+//$headers .= "CC: susan@example.com\r\n";
+$headers .= "Bcc: alaneduardosandoval@yahoo.com\r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=UTF-8";
 
-    //==FIN DE LA LOGIC==
-	//Create a new PHPMailer instance
-try {
-    $mail = new PHPMailer();
-    // Set PHPMailer to use the sendmail transport
-	//$mail->isSendmail();
-	$mail->isSMTP(); 
-	$mail->Host       = 'administraciontierradeideas.mx';                    // Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'erp@administraciontierradeideas.mx';                     // SMTP username
-    $mail->Password   = '@ERPideas2019';                               // SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-    $mail->Port       = 25;         
-    $mail->setFrom('erp@administraciontierradeideas.mx', 'Sistema ERP');
-    $mail->addAddress($to, $to);
-    $mail->addBCC('alaneduardosandoval@yahoo.com', 'Alan Sandoval');
-	$mail->ContentType = 'text/html';
-	$mail->CharSet = 'UTF-8';
-    $mail->Subject = $asunto;
-	//$mail->msgHTML($body);
-	$mail->Body=$body;	
-	$mail->send();
-	echo 'Enviado';
-} catch (Exception $e) {
-    echo "Ocurrio un error.Mailer Error: {$mail->ErrorInfo}";
+if($copia!=""){
+	$headers .= $copia;
 }
+
+//send the message, check for errors
+if($asunto!="VoBo para solicitud de compra"){
+	if (!mail($to, $asunto, $body, $headers)) {
+		echo "Ocurrio un error al enviar la notificación".error_get_last()['message'];
+	} else {
+		echo "Enviado".$respuesta;
+	}
 }
+
+
+
 ?>

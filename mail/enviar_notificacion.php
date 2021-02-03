@@ -1,60 +1,43 @@
 <?php
-$nombre=$_POST['nombre'];
-$evento=$_POST['evento'];
-$email=$_POST['email'];
-$texto=$_POST['texto'];
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/PHPMailer/src/Exception.php';
+require 'vendor/PHPMailer/src/SMTP.php';
+require 'vendor/PHPMailer/src/PHPMailer.php';
 
 
-require 'PHPMailer-master/PHPMailerAutoload.php';
-$mail = new PHPMailer;
-//Tell PHPMailer to use SMTP
-//$mail->isSMTP();
-//Enable SMTP debugging
-// 0 = off (for production use)
-// 1 = client messages
-// 2 = client and server messages
-$mail->SMTPDebug = 0;
-//Ask for HTML-friendly debug output
-$mail->Debugoutput = 'html';
-$mail->Host       = "smtp.office365.com";
-$mail->Port       = 587;
-$mail->SMTPAuth   = true;
-$mail->SMTPSecure = 'tls';
-$mail->IsHTML(true);
-$mail->Username   = "administracion@tierradeideas.mx";
-$mail->Password   = "Tierra5deas18";
-$mail->CharSet = 'UTF-8';
-$mail->Subject = 'Solicitud atendida';
-$mail->setFrom('administracion@tierradeideas.mx', 'Sistema admin');
-$mail->addBcc('alaneduardosandoval@yahoo.com', 'Alan');
-$mail->addBcc('sandrap@tierradeideas.mx', 'Sandra Peña');
-$mail->addAddress($email, $nombre);
-	$body='<html>
-		<head>
-			<title></title>
-			<link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
-		</head>
-		<body aria-readonly="false">&nbsp;&nbsp;<img alt="" src="https://administraciontierradeideas.mx/img/logo.png" style="float:left; height:70px; margin:2px; width:90px" /><br />
-		&nbsp;<br />
-		&nbsp;<br />
-		&nbsp;<p><br>
-		<hr /><p><br /><h4> Su solicitud ha sido atendida.</h4>
-		<blockquote><i>"
-		El usuario <b>'.$nombre.'</b> a solicitado una modificación para el evento <b>'.$evento.':</b><br><p>
-		'.$texto.'"</i>
-</blockquote> 
-		&nbsp;<br />
-		&nbsp;<br />
-		<span style="font-size:10px"><span style="font-family:verdana,geneva,sans-serif"><em>&nbsp;Este es un mensaje autom&aacute;tico creado por el sistema ERP.&nbsp; Favor de no responder.</em></span></span><br />
-		&nbsp;</body>
-		</html>
-		';
-$mail->MsgHTML($body);
+// Load Composer's autoloader
+require 'vendor/autoload.php';
 
-//send the message, check for errors
-if (!$mail->send()) {
-    echo "Error: " . $mail->ErrorInfo;
-} else {
-    echo "Enviado";
+// Instantiation and passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
+try {
+    //Server settings
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+    $mail->isSMTP();                                            // Send using SMTP
+    $mail->Host       = 'administraciontierradeideas.mx';       // Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->Username   = 'erp@administraciontierradeideas.mx';                     // SMTP username
+    $mail->Password   = '@ERPideas2019';                               // SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS    ;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+    $mail->Port       = 25;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+    //Recipients
+    $mail->setFrom('erp@administraciontierradeideas.mx', 'Sistema ERP');
+    $mail->addAddress('7kaskara7@gmail.com', 'Nombre de usuario');     // Add a recipient
+    $mail->addReplyTo('alaneduardosandoval@yahoo.com', 'Alan sandoval');
+	
+	//$mail->ContentType = 'text/html';						// Set email format to HTML or text/plain
+    $mail->Subject = 'Here is the subject';
+    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    $mail->send();
+    echo 'Enviado';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
-?>
