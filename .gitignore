@@ -13,4 +13,5 @@ clientes/
 proveedores/
 BI/
 api/
+mail/vendor/*
 php_errors.log
