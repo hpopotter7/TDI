@@ -13,7 +13,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
     $result = $mysqli->query("SET NAMES 'utf8'");
-    $sql="SELECT Nombre FROM usuarios where User='".$user."' and Pass='".$pass."' and Estatus='activo'";
+    $sql="SELECT Nombre, email, Pass FROM usuarios where User='".$user."' and Pass='".$pass."' and Estatus='activo'";
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         if($pass=="tierraideas"){
@@ -22,13 +22,20 @@ if ($result = $mysqli->query($sql)) {
         }
         else{
             $res=$row[0];
+            $email=$row[1];
+            $pass=$row[2];
            
         }
     }
     $result->close();
+
+    $pass=bin2hex($pass);
+
 }
     setcookie("user", $res);
-            setcookie("start", time());
+    setcookie("email", $email);
+    setcookie("pass", $pass);
+    setcookie("start", time());
 $mysqli->close();
 
 

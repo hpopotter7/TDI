@@ -7244,17 +7244,24 @@ $('#c_user_solicita').change(function(){
         $('#div_panel').show();
         
         if(response.includes("ADMIN")){
-          ver_facturas_pendientes();
+          llenar_tabla_pendientes("ver_facturas_pendientes.php", "Eventos con factura sin número");
+          /*ver_facturas_pendientes();
           ver_pedientes_sin_estatus();
           ver_egresos_sin_factura();
           ver_eventos_sin_cerrar();
-          $('#tab_5').hide();
-          $('#tab_6').hide();
+          ver_eventos_sin_pagar();
+          ver_eventos_sin_comprobar();
+          ver_eventos_vacios();*/
+          //$('#tab_5').hide();
+          //$('#tab_6').hide();
           
         }
         else if(response.includes("EJECUTIVO")){
+          llenar_tabla_pendientes("ver_egresos_sin_facturar.php", "Eventos con egresos sin facturar");
+          /*
           ver_egresos_sin_factura();
-          ver_eventos_sin_cerrar();
+          ver_eventos_sin_cerrar();/
+          */
           $('#tab_1').hide();
           $('#tab_2').hide();
           $('#tab_5').hide();
@@ -7262,8 +7269,11 @@ $('#c_user_solicita').change(function(){
           $('.nav-tabs a[href="#tab3default"]').tab('show');
         }
         else if(response.includes("CXP")){
+          llenar_tabla_pendientes("ver_eventos_sin_pagar.php","Eventos con solicitudes sin pagar");
+          /*
           ver_eventos_sin_pagar();
           ver_eventos_sin_comprobar();
+          */
           $('#tab_1').hide();
           $('#tab_2').hide();
           $('#tab_3').hide();
@@ -7279,123 +7289,60 @@ $('#c_user_solicita').change(function(){
     });
   }
 
-  function ver_facturas_pendientes(){
+  function llenar_tabla_pendientes(pagina, titulo){
     $('#resultado_solicitudes').hide();
     llenar_eventos_ver_solicitudes("0");
+    var datos={
+      "titulo": titulo,
+    };
     $.ajax({
-      url:   'ver_facturas_pendientes.php',
+      url:  pagina,
       type:  'post',
+      data: datos,
       success:  function (response) {
-      $('#tabla_fac_sin_numero_body').html(response);
-      $('#tabla_fac_sin_numero').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'pdf'
-        ],
-        "scrollX":        false,
-        "scrollCollapse": false,
-        "paging":         false,
-        "sort":           false,
-        "language" : idioma_espaniol,
-      });
-      }
-    });
-  }
-
-  function ver_pedientes_sin_estatus(){
-    $('#resultado_solicitudes').hide();
-    llenar_eventos_ver_solicitudes("0");
-    $.ajax({
-      url:   'ver_pendientes_sin_estatus.php',
-      type:  'post',
-      success:  function (response) {
-      $('#tabla_fac_sin_estatus_body').html(response);
-      $('#tabla_fac_sin_estatus').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'pdf'
-        ],
-        "scrollX":        false,
-        "scrollCollapse": false,
-        "paging":         false,
-        "sort":           false,
-        "language" : idioma_espaniol,
-      });
-      }
-    });
-  }
-
-  function ver_egresos_sin_factura(){
-    $('#resultado_solicitudes').hide();
-    llenar_eventos_ver_solicitudes("0");
-    $.ajax({
-      url:   'ver_egresos_sin_facturar.php',
-      type:  'post',
-      success:  function (response) {
-      $('#tabla_xyz_body').html(response);
-      $('#tabla_xyz').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'pdf'
-        ],
-        "destroy":        true,
-        "scrollX":        false,
-        "scrollCollapse": false,
-        "paging":         false,
-        "sort":           false,
-        "language" : idioma_espaniol,
-      });
-      }
-    });
-  }
-
-  function ver_eventos_sin_cerrar(){   
-    $('#resultado_solicitudes').hide();
-    llenar_eventos_ver_solicitudes("0");
-    $.ajax({
-      url:   'ver_eventos_sin_cerrar.php',
-      type:  'post',
-      success:  function (response) {
-        $('#tabla_sin_cerrar_body').html(response);
-        $('#tabla_sin_cerrar').DataTable({
+      $('#tabla_pendientes').html(response);
+      $('#tabla_pendientes').DataTable({
           dom: 'Bfrtip',
           buttons: [
-              'pdf'
+              'pdf', 'excel'
           ],
           "destroy":        true,
-          "scrollX":        false,
-          "scrollCollapse": false,
-          "paging":         false,
+          "scrollY":        true,
+          "scrollCollapse": true,
+          "paging": true,
+          "pageLength": 15,
           "sort":           false,
           "language" : idioma_espaniol,
-        });
+      });
       }
     });
   }
 
-  function ver_eventos_sin_pagar(){    
-    $('#resultado_solicitudes').hide();
-    llenar_eventos_ver_solicitudes("0");
-    $.ajax({
-      url:   'ver_eventos_sin_pagar.php',
-      type:  'post',
-      success:  function (response) {
-      $('#tab5default').html(response);
-      }
-    });
-  }
-
-  function ver_eventos_sin_comprobar(){    
-    $('#resultado_solicitudes').hide();
-    llenar_eventos_ver_solicitudes("0");
-    $.ajax({
-      url:   'ver_eventos_sin_comprobar.php',
-      type:  'post',
-      success:  function (response) {
-      $('#tab6default').html(response);
-      }
-    });
-  }
+  $('.nav-tabs li').on('click', function(){
+    switch($(this).attr('id')){
+      case "tab_1":
+        llenar_tabla_pendientes("ver_facturas_pendientes.php", "Eventos con factura sin número");
+        break;
+      case "tab_2":
+        llenar_tabla_pendientes("ver_pendientes_sin_estatus.php", "Eventos con factura sin estatus");
+        break;
+      case "tab_3":
+        llenar_tabla_pendientes("ver_egresos_sin_facturar.php", "Eventos con egresos sin facturar");
+        break;
+      case "tab_4":
+        llenar_tabla_pendientes("ver_eventos_sin_cerrar.php", "Eventos pendientes por Cerrar");
+        break;
+      case "tab_5":
+        llenar_tabla_pendientes("ver_eventos_sin_pagar.php", "Eventos con solicitudes sin pagar");
+        break;
+      case "tab_6":
+        llenar_tabla_pendientes("ver_eventos_sin_comprobar.php", "Eventos con solicitudes sin comprobar");
+        break;
+      case "tab_7":
+        llenar_tabla_pendientes("ver_eventos_vacios.php", "Eventos vacios");
+        break;
+    }
+  });
 
 
   

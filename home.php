@@ -104,7 +104,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v110.js"></script>
-  <script src="js/metodos_v2_0090.js"></script>
+  <script src="js/metodos_v2_0092.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -635,7 +635,7 @@ span.switch-label:after {
       <ul class="nav navbar-nav cambio_rapido" id="sidenav01">
         <hr>
         <li>
-          <a href="https://administraciontierradeideas.mx/soporte/login" target='_blank'><i class="fas fa-headset"></i> Soporte</a>
+          <a href="https://administraciontierradeideas.mx/soporte/login?user=<?php echo $_COOKIE['email']?>&pass=<?php echo $_COOKIE['pass']?>" target='_blank'><i class="fas fa-headset"></i> Soporte</a>
         </li>
         <li>
           <a href="#" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed">
@@ -779,7 +779,7 @@ span.switch-label:after {
   </div>
 
   <!--div formatos descargas-->
- <div id='div_formatos' class="container">
+ <div id='div_formatos' class="container" style='margin-left:120px; width:85%'>
     <div class="row main">
       <div class="main-login main-center-descargas"> 
       <legend><h2>Solicitudes</h2></legend>
@@ -875,22 +875,25 @@ span.switch-label:after {
                 <div class="panel-heading">
                         <ul class="nav nav-tabs">
                             <li id='tab_1' class="active"><a href="#tab1default" class='btn btn-danger' data-toggle="tab">Eventos con factura sin número</a></li>
-                            <li id='tab_2'><a href="#tab2default" class='btn btn-danger' data-toggle="tab">Eventos con factura sin estatus</a></li>
-                            <li id='tab_3'><a href="#tab3default" class='btn btn-danger' data-toggle="tab">Eventos con egresos sin facturar</a></li>
-                            <li id='tab_4'><a href="#tab4default" class='btn btn-danger' data-toggle="tab">Eventos pendientes por Cerrar</a></li>
-                            <li id='tab_5'><a href="#tab5default" class='btn btn-danger' data-toggle="tab">Eventos con solicitudes sin pagar</a></li>
-                            <li id='tab_6'><a href="#tab6default" class='btn btn-danger' data-toggle="tab">Eventos con solicitudes sin comprobar</a></li>
+                            <li id='tab_2'><a href="#tab1default" class='btn btn-danger' data-toggle="tab">Eventos con factura sin estatus</a></li>
+                            <li id='tab_3'><a href="#tab1default" class='btn btn-danger' data-toggle="tab">Eventos con egresos sin facturar</a></li>
+                            <li id='tab_4'><a href="#tab1default" class='btn btn-danger' data-toggle="tab">Eventos pendientes por Cerrar</a></li>
+                            <li id='tab_5'><a href="#tab1default" class='btn btn-danger' data-toggle="tab">Eventos con solicitudes sin pagar</a></li>
+                            <li id='tab_6'><a href="#tab1default" class='btn btn-danger' data-toggle="tab">Eventos con solicitudes sin comprobar</a></li>
+                            <li id='tab_7'><a href="#tab1default" class='btn btn-danger' data-toggle="tab">Eventos vacios</a></li>
                             
                         </ul>
                 </div>
                 <div class="panel-body">
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="tab1default">
-                          <table class='table display' id='tabla_fac_sin_numero' style='width:100%'>
-                            <thead><tr><th>Eventos con factura sin número</th></tr></thead>
-                            <tbody id='tabla_fac_sin_numero_body'></tbody>
+                          <table class='table display' id='tabla_pendientes' style='width:100%'>
+                          <thead><tr><td>a</td></tr></thead>
+                          <tbody>
+                          <tr><td>a</td></tr></tbody>
                           </table>
                         </div>
+                      <!--
                         <div class="tab-pane fade" id="tab2default">
                           <table class='table display' id='tabla_fac_sin_estatus' style='width:100%'>
                             <thead><tr><th>Eventos con factura sin estatus</th></tr></thead>
@@ -911,6 +914,12 @@ span.switch-label:after {
                         </div>
                         <div class="tab-pane fade" id="tab5default"></div>
                         <div class="tab-pane fade" id="tab6default"></div>
+                        <div class="tab-pane fade" id="tab7default">
+                        <table class='table display' id='tabla_vacios' style='width:100%'>
+                            <thead><tr><th>Evento sin cerrar</th></tr></thead>
+                            <tbody id='tabla_vacios_body'></tbody>
+                          </table></div>
+                          -->
                     </div>
                 </div>
             </div>

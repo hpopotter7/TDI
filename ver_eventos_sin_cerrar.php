@@ -1,4 +1,5 @@
 <?php 
+$titulo=$_POST['titulo'];
 include("conexion.php");
 if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());
@@ -6,7 +7,7 @@ if (mysqli_connect_errno()) {
 }
 $result = $mysqli->query("SET NAMES 'utf8'");
 
-$respuesta="";
+$respuesta="<thead><tr><td>Pendientes</td></tr></thead><tbody><tr style='background-color: rgba(155,175,55,.7)';><th>".$titulo."</th></tr>";
 $contador_numero=0;
 $bandera_ejecutivo=true;
 $sql="SELECT e.Numero_evento, e.Nombre_evento, e.cliente as cliente, o.suma, f.Importe_Total, e.id_evento  FROM eventos e, ODC_ABIERTOS o, Reporte_Facturacion f where e.Numero_evento=o.evento and e.Numero_evento=f.Numero_evento and e.Estatus='ABIERTO' and e.cliente!='GASTO' and f.Importe_Total is not null and Ejecutivo like '%".$_COOKIE['user']."%' order by cliente asc, e.id_evento asc ";
@@ -19,7 +20,7 @@ if($_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="ALAN SANDOVAL" || $_CO
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         $respuesta=$respuesta."<tr>";
-        $nombre_evento="[".$row[0]."] - ".$row[1];
+        $nombre_evento="[".$row[0]."] ".$row[2]." - ".$row[1];
         if($bandera_ejecutivo){
             
             if($row[4]<$row[3]){
@@ -46,11 +47,11 @@ if ($result = $mysqli->query($sql)) {
 }
 
 if($respuesta==""){
-    $respuesta="No hay sin numero de factura";
+    $respuesta="<tr><td>No hay pendientes</td></tr>";
 }
 
 
-echo $respuesta;
+echo $respuesta."</tbody>";
 
 $mysqli->close();
 ?>
