@@ -55,9 +55,11 @@ function moneda($value) {
 
 //Facturación del periodo
 $result = $mysqli->query("SET NAMES 'utf8'"); 
-$sql="select s.No_Factura, e.Cliente, p.Descripcion, p.Subtotal, p.Iva, p.Total, s.Estatus_Factura from solicitud_factura s left join Suma_Tabla_Partidas_x_id_sol p on s.id_solicitud=p.id_sol_factura left join eventos e on s.id_evento=e.id_evento where s.No_Factura is not null and s.id_evento=e.id_evento and DATE_FORMAT(Fecha_hora_registro, '%Y-%m') ='".$anio."-".$mes."' ";
+$sql="select s.No_Factura, e.Numero_evento as evento, e.Cliente, p.Descripcion, p.Subtotal, p.Iva, p.Total, s.Estatus_Factura from solicitud_factura s left join Suma_Tabla_Partidas_x_id_sol p on s.id_solicitud=p.id_sol_factura left join eventos e on s.id_evento=e.id_evento where s.No_Factura is not null and s.id_evento=e.id_evento and s.Estatus='Activa' and (s.Estatus_Factura='PAGADO' or s.Estatus_Factura='POR COBRAR' or s.Estatus_Factura is null) and DATE_FORMAT(Fecha_hora_registro, '%Y-%m') ='".$anio."-".$mes."' ";
 if($mes=="0"){
-    $sql="select s.No_Factura, e.Cliente, p.Descripcion, p.Subtotal, p.Iva, p.Total, s.Estatus_Factura from solicitud_factura s left join Suma_Tabla_Partidas_x_id_sol p on s.id_solicitud=p.id_sol_factura left join eventos e on s.id_evento=e.id_evento where s.No_Factura is not null and s.id_evento=e.id_evento and DATE_FORMAT(Fecha_hora_registro, '%Y') ='".$anio."'";
+
+    /* $sql="select s.No_Factura, e.Cliente, p.Descripcion, p.Subtotal, p.Iva, p.Total, s.Estatus_Factura from solicitud_factura s left join Suma_Tabla_Partidas_x_id_sol p on s.id_solicitud=p.id_sol_factura left join eventos e on s.id_evento=e.id_evento where s.No_Factura is not null and s.id_evento=e.id_evento and DATE_FORMAT(Fecha_hora_registro, '%Y') ='".$anio."'"; */
+    $sql="select s.No_Factura, e.Numero_Evento as evento, e.Cliente, p.Descripcion, p.Subtotal, p.Iva, p.Total, s.Estatus_Factura from solicitud_factura s inner join Suma_Tabla_Partidas_x_id_sol p on s.id_solicitud=p.id_sol_factura inner join eventos e on s.id_evento=e.id_evento where s.estatus='Activa' and (s.Estatus_Factura='PAGADO' or s.Estatus_Factura='POR COBRAR' or s.Estatus_Factura is null) and s.id_evento=e.id_evento and DATE_FORMAT(Fecha_hora_registro, '%Y') ='".$anio."'";
 }
 $suma_subtotal=0;
 $suma_iva=0;
@@ -67,6 +69,7 @@ if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_assoc()) {
         $tabla=$tabla."<tr>";
         $tabla=$tabla."<td>".$row['No_Factura']."</td>";
+        $tabla=$tabla."<td>".$row['evento']."</td>";
         $tabla=$tabla."<td>".$row['Cliente']."</td>";
         $tabla=$tabla."<td>".$row['Descripcion']."</td>";
         $tabla=$tabla."<td>".moneda($row['Subtotal'])."</td>";
@@ -83,6 +86,25 @@ if ($result = $mysqli->query($sql)) {
 else{
     $tabla= "<tr><td>".$sql.mysqli_error($mysqli)."</td></tr>";
 }
+
+$tabla="<thead>
+            <tr>
+                <th>Factura</th>
+                <th>Evento</th>
+                <th>Cliente</th>
+                <th>Concepto</th>
+                <th>Subtotal</th>
+                <th>IVA</th>
+                <th>Total</th>
+                <th>Estatus</th>
+            </tr>
+            </thead>
+            <tbody id='tabla_reporte_body'>".$tabla."
+            </tbody>
+            <tfoot>
+            <tr>
+            <th> </th><th> </th><th> </th><th style='text-align:right'>SUMA</th><th>".moneda($suma_subtotal)."</th><th>".moneda($suma_iva)."</th><th>".moneda($suma_total)."</th><th> </th>
+            </tr></tfoot>";
 
 echo $tabla;
 $mysqli->close();

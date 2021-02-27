@@ -30,7 +30,7 @@ foreach($myfiles as $file){
   }
 }
 
-$sql2="SELECT p.id_sol_factura, ROUND(sum(p.total),2), s.Estatus, s.No_factura, s.Estatus_Factura, ANY_VALUE(p.descripcion) from partidas p, solicitud_factura s where s.id_evento=".$evento." and p.id_sol_factura=s.id_solicitud and s.Estatus='Activa' group by p.id_sol_factura order by s.No_Factura asc";
+$sql2="SELECT p.id_sol_factura, ROUND(sum(p.total),2), s.Estatus, s.No_factura, s.Estatus_Factura, ANY_VALUE(p.descripcion), ANY_VALUE(p.IVA) from partidas p, solicitud_factura s where s.id_evento=".$evento." and p.id_sol_factura=s.id_solicitud and s.Estatus='Activa' group by p.id_sol_factura order by s.No_Factura asc";
 if ($result = $mysqli->query($sql2)) {
   while ($row = $result->fetch_row()) {
     $estatus0="";
@@ -41,6 +41,7 @@ $estatus4="";
 $descripcion=$row[5];
     $no_factura=$row[3];
     $estatus_factura=$row[4];
+    $iva=$row[6];
     if($no_factura==null || $no_factura==""){
       $no_factura="0";
     }
@@ -69,8 +70,13 @@ $descripcion=$row[5];
       $tbody=$tbody."<tr>
                 <td class='text-center'>".$COUNT."</td>
                 <td class='text-center td_btn_numero_factura'>";
+                $boton_dividir=""; //<i id='".$row[0]."' class='btn btn-info fas fa-layer-group btn_dividir_solicitud'></i>
                 if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
                   $tbody=$tbody."<label id=".$row[0]." class='btn btn_verde btn_success btn_numero_factura'>".$no_factura."</label>";
+                  if($no_factura=="0"){
+                    $boton_dividir="<i id='".$row[0]."' class='btn btn-info fas fa-layer-group btn_dividir_solicitud'></i>";
+                  }
+                  
                 }
                 else{
                   $tbody=$tbody."<label class='btn btn_verde btn_success disabled'>".$no_factura."</label>";
@@ -78,21 +84,42 @@ $descripcion=$row[5];
       $tbody=$tbody."
                 </td>
                 <td class='text-center' style='width: 25%;'>";
+                $icono_moneda="";
                 if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
-                  $tbody=$tbody."<select id='c_".$row[0]."' class='form-control c_estatus_factura'>";
+                  if($estatus_factura=="PAGADO"){
+                    $tbody=$tbody."<select id='c_".$row[0]."' class='form-control c_estatus_factura'>";
+                  }
+                  else{
+                    if($iva==0){
+                      $tbody=$tbody."<select id='usd_".$row[0]."' class='form-control c_estatus_factura'>";
+                      $icono_moneda="<i class='fas fa-euro-sign'> </i>";
+                    }
+                    else{
+                      $tbody=$tbody."<select id='c_".$row[0]."' class='form-control c_estatus_factura'>";
+                      $icono_moneda="";
+                    }
+                    
+                  }
+                  
                 }
                 else{
                   $tbody=$tbody."<select class='form-control disabled' disabled>";
                 }
-        $tbody=$tbody."
+              $tbody=$tbody."
                 <option value='vacio' ".$estatus0.">---Selecciona---</option>
                 <option value='PAGADO' ".$estatus1.">PAGADO</option>
                 
                 <option value='NOTA CREDITO' ".$estatus3.">NOTA CREDITO</option>
                 <option value='POR COBRAR' ".$estatus4.">POR COBRAR</option>
-                </select></td>
-                <td class='text-center'><h4><span class='label label-primary'>".moneda($row[1])."</span></h4></td>
-              ";
+                </select></td>";
+                
+                if($estatus_factura=="PAGADO"){
+                  $tbody=$tbody."<td class='text-center'><h4><span id='".$row[0]."' class='btn btn-primary'>".moneda($row[1])."</span> ".$boton_dividir."</h4> </td>";
+                }
+                else{
+                  $tbody=$tbody."<td class='text-center'><h4><span id='".$row[0]."' class='btn btn-primary btn_convetir_usd'>".moneda($row[1])."</span> ".$boton_dividir."</h4> </td>";
+                }
+               
               /*
               $menu="<div class='dropdown'>
               <button onclick='myFunction()' class='dropbtn'><i class='fas fa-caret-down aria-hidden='true'></i> Opciones</button>
@@ -241,6 +268,7 @@ var myChart = new Chart(ctx, {
 });
 </script>
 </td>
+</tr>
 </tbody>";
 }
 

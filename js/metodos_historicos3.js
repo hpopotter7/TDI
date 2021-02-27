@@ -53,7 +53,7 @@ function inicio(){
        function ver_solicitudes_por_evento(evento){
         var datos={
           "evento": evento,
-          "usuario": $('#label_user').html(),
+          "filtro": "todos",
         }
         $.ajax({
             url:   "ver_solicitudes_por_evento.php",
@@ -61,6 +61,7 @@ function inicio(){
             data: datos,
             success:  function (response) {
               var arr=response.split("$$$");
+              
               $('#resultado_solicitudes').html(arr[0]);
               $('#espacio').show();
              // $('#tabla_resumen_solicitudes').DataTable();
@@ -81,8 +82,8 @@ function inicio(){
                 ],
                 */
                 //"lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
-               
              }); 
+             
             }
           });
       }

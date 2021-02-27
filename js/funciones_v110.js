@@ -131,7 +131,7 @@ function validar_perfiles(response){
 	//$('#btn_rep_gastos').remove();
 	if(!response.eje.includes("Ejecutivo de cuenta")){
 		if(response.usuario!="ALAN SANDOVAL" || response.usuario!="SANDRA PEÑA" 
-		|| response.usuario!="FERNANDA CARRERA" || response.usuario!="ANDRES EMANUELLI"){
+		|| response.usuario!="FERNANDA CARRERA"){
 		$('#btn_rep_gastos').hide();
 		$('#btn_rep_gastos').remove();
 		}

@@ -1230,6 +1230,7 @@ var parametros = {
           
            e.preventDefault();
            metodo_limpiar_evento();
+           ver_clientes();
            ver_usuarios_combos("Ejecutivo");
             ver_usuarios_combos("Solicitante");
             ver_usuarios_combos("Digitalizacion");
@@ -1635,7 +1636,7 @@ var parametros = {
           $('#txt_nombre_comercial').val('');
           $('#c_metodo_pago :nth-child(1)').prop('selected', true);
           $('#txt_rfc').val('');
-          $('#digitos').val('');
+          $('#dias_credito').val('');
           $("#combo_tipo_persona").val('vacio');
           $('#area_descripcion').val('');
           $('#c_estados_cobertura').val(null);
@@ -1788,8 +1789,13 @@ var parametros = {
             $("#resultado_solicitudes").delegate(".c_estatus_factura", "change", function() {
               var arr=$(this).attr('id').split("_");
               var estatus=$(this).val();
+              var usd=arr[0];
               var id=arr[1];
               var fecha_pago="";
+              var monto="";
+              if(usd=="usd"){
+                monto="<div><label>Ingresa el valor del cambio de divisa:</label><input id='valor_divisa' type='number' min='1' class='form-control' value='21'></div>";
+              }
               if(estatus=="PAGADO"){
                 noty({
                   type        : 'warning',
@@ -1800,15 +1806,27 @@ var parametros = {
                   closeWith: ['button'],
                   modal: "true",
                   //timeout     : [10000],
-                  text: 'Ingresa la fecha de pago: <input type="date" class="form-control" id="txt_fecha_pago">',
+                  text: 'Ingresa la fecha de pago: <input type="date" class="form-control" id="txt_fecha_pago">'+monto,
+                 
                   buttons: [
                     {addClass: 'btn btn-primary', text: 'Aceptar', onClick: function($noty) {
                         var fecha_pago=($noty.$bar.find('input#txt_fecha_pago').val());
+                        var valor_cambio=($noty.$bar.find('input#valor_divisa').val());
                           if(fecha_pago==null || fecha_pago==""){
                             generate("warning","La fecha de pago esta vacia");                            
                           }
+                          if(usd=="usd"){
+                            if(valor_cambio=="" || valor_cambio==null){
+                              generate("warning","Ingresa el valor de cambio de divisa");  
+                            }
+                            else{
+                              alert(valor_cambio);
+                              actualizar_estatus_factura(id, estatus,fecha_pago, valor_cambio);
+                              $noty.close();
+                            }
+                          }
                           else{
-                            actualizar_estatus_factura(id, estatus,fecha_pago);
+                            actualizar_estatus_factura(id, estatus,fecha_pago, "0");
                             $noty.close();
                           }
                         }
@@ -1824,16 +1842,16 @@ var parametros = {
                 });
               }
               else{
-                
-                actualizar_estatus_factura(id, estatus,fecha_pago);
+                actualizar_estatus_factura(id, estatus,fecha_pago,"0");
               }              
             });
 
-            function actualizar_estatus_factura(id,estatus,fecha_pago){
+            function actualizar_estatus_factura(id,estatus,fecha_pago,divisa){
               var datos={
                 "id":id,
                 "estatus":estatus,
                 "fecha_pago":fecha_pago,
+                "divisa": divisa,
               }
               $.ajax({
                 url:   'modificar_estatus_factura.php',
@@ -1845,7 +1863,9 @@ var parametros = {
                               type: 'success',
                               title: 'Modificado',
                               html: 'El estatus se ha modificado!'
-                            })                        
+                            });
+                            var evento=$('#c_mis_eventos').val();
+                            ver_solicitudes_por_evento(evento,"todos");
                     }
                     else{
                       generate("error", "Ocurrio un error<br>"+response);
@@ -2088,14 +2108,11 @@ var parametros = {
               data: datos,
               dataType: "json",
               success:  function (response) {
-                 //var data = JSON.parse(response);
-                console.log(url);
-                console.log(response);
                 $('#txt_nombre_cliente').val(response.nombre);
                 $('#txt_nombre_comercial').val(response.nombre_comercial);
                 $('#c_metodo_pago').val(response.metodo_pago);
                 $('#txt_rfc').val(response.rfc);
-                $('#digitos').val(response.digitos);
+                $('#dias_credito').val(response.dias_credito);
                 $('#txt_calle').val(response.calle);
                 $('#txt_num_ext').val(response.num_ext);
                 $('#txt_num_int').val(response.num_int);
@@ -2120,7 +2137,8 @@ var parametros = {
                 $('#txt_municipio').val(response.municipio);
                 $('#area_descripcion').val(response.descripcion);
                 
-                if(response.cobertura!=""){
+                if(response.cobertura!="" || response.cobertura!=null){
+                  alert(response.cobertura);
                 var array_cobertura=response.cobertura.split(",");
                 $('#c_estados_cobertura').val(array_cobertura).trigger('chosen:updated');
                 }
@@ -4383,7 +4401,7 @@ function validarInput() {
           var cobertura="";
           
           var tipo_persona=$('#combo_tipo_persona').val();
-          var digitos=$('#digitos').val();
+          var dias_credito=$('#dias_credito').val();
           var calle=$('#txt_calle').val();
           var ext=$('#txt_num_ext').val();
           var int=$('#txt_num_int').val();
@@ -4449,14 +4467,11 @@ function validarInput() {
             generate('warning', "El RFC ya esta en uso por: "+respuesta);
                 pasa=false;
           }
-          else if(digitos == ""){
-            generate('warning', "Debe ingresar los 4 últimos dígitos de la cuenta");
+          else if(dias_credito == ""){
+            generate('warning', "Debe ingresar los días de crédito");
                 pasa=false;
           }
-          else if(digitos.length !=4){
-            generate('warning', "Debe ingresar sólo 4 dígitos");
-                pasa=false;
-          }
+          
           else if(tipo_persona == "vacio"){
             generate('warning', "Debe seleccionar un tipo de persona");
                 pasa=false;
@@ -4572,7 +4587,7 @@ function validarInput() {
               "cobertura": cobertura,
               "metodo": metodo,
               "rfc": rfc,
-              "digitos": digitos,
+              "dias_credito": dias_credito,
               "calle": calle,
               "ext": ext,
               "int": int,
@@ -5467,6 +5482,92 @@ function devolucion_solicitud(id_odc, monto, motivo, fecha, banco,  noty){
   });
 
   /*COMENTARIO DE  CASA*/
+  $("#resultado_solicitudes").delegate(".btn_dividir_solicitud", "click", function(e) {
+    var id_sol_factura=$(this).attr("id");
+    var div_partidas=""; 
+    var parametros = {
+      "id_sol_factura": id_sol_factura,
+        };
+      $.ajax({
+        data: parametros,
+        url:   'ver_partidas.php',
+        type:  'post',
+        async: false,
+        success:  function (response) {
+          div_partidas=response;
+        }
+      });
+      if(div_partidas.includes("Solo existe una partida")){
+        generate("warning", "Esta solicitud no se puede dividir");
+
+      }
+      else{
+        div_partidas="<label>Selecciona las partidas a dividir:</label>"+div_partidas;
+        noty({
+          text        : div_partidas,
+          width       : '650px',
+          type        : 'warning',
+          dismissQueue: false,
+          closeWith   : ['button'],
+          theme       : 'metroui',
+          timeout     : false,
+          layout      : 'topCenter',
+          callbacks: {
+            afterShow: function() { },
+          },
+          buttons: [
+            {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
+              var num=$noty.$bar.find('input#num_partidas').val();
+              var checked = [];
+              $noty.$bar.find("input[name='options[]']:checked").each(function ()
+                {
+                    checked.push($(this).val());
+                });
+              //console.log(valor+"-"+valor2);
+              //if(valor==valor2){
+              if(checked.length==0){
+                  generate("warning",'Debe seleccionar al menos una partida');
+              }
+              else if(checked.length==num){
+                generate("warning",'No se pueden seleccionar todas las partidas');
+              }
+              else{            
+                  dividir_solciitud_factura(id_sol_factura,checked, $noty);
+              }
+              }
+            },
+                {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
+              $noty.close();
+              }
+            }
+          ]
+        });
+      }
+  });
+
+  function dividir_solciitud_factura(id_sol_factura, arreglo, noty){
+    alert(arreglo);
+     var parametros = {
+      "arreglo": arreglo,
+      "id_sol_factura":id_sol_factura,
+        };
+      $.ajax({
+        data: parametros,
+        url:   'dividir_factura.php',
+        type:  'post',
+        success:  function (response) {
+          if(response.includes("exito")){
+            generate("success", "La solicitud ha sido dividida");
+            var evento=$('#c_mis_eventos').val();
+            ver_solicitudes_por_evento(evento,"todos");
+            noty.close();
+          }
+          else{
+            generate("error", "Ocurrio un error:<p> "+response);
+          }
+        }
+      }); 
+   }
 
   $("#resultado_solicitudes").delegate(".btn_transferir_factura", "click", function(e) {
     e.preventDefault();
@@ -6523,7 +6624,7 @@ $("#btn_rep_pitch").click(function (e) {
   e.preventDefault();
   limpiar_cortinas();
   $("#div_cortina").animate({top: '0px'}, 1100);
-  $("#frame").attr("src", "eventos_pitch.html");
+  $("#frame").attr("src", "eventos_pitch2.html");
   $('#div_iframe').fadeIn();
 });
 $("#btn_rep_cancelados").click(function (e) { 
@@ -6537,7 +6638,7 @@ $("#btn_rep_historicos").click(function (e) {
   e.preventDefault();
   limpiar_cortinas();
   $("#div_cortina").animate({top: '0px'}, 1100);
-  $("#frame").attr("src", "eventos_historicos.html");
+  $("#frame").attr("src", "eventos_historicos3.html");
   $('#div_iframe').fadeIn();
 });
 
@@ -6665,6 +6766,48 @@ $(".btn_archivos").change(function(){
     }
     generate("success","Archivo subido correctamente");
   }
+});
+
+$("#resultado_solicitudes").delegate(".btn_convetir_usd", "click", function(e) {
+  var id_sol_factura=$(this).attr("id");
+ 
+  div_partidas="<label>Ingresa el nuevo monto convertido:</label><input id='monto' type='number' class='form-control'>";
+  noty({
+    text        : div_partidas,
+    width       : '650px',
+    type        : 'warning',
+    dismissQueue: false,
+    closeWith   : ['button'],
+    theme       : 'metroui',
+    timeout     : false,
+    layout      : 'topCenter',
+     callbacks: {
+      afterShow: function() { },
+    },
+     buttons: [
+      {addClass: 'btn btn-success', text: 'Aceptar', onClick: function($noty) {
+        var importe=$noty.$bar.find('input#monto').val();
+        /* var checked = [];
+        $noty.$bar.find("input[name='options[]']:checked").each(function ()
+          {
+              checked.push($(this).val());
+          }); */
+        //console.log(valor+"-"+valor2);
+         //if(valor==valor2){
+         if(importe==""){
+            generate("warning",'Debe ingresar un importe');
+         }
+         else{            
+            convertir_monto_factura(id_sol_factura,importe, $noty);
+         }
+        }
+      },
+           {addClass: 'btn btn-danger', text: 'Cancelar', onClick: function($noty) {
+         $noty.close();
+        }
+      }
+     ]
+  });
 });
    
   $("#resultado_solicitudes").delegate(".btn_subir_factura", "click", function(e) {

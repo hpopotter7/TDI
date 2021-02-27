@@ -33,7 +33,7 @@ $res='<thead>
     </thead><tbody>';
     $sql = "SELECT Numero_evento, Nombre_evento, Cliente, Ejecutivo, id_evento  FROM eventos where Estatus='CERRADO' and (Ejecutivo like '%".$_COOKIE['user']."%') order by Numero_evento ";
 
-    if($_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="FERNANDA CARRERA" || $_COOKIE['user']=="ANDRES EMANUELLI" || $_COOKIE['user']=="ALAN SANDOVAL"){
+    if($_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="FERNANDA CARRERA" || $_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="RITA VELEZ"){
         $sql = "SELECT Numero_evento, Nombre_evento, Cliente, Ejecutivo, id_evento  FROM eventos where Estatus='CERRADO' order by Numero_evento ";
     }
 

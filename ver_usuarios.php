@@ -19,7 +19,11 @@ if ($result = $mysqli->query("SELECT * FROM usuarios ".$where." order by Nombre 
     echo "<option value='vacio'>Selecciona un usuario...</option>";
     while ($row = $result->fetch_row()) {
         if($row[1]!="ALAN SANDOVAL"){
-            echo "<option value='".$row[1]."'>".$row[1]."</option>";
+            $color='style="color: black;"';
+            if($row[12]!="activo"){
+                $color='style="color: orange;"';
+            }
+            echo "<option value='".$row[1]."' ".$color.">".$row[1]."</option>";
         }
     }
     $result->close();

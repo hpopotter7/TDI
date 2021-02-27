@@ -1,6 +1,7 @@
 <?php 
 	$prov=$_POST['prov'];
 	$estatus=$_POST['estatus'];
+	$tabla=$_POST['tabla'];
 	include("conexion.php");
 	
 	if (mysqli_connect_error()) {
@@ -8,7 +9,7 @@
 	    exit();
 	}
 	$result = $mysqli->query("SET NAMES 'utf8'");
-		$sql="UPDATE proveedores SET Estatus='".$estatus."' where Razon_Social='".$prov."'";
+		$sql="UPDATE ".$tabla." SET Estatus='".$estatus."' where Razon_Social='".$prov."'";
 		if ($mysqli->query($sql)) {		    
 		    echo "exito".$sql;
 		}

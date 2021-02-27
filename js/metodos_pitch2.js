@@ -52,7 +52,7 @@ function inicio(){
         function ver_solicitudes_por_evento(evento){
             var datos={
               "evento": evento,
-              "usuario": $('#label_user').html(),
+              "filtro": "todos",
             }
             $.ajax({
                 url:   "ver_solicitudes_por_evento.php",

@@ -90,7 +90,7 @@ var table4 = $('#tabla_cob_x_mes').DataTable({
 });
 
   function generar_reporte_cob_x_mes(mes, anio){
-    $('#tabla_cob_x_mes_body').html("");
+    $('#tabla_cob_x_mes').html("");
     table4.destroy();
     var datos={
         "mes":mes,
@@ -102,8 +102,7 @@ var table4 = $('#tabla_cob_x_mes').DataTable({
     data: datos,
     success :  function(response){
       $(".fa-spin").hide();
-      $('#tabla_cob_x_mes_body').html(response);   
-              
+      $('#tabla_cob_x_mes').html(response);   
       table4 = $('#tabla_cob_x_mes').DataTable({
         dom: 'Bfrtip',
         buttons: [
@@ -132,7 +131,7 @@ var table4 = $('#tabla_cob_x_mes').DataTable({
 }
 
     function generar_reporte(mes, anio){
-        $('#tabla_reporte_body').html("");
+        $('#tabla_reporte').html("");
         table.destroy();
         var datos={
             "mes":mes,
@@ -144,7 +143,7 @@ var table4 = $('#tabla_cob_x_mes').DataTable({
         data: datos,
         success :  function(response){
            $(".fa-spin").hide();
-           $('#tabla_reporte_body').html(response);            
+           $('#tabla_reporte').html(response);            
            table = $('#tabla_reporte').DataTable({
             dom: 'Bfrtip',
             buttons: [
@@ -162,7 +161,7 @@ var table4 = $('#tabla_cob_x_mes').DataTable({
           "paging":         false,
           "language" : idioma_espaniol,
           "columnDefs": [
-            { "width": "8%", "targets": [0,3,4,5,6]}
+            { "width": "8%", "targets": [0,1,4,5,6,7]}
           ],
           });
        },
@@ -172,7 +171,7 @@ var table4 = $('#tabla_cob_x_mes').DataTable({
        }); 
     }
     function generar_reporte_fac_vs_cob(anio){
-       $('#Tabla_Fac_vs_Cob_body').html("");
+       $('#Tabla_Fac_vs_Cob').html("");
         table2.destroy();
         var datos={
             "anio":anio,
@@ -183,7 +182,7 @@ var table4 = $('#tabla_cob_x_mes').DataTable({
         data: datos,
         success :  function(response){
            $(".fa-spin").hide();
-           $('#Tabla_Fac_vs_Cob_body').html(response);            
+           $('#Tabla_Fac_vs_Cob').html(response);            
            table2 = $('#Tabla_Fac_vs_Cob').DataTable({
             dom: 'Bfrtip',
             buttons: [

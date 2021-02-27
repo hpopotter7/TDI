@@ -70,11 +70,11 @@ if ($result = $mysqli->query($sql)) {
         $tabla=$tabla."<td>".moneda($row['Subtotal'])."</td>";
         $tabla=$tabla."<td>".moneda($row['Iva'])."</td>";
         $tabla=$tabla."<td>".moneda($row['Total'])."</td>";
-        $tabla=$tabla."</tr>";/*
+        $tabla=$tabla."</tr>";
         $suma_subtotal=$suma_subtotal+$row['Subtotal'];
         $suma_iva=$suma_iva+$row['Iva'];
         $suma_total=$suma_total+$row['Total'];
-        */
+        
     }
     $result->close();
 }
@@ -83,6 +83,24 @@ else{
 }
 //Cobranza del periodo
 
+
+$tabla="<thead>
+            <tr>
+                <th>Factura</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Concepto</th>
+                <th>Subtotal</th>
+                <th>IVA</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody id='tabla_cob_x_mes_body'>".$tabla."
+            </tbody>
+            <tfoot>
+            <tr>
+            <th> </th><th> </th><th> </th><th style='text-align:right'>SUMA</th><th>".moneda($suma_subtotal)."</th><th>".moneda($suma_iva)."</th><th>".moneda($suma_total)."</th>
+            </tr></tfoot>";
 
 echo $tabla;
 $mysqli->close();

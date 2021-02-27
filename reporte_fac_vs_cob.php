@@ -97,8 +97,26 @@ $respuesta="";
 
 for($r=0;$r<=count($vector_meses)-1;$r++) {
     $respuesta=$respuesta."<tr><td>".mes_string($vector_meses[$r])."</td><td>".moneda($vector_totales[$r])."</td><td>".moneda($vector_cobrado[$r])."</td></tr>";
+    $suma_fac+=$vector_totales[$r];
+    $suma_cob+=$vector_cobrado[$r];
 }
-echo $respuesta;
+
+$respuesta="<thead>
+            <tr>
+                <th>Mes</th>
+                <th>Facturación</th>
+                <th>Cobranza</th>
+            </tr>
+            </thead>
+            <tbody id='Tabla_Fac_vs_Cob_body'>".$respuesta."
+            </tbody>
+            <tfoot>
+            <tr>
+            <th>SUMA</th><th>".moneda($suma_fac)."</th><th>".moneda($suma_cob)."</th>
+            </tr></tfoot>";
+            
+
+echo $respuesta; 
 $mysqli->close();
 ?>
 

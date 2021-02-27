@@ -20,7 +20,7 @@
 	}
 	$usuario=$_COOKIE["user"];
 
-	if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA" || $usuario=="FERNANDA CARRERA" || $usuario=="ANDRES EMANUELLI"){
+	if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA" || $usuario=="FERNANDA CARRERA"){
 		$sql="SELECT e.id_evento, e.Numero_evento, e.Nombre_evento, e.Cliente FROM eventos e where e.Estatus!='CANCELADO' ".$and." order by e.cliente, e.Numero_evento";
 	}
 	else{

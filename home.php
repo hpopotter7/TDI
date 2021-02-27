@@ -104,7 +104,7 @@
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
   
   <script src="js/funciones_v110.js"></script>
-  <script src="js/metodos_v2_0092.js"></script>
+  <script src="js/metodos_v2_0097.js"></script>
   <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
     return this.reduce( function (a, b) {
@@ -671,8 +671,8 @@ span.switch-label:after {
             <div class="collapse" id="toggleDemo3" style="height: 0px;">
               <ul class="nav nav-list">
                 <li><a id='menu_prealta' href='#'><i class='fas fa-exclamation'aria-hidden="true" ></i> Pre Alta Cliente</a></li>
-                <li><a id='menu_solicitud_cliente' href="#"><i class="fa fa-user-circle" aria-hidden="true"></i> Clientes</a></li>
-                <li><a id='menu_bloqueo_prov' href='#'><i class='fas fa-ban' aria-hidden="true"></i> Bloqueo Proveedor</a></li>
+                <li><a id='menu_bloqueo_prov' href='#'><i class='fas fa-ban' aria-hidden="true"></i> Bloqueos</a></li>
+                <li><a id='menu_solicitud_cliente' href="#"><i class="fa fa-user-circle" aria-hidden="true"></i> Clientes</a></li>                
                 <li><a id='menu_solicitud_prov' href="#"><i class="fas fa-building" aria-hidden="true"></i> Proveedor</a></li>
                 <li><a id='usuarios' href="#"><i class="fas fa-users" aria-hidden="true"></i> Usuarios</a></li>
               </ul>
@@ -1223,11 +1223,11 @@ span.switch-label:after {
                   </div>
                </div>
                <div class="form-group col-md-3 ">
-                  <label for="name" class="cols-sm-2 control-label">4 Ultimos dígitos de la cuenta</label>
+                  <label for="name" class="cols-sm-2 control-label">Dias de crédito</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-hashtag" aria-hidden="true"></i></span>
-                        <input id='digitos' name='digitos' type="text" class="form-control" placeholder=" 4 dígitos de cuenta" />
+                        <input id='dias_credito' name='dias_credito' type="text" class="form-control" placeholder="Días de crédito" />
                      </div>
                   </div>
                </div>
