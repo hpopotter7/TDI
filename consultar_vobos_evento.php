@@ -362,7 +362,7 @@ else{
 
 if($ODC!=""){
   if ($mysqli->query($sql2)) {
-    $respuesta= "borrado";
+    $respuesta= "borrado".$sql;
   }
   else{
       $respuesta= $sql."<br>".mysqli_error($mysqli);

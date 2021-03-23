@@ -1,4 +1,6 @@
 <?php
+ header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+ header("Expires: Sat, 1 Jul 2000 05:00:00 GMT"); // Fecha en el pasado
 
   if(!isset($_COOKIE['user'])) {
     header('Location:inicio.php');
@@ -25,6 +27,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
@@ -71,7 +78,7 @@
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
     <!--<script src="js/funciones_v110.js"></script>-->
-    <script src="js/metodos_nuevo2.js"></script>
+    <script src="js/metodos_nuevo3.js?v=<?php echo(rand()); ?>"></script>
     <script>
         $(document).on("ready",inicio); 
     </script>  

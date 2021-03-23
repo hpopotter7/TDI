@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -111,7 +111,7 @@
           <div class="cols-sm-12">
             <div class="input-group">
               <span class="input-group-addon"></span>
-              <input type="text" id="txt_num_pedido" name="txt_num_pedido" class="form-control" >
+              <input type="text" id="txt_num_pedido" name="txt_num_pedido" class="form-control" value='0' >
             </div>
           </div>
         </div>
@@ -120,7 +120,7 @@
           <div class="cols-sm-12">
             <div class="input-group">
               <span class="input-group-addon"></span>
-              <input type="text" id="txt_num_entrada" name="txt_num_entrada" class="form-control" >
+              <input type="text" id="txt_num_entrada" name="txt_num_entrada" class="form-control" value='0' >
             </div>
           </div>
         </div>
@@ -131,7 +131,7 @@
           <div class="cols-sm-12">
             <div class="input-group">
               <span class="input-group-addon"></span>
-              <input type="text" id="txt_orden_compra" name="txt_orden_compra" class="form-control" >
+              <input type="text" id="txt_orden_compra" name="txt_orden_compra" class="form-control" value='0'>
             </div>
           </div>
         </div>
@@ -140,7 +140,7 @@
           <div class="cols-sm-12">
             <div class="input-group">
               <span class="input-group-addon"></span>
-              <input type="text" id="txt_gr" name="txt_gr" class="form-control" >
+              <input type="text" id="txt_gr" name="txt_gr" class="form-control" value='0'>
             </div>
           </div>
         </div>
@@ -269,7 +269,7 @@
     <script src="assets/js/elements/tooltip.js"></script>
     <script src="js/accounting.js"></script>
     <!-- <script src="plugins/input-mask/input-mask.js"></script> -->
-    <script src="js/facturas.js" type="text/javascript"></script>
+    <script src="js/facturas2.js" type="text/javascript"></script>
     <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
       return this.reduce( function (a, b) {

@@ -26,7 +26,7 @@
     <script src="js/dropzone.js"></script>
     <script src="plugins/notification/noty.js" type="text/javascript"></script>
    <!--demo-->
-    <script src="js/registro_proveedor.js"></script>
+    <script src="js/registro_proveedor2.js"></script>
     <script>
         $(document).ready(inicio);
     </script>

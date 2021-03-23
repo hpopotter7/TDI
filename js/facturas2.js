@@ -171,7 +171,7 @@ function inicio(){
                 total
             ] ).draw( true );
             
-            $('#txt_concepto_partida').val("");
+            //$('#txt_concepto_partida').val("");
             $('#txt_precio_unitario').val("");
             $('#c_moneda').attr('disabled', 'disabled');
             $('#c_moneda').selectpicker('refresh');

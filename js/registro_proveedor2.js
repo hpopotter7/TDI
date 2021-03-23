@@ -461,8 +461,8 @@ function validar_rfc(){
     
     
     if(bandera){
-        generate("success","si pasa");
-    /* var proveedor=$('#txt_nombre_proveedor').val();
+       
+     var proveedor=$('#txt_nombre_proveedor').val();
        var datos={
           "proveedor": proveedor,
           "usuario": "a",
@@ -482,7 +482,7 @@ function validar_rfc(){
                   generate("error", response);
                 }
               }
-            }); */ 
+            }); 
     }
     else{
         generate('info',"falta algún documento por subir");

@@ -14,6 +14,23 @@
     <link rel="stylesheet" href="css/sweetalert2.css"/>
     <link rel="stylesheet" type="text/css" href="plugins/editors/quill/quill.snow.css">
     <link href="assets/css/apps/todolist.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        /* .modal-dialog,
+        .modal-content {
+            
+            height: 80%;
+        }
+
+        .modal-body {
+            
+            max-height: calc(100% - 120px);
+            overflow-y: scroll;
+        } */
+        #todoShowListItem .task-text{
+            max-height: 500px;
+        }
+    </style>
     <!-- BEGIN PAGE LEVEL STYLES -->
     <script src="js/sweetalert2.min.js"></script>
 
@@ -563,9 +580,9 @@
                                     </div>
 
                                     <div class="modal fade" id="todoShowListItem" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                                             <div class="modal-content">
-                                                <div class="modal-body">
+                                                <div class="modal-body" style="height: 600px;">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="modal"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                                     <div class="compose-box">
                                                         <div class="compose-content">
@@ -575,7 +592,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button class="btn" data-dismiss="modal"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> Cerrar</button>
+                                                    <button id='btn_cerrar_modal' class="btn" data-dismiss="modal"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> Cerrar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -655,6 +672,26 @@
     <script src="assets/js/ie11fix/fn.fix-padStart.js"></script>
     <script src="plugins/editors/quill/quill.js"></script>
     <script src="assets/js/apps/todoList.js"></script>
+
+    <script>
+    $('body').delegate(".btn_atender","click", function(e){
+        e.preventDefault();
+        var odc=$(this).attr("id");
+        
+         var datos={
+            "odc":odc,
+        };
+        $.ajax({
+        url:   'cache_atender.php',
+        type:  'post',
+        data: datos,
+        success:  function (response) {
+        }
+        });
+        //$.modal.close();
+        location.href="vobo_solicitud.html";
+        });
+    </script>
     
 </body>
 </html>

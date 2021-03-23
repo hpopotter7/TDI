@@ -26,6 +26,7 @@ function inicio(){
             data: datos,
             success:  function (response) {
               console.log(response);
+              
               //var arr=response.split("$$$");
               $('#resultado_solicitudes').html(response);
               
