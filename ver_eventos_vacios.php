@@ -7,10 +7,14 @@ if (mysqli_connect_errno()) {
 }
 $result = $mysqli->query("SET NAMES 'utf8'");
 
-$respuesta="<thead><tr><td>Pendientes</td></tr></thead><tbody><tr style='background-color: rgba(155,175,55,.7)';><th>".$titulo."</th></tr>";
+$respuesta="<thead><tr><th id='titulo'>".$titulo."</th></tr></thead><tbody>";
 $contador_numero=0;
 
-$sql="SELECT e.Numero_evento, e.Nombre_evento, e.cliente, e.id_evento, REPLACE(e.Ejecutivo, ',', '') from eventos e left join odc o on e.Numero_evento=o.evento left join solicitud_factura s on e.id_evento=s.id_evento where o.evento is null and s.id_evento is null and e.Estatus='ABIERTO' order by e.Numero_evento asc";
+$sql="SELECT e.Numero_evento, e.Nombre_evento, e.cliente, e.id_evento, REPLACE(e.Ejecutivo, ',', '') from eventos e left join odc o on e.Numero_evento=o.evento left join solicitud_factura s on e.id_evento=s.id_evento where o.evento is null and s.id_evento is null and e.Estatus='ABIERTO' and Ejecutivo like '%".$_COOKIE['user']."%' order by e.Numero_evento asc";
+
+if($_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="FERNANDA CARRERA"){
+    $sql="SELECT e.Numero_evento, e.Nombre_evento, e.cliente, e.id_evento, REPLACE(e.Ejecutivo, ',', '') from eventos e left join odc o on e.Numero_evento=o.evento left join solicitud_factura s on e.id_evento=s.id_evento where o.evento is null and s.id_evento is null and e.Estatus='ABIERTO' order by e.Numero_evento asc";
+}
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         $nombre_evento="[".$row[0]."] ".$row[2]." - ".$row[1];

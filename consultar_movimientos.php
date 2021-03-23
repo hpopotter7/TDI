@@ -50,7 +50,7 @@ function moneda($value) {
     }
     return $mes;
   }
-$res="<label>Movimientos de la tarjeta: ".$tarjeta." </label><button class='btn btn-info disabled pull-right' disabled='disabled'>PDF</button> <table class='table'><thead><tr><th>Fecha</th><th>Evento</th><th>Concepto</th><th>Cargo</th><th>Abono</th><th>Saldo</th><th>VoBo</th></tr></thead><tbody>";
+$res="<table class='table table-sm'><thead style='background-color: #fcb831 !important;'><tr><th>Fecha</th><th>Evento</th><th>Concepto</th><th>Cargo</th><th>Abono</th><th>Saldo</th><th>VoBo</th></tr></thead><tbody>";
 $result = $mysqli->query("SET NAMES 'utf8'");
 
 
@@ -75,8 +75,10 @@ else{
     $res =mysqli_error($mysqli);
   }
 $sql="select DATE_FORMAT(o.fecha_solicitud,'%d/%m/%Y') as fecha_solicitud, concat('[',e.Numero_evento,'] ', e.Nombre_evento)as evento, o.concepto, importe, tipo_movimiento, m.fecha_afectacion, DATE_FORMAT(o.fecha_solicitud,'%c') as mes, m.id_solicitud from movimientos m join odc o on m.id_solicitud=o.id_odc join eventos e on o.evento=e.Numero_evento where m.No_tarjeta=".$tarjeta." AND (tipo_movimiento='CARGO' or tipo_movimiento='GASTO') order by o.fecha_solicitud asc";
+$entro="";
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_assoc()) {
+        $entro="si";
         if($mes!=$row['mes']){
             $mes=$row['mes'];
             $res=$res."<tr style='background-color:#01384e;color:white'><th colspan='7'>".mes($mes)."</th></tr>";
@@ -128,14 +130,14 @@ if ($result = $mysqli->query($sql)) {
             $cargo="";
         }
         else{
-            $cargo="<label class='label label-warning' style='font-size:15px;'>".$cargo."</label>";
+            $cargo="<span class='shadow-none badge badge-danger'>".$cargo."</span>";
         }
 
         if($abono=="-"){
             $abono="";
         }
         else{
-            $abono="<label class='label label-success' style='font-size:15px;'>".$abono."</label>";
+            $abono="<span class='shadow-none badge badge-success'>".$abono."</span>";
         }
         $res=$res."<tr>
         <td>".$id_solicitud."</td>
@@ -157,6 +159,9 @@ else{
 
 
   $res=$res."</tbody>";
+  if($entro==""){
+    $res="<div class='col-md-12'><h4><i>Esta tarjeta no tiene movimientos</i></h4></div>";
+  }
 echo $res;
 $mysqli->close();
 ?>

@@ -15,7 +15,7 @@ $body="Mensaje de prueba ";
 if (!mail($to, $asunto, $body, $headers)) {
     echo "Ocurrio un error al enviar la notificación".error_get_last()['message'];
 } else {
-    echo "Enviado".$respuesta;
+    echo "Enviado";
 }
 
 ?>

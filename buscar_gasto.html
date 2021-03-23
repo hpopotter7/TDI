@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="css/estilos_ver_0006.css"/>
   <link rel="stylesheet" href="css/chosen.css"/>
   <link rel="stylesheet" href="css/dataTables.css"/>
-
   
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css"/>
@@ -38,7 +37,7 @@
   <script src="js/noty/packaged/jquery.noty.packaged.js"></script>
   <script src="js/jquery.mousewheel.pack.js"></script> 
   <script src="js/chosen.jquery.js" ></script>
-  
+  <script src="js/sweetalert2.min.js"></script>
   <script src="js/dataTables.js" ></script>
   <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
@@ -59,16 +58,13 @@
 
 </head>
 <body style='background-color: rgba(255,2552,255,0) !important;background:none !important;'>
-    <div class="row">
-        <div class="container">
-            
+    <div class="container" style='width: 95%;'>
             <h2>Busqueda de gastos</h2>
             <form id='form_buscar' method="POST" action="buscar_gasto.php">
             <div class="col-md-6">
             <label class="cols-sm-2 control-label">Campo a buscar</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                
                 <select id="c_campo" name='c_campo' class="form-control">
                     <option value="vacio">Selecciona un campo...</option>
                     <option value="evento">Numero de evento</option>
@@ -107,7 +103,6 @@
             </div>
             
         </div>
-    </div>
 </body>
 </html>
 

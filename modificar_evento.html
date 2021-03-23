@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/bootstrap.min2.css">
@@ -14,31 +14,6 @@
 	</div>
 	<div class="cols-md-3">
 		<select name="c_evento" id="c_evento" class="form-control" required="required">
-			<?php
-				
-				include("conexion.php");
-				
-				if (mysqli_connect_errno()) {
-				    printf("Error de conexion: %s\n", mysqli_connect_error());
-				    exit();
-				}
-					
-					$sql="update usuarios set Nombre='".$nombre."' , User='".$user."', Pass='".$pass."', Tipo='".$tipo."'  where id_usuarios=".$arr[0];
-					if ($mysqli->query($sql)) {
-					    
-					    
-					    echo "usuario modificado";
-					    
-					}
-					else{
-						echo $sql.mysqli_error($mysqli);
-					}
-				
-				
-
-
-				$mysqli->close();
-			?>
 		</select>
 	</div>
 </div>

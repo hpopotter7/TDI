@@ -31,7 +31,8 @@ $sql="SELECT Nombre FROM usuarios where Directivo='X' order by Nombre";
         }
         $result->close();
     }
-    $sql="SELECT pa, jefe_directo FROM usuarios where Nombre='ANDRES EMANUELLI'";
+
+    /* $sql="SELECT pa, jefe_directo FROM usuarios where Nombre='ANDRES EMANUELLI'";
     if ($result = $mysqli->query($sql)) {
         while ($row = $result->fetch_row()) {
             if($row[0]=="1"){
@@ -42,7 +43,7 @@ $sql="SELECT Nombre FROM usuarios where Directivo='X' order by Nombre";
             }
         }
         $result->close();
-    }
+    } */
 
     
 

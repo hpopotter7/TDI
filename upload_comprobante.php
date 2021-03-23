@@ -1,7 +1,10 @@
 <?php
 $id=$_POST["id"];
 $evento=$_POST["evento"];
-$doc=$_POST["doc"];
+$doc="";
+if(isset($_POST["doc"])){
+    $doc=$_POST["doc"];
+}
 $output_dir = "comprobantes/".$evento."/";
 
 if(!is_dir($output_dir)){

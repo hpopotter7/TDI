@@ -145,7 +145,7 @@ function inicio() {
             "eventos": eventos,
             "periodo":periodo,
         };
-
+        $('#tabla_reporte').html("<thead><tr><th>No.</th><th>Nombre de evento</th><th>Facturación (POR COBRAR)</th><th>Facturación (PAGADA)</th><th>Facturación TOTAL</th><th>Egresos</th><th>Diferencia</th><th>Utilidad</th></tr></thead><tbody></tbody></table>");
         $.ajax({
             url: "generar_reporte_gastos.php",
             type: 'post',
@@ -164,7 +164,11 @@ function inicio() {
                     t = $('#tabla_reporte').DataTable({
                         dom: 'Bfrtip',
                         buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
+                            //'copy', 'csv', 'excel', 'pdf', 'print'
+                            { extend: 'copyHtml5', orientation: 'landscape', pageSize: 'LEGAL', footer: true },
+                            { extend: 'excelHtml5', orientation: 'landscape', pageSize: 'LEGAL', footer: true },
+                            { extend: 'csvHtml5', orientation: 'landscape', pageSize: 'LEGAL', footer: true },
+                            { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL',footer: true }
                         ],
                         "searching": true,
                         "language": idioma_espaniol,
@@ -176,7 +180,7 @@ function inicio() {
                         "columnDefs": [
                             { "width": "10%", "targets": 0 }
                         ],
-                        "lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
+                        "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
                         "paging": true,
                         
                     });

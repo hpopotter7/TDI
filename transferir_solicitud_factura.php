@@ -1,6 +1,4 @@
 <?php
-    
-
 	$ID=$_POST['ID'];
 	$evento=$_POST['evento'];
 	include("conexion.php");
@@ -42,36 +40,41 @@
             else{
                 $res= mysqli_error($mysqli)."<p>".$sql;
             }
-            /*
-            echo "num factura: ".$numero_factura;
-            echo "evento anterior: ".$evento_anterior;
-            exit();
-            */
         if($numero_factura!=""){
-            $lista = scandir("facturas/".$evento_anterior."/");
-            $lista_carpetas = array_diff($lista, array('.','..'));
-            foreach($lista_carpetas as $archivos){
-                    $arr=explode("-",$archivos);
+            /* $directorio = 'facturas/'.$evento_anterior;
+            $lista = scandir($directorio);
+            foreach($lista as $archivos){
+                if(!is_dir($directorio."/".$file)){
+                echo "<li><a class='btn btn-success' target='_blank' href='".$directorio."/".$file."'>".$file."</a></li>";
+                $bandera_files=true;
+                }
+            } */
+
+            $ruta = 'facturas/'.$evento_anterior;
+            $lista = scandir($ruta);
+            foreach($lista as $archivos){
+                if(!is_dir($ruta."/".$archivos)){
+                    $arr=explode(".",$archivos);
                     $empieza=$arr[0];
                     if($empieza==$numero_factura){
                         $archivo_old="facturas/".$evento_anterior."/".$archivos;
                         $archivo_new="facturas/".$evento."/".$archivos;
-                        
                         if(!is_dir("facturas/".$evento."/")){
                             mkdir("facturas/".$evento."/", 0777);
                             chmod("facturas/".$evento."/", 0777);
-                        }
-                        
-                        
-                        if(file_exists($archivo_old)){
-                            echo "archivo anterior: ".$archivo_old;
-                            echo "archivo nuevo: ".$archivo_new;
-                            rename($archivo_old, $archivo_new);                                                       
+                        }                       
+                            //echo "archivo anterior: ".$archivo_old;
+                            //echo "archivo nuevo: ".$archivo_new;
+                            if(rename($archivo_old, $archivo_new)){
+                                $res="transferida, archivo";
+                            }
+                            else{
+                                $res=$archivo_old." se mueve hacia ".$archivo_new;
+                            }
                            // move_uploaded_file
-                            $res= "transferida, archivo";
-                        }
-                        
+                            //$res= "transferida, archivo";                        
                     }
+                }
             }
         }
         

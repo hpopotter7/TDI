@@ -2,7 +2,7 @@
 
 $campo=$_POST['c_campo'];
 $valor=$_POST['txt_valor'];
-
+$resultado="";
 include("conexion.php");
 if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());

@@ -46,7 +46,7 @@
   <script src="js/tooltipster.bundle.js"></script>
   <script src="js/Chart.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
-  
+  <script src="js/sweetalert2.min.js"></script>
   
   <script src="js/metodos_vobos8.js"></script>
     <script>
@@ -66,18 +66,29 @@
         .alert{
           font-size: .8em !important;
         }
+          table {
+          transform: scale(.93);
+          -webkit-transform: scale(.93);
+          -webkit-transform-origin: 0 0;
+          -moz-transform: scale(.93);
+          -moz-transform-origin: 0 0;
+          -o-transform: scale(.93);
+          -o-transform-origin: 0 0;
+          -ms-transform: scale(.93);
+          -ms-transform-origin: 0 0;
+      }
     </style>
 
 </head>
 <body style='background-color: rgba(255,2552,255,0) !important;background:none !important;'>
     <div class="row">
-        <div class="container"> 
+        <div class="container" style="width: 100%;margin:10px !important"> 
             <h2>VoBo para solicitudes</h2>
             <div class='col-md-8'>
                 <label for="name" class="cols-sm-2 control-label">Eventos</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fas fa-star aria-hidden="true"></i></span>
+                        <span class="input-group-addon"><i class="fas fa-star" aria-hidden="true"></i></span>
                         <select class='form-control' id='c_eventos_dos' data-placeholder="Elige un evento">
                         </select>
                         

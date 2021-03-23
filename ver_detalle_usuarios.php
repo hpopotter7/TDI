@@ -1,19 +1,25 @@
 <?php 
 $valor=$_POST['valor'];
+$id="";
+if(isset($_POST['id'])){
+    $id=$_POST['id'];
+}
 include("conexion.php");
-
+$res="";
 if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());
     exit();
 }
 $tarjeta="vacio";
 
-$sql="SELECT id_tarjeta FROM tarjetas where Usuario=(select id_usuarios from usuarios where Nombre='".$valor."')";
+if($valor==""){
+ $sql="SELECT id_tarjeta FROM tarjetas where Usuario=(select id_usuarios from usuarios where Nombre='".$valor."')";
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         $tarjeta = $row[0];
     }
     $result->close();
+}
 }
 
 

@@ -1,5 +1,5 @@
 <?php 
-	$usuario=$_POST["usuario"];
+	$usuario=$_COOKIE["user"];
 	$resultado="";
 
 	include("conexion.php");

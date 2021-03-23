@@ -28,6 +28,7 @@ function inicio(){
         type : 'POST',
         url  : 'reporte_eventos_pitch.php',
         success :  function(response){
+            $('#titulo_reporte').html('<legend><h2>Reporte de eventos PITCH</h2></legend>');
             $('#reporte_eventos').html(response); 
             $('#reporte_eventos').DataTable({
                 dom: 'Bfrtip',

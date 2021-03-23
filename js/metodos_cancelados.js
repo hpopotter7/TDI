@@ -35,9 +35,10 @@ function inicio(){
                    'excel', 'pdf'
                    //'excel', 'pdf',
                ],
-               "scrollX": true,
+               
                "destroy": true, 
-               "sort": false,
+               "sort": true,
+               
                "language" : idioma_espaniol
            });            
        }

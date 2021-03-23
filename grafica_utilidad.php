@@ -12,6 +12,8 @@ $error="";
 $result = $mysqli->query("SET NAMES 'utf8'"); 
 $sql="SELECT sum(Importe_total) from odc where evento='".$evento."' and Cancelada='no'";
 $egresos=0;
+$utilidad=0;
+$facturacion=0;
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         $egresos=$row[0];
@@ -57,7 +59,7 @@ else{
     $error="Error:<br>".mysqli_error($mysqli);
 }
 
-$utilidad=0;
+
 $utilidad=($facturacion)-($egresos);
 if($utilidad<0){
     $utilidad="NA";
@@ -77,6 +79,8 @@ $return = Array('egresos'=>$egresos,
 
 
 echo json_encode($return);
+//echo $egresos."-".$utilidad."-".$evento."-".$nombre_evento;
+//echo $return;
 $mysqli->close();
 
 ?>

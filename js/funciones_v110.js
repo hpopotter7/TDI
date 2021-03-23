@@ -149,27 +149,21 @@ function validar_perfiles(response){
 	}
 	
 
-
-
 function bienvenido(usuario){
 	var texto="Bienvenid@ "+usuario;
-	var n = noty({
-                text        : texto,
-                type        : 'success',
-                dismissQueue: true,
-                layout      : 'topCenter',  //bottomLeft
-                animation: {
-			         open: 'animated fadeInDownBig',
-		            close: 'animated flipOutX',
-		            easing:'swing',
-		            speed:500
-			    },
-                //closeWith   : ['button'],
-                theme       : 'relax',
-                progressBar : false,
-                maxVisible  : 5,
-                timeout     : [3200],
-			});
+	new Noty({
+		type: 'success',
+		theme: 'relax',
+		layout: 'topCenter',
+		progressBar : true,
+		maxVisible  : 10,
+		timeout     : [5000],
+		text: texto,
+		animation: {
+			open: 'animated zoomIn', // Animate.css class names
+			close: 'animated bounceOut' // Animate.css class names
+		}
+	}).show();
 			
 }
 

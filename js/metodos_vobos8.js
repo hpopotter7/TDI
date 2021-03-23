@@ -174,7 +174,7 @@ function inicio(){
           }
           */
       });
-
+      
       $("#resultado_solicitudes").delegate(".btn_utilidad", "click", function() {
         var evento=$(this).attr('id');
         var datos={
@@ -199,7 +199,7 @@ function inicio(){
               var valores=data.egresos+"#"+data.utilidad;
               $( "#pie" ).attr('title',nombre);
               $( ".ui-dialog-title" ).html(nombre);
-                
+              parent.$('#modal_pie_titulo').html(nombre);
                 grafica(valores);
               }
               else{
@@ -207,7 +207,12 @@ function inicio(){
                 generate("warning", "No se puede representar la gráfica");
               }
               
-          }   
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); 
+            alert("Error: " + errorThrown);
+            
+        } 
         });
       });
 /*
@@ -226,7 +231,7 @@ function inicio(){
    var arr=data.split("#");
    var egresos=arr[0];
    var utilidad=arr[1];
-    var ctx = document.getElementById('pie').getContext('2d');
+    var ctx = parent.document.getElementById('pie').getContext('2d');
     var myChart = new Chart(ctx, {
       type: 'pie',
       data: {
@@ -293,10 +298,10 @@ function inicio(){
 
 
 
-    $("#pie").dialog(
+    /* parent.$("#pie").dialog(
       {
         width: 'auto', // overcomes width:'auto' and maxWidth bug
-        maxWidth: 600,
+        maxWidth: 300,
         height: 'auto',
         modal: true,
         fluid: true, //new option
@@ -304,7 +309,10 @@ function inicio(){
         bgiframe: true,
         autoOpen: true,
       }
-);
+    ); */
+
+parent.$("#modal_pie").modal();
+
 }
 
 

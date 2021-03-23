@@ -11,7 +11,7 @@ if ($mysqli->connect_error) {
 }
 $result = $mysqli->query("SET NAMES 'utf8'");
   $sql="SELECT t.no_tarjeta, u.Nombre FROM tarjetas t, usuarios u WHERE t.usuario=u.id_usuarios and t.tipo='".$banco_tarjeta."' order by t.no_tarjeta asc";
-$res="<table class='table'><thead><tr><th># tarjeta</th><th>Nombre</th><th>Saldo</th><th>Consultar</th></tr></thead><tbody>";
+$res="<table class='table table-sm'><thead style='background-color: rgba(155,175,55,.9) !important;'><tr><th># tarjeta</th><th>Nombre</th><th>Saldo</th><th>Consultar</th></tr></thead><tbody>";
 $array1=array();
 $array2=array();
 if ($result = $mysqli->query($sql)) {
@@ -67,17 +67,22 @@ for ($i=0; $i < count($array1) ; $i++) {
 for ($i=0; $i < count($array3) ; $i++) { 
   $badge="";
   if($array_tipomov[$i]=="pendiente"){
-    $badge=" <i class='fa fa-info-circle' aria-hidden='true' style='color:rgba(230,115,6,1)'></i>";
+    $badge=" <i data-toggle='tooltip' data-placement='top' title='Acciones pendientes por aplicar'  class='fas fa-exclamation-circle' aria-hidden='true' style='color:rgba(230,115,6,1)'></i>";
   }
   
   $saldo=moneda($array3[$i]-$array4[$i]);
 
-    $res=$res."<tr><td>".$array1[$i]."</td><td>".$array2[$i]." </td><td style='text-align:center'><strong>".$saldo.$badge."</strong></td><td><select class='form-control operaciones_tarjeta'>
+    $res=$res."<tr><td>".$array1[$i]."</td><td>".$array2[$i]." </td><td style='text-align:center'><strong>".$saldo.$badge."</strong></td><td><select class='selectpicker' id='c_banco_tarjetas3'>
+    <option value=''>Selecciona...</option>
+    <option>BBVA</option>
+    <option>DILIGO</option>
+    <option>SODEXO</option>
+    </select><select class='selectpicker operaciones_tarjeta'>
     <option value='vacio'>Selecciona...</option>
     <option value='movimientos_".$array1[$i]."'>Ver Movimientos</option>
     <option value='cargos_".$array1[$i]."'>Abono a tarjeta</option>
     <option value='devoluciones_".$array1[$i]."'>Devoluciones</option>
-    </select></td></tr><tr><td style='background-color:#cbe0e0f5;display:none;padding: 1px;' colspan='4' class='".$array1[$i]." filas_ocultas'></td></tr>";
+    </select></td></tr><tr><td style='background-color:rgba(240,224,238,.7);display:none;padding: 1px;' colspan='4' class='".$array1[$i]." filas_ocultas'></td></tr>";
 }
 
     

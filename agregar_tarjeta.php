@@ -28,7 +28,8 @@ include("conexion.php");
 			}
 		}
 		if($pagada==""){ // si no encuentra registrado ese banco lo agregamos
-				$sql="INSERT INTO tarjetas (No_Tarjeta, Tipo, Usuario) values('".$numero."', '".$banco."', (Select id_usuarios from usuarios where Nombre='".$id_usuario."'))";
+				//$sql="INSERT INTO tarjetas (No_Tarjeta, Tipo, Usuario) values('".$numero."', '".$banco."', (Select id_usuarios from usuarios where Nombre='".$id_usuario."'))";
+				$sql="INSERT INTO tarjetas (No_Tarjeta, Tipo, Usuario) values('".$numero."', '".$banco."', '".$id_usuario."')";
 			if ($mysqli->query($sql)) {
 			    $respuesta= "tarjeta agregada";
 			}

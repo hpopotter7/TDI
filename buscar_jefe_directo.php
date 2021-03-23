@@ -1,7 +1,7 @@
 <?php 
 
 $solicita=$_POST['solicita'];
-
+$res="";
 function startsWith ($string, $startString) 
 { 
     $len = strlen($startString); 
@@ -15,7 +15,7 @@ if (mysqli_connect_errno()) {
 }
 
 $result = $mysqli->query("SET NAMES 'utf8'");
-$sql="SELECT Jefe_directo FROM usuarios where Nombre='".$solicita."'";
+$sql="SELECT Jefe_directo FROM usuarios where Nombre='".$solicita."' order by Jefe_Directo asc";
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         $jefe_directo=$row[0];

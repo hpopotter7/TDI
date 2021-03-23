@@ -59,6 +59,7 @@ $sql="select s.No_Factura, DATE_FORMAT(s.Fecha_Pago, '%d/%m/%Y') as Fecha_Pago, 
 $suma_subtotal=0;
 $suma_iva=0;
 $suma_total=0;
+$tabla="";
 if ($result = $mysqli->query($sql)) {
    $cont=0;
     while ($row = $result->fetch_assoc()) {
