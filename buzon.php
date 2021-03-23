@@ -91,7 +91,7 @@
                                             exit();
                                         }
                                         $result = $mysqli->query("SET NAMES 'utf8'");
-                                        $sql="select * from notificaciones where para_quien=(select email from usuarios where Nombre='".$_COOKIE['user']."') order by Fecha_hora desc";
+                                        $sql="select * from notificaciones where para_quien=(select email from usuarios where Nombre='".$_COOKIE['user']."') and Visto=1 order by Fecha_hora desc";
                                         if ($result = $mysqli->query($sql)) {
                                             while ($row = $result->fetch_assoc()) {
                                                 $id_notificacion=$row['id_notificaciones'];

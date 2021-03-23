@@ -42,17 +42,17 @@ $titulo="";
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css">
 
     <style>
-    table {
-    transform: scale(.92);
-    -webkit-transform: scale(.92);
-    -webkit-transform-origin: 0 0;
-    -moz-transform: scale(.92);
-    -moz-transform-origin: 0 0;
-    -o-transform: scale(.92);
-    -o-transform-origin: 0 0;
-    -ms-transform: scale(.92);
-    -ms-transform-origin: 0 0;
-}
+        /* table {
+        transform: scale(.92);
+        -webkit-transform: scale(.92);
+        -webkit-transform-origin: 0 0;
+        -moz-transform: scale(.92);
+        -moz-transform-origin: 0 0;
+        -o-transform: scale(.92);
+        -o-transform-origin: 0 0;
+        -ms-transform: scale(.92);
+        -ms-transform-origin: 0 0;
+    } */
     </style>
 
     <script src="js/sweetalert2.min.js"></script>
