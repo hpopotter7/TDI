@@ -309,7 +309,7 @@ else{
 
 if($asunto!="VoBo para solicitud de compra"){
 
-/*     //==FIN DE LA LOGIC==
+    //==FIN DE LA LOGIC==
 	//Create a new PHPMailer instance
 try {
     $mail = new PHPMailer();
@@ -334,13 +334,13 @@ try {
 	echo 'Enviado';
 } catch (Exception $e) {
     echo "Ocurrio un error.Mailer Error: {$mail->ErrorInfo}";
-} */
+} 
 
-$to_email = $to;
+/* $to_email = $to;
 $subject = $asunto;
 $message = $body;
 $headers = 'From: noreply@company.com';
 mail($to_email,$subject,$message,$headers);
- echo "Enviado";
+ echo "Enviado"; */
 }
 ?>
