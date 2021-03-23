@@ -142,7 +142,23 @@
                     $('#btn_sin_cerrar').remove();
                     $('#btn_vacios').remove();
                     llenar_tabla_pendientes("ver_eventos_sin_pagar.php", "Eventos con solicitudes sin pagar");
-                    
+                }
+                else if(response.includes("SEBASTIAN")){
+                    $('#btn_sin_facturar').remove();
+                    $('#btn_sin_cerrar').remove();
+                    $('#btn_vacios').remove();
+                    $('#btn_sin_pagar').remove();
+                    $('#btn_sin_comprobar').remove();
+                    llenar_tabla_pendientes("ver_facturas_pendientes.php", "Eventos con factura sin número");
+                }
+                else{
+                    $('#btn_sin_numero').remove();
+                    $('#btn_sin_estatus').remove();
+                    $('#btn_sin_facturar').remove();
+                    $('#btn_sin_cerrar').remove();
+                    $('#btn_vacios').remove();
+                    $('#btn_sin_pagar').remove();
+                    $('#btn_sin_comprobar').remove();
                 }
             }
             });
@@ -187,9 +203,6 @@
             var id=$(this).attr('id');
             var url="solicitudes.php?evento="+id;
             parent.location.href="home.php?sol="+id; 
-            //parent.$('.principal_content').css('margin-top','160px');
-            //parent.$('#content').css('height','840px');
-            //parent.$("#frame").attr("src", "modificar_evento.php");
         });
     </script>
    </body>

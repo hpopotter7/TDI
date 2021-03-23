@@ -72,7 +72,7 @@ $descripcion=$row[5];
                 <td class='text-center'>".$COUNT."</td>
                 <td class='text-center td_btn_numero_factura'>";
                 $boton_dividir=""; //<i id='".$row[0]."' class='btn btn-info fas fa-layer-group btn_dividir_solicitud'></i>
-                if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
+                if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA" || $usuario=="SEBASTIAN ZUÑIGA"){
                   $tbody=$tbody."<button id=".$row[0]." class='btn btn-secondary btn_numero_factura'>".$no_factura."</button>";
                   if($no_factura=="0"){
                     $boton_dividir="<i id='".$row[0]."' class='btn btn-secondary fas fa-layer-group btn_dividir_solicitud'></i>";
@@ -130,7 +130,9 @@ $descripcion=$row[5];
               </div>
             </div>";
             */
-              if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
+            
+            
+              if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA" || $usuario="SEBASTIAN ZUÑIGA"){
                 if($descripcion=="Carga inicial"){
                   $tbody=$tbody."<td><button class='btn btn-info'><i class='fa fa-ban' aria-hidden='true'></i></button>";
 
@@ -138,33 +140,26 @@ $descripcion=$row[5];
                 else{
                   $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><button class='btn btn-info btn_descargar_facturas'><i class='fa fa-download' aria-hidden='true'></i></button></a>";
                 }
-
-                $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-cloud-upload-alt' aria-hidden='true'></i></button>";
-
+                if($usuario="SEBASTIAN ZUÑIGA"){
+                  $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-cloud-upload-alt' aria-hidden='true'></i></button>";
+                }
                 for($t=0;$t<=count($array)-1;$t++){
                   if($array[$t]==$no_factura){
                   $referencia=$array_nombres[$t];
-                  /*
-                        $boton_factura="<div class='dropdown'>
-                        <button onclick='myFunction()' class='dropbtn btn btn-primary'><i class='dropbtn fas fa-file-pdf' aria-hidden='true'></i></button>
-                        <div id='myDropdown' class='dropdown-content'>
-                        <a href='".$ruta."/".$referencia."' target='_blank'><button id='".$evento."#".$array[$t]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i> Ver archivo</button></a>
-                          <a href='#'><button id='".$ruta."/".$referencia."' class='btn btn-danger btn_borrar_factura'><i class='fas fa-file-excel' aria-hidden='true'></i> Borrar archivo</button></a>
-                        </div>
-                      </div>
-                      */
-
                       $boton_factura="<a href='".$ruta."/".$referencia."' target='_blank'><button id='".$evento."#".$array[$t]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button></a>
                       <a href='#' title='Borrar archivo'><button id='".$ruta."/".$referencia."' class='btn btn-danger btn_borrar_factura'><i class='fas fa-file-excel' aria-hidden='true'></i></button></a>
                       ";
-                      
-                      }
-                      
-                      
+                      }                     
                 }
-                $tbody=$tbody.$boton_factura."<button id='".$row[0]."' class='btn btn-primary btn_transferir_factura' style='margin-left:.3em;margin-right:.3em'><i class='fas fa-exchange-alt' aria-hidden='true'></i></button><a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
+                if($usuario!="SEBASTIAN ZUÑIGA"){
+                  $tbody=$tbody.$boton_factura."<button id='".$row[0]."' class='btn btn-primary btn_transferir_factura' style='margin-left:.3em;margin-right:.3em'><i class='fas fa-exchange-alt' aria-hidden='true'></i></button><a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
+                }
+                else{
+                  $tbody=$tbody.$boton_factura."</td>";
+                }
                  
               }
+              
               else{
                 $boton_factura="<button type='button' class='btn btn-success' ><i class='fa fa-ban' aria-hidden='true'></i></button>";
                   for($r=0;$r<=count($array)-1;$r++){

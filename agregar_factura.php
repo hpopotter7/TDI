@@ -28,6 +28,9 @@ include("conexion.php");
             
 		if($respuesta==""){ // si no encuentra registrado esa factura lo agregamos
 				$sql="update solicitud_factura set No_Factura='".$numero."' where id_solicitud=".$id_solicitud_factura;
+				if($_COOKIE['user']=='SEBASTIAN ZUÑIGA'){
+					$sql="update solicitud_factura set No_Factura='".$numero."', Estatus_Factura='POR COBRAR' where id_solicitud=".$id_solicitud_factura;
+				}
 			if ($mysqli->query($sql)) {
 				$respuesta= "insert into bitacora(Usuario, tabla_actualizar, valor_anterior, valor_nuevo, fecha_hora_registro) values('".$_COOKIE['user']."', 'Update solicitud_factura id_sol_factura: ".$id_solicitud_factura."', '".$num."', '".$numero."', NOW())";
 				$respuesta="factura agregada";				

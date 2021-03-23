@@ -2,6 +2,9 @@
 if($_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="FERNANDA CARRERA"){
     $respuesta="ADMIN";
 }
+else if($_COOKIE['user']=="SEBASTIAN ZUÑIGA"){
+    $respuesta="SEBASTIAN";
+}
 else{
     include("conexion.php");
     if (mysqli_connect_errno()) {

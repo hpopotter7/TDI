@@ -21,13 +21,13 @@ function inicio(){
   //ver_numero_notificaciones();
   ver_perfil();
   //updateReloj();
-  var contador_tiempo=180;
+  var contador_tiempo=300;
   
 
   function updateReloj() {
     if (contador_tiempo == 0) {
       ver_numero_notificaciones();
-      contador_tiempo=180;
+      contador_tiempo=300;
     } 
     else {
       contador_tiempo -= 1;
@@ -286,7 +286,7 @@ function ver_perfil(){
           type:  'post',
           dataType: "json",
           success:  function (response) {
-              contador_tiempo=180;
+              contador_tiempo=300;
               updateReloj();
               registro_bitacora_login(response.usuario);
               if(response.cxc==""){

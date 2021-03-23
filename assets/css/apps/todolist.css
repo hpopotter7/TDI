@@ -119,7 +119,7 @@
   .tab-title .todoList-sidebar-scroll {
     position: relative;
     width: 100%;
-    height: calc(100vh - 346px); }
+    /*height: calc(100vh - 346px);*/ }
   .tab-title .nav-pills .nav-link.active {
     background-color: transparent;
     color: #1b55e2;
