@@ -126,14 +126,14 @@ if ($result = $mysqli->query($sql)) {
       $Factura="";
 
       if($factura==null || $factura==""){
-        $Factura="<i class='fa fa-plus'></i>";
+        $Factura="";
       }
       $arr_factura=explode(',',$factura);
       for($i=0;$i<=count($arr_factura)-1;$i++){
-        $Factura=$Factura."<pre style='margin-top:0;margin-bottom:0;color:white;border:none;background:rgba(0,0,0,0);padding: .5px;font-family: ".$fuente."'>".$arr_factura[$i]."</pre>";
+        $Factura=$arr_factura[$i];
       }
       if($no_cheque==null || $no_cheque==""){
-        $no_cheque="<i class='fa fa-plus'></i>";
+        $no_cheque="";
       }
 
       switch($identificador){
@@ -148,24 +148,24 @@ if ($result = $mysqli->query($sql)) {
         break;
       }
 
-      $devolucion="NA";
+      $devolucion="";
       if($identificador=="SDV" || $identificador=="SDR"){
         if($comprobado=="no"){
           if($Monto_devolucion==null || $Monto_devolucion==0){
             $Monto_devolucion=0;
-            $devolucion="<button type='button' id='".$row['id_odc']."_".$cheque_por."' name='".$Tipo_tarjeta."-".$No_Tarjeta."' class='btn btn-info btn_devolucion'><i class='fa fa-retweet'></i></button>";
+            $devolucion="";
           }
           else{
-            $devolucion="<label id='".$row['id_odc']."_".$cheque_por."' class='btn btn-warning btn_devolucion' name='".$Tipo_tarjeta."-".$No_Tarjeta."' title='Motivo: ".$Motivo_devolucion."'>-".moneda($Monto_devolucion)."</label>";
+            $devolucion="<label id='".$row['id_odc']."_".$cheque_por."' name='".$Tipo_tarjeta."-".$No_Tarjeta."' title='Motivo: ".$Motivo_devolucion."'>-".moneda($Monto_devolucion)."</label>";
           }
         }
         else{
           if($Monto_devolucion==null || $Monto_devolucion==0){
             $Monto_devolucion=0;
-            $devolucion="<button type='button' id='".$row['id_odc']."_".$cheque_por."' name='".$Tipo_tarjeta."-".$No_Tarjeta."' class='btn btn-info disabled' disabled='disabled' title='Ya esta comprobada'><i class='fa fa-retweet'></i></button>";
+            $devolucion="";
           }
           else{
-            $devolucion="<label class='btn btn-warning disabled' title='Ya esta comprobada'>-".moneda($Monto_devolucion)."</label>";
+            $devolucion="<label >-".moneda($Monto_devolucion)."</label>";
           }
         }
       }
@@ -181,7 +181,7 @@ if ($result = $mysqli->query($sql)) {
         }
       }
 
-      $label_comprobante="<label id='".$id_odc."#".$num_evento."' class='btn btn-success btn_subir_comprobante'><i class='fa fa-upload' aria-hidden='true'></i></label>";
+      $label_comprobante="NA";
 
       $ruta = "comprobantes/".$num_evento;
       
@@ -205,23 +205,23 @@ if ($result = $mysqli->query($sql)) {
           }
         }
         if($con>0){
-          $label_comprobante="<label id='".$clases."' class='btn btn-success btn_ver_comprobante '><i class='fa fa-eye' aria-hidden='true'></i></label><button id='".$clases."~".$id_odc."' class='btn btn-danger btn_eliminar_comprobante' style='margin-left:2px' ><i class='fa fa-trash' aria-hidden='true'></i></button>";
+          $label_comprobante="<label id='".$clases."'><i class='fa fa-download' aria-hidden='true'></i></label>";
         }
       }
       
       if($valida=="CXP" && ($_COOKIE['user']=="RITA VELEZ" || $_COOKIE['user']=="ANGEL RIVERA") ){  // SI TIENE PERMISO DE CXP
-        $resultado=$resultado."<tr style='background-color:#ffe'><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td class='td_boton'><button id='".$id_odc."' class='btn btn-success btn_factura'>".$Factura."</button><p style='margin-top: 3px;'>".$label_comprobante."</td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td>";
+        $resultado=$resultado."<tr style='background-color:#ffe'><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td>".$Factura."</td><td><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><i class='fa fa-download' aria-hidden='true'></i></a></td>";
         if($identificador!="Pagado"){
-          $resultado=$resultado."<td class='td_boton'><label id='".$id_odc."' class='btn btn-success btn_cheque'>".$no_cheque."</label></td>";
+          $resultado=$resultado."<td><label>".$no_cheque."</label></td>";
         }
         else{
            $resultado=$resultado."<td>NA</td>";
         }
       }
       else{
-        $resultado=$resultado."<tr style='background-color:#ffe'><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td class='td_boton'><button class='btn btn-success' disabled='disabled'>".$Factura."</button><p style='margin-top: 3px;'>".$label_comprobante."</td><td class='td_boton'><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><button type='button' id='".$id_odc."' name='id' class='btn btn-info boton_descarga'><i class='fa fa-download' aria-hidden='true'></i></button></a></td>";
+        $resultado=$resultado."<tr style='background-color:#ffe'><td>".$contador."</td><td>".$usuario_registra."</td><td>".$solicito."</td><td>".$a_nombre."</td><td>".$concepto."</td>".$importe."<td>".$devolucion."</td><td>".moneda($total)."</td><td>".$Factura."</td><td><a href='solicitud_pago.php?id=".$id_odc."' target='_blank'><i class='fa fa-download' aria-hidden='true'></i></a></td>";
         if($identificador!="Pagado"){
-          $resultado=$resultado."<td class='td_boton'><button class='btn btn-success' disabled='disabled'>".$no_cheque."</button></td>";
+          $resultado=$resultado."<td>".$no_cheque."</td>";
         }
         else{
            $resultado=$resultado."<td>NA</td>";
@@ -230,38 +230,35 @@ if ($result = $mysqli->query($sql)) {
         if($valida=="CXP" && ($_COOKIE['user']=="RITA VELEZ" || $_COOKIE['user']=="ANGEL RIVERA") ){  // SI TIENE PERMISO DE CXP
           if($pagado=="no"){
             //<center><input type='checkbox' class='check_pagado fa fa-2x' value='".$id_odc."'></center>
-            $resultado=$resultado."<td><div class='n-chk'><label class='new-control new-checkbox checkbox-secondary'><input type='checkbox' class='new-control-input check_pagado' value='".$id_odc."'  style='position: relative;z-index: -1;opacity: 1;'><span class='new-control-indicator'></span> </label>
-        </div></td>";
+            $resultado=$resultado."<td><i class='far fa-square fa-2x' aria-hidden='true'></i></td>";
           }
           else if($pagado=="si"){
-            $resultado=$resultado."<td><div class='n-chk'><label class='new-control new-checkbox checkbox-secondary'><input type='checkbox' class='new-control-input check_pagado' value='".$id_odc."' checked style='position: relative;z-index: -1;opacity: 1;'><span class='new-control-indicator'></span> </label></div></td>";
+            $resultado=$resultado."<td><i class='far fa-check-square fa-2x' aria-hidden='true'></i></td>";
           }
         }
         else{  // si no tiene permiso solo se mostrara el icono
           if($pagado=="no"){
-            $resultado=$resultado."<td><center><i class='far fa-2x fa-square'></center></td>";
+            $resultado=$resultado."<td><i class='far fa-square fa-2x' aria-hidden='true'></i></td>";
           }
           else if($pagado=="si"){
-            $resultado=$resultado."<td><center><i class='far fa-2x fa-check-square'></i></center></td>";
+            $resultado=$resultado."<td><i class='far fa-check-square fa-2x' aria-hidden='true'></i></td>";
           }
         }
          
         if($valida=="CXP" && ($_COOKIE['user']=="RITA VELEZ" || $_COOKIE['user']=="ANGEL RIVERA")){
           if($comprobado=="no"){
-          $resultado=$resultado."<td><div class='n-chk'><label class='new-control new-checkbox checkbox-secondary'><input type='checkbox' class='new-control-input check_comp' value='".$id_odc."'  style='position: relative;z-index: -1;opacity: 1;'><span class='new-control-indicator'></span> </label>
-          </div></td>";
+          $resultado=$resultado."<td><i class='far fa-square fa-2x' aria-hidden='true'></i></td>";
           }
           else if($comprobado=="si"){
-            $resultado=$resultado."<td><div class='n-chk'><label class='new-control new-checkbox checkbox-secondary'><input type='checkbox' class='new-control-input check_comp' value='".$id_odc."' checked style='position: relative;z-index: -1;opacity: 1;'><span class='new-control-indicator'></span> </label>
-            </div></td>";
+            $resultado=$resultado."<td><i class='far fa-check-square fa-2x' aria-hidden='true'></i></td>";
           }
         }
         else{
           if($comprobado=="no"){
-            $resultado=$resultado."<td><center><i class='far fa-2x fa-square'></center></td>";
+            $resultado=$resultado."<td><i class='far fa-square fa-2x' aria-hidden='true'></i></td>";
           }
           else if($comprobado=="si"){
-            $resultado=$resultado."<td><center><i class='far fa-2x fa-check-square'></i></center></td>";
+            $resultado=$resultado."<td><i class='far fa-check-square fa-2x' aria-hidden='true'></i></td>";
           }
         }
           $resultado=$resultado."<td title='".$tit."'>".$identificador."</td>";
@@ -279,9 +276,7 @@ if($suma_solicitudes==0){
 $resultado=$resultado."<div class='row'></div><div class='clearfix row'></div><p><br>";
 }
 
-include('tabla_facturacion_detalle_eventos.php');
-
-$resultado=$resultado."<div class='row'></div><div class='clearfix row'></div><p><br>".$resultado2;
+$resultado=$resultado."<div class='row'></div><div class='clearfix row'></div><p><br>";
 
 echo $resultado;
 

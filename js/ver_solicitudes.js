@@ -1,6 +1,32 @@
 function inicio(){
 
   var evento=$('#txt_evento').val();
+
+  $('.chosen-select').chosen();
+
+  parent.$('body').delegate('.arriba','click',function(){
+    var body = $("html, body");
+    body.animate({scrollTop:0}, 500, 'swing');
+  });
+
+  parent.$('body').delegate('.abajo','click',function(){
+     var body = $("html, body");
+    body.animate({scrollTop:$(document).height()}, 800, 'swing');
+    
+  });
+
+  $(window).scroll(function() {
+    var scrollTop = $(window).scrollTop();
+    if ( scrollTop > 250 ) { 
+      var evento=$('#c_mis_eventos option:selected').text();
+      /* parent.$('.evento').html("<label><h3>Evento: "+evento+"</h3></label><button id='btn_arriba' class='arriba btn btn-dark'><i class='fas fa-chevron-up fa-2x' style='color:white'></i></button></button><button id='btn_arriba' class='abajo btn btn-dark'><i class='fas fa-chevron-down fa-2x' style='color:white'></i></button>"); */
+      parent.$('#titulo_evento').html("Evento: "+evento);
+      parent.$('.evento').css("top","75px");
+    }
+    else{
+      parent.$('.evento').css("top","0px");
+    }
+  });
   
 
     var idioma_espaniol = {
@@ -25,7 +51,10 @@ function inicio(){
         "oAria": {
             "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        }
+        },
+        "buttons": {
+          "colvis": 'Ocultar'
+      }
         }
 
         
@@ -125,9 +154,15 @@ function llenar_transfer_eventos(){
                     //"scrollX": true,
                     dom: 'Bfrtip',
                     buttons: [
-                        'excel'
+                      'colvis',
+                        'excel',// 'colvis'
                         //'excel', 'pdf',
-                    ]
+                    ],
+                   /*  language: {
+                      buttons: {
+                          colvis: 'Ocultar'
+                      }
+                    } */
                     /*
                     "columnDefs": [
                         { "width": "3%", "targets": [-1,-2,-3] }
@@ -482,7 +517,10 @@ function llenar_transfer_eventos(){
             var arr=$(this).attr('id').split("#");
             var id=arr[0];
             var evento=arr[1];
-            subir_comprobante(evento, id);
+            parent.$('#txt_evento').val(evento);
+            parent.$('#txt_solicitud').val(id);
+            parent.$("#modal_subir_comprobante").modal();
+            //subir_comprobante(evento, id);
           } 
           else{
             contenido="ver";
@@ -490,86 +528,7 @@ function llenar_transfer_eventos(){
           
         });
 
-        function subir_comprobante(evento, id){
-          /* swal({
-            title: "Carica immagine",
-            html: '<input id="fileupload" type="file" name="userfile">'
-        }).then(function() {
-            var formData = new FormData();
-            formData.append('userfile', $('#fileupload').val().replace(/.*(\/|\\)/, ''));
-            console.log(formData);
-            $.ajax({
-              type: 'POST',
-              url: api,
-              data: formData,
-              dataType: 'json',
-              processData: false,
-              contentType: false,
-              headers: {"Content-Type":"form-data"},
-              async: true,
-              success: function(result){
-                console.log("OK client side");
-                console.log(result.Response);
-              }
-            });
-        }) */
-          var n2 = new Noty({
-            text: '<input type="file" id="btn_comprobante" multiple class="btn btn-info"><i>Dependiendo de la conexion a internet será el tiempo que tarde en subir los documentos.</i>',
-            theme: 'mint',
-            closeWith: 'button',
-            layout: "center",
-            modal: true,
-            type: "info",
-            buttons: [
-            Noty.button('Aceptar', 'btn btn-success', function () {
-              if($('input#btn_comprobante').val() == ''){
-                generate('warning', 'Debe seleccionar un archivo');
-              }
-              else{
-                var inp = document.getElementById('btn_comprobante');
-                var contador=inp.files.length;
-                if(contador>10){
-                  generate("warning","Solo se pueden subir máximo 10 documentos");
-                }
-                else{
-                  for (var i = 0; i < inp.files.length; ++i) {
-                    var file_data = $('input#btn_comprobante').prop('files')[i];   
-                    var form_data = new FormData();       
-                    form_data.append('file', file_data);
-                    form_data.append('evento', evento);
-                    form_data.append('id', id);
-                    $.ajax({
-                        url: 'upload_comprobante.php', // point to server-side PHP script 
-                        dataType: 'text',  // what to expect back from the PHP script, if anything
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        data: form_data,                         
-                        type: 'post',
-                        success: function(response){
-                          if(response.includes("Error")){
-                            generate('error',response);
-                          }
-                          else{
-                            var evento = $("#c_mis_eventos").val();
-                            ver_solicitudes_por_evento(evento,"todos");
-                            generate('success',response);
-                          }
-                          n2.close();
-                        }
-                    });
-                  }
-                }
-              }
-            n2.close();
-            }, {id: 'button1', 'data-status': 'ok'}),    
-            Noty.button('Cancelar', 'btn btn-danger', function () {
-                n2.close();
-            })
-            ]
-        });
-        n2.show(); 
-        }
+        
 
                    $("#resultado_solicitudes").delegate(".btn_ver_comprobante", "click", function() {    
                     var arr=$(this).attr('id').split("#");
@@ -903,6 +862,16 @@ function llenar_transfer_eventos(){
               });
             }
 
+             $("#zoom").on("change", function() {
+              $("#range_valor").html($(this).val()*10+"%");
+              var zoom=$(this).val()*10;
+              
+              $("#resultado_solicitudes").removeClass();
+              $("#resultado_solicitudes").addClass("row");
+              $("#resultado_solicitudes").addClass("z"+zoom);
+              //console.log()
+          }); 
+
             $("#resultado_solicitudes").delegate(".btn-agregar-factura", "click", function(){
               var html="<div>Ingresa el # de factura: <p><input class='form-control' id='numero' type='number'></div><div>Ingresa el importe de la factura: <p><input class='form-control' id='importe' type='number'></div><div>Selecciona el estatus de la factura: <p><select id='estatus' class='form-control'><option value=''>---Selecciona---</option><option value='PAGADO'>PAGADO</option><option value='NOTA CREDITO'>NOTA CREDITO</option><option value='POR COBRAR'>POR COBRAR</option></select></div>";
 
@@ -1058,7 +1027,57 @@ function llenar_transfer_eventos(){
               }
             });
             var ID=$(this).attr("id");
-            var n3=new Noty({
+            parent.$('#txt_solicitud').val(ID);
+            parent.$('#evento_actual').val($('#c_mis_eventos').val());
+            parent.$('#c_eventos_transferir').html(T);
+            parent.$('#c_eventos_transferir').trigger('chosen:updated');
+            parent.$("#modal_transferir").modal();
+            /* const { value: formValues } = Swal.fire({
+              title: 'Selecciona un evento a transferir:',
+              type: 'question',
+              html:
+                '<input id="id_solicitud" class="swal2-input" value="'+ID+'">' +
+                '<select id="swal-input2" data-placeholder="Choose a country..." class="chosen-select swal2-input">'+T+"</select>",
+              focusConfirm: false,
+              preConfirm: () => {
+                return [
+                  document.getElementById('swal-input1').value,
+                  document.getElementById('swal-input2').value
+                ]
+              }
+            });
+            
+            if (formValues) {
+              Swal.fire(JSON.stringify(formValues))
+            } */
+            /* parent.Swal.fire({
+              title: 'Seleciona un evento a transferir:',
+              input: 'select',
+              inputOptions: {
+                '1': 'Tier 1',
+                '2': 'Tier 2',
+                '3': 'Tier 3'
+              },
+              inputPlaceholder: 'required',
+              showCancelButton: true,
+              inputValidator: function (value) {
+                return new Promise(function (resolve, reject) {
+                  if (value !== '') {
+                    resolve();
+                  } else {
+                    resolve('You need to select a Tier');
+                  }
+                });
+              }
+            }).then(function (result) {
+              if (result.isConfirmed) {
+                Swal.fire({
+                  icon: 'success',
+                  html: 'You selected: ' + result.value
+                });
+              }
+            }); */
+            /* var n3=new Noty({
                 text: 'Selecciona el evento a transferir: <select class="form-control" id="c_t">'+T+'</select>',
                 theme: 'mint',
                 layout: "center",
@@ -1081,7 +1100,7 @@ function llenar_transfer_eventos(){
                 })
                 ]
             }); n3.show(); 
-            $('.noty_layout').css('width','405px');
+            $('.noty_layout').css('width','405px'); */
           });
 
           function transferir_factura(ID, evento, noty){
@@ -1269,6 +1288,10 @@ function llenar_transfer_eventos(){
         }); n3.show(); 
         $('.noty_layout').css('width','405px');
         }
+        var estatus_previo="";
+        $("#resultado_solicitudes").delegate(".c_estatus_factura", "focus", function() {
+          estatus_previo=$(this).val();
+        });
 
         $("#resultado_solicitudes").delegate(".c_estatus_factura", "change", function() {
           var arr=$(this).attr('id').split("_");
@@ -1277,11 +1300,20 @@ function llenar_transfer_eventos(){
           var id=arr[1];
           var fecha_pago="";
           var monto="";
-          if(usd=="usd"){
+           if(usd=="usd"){
             monto="<div><label>Ingresa el valor del cambio de divisa:</label><input id='valor_divisa' type='number' min='1' class='form-control' value='21'></div>";
+            parent.$('#modal_cambio_estatus_factura .ocultar').show();
+          } 
+          else{
+            parent.$('#modal_cambio_estatus_factura .ocultar').hide();
           }
           if(estatus=="PAGADO"){
-            var n3=new Noty({
+            parent.$('#id_solicitud_factura').val(id);
+            parent.$('#txt_usd').val(usd);
+            parent.$('#txt_evento_solicitud').val($('#c_mis_eventos').val());
+            parent.$("#modal_cambio_estatus_factura").modal();
+            $(this).val(estatus_previo);
+            /* var n3=new Noty({
               text: 'Ingresa la fecha de pago: <input type="date" class="form-control" id="txt_fecha_pago">'+monto,
               theme: 'mint',
               layout: "center",
@@ -1315,43 +1347,7 @@ function llenar_transfer_eventos(){
               })
               ]
           }); n3.show(); 
-          $('.noty_layout').css('width','405px');
-            /*  noty({
-              type        : 'warning',
-              layout      : 'center',
-              theme       : 'metroui',
-              progressBar : true,
-              maxVisible  : 10,
-              closeWith: ['button'],
-              modal: "true",
-              //timeout     : [10000],
-              text: 'Ingresa la fecha de pago: <input type="date" class="form-control" id="txt_fecha_pago">'+monto,
-             
-              buttons: [
-                {addClass: 'btn btn-primary', text: 'Aceptar', onClick: function($noty) {
-                    var fecha_pago=($noty.$bar.find('input#txt_fecha_pago').val());
-                    var valor_cambio=($noty.$bar.find('input#valor_divisa').val());
-                      if(fecha_pago==null || fecha_pago==""){
-                        generate("warning","La fecha de pago esta vacia");                            
-                      }
-                      if(usd=="usd"){
-                        if(valor_cambio=="" || valor_cambio==null){
-                          generate("warning","Ingresa el valor de cambio de divisa");  
-                        }
-                        else{
-                          alert(valor_cambio);
-                          actualizar_estatus_factura(id, estatus,fecha_pago, valor_cambio);
-                          $noty.close();
-                        }
-                      }
-                      else{
-                        actualizar_estatus_factura(id, estatus,fecha_pago, "0");
-                        $noty.close();
-                      }
-                    }
-                },
-              ]
-            });  */
+          $('.noty_layout').css('width','405px'); */
           }
           else{
             actualizar_estatus_factura(id, estatus,fecha_pago,"0");
@@ -1371,7 +1367,7 @@ function llenar_transfer_eventos(){
             data:   datos,
             success:  function (response) {
                 if (response.includes("modificada")) {
-                       swal({
+                       parent.swal({
                           type: 'success',
                           title: 'Modificado',
                           html: 'El estatus se ha modificado!'

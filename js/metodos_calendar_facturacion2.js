@@ -1,19 +1,5 @@
 function inicio() {
 
-  
-    /*
-      $( "#dialog" ).dialog({
-        autoOpen: false,
-        show: {
-          effect: "blind",
-          duration: 1000
-        },
-        hide: {
-          effect: "fold",
-          duration: 1000
-        }
-      });
-      */
     
         var mes=new Date().getMonth()+1;
         var mes_actual=mes;

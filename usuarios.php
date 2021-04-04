@@ -75,7 +75,7 @@
                                         <th>Jefe Directo</th>
                                         <th>Ausente</th>
                                         <th>Tarjetas</th>
-                                        <th>Privilegios</th>
+                                        <!-- <th>Privilegios</th> -->
                                         <th>Estatus</th>
                                         <th>Opciones</th>
                                     </tr>
@@ -115,7 +115,7 @@
                                             else{
                                                 $estatus='<button class="btn btn-danger btn_estatus" id="'.$row['id_usuarios'].'">Baja</button>';
                                             }
-                                            $privilegios='<ul style="list-style: none;
+                                            /* $privilegios='<ul style="list-style: none;
                                             margin-left: -40px;">';
                                             if($row['Ejecutivo']=="X"){
                                                 $privilegios=$privilegios.'<li><i class="fas fa-check" style="color:#429d4e;"></i> Ejecutivo</li>';
@@ -143,8 +143,8 @@
                                             }
                                             if($row['cat_facturacion']=="X"){
                                                 $privilegios=$privilegios.'<li><i class="fas fa-check" style="color:#429d4e;"></i> Facturacion</li>';
-                                            }
-                                                 $res=$res.'<tr><td>'.$row['Nombre'].'</td><td>'.strtolower($row['email']).'</td><td>'.strtoupper($row['User']).'</td><td>'.$row['Jefe_Directo'].'</td><td>'.$ausente.'</td><td><button id="'.$row['id_usuarios'].'" class="btn btn-info btn-sm btn_ver_usuario">'.$row['tarjetas'].'</button></td><td>'.$privilegios.'</td><td>'.$estatus.'</td><td style="width:20%"><i id="'.$row['id_usuarios'].'" data-toggle="tooltip" data-placement="top" title="Ver usuario" class="fas fa-edit fa-2x btn_ver_usuario" style="color:#429d4e; cursor:pointer"></i><i id="'.$row['id_usuarios'].'" class="fas fa-redo-alt fa-2x btn_reset" style="color:#6422bd; cursor:pointer;" data-toggle="tooltip" data-placement="top" title="Restablecer contraseña"></i><i id="'.$row['Nombre'].'" class="fas fa-clone fa-2x btn_espejo" style="color:#3484e4; cursor:pointer;" data-toggle="tooltip" data-placement="top" title="Espejo"></i></td></tr>';
+                                            } */
+                                                 $res=$res.'<tr><td>'.$row['Nombre'].'</td><td>'.strtolower($row['email']).'</td><td>'.strtoupper($row['User']).'</td><td>'.$row['Jefe_Directo'].'</td><td>'.$ausente.'</td><td><button id="'.$row['id_usuarios'].'" class="btn btn-info btn-sm btn_ver_usuario">'.$row['tarjetas'].'</button></td><td>'.$estatus.'</td><td style="width:20%"><i id="'.$row['id_usuarios'].'" data-toggle="tooltip" data-placement="top" title="Ver usuario" class="fas fa-edit fa-2x btn_ver_usuario" style="color:#429d4e; cursor:pointer"></i><i id="'.$row['id_usuarios'].'" class="fas fa-redo-alt fa-2x btn_reset" style="color:#6422bd; cursor:pointer;" data-toggle="tooltip" data-placement="top" title="Restablecer contraseña"></i><i id="'.$row['Nombre'].'" class="fas fa-clone fa-2x btn_espejo" style="color:#3484e4; cursor:pointer;" data-toggle="tooltip" data-placement="top" title="Espejo"></i></td></tr>';
                                        }
                                        
                                        $result->close();

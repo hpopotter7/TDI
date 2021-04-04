@@ -49,8 +49,13 @@
         <div class="row">
             <div class="col-md-7"><h2>Clientes</h2></div>
             <div class="col-md-5"><h2>
-            <button id='btn_bloq' type="button" class="btn btn-primary"><i class="fas fa-lock"></i> Bloqueados</button>
             <?php
+            if($_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="SANDRA PEÑA"){
+                echo '<button id="btn_bloq" type="button" class="btn btn-primary"><i class="fas fa-lock"></i> Bloqueados</button>
+                <button id="btn_pre" type="button" class="btn btn-primary"><i class="fas fa-bolt"></i> Pre Alta</button>';
+            }
+            
+            
                 if($tipo=="A"){
                     echo '<button id="btn_pendientes" type="button" class="btn btn-primary"><i class="far fa-square"></i> Por autorizar</button>';
                 }
@@ -59,7 +64,6 @@
                 }
             ?>
             
-            <button id='btn_pre' type="button" class="btn btn-primary"><i class="fas fa-bolt"></i> Pre Alta</button>
             <button id='btn_nuevo' type="button" class="btn btn-primary" style='margin-left:10px'><i class="fas fa-plus"></i> Nuevo</button>
             
         </h2></div>
@@ -109,7 +113,12 @@
                                    if ($result = $mysqli->query($sql)) {
                                         while ($row = $result->fetch_row()) {
                                             if($tipo=="A"){
+                                                if($_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="MIGUEL POBLACION"){
                                                  $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td><i id="'.$row[6].'" data-toggle="tooltip" data-placement="top" title="Ver cliente" class="fas fa-edit fa-2x btn_ver_cliente" style="color:green; cursor:pointer"></i><i id="'.$row[6].'" data-toggle="tooltip" data-placement="top" title="Bloquear cliente" class="fas fa-ban fa-2x btn_bloquear" style="color:#f64;cursor:pointer"></i></td></tr>';
+                                                }
+                                                else{
+                                                    $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td><i id="'.$row[6].'" data-toggle="tooltip" data-placement="top" title="Ver cliente" class="fas fa-edit fa-2x btn_ver_cliente" style="color:green; cursor:pointer"></i></td></tr>';
+                                                }
                                             }
                                             if($tipo=="B"){
                                                 $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td><i id="'.$row[6].'" data-toggle="tooltip" data-placement="top" title="Desbloquear cliente" class="fas fa-unlock fa-2x btn_desbloquear" style="color:DarkGoldenRod; cursor:pointer"></i></td></tr>';

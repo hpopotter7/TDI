@@ -324,7 +324,7 @@ $tarjetas="";
   <script src="js/sweetalert2.min.js"></script>
   <script src="js/chosen.jquery.js" ></script>
   <script src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
-  <script src="js/usuarios.js"></script>
+  <script src="js/usuarios.js?v=<?php echo(rand()); ?>"></script>
     <script>
      $(document).on("ready",inicio);  
     </script>

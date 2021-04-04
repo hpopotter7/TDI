@@ -332,7 +332,19 @@ function inicio(){
             }
         }); 
 
-       
+       $('#c_clientes_factura').change(function(){
+         var id_cliente=$(this).val();
+         var datos={"id_cliente": id_cliente};
+         
+         $.ajax({
+          url:   'ver_dias_credito.php',
+          type:  'post',
+          data: datos,
+          success:  function (response) {
+            $('#txt_dias_credito').val(response);
+          }
+        });
+       });
 
         
         

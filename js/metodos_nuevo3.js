@@ -4,9 +4,20 @@ function inicio(){
   var h=screen.height;
   var evento=$('#txt_evento').val();
 
-  if(h<=768){
+ /*  $('body').delegate('.arriba','click',function(){
+    //$("#frame").contents().scrollTop(0);
+    $("#frame").contents().animate({ scrollTop: "0" });
+    //$("#frame").animate({ scrollTop: 0 }, 'slow');
+    alert("aus");
+  }); */
+
+  /* if(h<=768){
     $('#frame').css("height","60%");
-  }
+  } */
+
+  $('#frame').on('load', function() {
+    $('.evento').css("top","0px");
+  });
 
   if(evento!="0"){
     var url="solicitudes.php?evento="+evento;
@@ -16,7 +27,24 @@ function inicio(){
     $("#menu_ver_pendientes").click();
   }
 
+  $('#frame').change(function(){
+    var iFrame = document.getElementById( 'iFrame1' );
+    resizeIFrameToFitContent( iFrame );
 
+    // or, to resize all iframes:
+    var iframes = document.querySelectorAll("iframe");
+    for( var i = 0; i < iframes.length; i++) {
+        resizeIFrameToFitContent( iframes[i] );
+    }
+  });
+
+  function resizeIFrameToFitContent( iFrame ) {
+
+    iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
+    iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+}
+
+$('.chosen').chosen();
   //previo a este se deben cargar los perfiles
   //ver_numero_notificaciones();
   ver_perfil();
@@ -397,6 +425,162 @@ function registro_bitacora_login(usuario){
           }
         });
   }
+  //$('#alert_error').hide();
+  $('#btn_transferir').on('click', function(e){
+    e.preventDefault();
+    var ID=$('#txt_solicitud').val();
+    var evento_actual=$('#evento_actual').val();
+    var evento_nuevo=$('#c_eventos_transferir').val();
+    if(evento_actual==evento_nuevo){
+        //generate("warning",'No es posible transferir al mismo evento');
+        $('#alert_error').html('<div class="alert alert-warning alert-dismissible fade show" role="alert">No es posible transferir al mismo evento<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+    }
+    else{
+      $('#alert_error').html("<label> Transfiriendo... <img src='img/puntos.gif'></label>");
+        transferir_factura(ID, evento_nuevo, evento_actual);
+    }
+  });
 
+  function transferir_factura(ID, evento, evento_actual){
+    var parametros = {
+      "ID": ID,
+      "evento": evento,                  
+        };
+        $.ajax({
+          data: parametros,
+          url:   'transferir_solicitud_factura.php',
+          type:  'post',
+          success:  function (response) {
+            if(response.includes("transferida")){
+              $('.close').click();
+              $('#alert_error').html('');
+              if(response.includes("archivo")){
+                
+                Swal.fire({
+                  type: 'success',                  
+                  html: 'La solicitud y archivo(s) han sido transferidos',
+                })
+              }
+              else{
+                Swal.fire({
+                  type: 'success',
+                  html: 'La solicitud ha sido transferida',
+                });
+                //swal("success", "La solicitud ha sido transferida!!");
+              }
+              /* var evento=$('#c_mis_eventos').val();
+              ver_solicitudes_por_evento(evento,"todos"); */
+              $("#frame").attr("src", "solicitudes.php?evento="+evento_actual);
+            }
+            else{
+              $('#alert_error').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">Error: '+response+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+              
+            }
+          }
+        });
+  }
+
+  $('#btn_subir_comprobante').on('click', function(e){
+    e.preventDefault();
+    var evento=$('#txt_evento').val();
+    var id=$('#txt_solicitud').val();
+    if($('#files').val() == ''){
+      $('.alert_error').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">Se debe seleccionar un archivo<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+    }
+    else{
+      var inp = document.getElementById('files');
+      var contador=inp.files.length;
+      if(contador>10){
+        $('.alert_error').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">Solo se pueden subir máximo 10 documentos<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+      }
+      else{
+        for (var i = 0; i < inp.files.length; ++i) {
+          var file_data = $('#files').prop('files')[i];   
+          var form_data = new FormData();       
+          form_data.append('file', file_data);
+          form_data.append('evento', evento);
+          form_data.append('id', id);
+          alert("Evento: "+evento);
+          alert("id: "+id);
+          $.ajax({
+              url: 'upload_comprobante.php', // point to server-side PHP script 
+              dataType: 'text',  // what to expect back from the PHP script, if anything
+              cache: false,
+              contentType: false,
+              processData: false,
+              data: form_data,                         
+              type: 'post',
+              success: function(response){
+                if(response.includes("Error")){
+                  $('.alert_error').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">Error: '+response+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                }
+                else{
+                  $('.close').click();
+                  Swal.fire({
+                    type: 'success',
+                    html: response,
+                  });
+                  $("#frame").attr("src", "solicitudes.php?evento="+evento);
+                }
+              }
+          });
+        }
+      }
+    }
+  
+  });
+  
+  $('#btn_cambiar_estatus_factura').on('click', function(e){
+    var evento=$('#txt_evento_solicitud').val();
+    var fecha_pago=$('#fecha_pago_factura').val();
+    var valor_cambio=$('#txt_divisa').val();
+    var usd=$('#txt_usd').val();
+    var id=$('#id_solicitud_factura').val();
+      if(fecha_pago==null || fecha_pago==""){
+        $('.alert_error').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">La fecha de pago esta vacia<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');                             
+      }
+      if(usd=="usd"){
+        if(valor_cambio=="" || valor_cambio==null){
+          $('.alert_error').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">Ingresa el valor de cambio de divisa<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'); 
+        }
+        else{
+          actualizar_estatus_factura(id, "PAGADO",fecha_pago, valor_cambio, evento);
+          $('.close').click();
+        }
+      }
+      else{
+        actualizar_estatus_factura(id, "PAGADO",fecha_pago, "0", evento);
+        $('.close').click();
+      }
+  });
+
+  function actualizar_estatus_factura(id,estatus,fecha_pago,divisa,evento){
+    alert("Evento: "+evento);
+    var datos={
+      "id":id,
+      "estatus":estatus,
+      "fecha_pago":fecha_pago,
+      "divisa": divisa,
+    }
+    $.ajax({
+      url:   'modificar_estatus_factura.php',
+      type:  'post', 
+      data:   datos,
+      success:  function (response) {
+          if (response.includes("modificada")) {
+                 swal({
+                    type: 'success',
+                    title: 'Modificado',
+                    html: 'El estatus se ha modificado!'
+                  });
+                  $("#frame").attr("src", "solicitudes.php?evento="+evento);
+          }
+          else{
+            $('.alert_error').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">Error: '+response+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+          }
+      }
+    });
+
+  }
  
 }

@@ -24,6 +24,8 @@
 		}
 		else{
 			$res= $sql.mysqli_error($mysqli);
+            echo $res;
+            exit();
 		}
         $sql="select max(id_usuarios) from usuarios";
         if ($result = $mysqli->query($sql)) {

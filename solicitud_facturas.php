@@ -102,7 +102,7 @@
           <div class="cols-sm-12">
             <div class="input-group">
               <span class="input-group-addon"></span>
-              <input type="number" id="txt_dias_credito" min='0' name="txt_dias_credito" class="form-control" required>
+              <input type="text" id="txt_dias_credito" name="txt_dias_credito" class="form-control" required>
             </div>
           </div>
         </div>
@@ -232,7 +232,7 @@
         </div>
       </div>
   </div>     
-     <div class="form-group col-md-5">
+     <div class="form-group col-md-4">
       <label for="name" class="cols-sm-2 control-label">Observaciones</label>
         <div class="cols-sm-10">
         <div class="input-grsoup">
@@ -241,9 +241,9 @@
       </div>
     </div>
 
-    <div class="form-group col-md-2" style='padding-top: 35px;'>
+    <div class="form-group col-md-3" style='padding-top: 35px;'>
       <button type="submit" id="btn_solicitar_factura" class="btn btn-lg btn-success" style='width:100%'><i class="fab fa-gg"></i> Solicitar factura</button>
-      <button type="button" id="btn_limpiar" class="btn btn-lg btn-info" style='margin-top: 110px;width:100%'><i class="fas fa-eraser"></i> Limpiar</button>
+      <button type="button" id="btn_limpiar" class="btn btn-lg btn-info" style='margin-top: 90px;width:100%'><i class="fas fa-eraser"></i> Limpiar</button>
     </div>
   </div>
   
@@ -269,7 +269,7 @@
     <script src="assets/js/elements/tooltip.js"></script>
     <script src="js/accounting.js"></script>
     <!-- <script src="plugins/input-mask/input-mask.js"></script> -->
-    <script src="js/facturas2.js" type="text/javascript"></script>
+    <script src="js/facturas2.js?v=<?php echo(rand()); ?>" type="text/javascript"></script>
     <script>
     $.fn.dataTable.Api.register( 'column().data().sum()', function () {
       return this.reduce( function (a, b) {

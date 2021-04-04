@@ -45,9 +45,13 @@
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/sweetalert2.css"/>
+    <!-- <link rel="stylesheet" href="css/sweetalert2.css"/> -->
     <link href="plugins/notification/noty.css" rel="stylesheet">
     <link rel="stylesheet" href="css/animate.css"/>
+    <link rel="stylesheet" href="css/chosen.css"/>      
+    <link href="plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css" />
+    
     
     <link
     rel="stylesheet"
@@ -62,7 +66,9 @@
     <script src="plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
     <script src="assets/js/app.js"></script>
-    <script src="js/sweetalert2.min.js"></script>
+    <!-- <script src="js/sweetalert2.min.js"></script> -->
+    <script src="plugins/sweetalerts/sweetalert2.min.js"></script>
+    <script src="js/chosen.jquery.js" ></script>
     <script src="plugins/notification/noty.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
@@ -105,12 +111,23 @@
         right: 0;
         position: absolute;
         overflow-x: hidden;
-overflow-y: hidden;
+        overflow-y: hidden;
         background-position: center center;
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: contain;
         z-index: -1;   
+        }
+        .evento{
+            position: fixed;
+            background-color: aliceblue;
+            top:0px;
+            width: 87%;
+            height: 50px;
+            z-index:30;
+            background-color:#e7d7ff;
+            transition: .750s;
+            padding: .5em;
         }
     </style>
 </head>
@@ -148,9 +165,11 @@ div
         
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content principal_content">
-            
-                <section style='height: 840px !important'>
-                    
+        <div class="evento">
+            <label><h4 id='titulo_evento' >Evento: [2019-001] CLIENTE - NOMBRE DEL EVENTO</h4></label><button id='btn_arriba' class='arriba btn btn-dark' style="margin-left:15px"><i class="fas fa-chevron-up fa-2x" style="color:white;"></i></button>
+            <button id='btn_arriba' class='abajo btn btn-dark' style="margin-left:15px"><i class="fas fa-chevron-down fa-2x" style="color:white"></i></button>
+        </div>
+                <section style='height: calc(100% - 3em) !important'>
                     <iframe src='pendientes.php' style='width:100%; height: 100%;' class="resp-iframe" id="frame" src="" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen>
                     </iframe>
                 </section>
@@ -167,10 +186,7 @@ div
                     z-index: 400px;">© Tierra de ideas (2018)
                     </div>
                 </section>
-
-                </div>
-
-            
+                </div>            
            <!--  <div class="footer-wrapper">
                 <div class="footer-section f-section-1">
                     <p class="">Copyright © 2020 <a target="_blank" href="https://designreset.com">DesignReset</a>, All rights reserved.</p>
@@ -196,10 +212,105 @@ div
             </div>          
             <div class="modal-body">              
             <canvas id='pie' height="350" width='400' title="Utilidad"></canvas>
-            
         </div>
     </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal_transferir" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="titulo_transferir">Transferencia de factura</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <input type="hidden" id='txt_solicitud'>
+            <input type="hidden" id='evento_actual'>            
+          <label for="">Selecciona un evento para transferir</label>
+          <select id="c_eventos_transferir" class='form-control chosen'>
+              <option value="0">Selecciona</option>
+          </select>
+          <div id='alert_error'>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id='btn_transferir' class="btn btn-secondary">Transferir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal subir comprobante solicitudes-->
+
+<div class="modal fade" id="modal_subir_comprobante" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="titulo_subir_comprobante">Seleccione archivo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <input type="hidden" id='txt_evento'>
+            <input type="hidden" id='txt_solicitud'>            
+            <input id='files' type="file" class='form-control'>
+            <small id="helpId" class="text-muted">Dependiendo de la conexión a internet será el tiempo que tarde en subir los documentos.</small>
+            
+          <div class='alert_error'>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id='btn_subir_comprobante' class="btn btn-secondary">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal cambiar estatus factura-->
+
+<div class="modal fade" id="modal_cambio_estatus_factura" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="titulo_cambio_estatus_factura">Cambiar estatus de factura</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <input type="hidden" id='id_solicitud_factura'>
+            <input type="hidden" id='txt_usd'>
+            <input type="hidden" id='txt_evento_solicitud'>
+            
+            <div class="form-group">
+                <label for="my-input">Ingresa la fecha de pago</label>
+                <input id="fecha_pago_factura" class="form-control" type="date" name="">
+            </div> 
+            <div class="form-group ocultar" id="div_usd" >
+                <label for="my-input">Ingresa el cambio de divisa</label>
+                <input id="txt_divisa" class="form-control" type="number" name="" min='1' value='21'>
+            </div>                        
+          <div class='alert_error'>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id='btn_cambiar_estatus_factura' class="btn btn-secondary">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 </html>

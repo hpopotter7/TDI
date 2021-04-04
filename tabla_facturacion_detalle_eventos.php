@@ -30,7 +30,7 @@ foreach($myfiles as $file){
   }
 }
 }
-
+$total_facturas=0;
 $sql2="SELECT p.id_sol_factura, ROUND(sum(p.total),2), s.Estatus, s.No_factura, s.Estatus_Factura, ANY_VALUE(p.descripcion), ANY_VALUE(p.IVA) from partidas p, solicitud_factura s where s.id_evento=".$evento." and p.id_sol_factura=s.id_solicitud and s.Estatus='Activa' group by p.id_sol_factura order by s.No_Factura asc";
 if ($result = $mysqli->query($sql2)) {
   while ($row = $result->fetch_row()) {
@@ -65,14 +65,22 @@ $descripcion=$row[5];
         case "POR COBRAR":
           $estatus4="selected='selected'";
         break;
+        
       }
     }
+    if($estatus_factura!="NOTA CREDITO"){
+        $total_facturas=$total_facturas+$row[1];
+    }
+
+    /* if($estatus_factura!="'NOTA CREDITO"){
+      $total_facturas=$total_facturas+$row[1];
+     } */
     $COUNT++;
       $tbody=$tbody."<tr>
                 <td class='text-center'>".$COUNT."</td>
                 <td class='text-center td_btn_numero_factura'>";
                 $boton_dividir=""; 
-                if($usuario=="SEBASTIAN ZUÑIGA"){
+                if($usuario=="SEBASTIAN ZUÑIGA" && $no_factura=="0"){
                   $tbody=$tbody."<button id=".$row[0]." class='btn btn-secondary btn_numero_factura'>".$no_factura."</button>";
                 }
                 else if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
@@ -189,11 +197,12 @@ $descripcion=$row[5];
                   
                 }
                  $tbody=$tbody."</tr>";
-              $total_facturas=$total_facturas+$row[1];
+                 
+             
   }
 }
 
-$resultado2="<p><br>";
+$resultado2="";
 $utilidad=$total_facturas-$suma_solicitudes;
 $util="";
 if($utilidad>0){
@@ -284,7 +293,8 @@ var myChart = new Chart(ctx, {
 }
 
 
-$resultado2=$resultado2."<div class='row col-md-5' style='margin-left: 20px;'></table>
+$resultado2=$resultado2."<div class='row' id='div_facturacion'></div>
+<div class='row col-md-5' style='margin-left: 20px;height: 10px;'></table>
 <div class='row col-md-6'>
 <table class='table table-user-information table-sm'>
                     <thead style='background-color: rgba(155,175,55,.9); color: white'>

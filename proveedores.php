@@ -49,8 +49,10 @@ if(isset($_GET['tipo'])){
         <div class="row">
             <div class="col-md-8"><h2>Proveedores</h2></div>
             <div class="col-md-4"><h2>
-            <button id='btn_bloq' type="button" class="btn btn-primary"><i class="fas fa-lock"></i> Bloqueados</button>
             <?php
+            if($_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="MIGUEL POBLACION"){
+                echo '<button id="btn_bloq" type="button" class="btn btn-primary"><i class="fas fa-lock"></i> Bloqueados</button>';
+            }
                 if($tipo=="A"){
                     echo '<button id="btn_pendientes" type="button" class="btn btn-primary"><i class="far fa-square"></i> Por autorizar</button>';
                 }
@@ -108,9 +110,15 @@ if(isset($_GET['tipo'])){
                                    if ($result = $mysqli->query($sql)) {
                                         while ($row = $result->fetch_row()) {
                                             if($tipo=="A"){
+                                                if($_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="MIGUEL POBLACION"){
                                                  $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td><i id="'.$row[6].'" data-toggle="tooltip" data-placement="top" title="Ver proveedor" class="fas fa-edit fa-2x btn_ver_proveedor" style="color:green; cursor:pointer"></i><i id="'.$row[6].'" data-toggle="tooltip" data-placement="top" title="Bloquear proveedor" class="fas fa-ban fa-2x btn_bloquear" style="color:#f64;cursor:pointer"></i></td></tr>';
+                                                }
+                                                else{
+                                                    $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td><i id="'.$row[6].'" data-toggle="tooltip" data-placement="top" title="Ver proveedor" class="fas fa-edit fa-2x btn_ver_proveedor" style="color:green; cursor:pointer"></i></td></tr>';
+                                                }
                                             }
                                             if($tipo=="B"){
+
                                                 $res=$res.'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td><i id="'.$row[6].'" data-toggle="tooltip" data-placement="top" title="Desbloquear proveedor" class="fas fa-unlock fa-2x btn_desbloquear" style="color:DarkGoldenRod; cursor:pointer"></i></td></tr>';
                                            }
                                            if($tipo=="P"){

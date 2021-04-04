@@ -196,6 +196,12 @@ function inicio(){
       });
     });
 
+    $('#txt_email_usuario').focusout(function(){
+        var usuario=$(this).val().split("@");
+        var us=usuario[0];
+        $('#txt_username').val(us);
+    });
+
     $('#btn_guardar').on('click',function(){
         var nombre=$('#txt_nombre_usuario').val();
         var correo=$('#txt_email_usuario').val();
@@ -211,7 +217,7 @@ function inicio(){
                 "correo":correo,
                 "jefes": jefes,
                 "id_usuario": id_usuario,
-            };
+            };       
             $.ajax({
                 url:   'guardar_usuario.php',
                 type:  'post',

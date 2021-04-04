@@ -485,10 +485,11 @@ select.form-control.form-custom {
     border-radius: 5px;
     font-size: 12px;
     font-weight: 700;
-    color: #888ea8;
+    color: #fff;
     padding: 11px 8px; }
     .btn-group .dropdown-menu a.dropdown-item:hover {
-      background-color: #f1f2f3; }
+      background-color: #ffffff;
+      color:black }
     .btn-group .dropdown-menu a.dropdown-item svg {
       cursor: pointer;
       color: #888ea8;

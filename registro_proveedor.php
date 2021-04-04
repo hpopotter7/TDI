@@ -457,6 +457,7 @@
                                    }
                               if($num_proveedor=="0"){
                                  echo '<button type="button" id="enviar_solicitud_proveedor" class="abajo btn_verde btn btn-lg btn-primary btn-block pull-right"><i class="fas fa-paper-plane" aria-hidden="true"></i> Enviar Solicitud</button>';
+
                               }                       
                            }
                         ?>                        
@@ -482,7 +483,9 @@
                   <div class="cols-sm-10">
                      <div class="input-group">
                          <?php if($id_proveedor!=""){
+                            if($_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="MIGUEL POBLACION"){
                              echo '<button type="button" id="guardar_proveedor" class="abajo btn_verde btn btn-lg btn-success btn-block pull-right"><i class="i_espacio fa fa-save" aria-hidden="true"></i> Guardar Proveedor</button>';
+                            }
                          }?>
                         
                      </div>

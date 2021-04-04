@@ -332,7 +332,9 @@
                                        $result->close();
                                    }
                               if($num_cliente=="0"){
+                                 if($_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="SANDRA PEÑA"){
                                  echo '<button type="button" id="enviar_solicitud_cliente" class="abajo btn_verde btn btn-lg btn-primary btn-block pull-right"><i class="fas fa-paper-plane" aria-hidden="true"></i> Enviar Solicitud</button>';
+                                 }
                               }                       
                            }
                         ?>                        
@@ -358,7 +360,9 @@
                   <div class="cols-sm-10">
                      <div class="input-group">
                      <?php if($id_cliente!=""){
+                        if($_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="MIGUEL POBLACION"){
                         echo '<button type="button" id="guardar_cliente" class="abajo btn_verde btn btn-lg btn-success btn-block pull-right"><i class="i_espacio fa fa-save" aria-hidden="true"></i> Guardar Cliente</button>';
+                        }
                      }?>
                      </div>
                   </div>
