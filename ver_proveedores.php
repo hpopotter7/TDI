@@ -16,7 +16,7 @@ if ($result = $mysqli->query("SELECT Razon_Social FROM proveedores where Numero_
     
 
     /* fetch object array */
-    echo '<option value="vacio">Selecciona un proveedor...</option>';
+    echo '<option value="">Selecciona un proveedor...</option>';
     while ($row = $result->fetch_row()) {
         echo "<option value='".$row[0]."'>".$row[0]."</option>";
     }

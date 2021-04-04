@@ -11,34 +11,43 @@ $mysqli = new mysqli("209.59.139.52:3306", "admini27_demo", "@ERPideas2019", "ad
             setcookie ("user", "caducada", time() - 3600);
             setcookie ("nombre", "", time() - 3600);
             setcookie ("start", "", time() - 3600);
-            echo "<script>
+             echo "<script>
                    swal({
                       type: 'warning',
                       title: 'La sesión ha caducado',
                       text:  'Debe iniciar sesion de nuevo',
                       onClose: () => {
-                        window.location.href='logout.php';
+                        window.parent.location.href ='index.php';
                       }
                     });
-                    </script>";
+                    </script>"; 
+                    //echo "<script>window.parent.location.href ='index.php';</script>";
         }
         else{
-            setcookie("start", time());
+          if (headers_sent()) {
+            // las cabeceras ya se han enviado, no intentar añadir una nueva
+            
+        }
+        else {
+          setcookie("start", time());
+        }
+            
         }
     }
 
     if (!isset($_COOKIE['user'])){
         
-        echo "<script>
+         echo "<script>
         swal({
            type: 'warning',
            title: 'La sesión ha caducado',
            text:  'Debe iniciar sesion de nuevo',
            onClose: () => {
-             window.location.href='logout.php';
+            window.parent.location.href ='index.php';
            }
          });
-         </script>";
+         </script>"; 
+         //echo "<script>window.parent.location.href ='index.php';</script>";
     }
 
 

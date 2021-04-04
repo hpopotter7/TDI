@@ -1227,7 +1227,6 @@ var parametros = {
         });
 
         $('#menu_crear_evento').click(function(e){
-          
            e.preventDefault();
            metodo_limpiar_evento();
            ver_clientes();
@@ -4014,7 +4013,6 @@ function validarInput() {
           acta=false;
         }
       }
-      
     }
 
     function activar_btn_file(btn, file){

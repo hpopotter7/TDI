@@ -1,7 +1,7 @@
 <?php 
 
 $clien=$_POST["clien"];
-$usuario=$_POST["usuario"];
+$usuario=$_COOKIE["user"];
 include("conexion.php");
 
 /* check connection */
@@ -21,7 +21,7 @@ $sql="SELECT id_evento, CONCAT(Numero_evento, ' ', Nombre_evento) FROM eventos w
 }
 if ($result = $mysqli->query($sql)) {
     /* fetch object array */
-    $resultado= '<option value="vacio">Selecciona un evento...</option>';
+    $resultado= '<option value="">Selecciona un evento...</option>';
     while ($row = $result->fetch_row()) {
     	$ban=1;
         $resultado=$resultado."<option value='".$row[0]."'>".$row[1]."</option>";
@@ -35,7 +35,7 @@ else{
         $resultado=$sql." La consulta SQL contiene errores.".mysql_error();
     }
 if($ban==0){
-	$resultado='<option value="vacio">No hay eventos para ese cliente</option>'.$sql;
+	$resultado='<option value="">No hay eventos abiertos para ese cliente</option>'.$sql;
 }
 echo $resultado.$sql;
 

@@ -15,7 +15,7 @@
 	$tipo_pago=$_POST['tipo_pago'];   
 	$cfdi=$_POST['cfdi'];
 	$metodo_pago=$_POST['metodo_pago'];             
-	$user=$_POST['user'];
+	$user=$_COOKIE['user'];
 	$SOLICITO=$_POST['SOLICITO'];
 	$FINANZAS=$_POST['FINANZAS'];
 	$DIRECTIVO=$_POST['DIRECTIVO'];

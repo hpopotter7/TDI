@@ -1,7 +1,7 @@
 <?php 
 $id=$_POST['id'];
 include("conexion.php");
-
+$res="";
 /* validar la conexion */
 if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());
@@ -37,7 +37,7 @@ if ($result = $mysqli->query("SELECT * FROM eventos where id_evento=".$id)) {
 
     /* cerramos la conexion */
     $result->close();
-    $res=$res.json_encode($return)."\n";
+    $res=json_encode($return)."\n";
     echo $res;
 }
 else{

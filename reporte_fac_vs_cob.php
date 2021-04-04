@@ -1,6 +1,8 @@
 <?php 
 $anio=$_POST['anio'];
 include("conexion.php");
+$suma_fac=0;
+$suma_cob=0;
 if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());
     exit();
@@ -97,8 +99,10 @@ $respuesta="";
 
 for($r=0;$r<=count($vector_meses)-1;$r++) {
     $respuesta=$respuesta."<tr><td>".mes_string($vector_meses[$r])."</td><td>".moneda($vector_totales[$r])."</td><td>".moneda($vector_cobrado[$r])."</td></tr>";
-    $suma_fac+=$vector_totales[$r];
-    $suma_cob+=$vector_cobrado[$r];
+ 
+        $suma_fac=$suma_fac+$vector_totales[$r];
+        $suma_cob=$suma_cob+$vector_cobrado[$r];
+      
 }
 
 $respuesta="<thead>

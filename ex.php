@@ -1,6 +1,7 @@
 <?php
 $id=$_GET['id'];
 if($id==0){
+    
         $sql="select max(id_solicitud) from solicitud_factura";
     if ($result = $mysqli->query($sql)) {
          while ($row = $result->fetch_row()) {
@@ -27,17 +28,18 @@ $pdf->SetFont('Gotham_M','',10);*/
     $pdf->Ln(5);
  $pdf->SetFont('Gotham','',9);
 $pdf->tablewidths = array(105, 30, 25, 30);
-$result = $mysqli->query("SET NAMES 'utf8'");
 $sql="SELECT * from partidas where id_sol_factura=".$id;
 $PU=0;
 $IVA=0;
 $TOTAL=0;
+$result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
      while ($row = $result->fetch_row()) {
        $pu="$".number_format($row[2],2);
        $iva="$".number_format($row[3],2);
        $total="$".number_format($row[4],2);
-       $data[] = array(utf8_decode($row[1]),$pu,$iva,$total);
+       $desc=$row[1];
+       $data[] = array($desc,$pu,$iva,$total);
        $PU=$PU+$row[2];
        $IVA=$IVA+$row[3];
        $TOTAL=$TOTAL+$row[4];

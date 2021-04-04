@@ -1,20 +1,14 @@
 <?php 
 $id=$_POST['id'];
-//$mysqli = new mysqli("localhost", "tierra_ideas", "adminadmin", "tierra_ideas");
-include("conexion.php");
-//$mysqli = new mysqli("localhost", "tierrad9_admin", "Quick2215!", "tierrad9_admin");
 
-/* validar la conexion */
+include("conexion.php");
 if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());
     exit();
 }
-/* Select queries return a resultset */
 $sql="SELECT Razon_Social, rfc, dias_credito, tipo_persona, nombre_comercial, calle, num_ext, num_int, colonia, cp, telefono, estado, municipio, nombre_contacto, correo_contacto, uso_cfdi, extension, celular FROM clientes where id_cliente=".$id;
 $result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
-
-    /* fetch object array */
     while ($row = $result->fetch_row()) {
         $return = Array('nombre'=>$row[0],
             'rfc'=>$row[1],  
@@ -37,7 +31,7 @@ if ($result = $mysqli->query($sql)) {
             'cobertura'=>"NA,",
             'cuenta'=>"",
             'error'=>'nada',
-            'sql'=>''
+            'sql'=>$sql,
         	);
     }
     /* cerramos la conexion */
@@ -47,9 +41,9 @@ else{
     $return = Array('error'=>"Error", 
                     'sql'=>mysqli_error($mysqli));
 }
-$res=$res.json_encode($return);
+echo json_encode($return);
 
-echo $res;
+//echo $res;
 
 $mysqli->close();
 ?>

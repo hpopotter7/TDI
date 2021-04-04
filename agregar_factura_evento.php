@@ -44,7 +44,7 @@ $sql="select e.Numero_evento, e.Nombre_evento from eventos e INNER join solicitu
 	
 	$result = $mysqli->query("SET NAMES 'utf8'");
 		$respuesta="";
-                $sql="insert into solicitud_factura(id_evento,Dias_credito,Num_pedido,Num_orden,Num_entrada,GR,Correo1,correo2,correo3,correo4,correo5,Fecha_hora_registro,Usuario_registra,Observaciones,empresa_factura,Estatus, No_factura, Estatus_Factura) values(".$evento.",'0','0','0','0','0','carga@inicial.com', '', '', '', '', NOW(), '".$_COOKIE['user']."', '', 'TDI', 'Activa', '".$numero."', '".$estatus."');";
+                $sql="insert into solicitud_factura(id_evento,Dias_credito,Num_pedido,Num_orden,Num_entrada,GR,Correo1,correo2,correo3,correo4,correo5,Fecha_hora_registro,Usuario_registra,Observaciones,empresa_factura,Estatus, No_factura, Estatus_Factura, Moneda) values(".$evento.",'0','0','0','0','0','carga@inicial.com', '', '', '', '', NOW(), '".$_COOKIE['user']."', '', 'TDI', 'Activa', '".$numero."', '".$estatus."', 'MXN');";
                
 			if ($mysqli->query($sql)) {
 			    $respuesta= "factura agregada";

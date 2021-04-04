@@ -241,9 +241,14 @@ if ($result = $mysqli->query($sql)) {
         }
       }
 
-      $label_comprobante="<button id='".$clases."' class='btn btn-danger disabled' disabled='disabled'><i class='fa fa-ban' aria-hidden='true'></i></button>";
+      $label_comprobante="<button class='btn btn-danger disabled' disabled='disabled'><i class='fa fa-ban' aria-hidden='true'></i></button>";
 
       $ruta = "comprobantes/".$evento;
+      $array= Array();
+      $array_nombre= Array();
+      /*if(is_dir($ruta)){
+
+      }*/
       $myfiles = scandir($ruta);
       $array= Array();
       $array_nombre= Array();
@@ -253,9 +258,10 @@ if ($result = $mysqli->query($sql)) {
         $nombre=explode("-",$file);
         array_push($array,$nombre[0]);
         array_push($array_nombre,$file);
-      }
+      } 
       $con=0;
       if(is_dir($ruta)){
+        
         for($r=0;$r<=count($array)-1;$r++){
           if($array[$r]==$id_odc){
             $con++;
@@ -356,7 +362,7 @@ else{
 
 if($ODC!=""){
   if ($mysqli->query($sql2)) {
-    $respuesta= "borrado";
+    $respuesta= "borrado".$sql;
   }
   else{
       $respuesta= $sql."<br>".mysqli_error($mysqli);

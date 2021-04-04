@@ -1,7 +1,7 @@
 <?php 
 	$user=$_COOKIE['nombre'];
 	$pass=$_POST['pass'];
-	$mysqli = new mysqli("localhost", "admini27_root", "@ERPideas2019", "admini27_erp");
+	include("conexion.php");
 	
 	if (mysqli_connect_error()) {
 	    echo "Error de conexion: %s\n", mysqli_connect_error();
@@ -11,7 +11,7 @@
 		$sql="UPDATE usuarios SET pass='".$pass."' where user='".$user."'";
 		if ($mysqli->query($sql)) {		    
 			setcookie("user", "Modificada");
-			header('Location:index.php');
+			header('Location:inicio.php');
 			
 		}
 		else{

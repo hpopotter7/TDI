@@ -59,7 +59,7 @@ else{
     $return = Array('error'=>"Error", 
                     'sql'=>mysqli_error($mysqli));
 }
-$res=$res.json_encode($return);
+$res=json_encode($return);
 
 echo $res;
 

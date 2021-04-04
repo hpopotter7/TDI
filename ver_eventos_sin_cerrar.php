@@ -7,7 +7,7 @@ if (mysqli_connect_errno()) {
 }
 $result = $mysqli->query("SET NAMES 'utf8'");
 
-$respuesta="<thead><tr><td>Pendientes</td></tr></thead><tbody><tr style='background-color: rgba(155,175,55,.7)';><th>".$titulo."</th></tr>";
+$respuesta="<thead><tr><th id='titulo'>".$titulo."</th></tr></thead><tbody>";
 $contador_numero=0;
 $bandera_ejecutivo=true;
 $sql="SELECT e.Numero_evento, e.Nombre_evento, e.cliente as cliente, o.suma, f.Importe_Total, e.id_evento  FROM eventos e, ODC_ABIERTOS o, Reporte_Facturacion f where e.Numero_evento=o.evento and e.Numero_evento=f.Numero_evento and e.Estatus='ABIERTO' and e.cliente!='GASTO' and f.Importe_Total is not null and Ejecutivo like '%".$_COOKIE['user']."%' order by cliente asc, e.id_evento asc ";

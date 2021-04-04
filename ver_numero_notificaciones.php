@@ -1,6 +1,6 @@
 <?php 
 include("conexion.php");
-$usuario=$_POST['usuario'];
+$usuario=$_COOKIE['user'];
 if (mysqli_connect_errno()) {
     printf("Error de conexion: %s\n", mysqli_connect_error());
     exit();
@@ -20,16 +20,16 @@ if ($result = $mysqli->query($sql)) {
 $res="ninguno";
 $cont=0;
 $para="";
-$sql="SELECT Asunto, Para_quien from notificaciones where Visto='0'";
+$sql="SELECT Asunto, Para_quien from notificaciones where Visto='1' and Para_quien='".$email."' order by Fecha_hora asc";
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {
         $para=$row[1];
-        if(strpos($para, $email) !== false ){
+        //if(strpos($para, $email) !== false ){
             $res="";
             $cont++;
-        }
+       // }
     }
     $result->close();
 }
-echo $res.$cont;
+echo $res.$sql.$cont;
 ?>

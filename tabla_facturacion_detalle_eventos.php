@@ -9,10 +9,10 @@ $estatus4="";
 
 $concatenados="";
 $ruta = "facturas/".$evento;
-$myfiles = scandir($ruta);
 $array= Array();
 $array_nombres= Array();
-
+if(is_dir($ruta)){
+$myfiles = scandir($ruta);
 foreach($myfiles as $file){
   if(!is_dir($ruta."/".$file)){
     array_push($array_nombres,$file);
@@ -29,7 +29,8 @@ foreach($myfiles as $file){
     $concatenados=$concatenados.".".$nombre;
   }
 }
-
+}
+$total_facturas=0;
 $sql2="SELECT p.id_sol_factura, ROUND(sum(p.total),2), s.Estatus, s.No_factura, s.Estatus_Factura, ANY_VALUE(p.descripcion), ANY_VALUE(p.IVA) from partidas p, solicitud_factura s where s.id_evento=".$evento." and p.id_sol_factura=s.id_solicitud and s.Estatus='Activa' group by p.id_sol_factura order by s.No_Factura asc";
 if ($result = $mysqli->query($sql2)) {
   while ($row = $result->fetch_row()) {
@@ -64,22 +65,33 @@ $descripcion=$row[5];
         case "POR COBRAR":
           $estatus4="selected='selected'";
         break;
+        
       }
     }
+    if($estatus_factura!="NOTA CREDITO"){
+        $total_facturas=$total_facturas+$row[1];
+    }
+
+    /* if($estatus_factura!="'NOTA CREDITO"){
+      $total_facturas=$total_facturas+$row[1];
+     } */
     $COUNT++;
       $tbody=$tbody."<tr>
                 <td class='text-center'>".$COUNT."</td>
                 <td class='text-center td_btn_numero_factura'>";
-                $boton_dividir=""; //<i id='".$row[0]."' class='btn btn-info fas fa-layer-group btn_dividir_solicitud'></i>
-                if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
-                  $tbody=$tbody."<label id=".$row[0]." class='btn btn_verde btn_success btn_numero_factura'>".$no_factura."</label>";
+                $boton_dividir=""; 
+                if($usuario=="SEBASTIAN ZUÑIGA" && $no_factura=="0"){
+                  $tbody=$tbody."<button id=".$row[0]." class='btn btn-secondary btn_numero_factura'>".$no_factura."</button>";
+                }
+                else if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
+                  $tbody=$tbody."<button id=".$row[0]." class='btn btn-secondary btn_numero_factura'>".$no_factura."</button>";
                   if($no_factura=="0"){
-                    $boton_dividir="<i id='".$row[0]."' class='btn btn-info fas fa-layer-group btn_dividir_solicitud'></i>";
+                    $boton_dividir="<button id='btn_dividir_solicitud' class='btn btn-secondary'><i id='".$row[0]."' class='fa fa-object-ungroup'></i></button>";
                   }
                   
                 }
                 else{
-                  $tbody=$tbody."<label class='btn btn_verde btn_success disabled'>".$no_factura."</label>";
+                  $tbody=$tbody."<button class='btn btn-success disabled'>".$no_factura."</button>";
                 }
       $tbody=$tbody."
                 </td>
@@ -131,68 +143,73 @@ $descripcion=$row[5];
             */
               if($usuario=="ALAN SANDOVAL" || $usuario=="SANDRA PEÑA"){
                 if($descripcion=="Carga inicial"){
-                  $tbody=$tbody."<td><label class='btn btn-info'><i class='fa fa-ban' aria-hidden='true'></i></label>";
+                  $tbody=$tbody."<td><button class='btn btn-info'><i class='fa fa-ban' aria-hidden='true'></i></button>";
 
                 }
                 else{
-                  $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><label class='btn btn-info btn_descargar_facturas'><i class='fa fa-download' aria-hidden='true'></i></label></a>";
+                  $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><button class='btn btn-info btn_descargar_facturas'><i class='fa fa-download' aria-hidden='true'></i></button></a>";
                 }
 
-                $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-cloud-upload ' aria-hidden='true'></i></button>";
-
+                $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-cloud-upload-alt' aria-hidden='true'></i></button>";
                 for($t=0;$t<=count($array)-1;$t++){
                   if($array[$t]==$no_factura){
                   $referencia=$array_nombres[$t];
-                  /*
-                        $boton_factura="<div class='dropdown'>
-                        <button onclick='myFunction()' class='dropbtn btn btn-primary'><i class='dropbtn fas fa-file-pdf' aria-hidden='true'></i></button>
-                        <div id='myDropdown' class='dropdown-content'>
-                        <a href='".$ruta."/".$referencia."' target='_blank'><button id='".$evento."#".$array[$t]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i> Ver archivo</button></a>
-                          <a href='#'><button id='".$ruta."/".$referencia."' class='btn btn-danger btn_borrar_factura'><i class='fas fa-file-excel' aria-hidden='true'></i> Borrar archivo</button></a>
-                        </div>
-                      </div>
-                      */
-
                       $boton_factura="<a href='".$ruta."/".$referencia."' target='_blank'><button id='".$evento."#".$array[$t]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button></a>
                       <a href='#' title='Borrar archivo'><button id='".$ruta."/".$referencia."' class='btn btn-danger btn_borrar_factura'><i class='fas fa-file-excel' aria-hidden='true'></i></button></a>
                       ";
-                      
-                      }
-                      
-                      
+                      }                      
                 }
-                $tbody=$tbody.$boton_factura."<button id='".$row[0]."' class='btn btn-primary btn_transferir_factura' style='margin-left:.3em;margin-right:.3em'><i class='fa fa-exchange' aria-hidden='true'></i></button><a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
+                $tbody=$tbody.$boton_factura."<button id='".$row[0]."' class='btn btn-primary btn_transferir_factura' style='margin-left:.3em;margin-right:.3em'><i class='fas fa-exchange-alt' aria-hidden='true'></i></button><a href='#' id='".$row[0]."' class='btn btn-danger btn_eliminar_factura' ><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
                  
               }
+              else if($usuario="SEBASTIAN ZUÑIGA"){
+                if($descripcion=="Carga inicial"){
+                  $tbody=$tbody."<td><button class='btn btn-info'><i class='fa fa-ban' aria-hidden='true'></i></button>";
+                }
+                else{
+                  $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><button class='btn btn-info btn_descargar_facturas'><i class='fa fa-download' aria-hidden='true'></i></button></a>";
+                }
+
+                $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-cloud-upload-alt' aria-hidden='true'></i></button>";
+                for($t=0;$t<=count($array)-1;$t++){
+                  if($array[$t]==$no_factura){
+                  $referencia=$array_nombres[$t];
+                      $boton_factura="<a href='".$ruta."/".$referencia."' target='_blank'><button id='".$evento."#".$array[$t]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf ' aria-hidden='true'></i></button></a>";
+                      }                      
+                }
+                $tbody=$tbody.$boton_factura."</td>";
+                 
+                }
               else{
-                $boton_factura="<button type='button' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fa fa-ban fa-2x' aria-hidden='true'></i></button>";
+                $boton_factura="<button type='button' class='btn btn-success' ><i class='fa fa-ban' aria-hidden='true'></i></button>";
                   for($r=0;$r<=count($array)-1;$r++){
                     if($array[$r]==$no_factura){
-                      $boton_factura="<a href='".$ruta."/".$array_nombres[$r]."' target='_blank'><button id='".$evento."#".$array[$r]."' class='btn btn-success' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-file-pdf fa-2x' aria-hidden='true'></i></button></a>";
+                      $boton_factura="<a href='".$ruta."/".$array_nombres[$r]."' target='_blank'><button id='".$evento."#".$array[$r]."' class='btn btn-success' ><i class='fas fa-file-pdf' aria-hidden='true'></i></button></a>";
                     }
                   }
 
                   if($descripcion=="Carga inicial"){
-                    $tbody=$tbody."<td><label class='btn btn-info' disabled='disabled'><i class='fa fa-ban fa-2x' aria-hidden='true'></i></label>".$boton_factura."</td>";
+                    $tbody=$tbody."<td><button class='btn btn-info' disabled='disabled'><i class='fa fa-ban' aria-hidden='true'></i></button>".$boton_factura."</td>";
                   }
                   else{
-                    $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><label class='btn btn-info btn_descargar_facturas'><i class='fa fa-download fa-2x' aria-hidden='true'></i></label></a>".$boton_factura."</td>";
+                    $tbody=$tbody."<td><a class='btn btn-info' href='solicitud_factura.php? id=".$row[0]."' target='_blank'><i class='fa fa-download' aria-hidden='true'></i></a>".$boton_factura."</td>";
                   }
                   
                 }
                  $tbody=$tbody."</tr>";
-              $total_facturas=$total_facturas+$row[1];
+                 
+             
   }
 }
 
-$resultado2="<p><br>";
+$resultado2="";
 $utilidad=$total_facturas-$suma_solicitudes;
 $util="";
 if($utilidad>0){
-  $util="<h3><label class='label label-success'><i class='fas fa-angle-double-up' aria-hidden='true'> ".moneda($utilidad)."</i></label></h3>";
+  $util="<span class='badge badge-success'><h4 style='color:#fff'><i class='fas fa-angle-double-up' aria-hidden='true'> ".moneda($utilidad)."</i></h4></span>";
 }
 if($utilidad<=0){
-  $util="<h3><label class='label label-danger'><i class='fas fa-angle-double-down' aria-hidden='true'> ".moneda($utilidad)."</i></label></h3>";
+  $util="<span class='badge badge-danger'><h4 style='color:#fff'><i class='fas fa-angle-double-down' aria-hidden='true'> ".moneda($utilidad)."</i></h4></span>";
 }
 /*
 $SUMA=$suma_solicitudes+$total_facturas;
@@ -202,19 +219,22 @@ $por_egresos=($total_facturas/$SUMA)*100;
 
 //$porcentaje=(($total_facturas/$suma_solicitudes)*100)-100;
 $porcentaje=0;
+$por_egresos=0;
+$por_facturas=0;
+
 if($total_facturas>0){
   $porcentaje=($utilidad*100)/$total_facturas;
 }
 
 
 if($utilidad>0){
-  $porcentaje="<h3><label class='label label-success'><i class='fas fa-angle-double-up' aria-hidden='true'> ".round($porcentaje,2)."%</i></label></h3>";
+  $porcentaje="<span class='badge badge-success'><h4 style='color:#fff'><i class='fas fa-angle-double-up' aria-hidden='true'> ".round($porcentaje,2)."%</i></h4></span>";
 }
 if($utilidad<=0){
-  $porcentaje="<h3><label class='label label-danger'><i class='fas fa-angle-double-down' aria-hidden='true'> ".round($porcentaje,2)."%</i></label></h3>";
+  $porcentaje="<label class='badge badge-danger'><h4 style='color:#fff'><i class='fas fa-angle-double-down' aria-hidden='true'> ".round($porcentaje,2)."%</i></h4></span>";
 }
 
-$variable="<thead style='background-color: #455F87; color: white'>
+$variable="<thead style='background-color: rgba(155,175,55,.9); color: white'>
 <tr>
 <th colspan='2' class='text-center'>Gráfica</th>
 </tr>
@@ -226,7 +246,7 @@ $variable="<thead style='background-color: #455F87; color: white'>
 </tr></tbody>";
 
 if($utilidad>0){
-  $variable="<thead style='background-color: #455F87; color: white'>
+  $variable="<thead style='background-color: rgba(155,175,55,.9); color: white'>
   <tr>
   <th colspan='2' class='text-center'>Gráfica</th>
   </tr>
@@ -273,43 +293,44 @@ var myChart = new Chart(ctx, {
 }
 
 
-$resultado2=$resultado2."<div class='row col-md-5'></table>
-<div class='row col-md-5'>
+$resultado2=$resultado2."<div class='row' id='div_facturacion'></div>
+<div class='row col-md-5' style='margin-left: 20px;height: 10px;'></table>
+<div class='row col-md-6'>
 <table class='table table-user-information table-sm'>
-                    <thead style='background-color: #455F87; color: white'>
+                    <thead style='background-color: rgba(155,175,55,.9); color: white'>
                     <tr>
                       <th class='text-center'>Suma solicitudes</th>
                     </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td class='text-center'><h3><span class='label label-primary'>".moneda($suma_solicitudes)."</span></h3></td>
+                        <td class='text-center'><h5><span class='label label-primary'>".moneda($suma_solicitudes)."</span></h5></td>
                       </tr>
                     </tbody>
                     </table>
 </div>
-<div class='row col-md-5'>
+<div class='row col-md-6'>
 <table class='table table-user-information table-sm'>
-                    <thead style='background-color: #455F87; color: white'>
+                    <thead style='background-color: rgba(155,175,55,.9); color: white'>
                     <tr>
                       <th class='text-center'>Presupuesto</th>
                     </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td class='text-center'><h3><span class='label label-primary'>".moneda($facturacion)."</span></h3></td>
+                        <td class='text-center'><h5><span class='label label-primary'>".moneda($facturacion)."</span></h5></td>
                       </tr>
                     </tbody>
                     </table>
 </div>
 <div class='row col-md-12'>
 <table class='table table-user-information table-sm'>
-                  <thead style='background-color: #455F87; color: white'>
+                  <thead style='background-color: rgba(155,175,55,.9); color: white'>
                   <tr >
                     <th colspan='2' class='text-center'>Cierre del evento</th>
                   </tr>
                   </thead>
-                  <thead style='background-color: #455F87; color: white'>
+                  <thead style='background-color: rgba(155,175,55,.9); color: white'>
                     <tr>
                       <th class='text-center'>Σ Egresos</th>
                       <th class='text-center'>Σ Facturación</th>
@@ -317,11 +338,11 @@ $resultado2=$resultado2."<div class='row col-md-5'></table>
                   </thead>
                   <tbody>
                     <tr>
-                      <td class='text-center'><h3><strong>".moneda($suma_solicitudes)."</strong></h3></td>
-                      <td class='text-center'><h3><strong>".moneda($total_facturas)."</strong></h3></td>
+                      <td class='text-center'><h5><strong>".moneda($suma_solicitudes)."</strong></h3></td>
+                      <td class='text-center'><h5><strong>".moneda($total_facturas)."</strong></h3></td>
                     </tr>
                   </tbody>
-                  <thead style='background-color: #455F87; color: white'>
+                  <thead style='background-color: rgba(155,175,55,.9); color: white'>
                     <tr>
                     <th colspan='2' class='text-center'>Utilidad</th>
                     </tr>
@@ -349,18 +370,18 @@ $resultado2=$resultado2."<div class='row col-md-5'></table>
 </div>
 <div class='row col-md-7'>
 <table class='table table-user-information table-sm'>
-                    <thead style='background-color: #455F87; color: white'>
+                    <thead style='background-color: rgba(155,175,55,.9); color: white'>
                     <tr >
                       <th colspan='5' class='text-center'>Facturación</th>
                     </tr>
                     </thead>
-                    <thead style='background-color: #455F87; color: white'>
+                    <thead style='background-color: rgba(155,175,55,.9); color: white'>
                       <tr>
                         <th class='text-center'>#</th>
                         <th class='text-center'>Factura</th>
                         <th class='text-center' style='width: 25%;' >Estatus</th>
                         <th class='text-center'>Monto</th>
-                        <th class='text-center'>descargar</th>
+                        <th class='text-center'>Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -369,18 +390,15 @@ $resultado2=$resultado2."<div class='row col-md-5'></table>
                     <tfoot>
                         <tr>
 
-                        <th colspan='3'>
+                         <th colspan='3'>
                         <div class='col-md-1'>";
                         
                         if($_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="SANDRA PEÑA"){
                           $resultado2=$resultado2."<button class='btn btn-success btn-agregar-factura'><i class='fas fa-plus'></i></button>";
                         }
                         $resultado2=$resultado2."</div>
-                        <div class='col-md-3 pull-right'>
-                        <label class='abajo text-right'>Total:</label>
-                        </div>
-                        </th>
-                        <th colspan='2' class='text-center'><h3><span class='label label-primary'>".moneda($total_facturas)."</span></h3></th>
+                        </th> 
+                        <th>Total: </th><th><h3><span class='label label-primary'>".moneda($total_facturas)."</span></h3></th>
                       </tr>
                       </tfoot>
                   </table>

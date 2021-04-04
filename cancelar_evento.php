@@ -9,9 +9,12 @@
 	    exit();
 	}
 	//$comentarios = $mysqli->real_escape_string($comentarios);
-
-	$arr=explode("]",$id_evento);
-    $id_evento=str_replace("[", "", $arr[0]);
+	
+		$arr=explode("]",$id_evento);
+		$id_evento=str_replace("[", "", $arr[0]);
+		$ID=$id_evento;
+	
+	
 
 	$result = $mysqli->query("SET NAMES 'utf8'");
 
@@ -25,9 +28,7 @@ $sql="SELECT id_evento from eventos where Numero_evento='".$id_evento."'";
 		else{
 			echo $sql.mysqli_error($mysqli);
 		}
-
 		
-
 
 		$sql="SELECT count(evento) from odc where evento='".$id_evento."' and Cancelada='no' ";	
 		$ordenes=0;	
@@ -40,17 +41,13 @@ $sql="SELECT id_evento from eventos where Numero_evento='".$id_evento."'";
 		}
 		else{
 			echo $sql.mysqli_error($mysqli);
-		}
-
-		
+		}		
 		
 		if ($ordenes>0) {		    
 			echo "Existen pagos";
 			$mysqli->close();
 		    exit();
 		}
-
-		
 
 		else{
 			$sql="UPDATE eventos SET Estatus='CANCELADO' where id_evento='".$ID."'";

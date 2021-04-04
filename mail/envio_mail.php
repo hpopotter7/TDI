@@ -64,7 +64,7 @@ switch($asunto){
 		&nbsp;<br />
 		&nbsp;<br />
 		&nbsp;<p><br>
-		<hr /><p><br />El usuario <b>'.$usuario.'</b> a solicitado el alta del proveedor: <p><b>'.$proveedor.'</b><br>
+		<hr /><p><br />El usuario <b>'.$_COOKIE['user'].'</b> a solicitado el alta del proveedor: <p><b>'.$proveedor.'</b><br>
 		&nbsp;<br />
 		&nbsp;<br />
 		<span style="font-size:10px"><span style="font-family:verdana,geneva,sans-serif"><em>&nbsp;Este es un mensaje autom&aacute;tico creado por el sistema ERP.&nbsp; Favor de no responder.</em></span></span><br />
@@ -84,7 +84,7 @@ switch($asunto){
 		&nbsp;<br />
 		&nbsp;<br />
 		&nbsp;<p><br>
-		<hr /><p><br />El usuario <b>'.$usuario.'</b> a solicitado el alta del cliente: <p><b>'.$proveedor.'</b><br>
+		<hr /><p><br />El usuario <b>'.$_COOKIE['user'].'</b> a solicitado el alta del cliente: <p><b>'.$proveedor.'</b><br>
 		&nbsp;<br />
 		&nbsp;<br />
 		<span style="font-size:10px"><span style="font-family:verdana,geneva,sans-serif"><em>&nbsp;Este es un mensaje autom&aacute;tico creado por el sistema ERP.&nbsp; Favor de no responder.</em></span></span><br />
@@ -334,6 +334,13 @@ try {
 	echo 'Enviado';
 } catch (Exception $e) {
     echo "Ocurrio un error.Mailer Error: {$mail->ErrorInfo}";
-}
+} 
+
+/* $to_email = $to;
+$subject = $asunto;
+$message = $body;
+$headers = 'From: noreply@company.com';
+mail($to_email,$subject,$message,$headers);
+ echo "Enviado"; */
 }
 ?>

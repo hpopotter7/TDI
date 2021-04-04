@@ -40,11 +40,11 @@ $mysqli->close();
 
 
 if ($res=="No existe"){
-    header('Location:index.php');
+    header('Location:inicio.php');
 }
 else if ($res=="Cambio de pass"){
             
-    header('Location:index.php');
+    header('Location:inicio.php');
 }
 else if($res!=""){
     header('Location:home.php');

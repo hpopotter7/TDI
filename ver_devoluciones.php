@@ -1,11 +1,12 @@
 <?php 
 $tarjeta=$_POST["tarjeta"];
 include("conexion.php");
+$evento="";
 if ($mysqli->connect_error) {
     die('Error de conexión: ' . mysqli_error($mysqli));
     exit();
 }
-$res="<table class='table table-condensed'><thead style='background-color: rgba(27, 31, 7, 0.7);color:white;
+$res="<table class='table table-condensed'><thead style='background-color: #fcb831;color:white;
 }'><tr><th>Evento</th><th>Concepto</th><th>Importe solicitado</th><th>Importe a devolver</th></tr></thead><tbody>";
 $result = $mysqli->query("SET NAMES 'utf8'");
 /*

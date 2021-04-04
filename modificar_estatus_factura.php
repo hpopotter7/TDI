@@ -21,7 +21,7 @@ if($fecha_pago==""){
 	}
 
 if($divisa!="0"){
-	$sql="select id_partida, pu from partidas where id_sol_factura=".$id;
+	$sql="select id_partida, pu, iva from partidas where id_sol_factura=".$id;
 	if ($result = $mysqli->query($sql)) {
 		while ($row = $result->fetch_row()) {
 			$id_partida=$row[0];
@@ -38,12 +38,14 @@ if($divisa!="0"){
 	}
 }
 else{
-	$sql="select id_partida, pu from partidas where id_sol_factura=".$id;
+	$sql="select id_partida, pu, iva from partidas where id_sol_factura=".$id;
 	if ($result = $mysqli->query($sql)) {
 		while ($row = $result->fetch_row()) {
 			$id_partida=$row[0];
 			$pu=$row[1];
-			$sql2="update partidas set Valor_divisa='0', Total='".$pu."' where id_partida=".$id_partida;
+			$iva=$row[2];
+			$total=$pu+$iva;
+			$sql2="update partidas set Valor_divisa='0', Total='".$total."' where id_partida=".$id_partida;
 			if ($mysqli->query($sql2)) {
 				$respuesta= "modificada";
 			}

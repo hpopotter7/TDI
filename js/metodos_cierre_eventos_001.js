@@ -107,6 +107,7 @@ function inicio(){
               $("#c_eventos").val('');
               $('#resultados').hide();
               $('#btn_cerrar_evento').hide();  
+              llenar_eventos_combo("0");
             }
             else if(response.includes("pendientes por aprobar")){
               swal("Advertencia", response, "warning");

@@ -1,6 +1,7 @@
 <?php 
 $tarjeta=$_POST["tarjeta"];
 include("conexion.php");
+$evento="";
 if ($mysqli->connect_error) {
     die('Error de conexión: ' . mysqli_error($mysqli));
     exit();
