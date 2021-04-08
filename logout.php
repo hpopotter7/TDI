@@ -1,4 +1,5 @@
 <?php
+    setcookie ("id", "", time() - 3600);
     setcookie ("user", "", time() - 3600);
     setcookie ("email", "", time() - 3600);
     setcookie ("pass", "", time() - 3600);

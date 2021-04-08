@@ -68,7 +68,7 @@ $tabla="<table id='tabla_detalle' class='table dataTable'>
             </tr></thead>
             <tbody id='tabla_detalle_body'>";
 
-$sql="select e.id_evento, e.Numero_evento, e.Nombre_evento, s.id_solicitud, DATE_FORMAT(Fecha_Hora_registro, '%d/%m/%Y') as Fecha, No_Factura, (select sum(total) from partidas where id_sol_factura=s.id_solicitud) as Total, (select Descripcion from partidas where id_sol_factura=s.id_solicitud order by id_partida desc limit 0,1) as Descripcion from eventos e, solicitud_factura s where e.id_evento=s.id_evento and e.cliente='".$cliente."' and e.estatus='ABIERTO' and s.Estatus='activa' and s.Estatus_Factura='POR COBRAR' order by Fecha_Hora_registro asc";
+$sql="select e.id_evento, e.Numero_evento, e.Nombre_evento, s.id_solicitud, DATE_FORMAT(Fecha_Hora_registro, '%d/%m/%Y') as Fecha, No_Factura, (select sum(total) from partidas where id_sol_factura=s.id_solicitud) as Total, (select Descripcion from partidas where id_sol_factura=s.id_solicitud order by id_partida desc limit 0,1) as Descripcion from eventos e, solicitud_factura s where e.id_evento=s.id_evento and e.cliente='".$cliente."' and e.estatus='ABIERTO' and s.Estatus='Activa' and s.Estatus_Factura='POR COBRAR' order by Fecha_Hora_registro asc";
 $suma_total=0;
 $comodin_mes="";
 if ($result = $mysqli->query($sql)) {
@@ -89,8 +89,12 @@ if ($result = $mysqli->query($sql)) {
         $num_factura=$row['No_Factura'];
         $total=$row['Total'];
         $descripcion=$row['Descripcion'];
-        $tabla=$tabla."<tr><td><button id='".$id_evento."' class='btn btn-success btn_evento'>[".$numero_evento."]</button> - ".$nombre_evento."</td><td>".$num_factura."</td><td>".$id_solicitud."</td><td>".$descripcion."</td><td>".$fecha."</td><td>".moneda($total)."</td></tr>";
+        $tabla=$tabla."<tr><td><button id='".$id_evento."' class='btn btn-success btn_evento'>[".$numero_evento."]</button> - ".$nombre_evento."</td><td><a id='facturas/".$id_evento."/".$num_factura.".pdf' class='btn btn-warning btn_factura'>".$num_factura."</a></td><td><a class='btn btn-info btn_solicitud' id='".$id_solicitud."'>".$id_solicitud."</a></td><td>".$descripcion."</td><td>".$fecha."</td><td>".moneda($total)."</td></tr>";
         $suma_total=$suma_total+$total;
+        /* <a data-fancybox data-type="iframe" data-src="http://codepen.io/fancyapps/full/jyEGGG/" href="javascript:;">
+            Webpage
+        </a> */
+        
     }
         $result->close();
     }

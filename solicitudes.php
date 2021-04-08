@@ -49,6 +49,7 @@ $mysqli->close();
     <link href="plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css" />
     <link href="plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/jquery.fancybox.css" />
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css">
@@ -229,6 +230,7 @@ $mysqli->close();
     <script src="js/buttons.html5.min.js"></script>
     <script src="js/buttons.print.min.js"></script>
     <script src="js/jspdf.min.js"></script>
+    <script src="js/jquery.fancybox.js"></script>
 
     <script src="plugins/notification/noty.js"></script>
     <script src="js/chosen.jquery.js" ></script>

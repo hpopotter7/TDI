@@ -45,7 +45,7 @@ function inicio(){
            });   
            
        }
-       }); 
+       });
 
        $('#reporte_facturacion').delegate('.btn_evento', 'click', function(){
            var id_evento=$(this).attr('id');
@@ -88,6 +88,8 @@ function inicio(){
            ver_detalle_cliente(cliente, contador);
        });
 
+       
+
 
        function ver_detalle_cliente(cliente, contador){
            var datos={
@@ -107,4 +109,52 @@ function inicio(){
                }
              });
          }
+
+        /*  $.fancybox.open({
+                  src  : "../solicitud_factura.php?id=797",
+                  type : 'iframe',
+                  opts : {
+                    afterShow : function( instance, current ) {
+                      //console.info( 'done!' );
+                      alert("asd");
+                    }
+                  }
+                }) */
+
+                $('#reporte_facturacion').delegate('.btn_solicitud', 'click', function(){
+                    var num_factura=$(this).attr('id');
+                    $(".btn_solicitud" ).fancybox({
+                        //maxWidth	: 800,
+                        //maxHeight	: 600,
+                        fitToView	: true,
+                        width		: '90%',
+                        height		: '90%',
+                        autoSize	: false,
+                        closeClick	: false,
+                        openEffect	: 'none',
+                        closeEffect	: 'none',
+                        'type'      : 'iframe',
+                        'href'      : "solicitud_factura.php?id="+num_factura,
+                    });
+               });
+
+               $('#reporte_facturacion').delegate('.btn_factura', 'click', function(e){
+                   e.preventDefault();
+                var href=$(this).attr('id');                
+                $(".btn_factura" ).fancybox({
+                    //maxWidth	: 800,
+                    //maxHeight	: 600,
+                    fitToView	: true,
+                    width		: '90%',
+                    height		: '90%',
+                    autoSize	: false,
+                    closeClick	: false,
+                    openEffect	: 'none',
+                    closeEffect	: 'none',
+                    'type'      : 'iframe',
+                    'href'      : href,
+                });
+           });
+
+                
 }

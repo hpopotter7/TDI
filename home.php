@@ -51,7 +51,7 @@
     <link rel="stylesheet" href="css/chosen.css"/>      
     <link href="plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css" />
     <link href="plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css" />
-    
+    <link rel="stylesheet" href="css/jquery.fancybox.css" />
     
     <link
     rel="stylesheet"
@@ -67,6 +67,7 @@
     <script src="https://kit.fontawesome.com/9b26aa506d.js" crossorigin="anonymous"></script>
     <script src="assets/js/app.js"></script>
     <!-- <script src="js/sweetalert2.min.js"></script> -->
+    <script src="js/jquery.fancybox.js"></script>
     <script src="plugins/sweetalerts/sweetalert2.min.js"></script>
     <script src="js/chosen.jquery.js" ></script>
     <script src="plugins/notification/noty.js" type="text/javascript"></script>
@@ -261,7 +262,7 @@ div
         <div class="form-group">
             <input type="hidden" id='txt_evento'>
             <input type="hidden" id='txt_solicitud'>            
-            <input id='files' type="file" class='form-control'>
+            <input id='files' type="file" class='form-control' multiple>
             <small id="helpId" class="text-muted">Dependiendo de la conexión a internet será el tiempo que tarde en subir los documentos.</small>
             
           <div class='alert_error'>

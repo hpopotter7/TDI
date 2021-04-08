@@ -533,9 +533,43 @@ function llenar_transfer_eventos(){
                    $("#resultado_solicitudes").delegate(".btn_ver_comprobante", "click", function() {    
                     var arr=$(this).attr('id').split("#");
                     if(arr.length==2){
-                      window.open("comprobantes/"+arr[1],'_blank');
+                      //window.open("comprobantes/"+arr[1],'_blank');
+                      if(arr[1].includes(".pdf")){
+                        parent.$.fancybox.open({
+                          //maxWidth	: 800,
+                          //maxHeight	: 600,
+                          fitToView	: false,
+                          width		: '90%',
+                          height		: '90%',
+                          autoSize	: false,
+                          closeClick	: false,
+                          openEffect	: 'fade',
+                          closeEffect	: 'fade',
+                          'type'      : 'iframe',
+                          'href'      : "comprobantes/"+arr[1],
+                      });
+                      }
+                      else if(arr[1].includes(".jpg") || arr[1].includes(".jpeg") || arr[1].includes(".png") || arr[1].includes(".gif")){
+                        parent.$.fancybox.open({
+                          //maxWidth	: 800,
+                          //maxHeight	: 600,
+                          fitToView	: false,
+                          width		: '90%',
+                          height		: '90%',
+                          autoSize	: false,
+                          closeClick	: false,
+                          openEffect	: 'fade',
+                          closeEffect	: 'fade',
+                          'href'      : "comprobantes/"+arr[1],
+                      });
+                      }
+                      else{
+                        window.open("comprobantes/"+arr[1],'_blank');
+                      }
+                      
                     }
                     else{
+                      alert("asd");
                       var a="";
                       for(var r=1;r<=arr.length-1;r++){
                         a=a+"<li style='margin:.2em'><a class='btn btn-secondary' href='comprobantes/"+arr[r]+"' target='_blank'><b>"+arr[r]+"</b></li>";
@@ -1392,5 +1426,44 @@ function llenar_transfer_eventos(){
         
 
       parent.history.pushState({data:true}, 'Titulo', 'home.php');
+
+
+      $('body').delegate('.boton_descarga', 'click', function(e){
+        e.preventDefault();
+        var id=$(this).attr('id');
+        parent.$.fancybox.open({
+            //maxWidth	: 800,
+            //maxHeight	: 600,
+            fitToView	: true,
+            width		: '90%',
+            height		: '90%',
+            autoSize	: false,
+            closeClick	: false,
+            openEffect	: 'none',
+            closeEffect	: 'none',
+            'type'      : 'iframe',
+            'href'      : "solicitud_pago.php?id="+id,
+        });
+   });
+
+  /*  $('body').delegate('.btn_ver_comprobante', 'click', function(e){
+    e.preventDefault();
+    var id=$(this).attr('id');
+    alert(id);
+    id=id.replace("#","");
+    parent.$.fancybox.open({
+        //maxWidth	: 800,
+        //maxHeight	: 600,
+        fitToView	: true,
+        width		: '90%',
+        height		: '90%',
+        autoSize	: true,
+        closeClick	: false,
+        openEffect	: 'fade',
+        closeEffect	: 'fade',
+        'type'      : 'iframe',
+        'href'      : "comprobantes/"+id,
+    });
+}); */
         
 }

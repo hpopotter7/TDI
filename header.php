@@ -27,10 +27,9 @@ background: linear-gradient(45deg,#BBD32A 0%, rgba(68,101,10,1) 100%);">
                     <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                         <label style='text-align: center; border-bottom: 2px dotted #4a4545; width: 100%; background: blueviolet; color: white; vertical-align: bottom;'><?php echo $_COOKIE['user']?></label>
                         <div class="">
-                            <!-- <div class="dropdown-item">
+                            <div class="dropdown-item">
                                 <a disabled='disabled' id="btn_mi_perfil" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user disabled"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Mi perfil</a>
-                               
-                            </div> -->
+                            </div>
                             <div class="dropdown-item">
                                 <a id='btn_buzon' href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-inbox"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg><span class="span_notificacion" style="background-color:red; border-radius:10em;; width:10px;height:10px;display: inline;position: absolute;left: 53px;"></span> Notificaciones</a>
                             </div>

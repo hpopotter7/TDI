@@ -105,7 +105,11 @@ $('.chosen').chosen();
   $('#btn_buzon').on('click',function(e){
     e.preventDefault();
     $("#frame").attr("src", "buzon.php");
+  });
 
+  $('#btn_mi_perfil').on('click',function(e){
+    e.preventDefault();
+    $("#frame").attr("src", "mi_perfil.php");
   });
 
   //EVENTOS 
@@ -245,7 +249,7 @@ $("#menu_facturacion_pendiente").click(function (e) {
   e.preventDefault();
   $('#ol_menu').html("CxC");
   $('#ol_submenu').html("Facturación por cobrar");  
-  $("#frame").attr("src", "reporte_facturacion.html");  
+  $("#frame").attr("src", "reporte_facturacion.php");  
 });
 
 $("#menu_facturacion_calendario").click(function (e) { 
