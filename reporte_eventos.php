@@ -161,7 +161,7 @@ $titulo="";
                                     $arr_estatus=array();
                                     $res='';
                                     $sql = "SELECT Numero_evento, Nombre_evento, Cliente, REPLACE(Ejecutivo,',','') as Ejecutivo, id_evento, Estatus  FROM eventos where (Ejecutivo like '%".$_COOKIE['user']."%') ".$where_con." order by Numero_evento ";
-                                    if($_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="FERNANDA CARRERA" || $_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="RITA VELEZ"){
+                                    if($_COOKIE['user']=="SANDRA PEÑA" || $_COOKIE['user']=="FERNANDA CARRERA" || $_COOKIE['user']=="ALAN SANDOVAL" || $_COOKIE['user']=="RITA VELEZ" || $_COOKIE['user']=="MIGUEL POBLACION"){
                                         $sql = "SELECT Numero_evento, Nombre_evento, Cliente, REPLACE(Ejecutivo,',','') as Ejecutivo, id_evento, Estatus  FROM eventos ".$where_sin." order by Numero_evento ";
                                     }
                                     
