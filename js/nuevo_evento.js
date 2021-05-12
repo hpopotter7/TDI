@@ -526,6 +526,7 @@ function inicio(){
                 console.log(response);
                 $('#div_candado').show();
                 //$('#btn_modificar_evento').show();
+                $('#datos_evento').html(response.datos_evento);
                 $('#btn_crear_evento').hide();
                 $('#txt_numero_evento').val(response.Numero_evento);
                 $('#txt_nombre_evento').val(response.Nombre_evento);
@@ -718,6 +719,7 @@ function inicio(){
               error: function(XMLHttpRequest, textStatus, errorThrown) { 
                   alert("Status: " + textStatus); 
                   alert("Error: " + errorThrown); 
+                  console.log(XMLHttpRequest);
                   
               }   
             });

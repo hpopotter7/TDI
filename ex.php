@@ -32,14 +32,14 @@ $sql="SELECT * from partidas where id_sol_factura=".$id;
 $PU=0;
 $IVA=0;
 $TOTAL=0;
-$result = $mysqli->query("SET NAMES 'utf8'");
+//$result = $mysqli->query("SET NAMES 'utf8'");
 if ($result = $mysqli->query($sql)) {
      while ($row = $result->fetch_row()) {
        $pu="$".number_format($row[2],2);
        $iva="$".number_format($row[3],2);
        $total="$".number_format($row[4],2);
        $desc=$row[1];
-       $data[] = array($desc,$pu,$iva,$total);
+       $data[] = array(utf8_decode($desc),$pu,$iva,$total);
        $PU=$PU+$row[2];
        $IVA=$IVA+$row[3];
        $TOTAL=$TOTAL+$row[4];

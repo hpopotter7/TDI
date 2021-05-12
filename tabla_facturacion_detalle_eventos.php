@@ -147,7 +147,8 @@ $descripcion=$row[5];
 
                 }
                 else{
-                  $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><button class='btn btn-info btn_descargar_facturas'><i class='fa fa-download' aria-hidden='true'></i></button></a>";
+                  //$tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><button id='".$row[0]."' class='btn btn-info btn_descargar_facturas'><i class='fa fa-download' aria-hidden='true'></i></button></a>";
+                  $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><button id='".$row[0]."' class='btn btn-info btn_descargar_facturas'><i class='fa fa-download' aria-hidden='true'></i></button></a>";
                 }
 
                 $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-cloud-upload-alt' aria-hidden='true'></i></button>";
@@ -167,7 +168,7 @@ $descripcion=$row[5];
                   $tbody=$tbody."<td><button class='btn btn-info'><i class='fa fa-ban' aria-hidden='true'></i></button>";
                 }
                 else{
-                  $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><button class='btn btn-info btn_descargar_facturas'><i class='fa fa-download' aria-hidden='true'></i></button></a>";
+                  $tbody=$tbody."<td><a href='solicitud_factura.php?id=".$row[0]."' target='_blank'><button id='".$row[0]."' class='btn btn-info btn_descargar_facturas'><i class='fa fa-download' aria-hidden='true'></i></button></a>";
                 }
 
                 $boton_factura="<button type='file' id='".$evento."#".$no_factura."' class='btn btn-success btn_subir_factura' style='margin-left:.3em;margin-right:.3em' ><i class='fas fa-cloud-upload-alt' aria-hidden='true'></i></button>";

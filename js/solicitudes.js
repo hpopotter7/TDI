@@ -571,4 +571,8 @@ function inicio(){
               }
             }
       }
+
+      $('input[type=text]').focusout(function(){
+        $(this).val($(this).val().toUpperCase());
+      });
 }

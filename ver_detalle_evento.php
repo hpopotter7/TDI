@@ -9,13 +9,15 @@ if (mysqli_connect_errno()) {
 }
 /* Select queries return a resultset */
 $result = $mysqli->query("SET NAMES 'utf8'");
-$sql="";
+$sql="SELECT Numero_evento, Nombre_evento, Inicio_evento, Fin_evento, Cliente, Destino, Sede, Disenio, Produccion, Facturacion, Solicita, Tipo, Comentarios, Ejecutivo, Digital, Video, Candado, Usuario_Registra, DATE_FORMAT(Fecha_Registro, '%d/%m%/%Y') as dia FROM eventos where id_evento=".$id;
 
-if ($result = $mysqli->query("SELECT * FROM eventos where id_evento=".$id)) {
+if ($result = $mysqli->query($sql)) {
 
     /* fetch object array */
+    
     while ($row = $result->fetch_assoc()) {
-        $return = Array('Numero_evento'=>$row['Numero_evento'], 
+        $return = Array('datos_evento'=>"Evento creado por: ".$row['Usuario_Registra']." el día: ".$row['dia'],
+                        'Numero_evento'=>$row['Numero_evento'], 
                     	'Nombre_evento'=>$row['Nombre_evento'], 
                     	'Inicio_evento'=>$row['Inicio_evento'], 
                     	'Fin_evento'=>$row['Fin_evento'],

@@ -2,7 +2,10 @@
     $usuario=$_COOKIE['user'];
     //$like=$_GET["like"];
 	$anio=$_POST["anio"];
+	$evento=$_POST["evento"];
 	$resultado="";
+
+	
 
 	if($anio=="0"){
 		$anio="and (Numero_evento like '%2021-%' or Numero_evento like '%2020-%' or Numero_evento like '%2019-%') ";
@@ -32,9 +35,10 @@
 			$valida='CXP';
 	}
 
-	
-	if($valida=='CXP'){
-	
+	if($evento!="" && $evento!="0"){
+		$sql="SELECT id_evento, Numero_evento, Nombre_evento, Cliente FROM eventos WHERE  id_evento='".$evento."' order by cliente, Numero_evento";
+	}
+	else if($valida=='CXP'){
 		$sql="SELECT id_evento, Numero_evento, Nombre_evento, Cliente FROM eventos WHERE Estatus='ABIERTO' ".$anio." and Numero_evento order by cliente, Numero_evento";
 		
 	}

@@ -229,7 +229,8 @@
                                                     <th>Descarga</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody id='body_activo'>                                                
+                                                <tbody id='body_activo'>       
+                                                                                         
                                                 </tbody>
                                                 </table>
                                             </div>

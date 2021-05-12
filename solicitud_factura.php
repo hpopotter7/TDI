@@ -9,9 +9,9 @@ require('alphapdf.php');
 //require('fpdf.php');
 date_default_timezone_set ("America/Mexico_City");
 $hoy=getdate();
-$d = $hoy[mday];
-$m = $hoy[mon];
-$y = $hoy[year];
+$d = date("d");
+$m = date("m");
+$y = date("Y");
 if($m<10){
     $m="0".$m;
 }
@@ -31,8 +31,12 @@ if($id==0){
     }    
 } 
 
+$cuenta="";
+$forma_pago="";
+$metodo_pago="";
 
-    $sql="SELECT s.id_evento, e.cliente, s.Dias_credito, s.Num_pedido, s.Num_orden, s.Num_entrada, s.GR, s.correo1, s.correo2, s.correo3, s.correo4, s.correo5, s.Usuario_Registra, e.Nombre_evento, e.sede, DATE_FORMAT(e.inicio_evento, '%d/%m/%Y'), e.Numero_Evento, s.Observaciones, s.empresa_factura, DATE_FORMAT(s.fecha_hora_registro, '%d/%m/%Y') as empresa from solicitud_factura s ,eventos e where e.id_evento=s.id_evento and s.id_solicitud=".$id;
+
+    $sql="SELECT s.id_evento, e.cliente, s.Dias_credito, s.Num_pedido, s.Num_orden, s.Num_entrada, s.GR, s.correo1, s.correo2, s.correo3, s.correo4, s.correo5, s.Usuario_Registra, e.Nombre_evento, e.sede, DATE_FORMAT(e.inicio_evento, '%d/%m/%Y'), e.Numero_Evento, s.Observaciones, s.empresa_factura, DATE_FORMAT(s.fecha_hora_registro, '%d/%m/%Y') as empresa, e.Numero_evento from solicitud_factura s ,eventos e where e.id_evento=s.id_evento and s.id_solicitud=".$id;
 
 if ($result = $mysqli->query($sql)) {
     
@@ -59,7 +63,7 @@ if ($result = $mysqli->query($sql)) {
         $observaciones = $row[17];
         $empresa = $row[18];
         $fecha_solicitud = $row[19];
-        
+        $evento = $row[20];
     }
 
     $result->close();

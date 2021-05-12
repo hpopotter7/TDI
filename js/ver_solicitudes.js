@@ -1,6 +1,7 @@
 function inicio(){
 
   var evento=$('#txt_evento').val();
+  
 
   $('.chosen-select').chosen();
 
@@ -71,7 +72,7 @@ function llenar_transfer_eventos(){
       type:  'post',
       success:  function (response) {
          $('#c_transfer').html(response);
-      }
+      }p
     });
 } */
 
@@ -96,9 +97,11 @@ function llenar_transfer_eventos(){
       return n;
     }
     llenar_combo_eventos_modificar("0");
+
     function llenar_combo_eventos_modificar(anio){
         var datos={
           "anio":anio,
+          "evento":evento,
         };
         $.ajax({
             url:   "buscar_evento.php",
@@ -106,12 +109,18 @@ function llenar_transfer_eventos(){
             data: datos,
             async:false,
             success:  function (response) {
+              
               response="<option value='0'></option>"+response;
             $('#c_mis_eventos').html(response);
             $('#c_mis_eventos').chosen({allow_single_deselect: true,width: '100%',placeholder_text_single: "Selecciona...",no_results_text: "No hay coincidencias para"}); 
             $('#c_mis_eventos').trigger("chosen:updated");
             },
           }); 
+
+          /* if(evento!=""){
+            $('#c_mis_eventos').html();
+            alert("entrar al evento");
+          } */
         }
 
         $("#c_mis_eventos").chosen().change(function(){
@@ -569,7 +578,7 @@ function llenar_transfer_eventos(){
                       
                     }
                     else{
-                      alert("asd");
+                      
                       var a="";
                       for(var r=1;r<=arr.length-1;r++){
                         a=a+"<li style='margin:.2em'><a class='btn btn-secondary' href='comprobantes/"+arr[r]+"' target='_blank'><b>"+arr[r]+"</b></li>";
@@ -628,7 +637,12 @@ function llenar_transfer_eventos(){
                           });
                         }
                         else{
-                          generate("error", "Solo puede borrar el documento el usuario que lo registró: "+response);
+                          //generate("error", "Solo puede borrar el documento el usuario que lo registró: "+response);
+                          parent.swal({
+                            type: 'error',
+                            title: 'Error',
+                            html: 'Solo puede borrar el documento el usuario que lo registró: '+response,
+                          });
                         }
                       }
                     });              
@@ -1004,6 +1018,7 @@ function llenar_transfer_eventos(){
                              data:   datos,
                              async: false,
                              success:  function (response) {
+                               
                                 if (numero == "") {
                                   reject('El número de factura no puede ir vacio');
                                 }
@@ -1019,7 +1034,7 @@ function llenar_transfer_eventos(){
                                       if(response.includes("factura agregada")){
                                          setTimeout(function() {
                                           ver_solicitudes_por_evento($('#c_mis_eventos').val(), "todos");
-                                              swal({
+                                              parent.swal({
                                                  type: 'success',
                                                  title: 'Listo',
                                                  html: 'La factura ha sido agregada!'
@@ -1028,12 +1043,11 @@ function llenar_transfer_eventos(){
                                          }
                                          else{
                                              setTimeout(function() {
-                                             swal({
+                                             parent.swal({
                                              type: 'warning',
                                              title: 'Error',
                                              html: 'Ocurrio un error<br>'+response
                                            })
-                                             
                                               }, 200)
                                          }
                                  }         
@@ -1465,5 +1479,26 @@ function llenar_transfer_eventos(){
         'href'      : "comprobantes/"+id,
     });
 }); */
+
+$('body').delegate('.btn_descargar_facturas', 'click', function(e){
+  e.preventDefault();
+  var id=$(this).attr('id');
+  parent.$.fancybox.open({
+      //maxWidth	: 800,
+      //maxHeight	: 600,
+      fitToView	: true,
+      width		: '90%',
+      height		: '90%',
+      autoSize	: false,
+      closeClick	: false,
+      openEffect	: 'none',
+      closeEffect	: 'none',
+      'type'      : 'iframe',
+      'href'      : "solicitud_factura.php?id="+id,
+  });
+});
+
+
+
         
 }

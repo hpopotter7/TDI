@@ -150,7 +150,7 @@
             <div class="cols-sm-12">
               <div class="input-group">
                 <span class="input-group-addon"></span>
-                <select name="c_empresa_factura" id="c_empresa_factura" class="selectpicker" required="required">
+                <select name="c_empresa_factura" id="c_empresa_factura" class="form-control" required="required">
                 <option value="TDI">TIERRA DE IDEAS</option>
                 <option value="SHIATSUS">SHIATSUS</option>
                 <option value="COMITIVA">COMITIVA</option>
@@ -182,7 +182,7 @@
       <div class="col-md-2">
         <div class="form-group">
           <label for="">Moneda</label>
-          <select name="c_moneda" id="c_moneda" class='selectpicker'>
+          <select name="c_moneda" id="c_moneda" class='form-control'>
             <option value="MXN">$ MXN</option>
             <option value="USD">$ USD</option>
             <option value="EUR">Є EUR</option>

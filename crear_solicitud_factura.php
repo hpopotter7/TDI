@@ -40,12 +40,7 @@ if (mysqli_query($mysqli, $sql)) {
 else{
 	$respuesta= mysqli_error($mysqli);
 }
-/* if ($mysqli->query($sql)) {
-	$respuesta= "solicitud agregada";
-}
-else{
-	$respuesta= $sql."<br>".mysqli_error($mysqli);
-}	 */	
+
 
 if($respuesta="solicitud agregada"){
 	$sql="SELECT MAX(id_solicitud) FROM solicitud_factura";
@@ -54,9 +49,27 @@ if($respuesta="solicitud agregada"){
 			$id_max=$row[0];
 		}
 	}
+	$VAR_IVA=0;
+	
 	for($r=0;$r<=$largo;$r++){
 		$result = $mysqli->query("SET NAMES 'utf8'");
-		$sql="INSERT INTO partidas(descripcion, pu, iva, total, id_sol_factura) values('".$arr_descripcion[$r]."', '".$formatter->parseCurrency($arr_pu[$r], $curr)."', '".$formatter->parseCurrency($arr_iva[$r], $curr)."', '".$formatter->parseCurrency($arr_total[$r], $curr)."', '".$id_max."')";	    		
+		
+		$PU=str_replace(",","",$arr_pu[$r]);
+		$PU=str_replace("$","",$PU);
+		//echo $PU."-".$arr_pu[$r];
+		if($moneda=="MXN"){
+			$VAR_IVA=0.16;
+		}
+		/* $sql="INSERT INTO partidas(descripcion, pu, iva, total, id_sol_factura) values('".$arr_descripcion[$r]."', '".$formatter->parseCurrency($arr_pu[$r], $curr)."', '".$formatter->parseCurrency($arr_iva[$r], $curr)."', '".$formatter->parseCurrency($arr_total[$r], $curr)."', '".$id_max."')"; */
+		if($VAR_IVA>0){
+			$iva=$PU*$VAR_IVA;
+		}	 
+		else{
+			$iva=0.0;
+		}
+		
+		$total=$PU+$iva;
+		$sql="INSERT INTO partidas(descripcion, pu, iva, total, id_sol_factura) values('".$arr_descripcion[$r]."', '".$PU."', '".$iva."', '".$total."', '".$id_max."')";	 		
 		if ($mysqli->query($sql)) {
 			$respuesta= "solicitud agregada";
 		}

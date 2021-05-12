@@ -74,8 +74,11 @@
                   
                   <select name="c_eventos_creados" id="c_eventos_creados" class='form-control' placeholder='Ingresa un evento' >
                   </select>
+                  
+                  
                  <!--  <input type="text" name="c_eventos_creados" id="c_eventos_creados" class="form-control" placeholder='Ingresa un evento' pattern="" title=""> -->
                 </div>
+                <small id="datos_evento" class="text-muted"></small>
               </div>
             </div>            
           </div> 

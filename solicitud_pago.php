@@ -13,16 +13,16 @@ header("Content-Type: text/html;charset=utf-8");
 require('fpdf.php');
 date_default_timezone_set ("America/Mexico_City");
 $hoy=getdate();
-$d = $hoy[mday];
-$m = $hoy[mon];
-$y = $hoy[year];
+$d = date("d");
+$m = date("");
+$y = date('Y');
 if($m<10){
     $m="0".$m;
 }
 
-if($titulo=="ODC"){
+/*if($titulo=="ODC"){
     $titulo="PAGO";
-}
+}*/
 
 //Connect to your database
 include("conexion.php");
@@ -241,7 +241,7 @@ else if($tipo_tarjeta=="CHEQUE" || $tipo_tarjeta=="MA. FERNANDA CARRERA HDZ"){
     //$pdf->SetFillColor(193,220,80);
     $pdf->SetFillColor(255,230,153);
     $pdf->SetTextColor(155,155,155);
-    $pdf->Cell(0,1,utf8_decode('Solicitud de '.$identificador.$vobo),0,0,'C',false);
+    $pdf->Cell(0,1,utf8_decode('Solicitud de '.$identificador),0,0,'C',false);
     $pdf->SetTextColor(0,0,0);
     $pdf->Ln(5);
     $pdf->SetFont('Gotham','',12);
@@ -249,7 +249,7 @@ else if($tipo_tarjeta=="CHEQUE" || $tipo_tarjeta=="MA. FERNANDA CARRERA HDZ"){
     $pdf->SetX(135);
     $pdf->Cell(0,7,utf8_decode('Número de solicitud:'),0,0,'L',false);
     $pdf->SetX(180);
-    $pdf->Cell(0,6,'','B',0,'L',true);
+    $pdf->Cell(0,6,$id,'B',0,'L',true);
     // Salto de línea
     $pdf->Ln(7);
     $pdf->SetX(5);
@@ -326,7 +326,8 @@ else if($tipo_tarjeta=="CHEQUE" || $tipo_tarjeta=="MA. FERNANDA CARRERA HDZ"){
     $pdf->SetX(25.3);
     $pdf->Cell(0,6,"Concepto:",0, 0,'L',false);
     $pdf->SetX(50);
-    $pdf->MultiCell(145,5,utf8_decode($concepto),0,'C',true);
+    $pdf->MultiCell(145,5,utf8_decode(strtoupper($concepto)),0,'C',true);
+    
     //salto de linea
     $pdf->Ln(1);
     $pdf->SetX(31);
@@ -346,7 +347,7 @@ else if($tipo_tarjeta=="CHEQUE" || $tipo_tarjeta=="MA. FERNANDA CARRERA HDZ"){
     $pdf->SetX(29);
     $pdf->Cell(0,6,"Servicio:",0,0,'L',false);
     $pdf->SetX(50);
-    $pdf->Cell(145,5,utf8_decode($servicio),0,0,'C',true);
+    $pdf->Cell(145,5,utf8_decode(strtoupper($servicio)),0,0,'C',true);
     //salto de linea
     $pdf->Ln(7);
     $pdf->SetX(28);
@@ -422,10 +423,11 @@ else if($tipo_tarjeta=="CHEQUE" || $tipo_tarjeta=="MA. FERNANDA CARRERA HDZ"){
     $pdf->SetX(33);
     $pdf->Cell(0,6,"Otros: ",0,0,'L',false);
     $pdf->SetX(50);
-     $pdf->Cell(145,5,utf8_decode($otros),0,0,'C',true);
+     //$pdf->Cell(145,5,utf8_decode($otros),0,0,'C',true);
+     $pdf->MultiCell(145, 5, utf8_decode($otros),0,'C',true);
      //salto de linea
     
-     $pdf->Ln(7);
+     $pdf->Ln(2);
     $pdf->SetX(18);
     $pdf->Cell(0,6,"# de cheque: ",0,0,'L',false);
     $pdf->SetX(50);
@@ -503,6 +505,22 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
     
 
     // TODOS LOS NOMBRES ARRIBA Y LOS APELLIDOS ABAJO
+    $elaborado=str_replace("  "," ",$elaborado);
+    $solicito=str_replace("  "," ",$solicito);
+    $project=str_replace("  "," ",$project);
+    $coordinador=str_replace("  "," ",$coordinador);
+    $compras=str_replace("  "," ",$compras);
+    $finanzas=str_replace("  "," ",$finanzas);
+    $autorizo=str_replace("  "," ",$autorizo);
+
+    $elaborado=trim($elaborado);
+    $solicito=trim($solicito);
+    $project=trim($project);
+    $coordinador=trim($coordinador);
+    $compras=trim($compras);
+    $finanzas=trim($finanzas);
+    $autorizo=trim($autorizo);
+
     $arr=explode(" ", ($elaborado));
     $arr2=explode(" ", ($solicito));
     $arr3=explode(" ", ($project));
@@ -536,25 +554,59 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
         $firma_coordinador="sin";
     }
     $A1_1=$arr[0];
-    $A1_2=$arr[1];
+    if(count($arr)>1){
+        $A1_2=$arr[1];
+    }else{
+        $A1_2="\n";
+    }
 
     $A2_1=$arr2[0];
-    $A2_2=$arr2[1];
+    if(count($arr2)>1){
+        $A2_2=$arr2[1];
+    }else{
+        $A2_2="\n";
+    }
+    
 
     $A3_1=$arr3[0];
-    $A3_2=$arr3[1];
+    if(count($arr3)>1){
+        $A3_2=$arr3[1];
+    }else{
+        $A3_2="\n";
+    }
+    
 
     $A4_1=$arr4[0];
-    $A4_2=$arr4[1];
+    if(count($arr4)>1){
+        $A4_2=$arr4[1];
+    }else{
+        $A4_2="\n";
+    }
+    
 
     $A5_1=$arr5[0];
-    $A5_2=$arr5[1];
+    if(count($arr5)>1){
+        $A5_2=$arr5[1];
+    }else{
+        $A5_2="\n";
+    }
+    
 
     $A6_1=$arr6[0];
-    $A6_2=$arr6[1];
+    if(count($arr6)>1){
+        $A6_2=$arr6[1];
+    }else{
+        $A6_2="\n";
+    }
+    
 
     $A7_1=$arr7[0];
-    $A7_2=$arr7[1];
+    if(count($arr7)>1){
+        $A7_2=$arr7[1];
+    }else{
+        $A7_2="\n";
+    }
+    
     
     if($arr2[0]=="PA"){
         $A2_1="[PA] ".$arr2[1];
@@ -607,7 +659,7 @@ if($identificador=="Pago" && $tipo_tarjeta=="PAGO NORMAL"){
         $A3_1="[PA] JUAN";
         $A3_2="CARLOS GARCIA";
     }
-    
+
     if($coordinador=="JUAN CARLOS GARCIA"){
         $A4_1="JUAN CARLOS";
         $A4_2="GARCIA";
