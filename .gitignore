@@ -15,4 +15,5 @@ BI/
 api/
 mail/vendor/*
 vendor/*
+nomina/*
 php_errors.log
