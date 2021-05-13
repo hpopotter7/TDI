@@ -309,6 +309,13 @@ $("#menu_buscar_odc").click(function (e) {
   $("#frame").attr("src", "buscar_gasto.html");  
 });
 
+$("#btn_rep_renta").click(function (e) { 
+  e.preventDefault();
+  $('#ol_menu').html("Reportes");
+  $('#ol_submenu').html("Facturación");  
+  $("#frame").attr("src", "rentabilidad.php");  
+});
+
 
 
 function ver_perfil(){
@@ -341,6 +348,7 @@ function ver_perfil(){
                else{
                 $('#menu_cxc').remove();
                 $('#menu_cerrar_evento').remove();
+                $('#btn_rep_renta').remove();
                }
 
 

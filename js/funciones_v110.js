@@ -7,6 +7,7 @@ function validar_perfiles(response){
 	$('#reporte_facturacion').hide();
 	
 	
+	
 	if(response.usuario=="ALAN SANDOVAL" || response.usuario=="SANDRA PEÑA"){
 		$('#btn_cancelar_evento').show();
 		$('#btn_modificar_evento').show();
@@ -16,7 +17,6 @@ function validar_perfiles(response){
 		$('#toggleDemo ul').append("<li><a id='menu_cerrar_evento' href='#'><i class='fas fa-clipboard-check' aria-hidden='true'></i> Cerrar evento</a></li>");
 		$('#btn_sin_factura').show();
 		$('#reporte_facturacion').show();
-		
 		//agregar al combo clientes de eventos los centros de costos
 		//agregar_centros_costos();
 	}
@@ -46,6 +46,7 @@ function validar_perfiles(response){
 		$('.btn_pendientes').hide();
 		$('#reporte_facturacion').hide();
 		$('#reporte_facturacion').remove();
+		
 	}
 	
 	if(response.cat_cli==""){
@@ -142,10 +143,12 @@ function validar_perfiles(response){
 	if(response.usuario=="ALAN SANDOVAL" || response.usuario=="SANDRA PEÑA" || response.usuario=="FERNANDA CARRERA"){
 		$('#btn_menu_cxc').show();
 		$('#menu_calendario').show();
+		$('#btn_rep_renta').show();
 	}
 	else{
 		$('#btn_menu_fac_pendiente').remove();
-		$('#div_candado').remove();
+		$('body #div_candado').remove();
+		$('body #btn_rep_renta').remove();
 	}
 	
 

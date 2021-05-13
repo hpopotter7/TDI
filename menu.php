@@ -141,7 +141,8 @@
                             <li><a id='btn_rep_pitch' href="#"> Pitch </a></li>                    
                             <li><a id='btn_rep_cancelados' href="#"> Cancelados </a></li> -->
                             <li><a id='menu_buscar_odc' href="#"> Gastos </a></li>
-                            <li><a id='btn_rep_gastos' href="#"> Facturación </a></li>                   
+                            <li><a id='btn_rep_gastos' href="#"> Facturación </a></li> 
+                            <li><a id='btn_rep_renta' href="#"> Rentabilidad </a></li>                  
                         </ul>
                     </li>
                 </ul>
