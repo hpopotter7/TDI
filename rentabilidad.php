@@ -19,6 +19,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
     
     <style>
         i{
@@ -36,15 +37,41 @@
     <div class="row">
       <div class="col-md-12"><h2>Reporte de rentabilidad por cliente</h2></div>     
   </div>
-  <div class="form-group">
-    <label >Selecciona un periodo: </label>
+  <label >Selecciona un periodo: </label>
+  <div class="row">
+    <div class="col-md-9">
     <select data-placeholder="(Seleccione al menos un periodo)" id="c_periodos" class='form-control' multiple='multiple'>
-  </select>
-</div> 
-<div class="row"><button type="button" id='btn_buscar' class="btn btn-primary">Buscar</button>
+    </select>
+    </div>
+    <div class="col-md-1">
+    <button type="button" id='btn_buscar' class="btn btn-primary">Buscar</button>
+    </div>
+    </div> 
+<!-- <div class="row"><button type="button" id='btn_buscar' class="btn btn-primary">Buscar</button> -->
 <div id='spin' style='display:none' ><i  class="fa fa-spinner fa-pulse fa-2x fa-fw"></i> Buscando datos...</div></div>
 <div class="row col-md-12" id='tarjetas_resultado'> </div>
 
+    </div>
+   
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modal_detalle" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalle de eventos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <table id='table_modal' class='table'></table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -60,8 +87,11 @@
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     
     <script src="js/sweetalert2.min.js"></script>
-    <script src="plugins/table/datatable/datatables.js"></script>
-    <script src="js/dataTables.buttons.min.js"></script>
+    <!-- <script src="plugins/table/datatable/datatables.js"></script>
+    <script src="js/dataTables.buttons.min.js"></script> -->
+    <script src='https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js'></script>
+    <script src='https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js'></script>
+    <script src='https://cdn.datatables.net/buttons/1.7.0/js/buttons.colVis.min.js'></script>
     <script src="js/buttons.flash.min.js"></script>
     <script src="js/jszip.min.js"></script>
     <script src="js/pdfmake.min.js"></script>
@@ -190,12 +220,33 @@
                     console.log(xhr.responseText);
                     console.log(thrownError);
             }
-                
             });
         }
         
     });
 
+    
+
+
+    $('#tarjetas_resultado').delegate('.btn_cliente', 'click', function(){
+        var id=$(this).attr('id');
+        var string=$('#tarjetas_resultado .'+id).val();
+        var cabecera="<thead><tr><th>Evento</th><th>Facturación Pagada</th><th>Facturación Pendiente</th><th>Facturación Total</th><th>Egresos</th><th>Diferencia</th><th>%</th></tr></thead><tbody>";
+        $('#table_modal').html(cabecera+string+"</tbody>");
+        $('#table_modal').dataTable({
+            "searching": true,
+            "language" : idioma_espaniol,
+            "lengthChange": false,
+            "ordering": false,
+            "destroy": true, 
+            dom: 'Bfrtip',
+            buttons: [
+                      'excel'
+                      //'excel', 'pdf',
+                  ]
+            });
+        $('#modal_detalle').modal();
+    });
     
     
     </script>
