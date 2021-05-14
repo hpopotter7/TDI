@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
@@ -19,7 +21,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+    <!-- <link rel="stylesheet" href="css/jquery.fancybox.css" /> -->
     
     <style>
         i{
@@ -59,12 +61,12 @@
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Detalle de eventos</h5>
+                    <h5 id='title-modal' class="modal-title"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
-                <div class="modal-body">
+                <div id='body-modal' class="modal-body">
                     <table id='table_modal' class='table'></table>
                 </div>
                 <div class="modal-footer">
@@ -75,23 +77,18 @@
     </div>
 
 
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-  <script src="bootstrap/js/popper.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <!--
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!--<script src="assets/js/libs/jquery-3.1.1.min.js"></script>-->
+    <script src="bootstrap/js/popper.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>   
 
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     
     <script src="js/sweetalert2.min.js"></script>
     <!-- <script src="plugins/table/datatable/datatables.js"></script>
     <script src="js/dataTables.buttons.min.js"></script> -->
-    <script src='https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js'></script>
-    <script src='https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js'></script>
-    <script src='https://cdn.datatables.net/buttons/1.7.0/js/buttons.colVis.min.js'></script>
+    <script src="plugins/table/datatable/datatables.js"></script>
+    <script src="js/dataTables.buttons.min.js"></script>
     <script src="js/buttons.flash.min.js"></script>
     <script src="js/jszip.min.js"></script>
     <script src="js/pdfmake.min.js"></script>
@@ -100,6 +97,7 @@
     <script src="js/buttons.print.min.js"></script>
     <script src="js/jspdf.min.js"></script>
     <script src="js/chosen.jquery.js"></script>
+    <!-- <script src="js/jquery.fancybox.js"></script> -->
     <script src="plugins/notification/noty.js" type="text/javascript"></script>
     <script src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
     <script>
@@ -206,7 +204,7 @@
                         "searching": true,
                         "language" : idioma_espaniol,
                         "lengthChange": false,
-                        "ordering": false,
+                        "ordering": true,
                         dom: 'Bfrtip',
                         buttons: [
                             {
@@ -230,9 +228,11 @@
 
     $('#tarjetas_resultado').delegate('.btn_cliente', 'click', function(){
         var id=$(this).attr('id');
+        var texto=$(this).html();
         var string=$('#tarjetas_resultado .'+id).val();
         var cabecera="<thead><tr><th>Evento</th><th>Facturación Pagada</th><th>Facturación Pendiente</th><th>Facturación Total</th><th>Egresos</th><th>Diferencia</th><th>%</th></tr></thead><tbody>";
         $('#table_modal').html(cabecera+string+"</tbody>");
+        $('#title-modal').html("Detalle de eventos del cliente "+texto);
         $('#table_modal').dataTable({
             "searching": true,
             "language" : idioma_espaniol,
@@ -245,7 +245,21 @@
                       //'excel', 'pdf',
                   ]
             });
+        //$('#modal_detalle').modal('toggle').css({'width': '1000px','margin': 'auto'})
         $('#modal_detalle').modal();
+        /* parent.$.fancybox.open({
+                          //maxWidth	: 800,
+                            //maxHeight	: 600,
+                          fitToView	    : false,
+                          width		    : '90%',
+                          height		: '90%',
+                          autoSize	    : false,
+                          closeClick	: false,
+                          openEffect	: 'fade',
+                          closeEffect	: 'fade',
+                          'type'        : 'iframe',
+                          'content'     : $('#modal_detalle').html(),
+                      }); */
     });
     
     

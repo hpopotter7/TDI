@@ -45,7 +45,7 @@ if ($result = $mysqli->query($sql)) {
             $clase=str_replace(",", "", $clase);
             $clase=str_replace(".", "", $clase);
             $tabla=$tabla."<tr style='background-color:#dcf1b6'>";
-            $tabla=$tabla."<td><button id='".$clase."' class='btn btn-info btn_cliente'>".$comodin_cliente."  <span class='badge badge-dark'>".$cont."</span></button></td>";
+            $tabla=$tabla."<td><button id='".$clase."' class='btn btn-info btn_cliente'>".$comodin_cliente."  <span class='badge badge-dark'>".$cont."</span></button><textarea class='oculto ".$clase."'>".$tabla_interna."</textarea></td>";
             $tabla=$tabla."<td><b>".moneda($suma_pagada)."</b></td>";
             $tabla=$tabla."<td><b>".moneda($suma_pendiente)."</b></td>";
             $tabla=$tabla."<td><b>".moneda($suma_pagada+$suma_pendiente)."</b></td>";
@@ -67,7 +67,7 @@ if ($result = $mysqli->query($sql)) {
             $tabla=$tabla."<td>".round($porcentaje,3)."%</td>";
             $tabla=$tabla."</tr>";
             //$tabla=$tabla.$tabla_interna;
-            $tabla=$tabla."<tr class='oculto' style='display:none'><td><textarea class='".$clase."'>".$tabla_interna."</textarea></td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>";
+            //$tabla=$tabla."<tr class='oculto' style='display:none'><td><textarea class='".$clase."'>".$tabla_interna."</textarea></td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>";
             $comodin_cliente=$cliente;
             $tabla_interna="";
             $suma_pagada=0;
