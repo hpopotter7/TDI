@@ -211,7 +211,14 @@
                                 extend: 'excelHtml5',
                                 title: 'Rentabilidad por cliente'
                             },
-                        ]
+                        ],
+                    /* "columnDefs": [
+                        {
+                            "targets": [ 7 ],
+                            "visible": false,
+                            "searchable": false
+                        },
+                    ], */
                         });
                 },error: function (xhr, ajaxOptions, thrownError) {
                     alert("Ocurrio un error");
@@ -230,7 +237,7 @@
         var id=$(this).attr('id');
         var texto=$(this).html();
         var string=$('#tarjetas_resultado .'+id).val();
-        var cabecera="<thead><tr><th>Evento</th><th>Facturación Pagada</th><th>Facturación Pendiente</th><th>Facturación Total</th><th>Egresos</th><th>Diferencia</th><th>%</th></tr></thead><tbody>";
+        var cabecera="<thead><tr><th>Evento</th><th>Facturación Pagada</th><th>Facturación Pendiente</th><th>Facturación Total</th><th>Egresos</th><th>Diferencia</th><th>%</th><th>Detalle</th></tr></thead><tbody>";
         $('#table_modal').html(cabecera+string+"</tbody>");
         $('#title-modal').html("Detalle de eventos del cliente "+texto);
         $('#table_modal').dataTable({
@@ -243,7 +250,7 @@
             buttons: [
                       'excel'
                       //'excel', 'pdf',
-                  ]
+                  ],
             });
         //$('#modal_detalle').modal('toggle').css({'width': '1000px','margin': 'auto'})
         $('#modal_detalle').modal();
