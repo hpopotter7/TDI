@@ -306,7 +306,7 @@ $("#menu_buscar_odc").click(function (e) {
   e.preventDefault();
   $('#ol_menu').html("Reportes");
   $('#ol_submenu').html("Buscar Gastos");  
-  $("#frame").attr("src", "buscar_gasto.html");  
+  $("#frame").attr("src", "buscar_gastos.php");  
 });
 
 $("#btn_rep_renta").click(function (e) { 
