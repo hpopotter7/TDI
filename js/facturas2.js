@@ -346,6 +346,42 @@ function inicio(){
         });
        });
 
+        $('#c_evento_cliente').change(function(){
+          var id_evento=$(this).val();
+          var estatus=ver_caducidad_evento(id_evento);
+          if(estatus=="revisado"){
+            parent.Swal.fire('Opps','Este evento ya esta revisado, no se pueden hacer más solicitudes','warning');
+            $('#label_titulo').html("<h5 style='color:white'>Revisado</h5>");
+            $('#btn_solicitar_factura').hide();
+          }       
+          else{
+            $('#label_titulo').html("");
+            $('#btn_solicitar_factura').show();
+          } 
+        });
         
-        
+        function ver_caducidad_evento(valor){
+          var respuesta="";
+          var datos={"valor":valor};
+          $.ajax({
+            url:   'eventos_vencidos.php',
+            type:  'post',
+            data: datos,
+            async: false,
+            success:  function (response) {
+              if(response.includes("vencido")){
+                respuesta="vencido";
+              }
+              else if(response.includes("revisado")){
+                respuesta="revisado";
+              }
+              else if(!response.includes("pasa")){
+                parent.Swal.fire('Error',response,'error');
+                respuesta="pasa";
+              }
+            }
+          });
+          console.log(respuesta);
+          return respuesta;
+        }
 }

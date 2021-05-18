@@ -40,22 +40,26 @@ $mysqli->close();
     <!--<link rel="stylesheet" href="css/sweetalert2.css"/>-->
     <link href="plugins/notification/noty.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="plugins/bootstrap-select/bootstrap-select.min.css">
     <link href="assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/components/cards/card.css" rel="stylesheet" type="text/css" />    
     <link rel="stylesheet" href="css/chosen.css"/>      
     <link rel="stylesheet" type="text/css" href="assets/css/forms/theme-checkbox-radio.css">
-
+<!-- 
     <link href="plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-    <link href="plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css" />
+    <link href="plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css" /> -->
+    <!-- <link href="assets/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css" /> -->
+     <link href="css/sweetalert2.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/jquery.fancybox.css" />
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
     
-    <script src="plugins/sweetalerts/sweetalert2.min.js"></script>
+    <!-- <script src="plugins/sweetalerts/sweetalert2.js"></script> -->
+    <script src="js/sweetalert2.all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <style>
    .table tbody tr td{
      font-size: 11px !important;
@@ -132,7 +136,7 @@ $mysqli->close();
                 <label for="">Evento</label>
                 <select name="c_mis_eventos" id="c_mis_eventos" class="form-control" placeholder='Ingresa un evento'></select>
                 </div>
-                <div class="form-group col-md-3" style='margin-top:32px'>
+                <div class="form-group col-md-1" style='margin-top:32px'>
                 <div class="btn-group">
                     <button type="button" class=" form-control btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Acciones <i class="fas fa-caret-down    "></i>
@@ -141,12 +145,16 @@ $mysqli->close();
                         <button type='button' class="dropdown-item class" id='btn_sin_factura'> <i style='color:#e2a03f' class="fas fa-exclamation-circle"></i> Eventos pendientes</button>
                         <button type='button' class="dropdown-item" id='btn_transferir'> <i style='color:#1b55e2' class="fas fa-exchange-alt"></i> Transferir</button>
                         <button type='button' class="dropdown-item" id='btn_borrar_sdp'> <i style='color:#e7515a' class="fas fa-trash"></i> Borrar</button>
+                        <button type='button' class="dropdown-item" id='btn_revisado'> <i style='color:#149a1e' class="fas fa-check-double"></i> Evento revisado </button>
                                                  <!-- <button type='button' class="dropdown-item" id='btn_zoom'> <i style='color:#a045f3' class="fas fa-search-plus"></i> Ajustar zoom</button> -->
                         <small id="helpId" class="text-muted">Ajustar zoom <output id='range_valor'> 100%</output></small>
                         <input type="range" id='zoom' step="0.5" min="8" max="10" value='10' class="form-control-range">
                     </div>
                     </div>
                 </div>
+                <div id="estatus_revisado" class="form-group col-md-2" >
+                  
+            </div>
             </div>
         <div class="row">
         <div id="div_filtro_solicitudes" class="form-group col-md-3" >
@@ -158,6 +166,7 @@ $mysqli->close();
                   </select>
                   <img id="puntos_gif" src="img/puntos.gif" alt="">
             </div>
+            
         </div>
        <!--  </section> -->
         <div class="row normal" id='resultado_solicitudes' style='background-color:rgba(255,255,255,.3);width:96%;margin-left:5px'> 

@@ -48,8 +48,10 @@
 <body style='background-color: rgba(0,0,0,.0) !important;'>
 
 <div id="content" class="main-content" style="margin-top:10px;width: 90% !important; margin: 0 auto !important;background-color: rgba(0,0,0,.0) ">
-<h2>Solicitud de factura</h2>
-
+<div class="row">
+  <div class="col-md-3"><h2>Solicitud de factura</h2></div>
+  <div class="col-md-3"><h4><span id='label_titulo' class='badge badge-warning'></span></h4></div>
+</div>
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">

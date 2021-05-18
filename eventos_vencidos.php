@@ -12,6 +12,18 @@ if (mysqli_connect_errno()) {
 $res="pasa";
 
 $result = $mysqli->query("SET NAMES 'utf8'");
+//Valida que el evento no este revisado
+$sql="select Revisado from eventos where id_evento=".$valor;
+if ($result = $mysqli->query($sql)) {
+    while ($row = $result->fetch_row()) {
+        if($row[0]=="si"){
+            echo "revisado";
+            exit();
+        }
+    }
+    $result->close();
+}
+//Valida que el evento no haya vencido
 $sql="SELECT DATE_ADD(DATE_FORMAT(Fin_evento, '%Y-%m-%d'), INTERVAL 30 DAY), cliente, NOW(), Candado FROM eventos where id_evento=".$valor;
 if ($result = $mysqli->query($sql)) {
     while ($row = $result->fetch_row()) {

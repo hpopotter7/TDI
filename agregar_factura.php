@@ -50,7 +50,7 @@ include("conexion.php");
 			}
 		}
 		
-		echo $respuesta.$sql;
+		echo $respuesta;
 
 	$mysqli->close();
 ?>

@@ -244,9 +244,19 @@ function inicio(){
           $("#c_numero_evento").chosen().change(function(){
             var valor=$(this).val();
             ver_suma_sdp(valor);
-            if(!ver_caducidad_evento(valor)){
-              generate("warning", "Este evento ya esta vencido, no es posible hacer solicitudes");
-            }         
+            var estatus=ver_caducidad_evento(valor);
+            if(estatus=="vencido"){
+              parent.Swal.fire("Oops","Este evento ya esta vencido, no es posible hacer solicitudes",'warning');
+              $('#label_titulo').html("<h5 style='color:white'>Vencido</h5>");
+            }
+            else if(estatus=="revisado"){
+              parent.Swal.fire('Opps','Este evento ya esta revisado, no se pueden hacer más solicitudes','warning');
+              $('#label_titulo').html("<h5 style='color:white'>Revisado</h5>");
+            }       
+            else{
+              $('#label_titulo').html("");
+            } 
+
           });
 
           function ver_suma_sdp(id) {
@@ -285,7 +295,7 @@ function inicio(){
           }
 
           function ver_caducidad_evento(valor){
-            var respuesta=true;
+            var respuesta="";
             var datos={"valor":valor};
             $.ajax({
               url:   'eventos_vencidos.php',
@@ -294,10 +304,18 @@ function inicio(){
               async: false,
               success:  function (response) {
                 if(response.includes("vencido")){
-                  respuesta=false;
+                  respuesta="vencido";
+                }
+                else if(response.includes("revisado")){
+                  respuesta="revisado";
+                }
+                else if(!response.includes("pasa")){
+                  parent.Swal.fire('Error',response,'error');
+                  respuesta="pasa";
                 }
               }
             });
+            console.log(respuesta);
             return respuesta;
           }
 
@@ -307,11 +325,17 @@ function inicio(){
 
           $('#enviar_odc').click(function(){
             var id_evento=$('#c_numero_evento').val();
+            var estatus=ver_caducidad_evento(id_evento);
             if(id_evento="" || id_evento=="vacio" || id_evento=="0"){
-                generate("info", "Debe seleccionar un evento");
+                parent.Swal.fire("Oops","Debe seleccionar un evento",'warning');
             }
-            else if(!ver_caducidad_evento(id_evento)){
-              generate("info", "Este evento ya esta vencido, no es posible hacer solicitudes");
+            else if(estatus=="vencido"){
+              parent.Swal.fire("Oops","Este evento ya esta vencido, no es posible hacer solicitudes",'warning');
+              $('#label_titulo').html("<h5 style='color:white'>Vencido</h5>");
+            }
+            else if(estatus=="revisado"){
+              parent.Swal.fire('Opps','Este evento ya esta revisado, no se pueden hacer más solicitudes','warning');
+              $('#label_titulo').html("<h5 style='color:white'>Revisado</h5>");
             }
             else{
               enviar_solicitud_SDP();

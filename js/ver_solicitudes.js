@@ -127,8 +127,26 @@ function llenar_transfer_eventos(){
             var valor=$(this).val();
             $('#puntos_gif').show();
             ver_solicitudes_por_evento(valor,"todos");  
-            
+            ver_estatus(valor);
           });
+
+          function ver_estatus(id_evento){
+            var datos={"id_evento":id_evento};
+            $.ajax({
+              url:   'ver_evento_revisado.php',
+              type:  'post', 
+              data:   datos,
+              success:  function (response) {
+                  if (response.includes("si")) {
+                    $('#estatus_revisado').html("<label >Estado del evento:</label><h3 style='text-align:center;color:white;background-color:#2DA337;pading:.2em;border-radius:.2em'>Revisado</h3>");
+                  }
+                  else{
+                    $('#estatus_revisado').html("<label >Estado del evento:</label><h3 style='text-align:center;color:white;background-color:#fb7d00;pading:.2em;border-radius:.2em'>Sin revisar</h3>");
+                  }
+              }
+            });
+           
+          }
 
           function ver_solicitudes_por_evento(evento, filtro){
             $('#resultado_solicitudes').html('');          
@@ -991,7 +1009,7 @@ function llenar_transfer_eventos(){
            $("#resultado_solicitudes").delegate(".btn_numero_factura", "click", function() {
             var arr=$(this).attr('id').split("_");
             var id_solicitud_factura=arr[0];
-            swal({
+            parent.Swal.fire({
               title: "Agregar factura",
               text: "Ingresa el número de factura",
               input: "text",
@@ -1027,7 +1045,12 @@ function llenar_transfer_eventos(){
                                  } 
                                  else if(response.includes("existe")){
                                    response=response.replace("existe", " ");
-                                  reject('Ese número de factura ya esta registrado en el evento '+response);
+                                  //reject('Ese número de factura ya esta registrado en el evento '+response);
+                                  parent.swal({
+                                    type: 'warning',
+                                    title: 'Error',
+                                    html: 'La factura ha sido ya existe en el evento:'+response,
+                                  })
                                 }
                                  else {
                                      resolve();
@@ -1498,6 +1521,59 @@ $('body').delegate('.btn_descargar_facturas', 'click', function(e){
   });
 });
 
+
+$('#btn_revisado').on('click', function(){
+  var id_evento=$('#c_mis_eventos').val();
+  if(id_evento=="" || id_evento==null || id_evento=="0"){
+    parent.swal("Opps","Debe seleccionar un evento", "warning");
+  }
+  else{
+    //alert(id_evento);
+    //parent.swal("Opps","Desea pasar el evento "+$('#c_mis_eventos option:selected').text()+ " a estatus 'Revisado'?", "warning");
+    parent.Swal.fire({
+      title: '¿Desea cambiar el estatus a "Revisado"?',
+      text: $('#c_mis_eventos option:selected').text(),
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      console.log(result);
+      if (result.value) {
+        var datos={"id_evento":id_evento};
+        $.ajax({
+          url:   'evento_revisado.php',
+          type:  'post', 
+          data:   datos,
+          success:  function (response) {
+              if (response.includes("revisado")) {
+                      parent.Swal.fire(
+                        'Listo!',
+                        'El evento se ha marcado como "Revisado"',
+                        'success'
+                      )
+                      var evento=$('#c_mis_eventos').val();
+                      ver_solicitudes_por_evento(evento,"todos");
+              }
+              else{
+                generate("error", "Ocurrio un error<br>"+response);
+              }
+          }
+        });
+        
+      // For more information about handling dismissals please visit
+      // https://sweetalert2.github.io/#handling-dismissals
+      } 
+      /* else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      } */
+    })
+  }
+});
 
 
         

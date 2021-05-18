@@ -57,7 +57,8 @@ $tipo="";
     <div id="content" class="main-content" style="margin-top:10px;width: 90% !important; margin-left: 10px !important;background-color: rgba(255,255,255,.0) !important;">
     <input type="hidden" id='tipo_odc' value='<?php echo $tipo;?>'>
         <div class="row">
-            <div class="col-md-9"><h2>Solicitud de <?php echo $titulo;?> </h2></div>
+            <div class="col-md-3"><h2>Solicitud de <?php echo $titulo;?></h2></div>
+            <div class="col-md-3"><h4><span id='label_titulo' class='badge badge-warning'></span></h4></div>
         </div> 
 
           <div class="row">
